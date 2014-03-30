@@ -2,7 +2,7 @@
 <html lang="en-gb">
 	<head>
 		<meta charset="utf-8">
-		<title>Installin' Anchor CMS</title>
+		<title>Installin' App CMS</title>
 		<meta name="robots" content="noindex, nofollow">
 
 		<link rel="stylesheet" href="<?php echo asset('views/assets/css/install.css'); ?>">

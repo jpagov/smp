@@ -24,7 +24,7 @@ switch(constant('ENV')) {
 Autoloader::directory(array(
 	APP . 'models',
 	APP . 'libraries',
-	PATH . 'anchor/libraries'
+	PATH . 'app/libraries'
 ));
 
 /**
@@ -78,13 +78,13 @@ function timezones() {
 }
 
 function current_timezone() {
-	return Cookie::read('anchor-install-timezone', 0) * 3600;
+	return Cookie::read('app-install-timezone', 0) * 3600;
 }
 
 function languages() {
 	$languages = array();
 
-	$path = PATH . 'anchor/language';
+	$path = PATH . 'app/language';
 	$if = new FilesystemIterator($path, FilesystemIterator::SKIP_DOTS);
 
 	foreach($if as $file) {
@@ -144,16 +144,16 @@ check('<code>content</code> directory needs to be writable
 	return is_writable(PATH . 'content');
 });
 
-check('<code>anchor/config</code> directory needs to be temporarily writable
+check('<code>app/config</code> directory needs to be temporarily writable
 	so we can create your application and database configuration files.', function() {
-	return is_writable(PATH . 'anchor/config');
+	return is_writable(PATH . 'app/config');
 });
 
-check('Anchor requires the php module <code>pdo_mysql</code> to be installed.', function() {
+check('App requires the php module <code>pdo_mysql</code> to be installed.', function() {
 	return extension_loaded('PDO') and extension_loaded('pdo_mysql');
 });
 
-check('Anchor requires the php module <code>GD</code> to be installed.', function() {
+check('App requires the php module <code>GD</code> to be installed.', function() {
 	return extension_loaded('gd');
 });
 

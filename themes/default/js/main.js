@@ -1,74 +1,74 @@
-var Anchor = {
+var App = {
 	init: function() {
-		Anchor.slidey = $('.slidey');
-		Anchor.keys = [];
+		App.slidey = $('.slidey');
+		App.keys = [];
 
 		//  Uh, bind to the resizing of the window?
-		$(window).resize(Anchor.bindResize).trigger('resize');
+		$(window).resize(App.bindResize).trigger('resize');
 
 		// Re-/Set keys
-		$(window).on('keyup', Anchor.keyup);
-		$(window).on('keydown', Anchor.keydown);
+		$(window).on('keyup', App.keyup);
+		$(window).on('keydown', App.keydown);
 
 		//  Set up the toggle link
-		Anchor.linky = $('.linky').on('click', Anchor.toggleSlidey);
+		App.linky = $('.linky').on('click', App.toggleSlidey);
 
 		//  Hide the thingymabob
 		setTimeout(function() {
 			//  Set up the slidey panel
-			Anchor.hideSlidey();
+			App.hideSlidey();
 
 			$('body').addClass('js-enabled');
 		}, 10);
 
 		//  Listen for search link
 		$('a[href="#search"]').click(function() {
-			if(!Anchor.linky.hasClass('active')) {
-				return Anchor.toggleSlidey.call(Anchor.linky);
+			if(!App.linky.hasClass('active')) {
+				return App.toggleSlidey.call(App.linky);
 			}
 		});
 	},
 
 	keyup: function(event) {
-		Anchor.keys[event.keyCode] = false;
+		App.keys[event.keyCode] = false;
 	},
 
 	keydown: function(event) {
-		Anchor.keys[event.keyCode] = true;
+		App.keys[event.keyCode] = true;
 
 		// ctrl + shift + f => show Slidey and/or focus search bar
-		if(Anchor.keys[17] && Anchor.keys[16] && Anchor.keys[70]) {
+		if(App.keys[17] && App.keys[16] && App.keys[70]) {
 			event.preventDefault();
 
-			Anchor.showSlidey.call(Anchor.linky);
+			App.showSlidey.call(App.linky);
 			$('input[type="search"]').focus();
 		}
 
 		// esc => hide Slidey
-		if(Anchor.keys[27]) {
+		if(App.keys[27]) {
 			event.preventDefault();
 
-			Anchor.hideSlidey();
+			App.hideSlidey();
 			$('input[type="search"]').blur();
 		}
 	},
 
 	hideSlidey: function() {
-		Anchor.slidey.css('margin-top', this._slideyHeight);
-		Anchor.linky && Anchor.linky.removeClass('active');
+		App.slidey.css('margin-top', this._slideyHeight);
+		App.linky && App.linky.removeClass('active');
 
 		return this;
 	},
 
 	showSlidey: function() {
-		Anchor.slidey.css('margin-top', 0);
-		Anchor.linky && Anchor.linky.addClass('active');
+		App.slidey.css('margin-top', 0);
+		App.linky && App.linky.addClass('active');
 
 		return this;
 	},
 
 	toggleSlidey: function() {
-		var self = Anchor;
+		var self = App;
 		var me = $(this);
 
 		me.toggleClass('active');
@@ -78,10 +78,10 @@ var Anchor = {
 	},
 
 	bindResize: function() {
-		Anchor._slideyHeight = -(Anchor.slidey.height() + 1);
-		Anchor.hideSlidey();
+		App._slideyHeight = -(App.slidey.height() + 1);
+		App.hideSlidey();
 	}
 };
 
 //  And bind loading
-$(Anchor.init);
+$(App.init);

@@ -4,7 +4,7 @@
 	<article>
 		<h1>Your database details</h1>
 
-		<p>Firstly, we’ll need a database. Anchor needs them to store all of your blog’s information, so it’s vital you fill these in correctly. If you don’t know what these are, you’ll need to contact your webhost.</p>
+		<p>Firstly, we’ll need a database. App needs them to store all of your blog’s information, so it’s vital you fill these in correctly. If you don’t know what these are, you’ll need to contact your webhost.</p>
 	</article>
 
 	<form method="post" action="<?php echo uri_to('database'); ?>" autocomplete="off">
@@ -41,14 +41,14 @@
 
 			<p>
 				<label for="name">Database Name</label>
-				<input id="name" name="name" value="<?php echo Input::previous('name', 'anchor'); ?>">
+				<input id="name" name="name" value="<?php echo Input::previous('name', 'directory'); ?>">
 
 				<i>Your database’s name.</i>
 			</p>
 
 			<p>
 				<label for="prefix">Table Prefix</label>
-				<input id="prefix" name="prefix" value="<?php echo Input::previous('prefix', 'anchor_'); ?>">
+				<input id="prefix" name="prefix" value="<?php echo Input::previous('prefix', 'ed_'); ?>">
 
 				<i>Database table name prefix.</i>
 			</p>

@@ -57,7 +57,7 @@ class Installer {
 	private static function schema($settings) {
 		$database = $settings['database'];
 
-		$sql = Braces::compile(APP . 'storage/anchor.sql', array(
+		$sql = Braces::compile(APP . 'storage/app.sql', array(
 			'now' => gmdate('Y-m-d H:i:s'),
 			'charset' => 'utf8',
 			'prefix' => $database['prefix']
@@ -112,7 +112,7 @@ class Installer {
 			'prefix' => $database['prefix']
 		));
 
-		file_put_contents(PATH . 'anchor/config/db.php', $distro);
+		file_put_contents(PATH . 'app/config/db.php', $distro);
 	}
 
 	private static function application($settings) {
@@ -124,7 +124,7 @@ class Installer {
 			'timezone' => $settings['i18n']['timezone']
 		));
 
-		file_put_contents(PATH . 'anchor/config/app.php', $distro);
+		file_put_contents(PATH . 'app/config/app.php', $distro);
 	}
 
 	private static function session($settings) {
@@ -134,7 +134,7 @@ class Installer {
 			'table' => $database['prefix'] . 'sessions'
 		));
 
-		file_put_contents(PATH . 'anchor/config/session.php', $distro);
+		file_put_contents(PATH . 'app/config/session.php', $distro);
 	}
 
 	private static function rewrite($settings) {

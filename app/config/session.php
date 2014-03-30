@@ -3,7 +3,7 @@
 return array(
 	'driver' => 'database',
 	'cookie' => 'appcms',
-	'table' => '{{table}}',
+	'table' => 'ed_sessions',
 	'lifetime' => 86400,
 	'expire_on_close' => false,
 	'path' => '/',
