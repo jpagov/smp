@@ -41,7 +41,7 @@
 	</head>
 	<body>
 		<div>
-			<img src="<?php echo $base; ?>/app/views/assets/img/logo.png" alt="App logo">
+			<img src="<?php echo $base; ?>/app/views/assets/img/logo.png" alt="Directory logo">
 			<h1><?php echo __('global.welcome_to_app_lets_go'); ?></h1>
 			<a href="<?php echo $base . '/install/index.php'; ?>"><?php echo __('global.run_the_installer'); ?></a>
 		</div>

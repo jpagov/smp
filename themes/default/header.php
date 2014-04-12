@@ -22,7 +22,7 @@
 		<script src="<?php echo theme_url('/js/main.js'); ?>"></script>
 
 	    <meta name="viewport" content="width=device-width">
-	    <meta name="generator" content="App CMS">
+	    <meta name="generator" content="EmployeeDirectory">
 
 	    <meta property="og:title" content="<?php echo site_name(); ?>">
 	    <meta property="og:type" content="website">

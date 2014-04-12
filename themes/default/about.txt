@@ -1,5 +1,5 @@
 Theme name:    Default
-Description:   This is the default, shiny theme for App CMS.
+Description:   This is the default, shiny theme for Employee Directory.
 Author name:   Visual Idiot
 Author site:   http://visualidiot.com
 License:       http://licence.visualidiot.com

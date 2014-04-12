@@ -149,11 +149,11 @@ check('<code>app/config</code> directory needs to be temporarily writable
 	return is_writable(PATH . 'app/config');
 });
 
-check('App requires the php module <code>pdo_mysql</code> to be installed.', function() {
+check('Directory requires the php module <code>pdo_mysql</code> to be installed.', function() {
 	return extension_loaded('PDO') and extension_loaded('pdo_mysql');
 });
 
-check('App requires the php module <code>GD</code> to be installed.', function() {
+check('Directory requires the php module <code>GD</code> to be installed.', function() {
 	return extension_loaded('gd');
 });
 

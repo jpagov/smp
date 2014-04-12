@@ -1,13 +1,9 @@
 {
-	"name": "anchorcms/anchor-cms",
+	"name": "hariadi/directory",
 	"authors": [
 		{
-			"name": "Idiot",
-			"email": "iam@visualidiot.com"
-		},
-		{
-			"name": "Kieron",
-			"email": "rwarasaurus@gmail.com"
+			"name": "Hariadi Hinta",
+			"email": "diperakui@gmail.com"
 		}
 	],
 	"require": {

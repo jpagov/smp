@@ -26,7 +26,7 @@
 				<nav>
 					<ul>
 						<li class="logo">
-							<a href="<?php echo Uri::to('admin/posts'); ?>">App CMS</a>
+							<a href="<?php echo Uri::to('admin/posts'); ?>">Employee Directory</a>
 						</li>
 
 						<?php $menu = array('posts', 'comments', 'pages', /*'menu',*/ 'categories', 'users', 'extend'); ?>
@@ -48,7 +48,7 @@
 
 				<?php else: ?>
 				<aside class="logo">
-					<a href="<?php echo Uri::to('admin/users/login'); ?>">App CMS</a>
+					<a href="<?php echo Uri::to('admin/users/login'); ?>">Employee Directory</a>
 				</aside>
 				<?php endif; ?>
 			</div>

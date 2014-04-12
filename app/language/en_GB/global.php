@@ -52,12 +52,12 @@ return array(
 
 	// pharses
 	'visit_your_site' => 'Visit your site',
-	'powered_by_app' => 'Powered by App, version %s',
+	'powered_by_app' => 'Powered by Directory, version %s',
 	'make_blogging_beautiful' => 'Make blogging beautiful.',
 
 	// intro
-	'welcome_to_app' => 'Welcome to App',
-	'welcome_to_app_lets_go' => 'Welcome to App. Let’s go.',
+	'welcome_to_app' => 'Welcome to Directory',
+	'welcome_to_app_lets_go' => 'Welcome to Directory. Let’s go.',
 	'run_the_installer' => 'Run the installer',
 
 	// upgrade

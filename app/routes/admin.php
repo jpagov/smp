@@ -51,7 +51,7 @@ Route::post('admin/login', array('before' => 'csrf', 'main' => function() {
 	}
 
 	// check for updates
-	Update::version();
+	//Update::version();
 
 	if(version_compare(Config::get('meta.update_version'), VERSION, '>')) {
 		return Response::redirect('admin/upgrade');

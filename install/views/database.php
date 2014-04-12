@@ -4,7 +4,7 @@
 	<article>
 		<h1>Your database details</h1>
 
-		<p>Firstly, we’ll need a database. App needs them to store all of your blog’s information, so it’s vital you fill these in correctly. If you don’t know what these are, you’ll need to contact your webhost.</p>
+		<p>Firstly, we’ll need a database. Directory needs them to store all of your blog’s information, so it’s vital you fill these in correctly. If you don’t know what these are, you’ll need to contact your webhost.</p>
 	</article>
 
 	<form method="post" action="<?php echo uri_to('database'); ?>" autocomplete="off">

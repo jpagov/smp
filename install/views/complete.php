@@ -5,7 +5,7 @@
 
 	<?php if($htaccess): ?>
 	<p class="code">We could not write the <code>htaccess</code> file for you, copy
-	the contents below and create a .htaccess in your App root folder.
+	the contents below and create a .htaccess in your Directory root folder.
 	<textarea id="htaccess"><?php echo $htaccess; ?></textarea></p>
 
 	<script>document.getElementById('htaccess').select();</script>

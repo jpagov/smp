@@ -16,7 +16,7 @@
 			<p>
 				<label for="lang">
 					<strong>Language</strong>
-					<span class="info">App's language.</span>
+					<span class="info">Directory's language.</span>
 				</label>
 				<select id="lang" name="language">
 					<?php foreach($languages as $lang): ?>

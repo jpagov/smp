@@ -41,7 +41,7 @@
 	</head>
 	<body>
 		<div>
-			<img src="<?php echo $base; ?>/app/views/assets/img/logo.png" alt="App logo">
+			<img src="<?php echo $base; ?>/app/views/assets/img/logo.png" alt="Directory logo">
 
 			<h1><?php echo __('global.good_news'); ?></h1>
 			<p><?php echo __('global.new_version_available'); ?></p>
