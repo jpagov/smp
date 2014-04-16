@@ -1,55 +1,67 @@
 <!doctype html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<title><?php echo __('global.manage'); ?> <?php echo Config::meta('sitename'); ?></title>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <title><?php echo __('global.manage'); ?> <?php echo Config::meta('sitename'); ?></title>
 
-		<script src="<?php echo asset('app/views/assets/js/zepto.js'); ?>"></script>
+        <link href="<?php echo asset('app/views/assets/css/bootstrap.min.css'); ?>" rel="stylesheet">
+        <link rel="stylesheet" href="<?php echo asset('app/views/assets/css/app.css'); ?>">
 
-		<link rel="stylesheet" href="<?php echo asset('app/views/assets/css/reset.css'); ?>">
-		<link rel="stylesheet" href="<?php echo asset('app/views/assets/css/admin.css'); ?>">
-		<link rel="stylesheet" href="<?php echo asset('app/views/assets/css/login.css'); ?>">
-		<link rel="stylesheet" href="<?php echo asset('app/views/assets/css/notifications.css'); ?>">
-		<link rel="stylesheet" href="<?php echo asset('app/views/assets/css/forms.css'); ?>">
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+          <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+    </head>
+    <body class="<?php echo Auth::guest() ? 'login' : 'admin'; ?>">
 
-		<link rel="stylesheet" media="(max-width: 980px), (max-device-width: 480px)"
-			href="<?php echo asset('app/views/assets/css/small.css'); ?>">
-
-		<meta http-equiv="X-UA-Compatible" content="chrome=1">
-		<meta name="viewport" content="width=600">
-	</head>
-	<body class="<?php echo Auth::guest() ? 'login' : 'admin'; ?>">
-
-		<header class="top">
-			<div class="wrap">
-				<?php if(Auth::user()): ?>
-				<nav>
-					<ul>
-						<li class="logo">
-							<a href="<?php echo Uri::to('admin/posts'); ?>">Employee Directory</a>
-						</li>
-
+        <div class="navbar navbar-inverse">
+        	<div class="container">
+	          <div class="navbar-header">
+	            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-inverse-collapse">
+	              <span class="icon-bar"></span>
+	              <span class="icon-bar"></span>
+	              <span class="icon-bar"></span>
+	            </button>
+	            <a class="navbar-brand" href="<?php echo Uri::to('admin/posts'); ?>">Employee Directory</a>
+	          </div>
+					
+          <div class="navbar-collapse collapse navbar-inverse-collapse">
+	          <?php if(Auth::user()): ?>
 						<?php $menu = array('posts', 'comments', 'pages', /*'menu',*/ 'categories', 'users', 'extend'); ?>
-						<?php foreach($menu as $url): ?>
-						<li <?php if(strpos(Uri::current(), $url) !== false) echo 'class="active"'; ?>>
-							<a href="<?php echo Uri::to('admin/' . $url); ?>">
-								<?php echo ucfirst(__($url . '.' . $url)); ?>
-							</a>
-						</li>
-						<?php endforeach; ?>
-					</ul>
-				</nav>
 
-				<?php echo Html::link('admin/logout', __('global.logout'), array('class' => 'btn')); ?>
+	            <ul class="nav navbar-nav">
+	            <?php foreach($menu as $url): ?>
+	              <li <?php if(strpos(Uri::current(), $url) !== false) echo 'class="active"'; ?>>
+	                  <a href="<?php echo Uri::to('admin/' . $url); ?>">
+	                      <?php echo ucfirst(__($url . '.' . $url)); ?>
+	                  </a>
+	              </li>
+	              <?php endforeach; ?>
+	            </ul>
+	            <ul class="nav navbar-nav navbar-right">
+	              <li><?php echo Html::link('admin/logout', __('global.logout')); ?></li>
+	              <li class="dropdown">
+	                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+	                <ul class="dropdown-menu">
+	                  <li><a href="#">Action</a></li>
+	                  <li><a href="#">Another action</a></li>
+	                  <li><a href="#">Something else here</a></li>
+	                  <li class="divider"></li>
+	                  <li><a href="#">Separated link</a></li>
+	                </ul>
+	              </li>
+	            </ul>
+	            <?php endif; ?>
+            </div> <!-- //.navbar-collapse -->
+          </div> <!-- //.container -->
+				</div> <!-- //.navbar -->
 
-				<?php $home = Registry::get('home_page'); ?>
-
-				<?php echo Html::link($home->slug, __('global.visit_your_site'), array('class' => 'btn', 'target' => '_blank')); ?>
-
-				<?php else: ?>
-				<aside class="logo">
-					<a href="<?php echo Uri::to('admin/users/login'); ?>">Employee Directory</a>
-				</aside>
-				<?php endif; ?>
-			</div>
-		</header>
+				<div class="container">
+		      <div class="row">
+		        <div class="col-lg-12">
+		          <div class="well admin-container">
