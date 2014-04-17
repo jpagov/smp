@@ -39,19 +39,4 @@ App::setup();
 /**
  * Import defined routes
  */
-if(is_admin()) {
-	require APP . 'routes/admin' . EXT;
-	require APP . 'routes/categories' . EXT;
-	require APP . 'routes/comments' . EXT;
-	require APP . 'routes/fields' . EXT;
-	require APP . 'routes/menu' . EXT;
-	require APP . 'routes/metadata' . EXT;
-	require APP . 'routes/pages' . EXT;
-	require APP . 'routes/plugins' . EXT;
-	require APP . 'routes/posts' . EXT;
-	require APP . 'routes/users' . EXT;
-	require APP . 'routes/variables' . EXT;
-}
-else {
-	require APP . 'routes/site' . EXT;
-}
+foreach(glob(APP . 'routes/' . ( is_admin() ? 'admin' : 'public' ) . '/*' . EXT) as $file) require $file;

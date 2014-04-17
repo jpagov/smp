@@ -18,7 +18,6 @@
 						<th>Email</th>
 						<th>Role</th>
 						<th>Status</th>
-						<th>Credit</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -29,32 +28,36 @@
 						<td><?php echo $user->email; ?></td>
 						<td><?php echo __('users.' . $user->role); ?></td>
 						<td><abbr title="<?php echo Date::format($user->created); ?>"><?php echo __('global.' . $user->status); ?></abbr></td>
-						<td><?php echo $user->credit; ?></td>
 					</tr>
 					<?php endforeach; ?>
 				</tbody>
 			</table>
 		</div>
-
 	</div>
 
-<section class="wrap">
-	<?php echo $messages; ?>
+	<div class="col col-lg-3">  
 
-	<ul class="list">
-		<?php foreach($users->results as $user): ?>
-		<li>
-			<a href="<?php echo Uri::to('admin/users/edit/' . $user->id); ?>">
-				<strong><?php echo $user->real_name; ?></strong>
-				<span><?php echo __('users.username'); ?>: <?php echo $user->username; ?></span>
+		<nav class="list-group sidebar">
 
-				<em class="highlight"><?php echo __('users.' . $user->role); ?></em>
-			</a>
-		</li>
-		<?php endforeach; ?>
-	</ul>
+		<?php echo Html::link('admin/users', '<span class="icon"></span> ' . __('global.all'), array(
+			'class' => ($status == 'all') ? 'list-group-item active' : 'list-group-item'
+		)); ?>
 
-	<aside class="paging"><?php echo $users->links(); ?></aside>
-</section>
+		<?php 
+		foreach(array('active', 'inactive') as $type):
+
+			$status_count = Query::table(Base::table('users'))->where('status', '=', $type)->count();
+		?>
+			<?php echo Html::link('admin/users/status/' . $type, '<span class="icon"></span> ' . __('global.' . $type), array(
+				'class' => ($status == $type) ? 'list-group-item active' : 'list-group-item',
+				'badge' => $status_count
+			)); ?>
+			<?php endforeach; ?>
+		</nav>
+	
+	</div>
+
+
+	</div>
 
 <?php echo $footer; ?>

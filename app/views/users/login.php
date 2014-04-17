@@ -1,34 +1,34 @@
 <?php echo $header; ?>
 
-<section class="login content">
+<div class="text-center"><a href="http://transrec.my">
+	<img src="<?php echo asset('app/views/assets/img/jata-jpa.png'); ?>" alt="TransRec Solution"></a>
+</div>
+
+<form class="form-signin" role="form" method="post" action="<?php echo Uri::to('admin/login'); ?>">
 
 	<?php echo $messages; ?>
 	<?php $user = filter_var(Input::previous('user'), FILTER_SANITIZE_STRING); ?>
 
-	<form method="post" action="<?php echo Uri::to('admin/login'); ?>">
+	<input name="token" type="hidden" value="<?php echo $token; ?>">
+  <h2 class="form-signin-heading">Please sign in</h2>
 
-		<input name="token" type="hidden" value="<?php echo $token; ?>">
+  <?php echo Form::text('user', $user, array(
+		'class' => 'form-control',
+		'autocapitalize' => 'off',
+		'autofocus' => 'true',
+		'required' => 'true',
+		'placeholder' => __('users.username')
+	)); ?>
 
-		<fieldset>
-			<p><label for="user"><?php echo __('users.username'); ?>:</label>
-			<?php echo Form::text('user', $user, array(
-				'id' => 'user',
-				'autocapitalize' => 'off',
-				'autofocus' => 'true',
-				'placeholder' => __('users.username')
-			)); ?></p>
+	<?php echo Form::password('pass', array(
+		'class' => 'form-control',
+		'required' => 'true',
+		'placeholder' => __('users.password')
+	)); ?>
 
-			<p><label for="pass"><?php echo __('users.password'); ?>:</label>
-			<?php echo Form::password('pass', array(
-				'id' => 'pass',
-				'placeholder' => __('users.password')
-			)); ?></p>
+	<p class="buttons"><a href="<?php echo Uri::to('admin/amnesia'); ?>"><?php echo __('users.forgotten_password'); ?></a></p>
 
-			<p class="buttons"><a href="<?php echo Uri::to('admin/amnesia'); ?>"><?php echo __('users.forgotten_password'); ?></a>
-			<button type="submit"><?php echo __('global.login'); ?></button></p>
-		</fieldset>
-	</form>
-
-</section>
+  <button class="btn btn-lg btn-primary btn-block" type="submit"><?php echo __('global.login'); ?></button>
+</form>
 
 <?php echo $footer; ?>

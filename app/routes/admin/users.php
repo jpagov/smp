@@ -8,6 +8,7 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 	Route::get(array('admin/users', 'admin/users/(:num)'), function($page = 1) {
 		$vars['messages'] = Notify::read();
 		$vars['users'] = User::paginate($page, Config::get('meta.posts_per_page'));
+		$vars['status'] = 'all';
 
 		return View::create('users/index', $vars)
 			->partial('header', 'partials/header')
