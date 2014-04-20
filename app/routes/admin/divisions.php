@@ -118,4 +118,18 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 		return Response::redirect('admin/divisions');
 	});
 
+	/*
+		Delete division
+	*/
+	Route::get('admin/divisions/delete/(:num)', function($id) {
+		Division::find($id)->delete();
+
+		//TODO: admin only, not for PTB
+		Hierarchy::where('division', '=', $id)->update(array('division' => 0));
+
+		Notify::success(__('divisions.deleted'));
+
+		return Response::redirect('admin/divisions');
+	});
+
 });

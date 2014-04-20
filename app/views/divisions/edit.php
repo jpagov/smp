@@ -62,6 +62,10 @@
                       'type' => 'submit', 
                       'class' => 'btn btn-primary'
                     )); ?>
+
+                    <?php echo Html::link('admin/divisions/delete/' . $division->id, __('global.delete'), array(
+                    'class' => 'btn btn-danger delete'
+                  )); ?>
                     </div>
                 </div>
 
@@ -69,3 +73,5 @@
         </form>
     </div>
 </div>
+
+<?php echo $footer; ?>

@@ -8,7 +8,7 @@
 
 <div class="row">
 	<div class="col-lg-9">
-		<?php print_r($divisions); ?>
+		<?php //print_r($divisions); ?>
 		<div class="table-responsive">
 			<table class="table table-hover">
 				<thead>
@@ -51,27 +51,19 @@
 		<nav class="list-division sidebar">
 
 			<div class="panel panel-default">
-				<!-- Default panel contents -->
 				<div class="panel-heading">Related</div>
-
-				<!-- List group -->
 				<div class="list-group">
-				
-				<?php foreach($hierarchies as $key => $hierarchy): ?>
+					<?php foreach($hierarchies as $key => $hierarchy): ?>
 
-					<?php if ( $key.'s' !== basename(Uri::current()) ) : ?>
-				
-					<?php echo Html::link('admin/' . $key, __('division.' . $key), array('class' => 'list-group-item'
-					)); ?>
+						<?php if ( $key.'s' !== basename(Uri::current()) ) : ?>
+					
+						<?php echo Html::link('admin/' . $key, __('division.' . $key), array('class' => 'list-group-item'
+						)); ?>
 
-					<?php endif; ?>
-				<?php endforeach; ?>
+						<?php endif; ?>
+					<?php endforeach; ?>
 				</div>
 			</div>
-
-			
-
-
 		</nav>
 	</div>
 </div>
