@@ -38,13 +38,15 @@ class Html {
 		$short = array('img', 'input', 'br', 'hr', 'frame', 'area', 'base', 'basefont',
 			'col', 'isindex', 'link', 'meta', 'param');
 
+		$badge = (isset($attributes['badge'])) ? '<span class="badge">' . $attributes['badge'] . '</span>' : '';
+
 		if(in_array($name, $short)) {
 			if($content) $attributes['value'] = $content;
 
 			return '<' . $name . static::attributes($attributes) . '>';
 		}
 
-		return '<' . $name . static::attributes($attributes) . '>' . $content . '</' . $name . '>';
+		return '<' . $name . static::attributes($attributes) . '>' . $content . $badge . '</' . $name . '>';
 	}
 
 	public static function link($uri, $title = '', $attributes = array()) {

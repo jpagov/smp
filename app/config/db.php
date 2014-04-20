@@ -13,5 +13,6 @@ return array(
 			'database' => 'smp',
 			'charset' => 'utf8'
 		)
-	)
+	),
+	'profiling' => true,
 );

@@ -1,4 +1,4 @@
-<?php echo $header; ?>
+<?php echo $header; print_r(Hash::make('idairah')); ?>
 
 <div class="text-center"><a href="http://transrec.my">
 	<img src="<?php echo asset('app/views/assets/img/jata-jpa.png'); ?>" alt="TransRec Solution"></a>

@@ -23,6 +23,17 @@ function slug($str, $separator = '-') {
 	return trim(strtolower($str), $separator);
 }
 
+function acronym($str) {
+
+	$words = explode(' ', $str);
+	$acronym = '';
+
+	foreach ($words as $w) {
+	  $acronym .= $w[0];
+	}
+	return trim($acronym);
+}
+
 function parse($str, $markdown = true) {
 	// process tags
 	$pattern = '/[\{\{]{1}([a-z]+)[\}\}]{1}/i';

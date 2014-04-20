@@ -2,9 +2,9 @@
 
 class Notify {
 
-	public static $types = array('error', 'notice', 'success', 'warning');
-	public static $wrap = '<div class="notifications">%s</div>';
-	public static $mwrap = '<p class="%s">%s</p>';
+	public static $types = array('danger', 'notice', 'success', 'warning');
+	public static $wrap = '%s';
+	public static $mwrap = '<div class="alert alert-%s alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>%s</div>';
 
 	public static function add($type, $message) {
 		if(in_array($type, static::$types)) {
