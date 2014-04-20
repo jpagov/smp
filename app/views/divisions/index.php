@@ -8,7 +8,7 @@
 
 <div class="row">
 	<div class="col-lg-9">
-		<?php //print_r($divisions); ?>
+		<?php print_r($divisions); ?>
 		<div class="table-responsive">
 			<table class="table table-hover">
 				<thead>
@@ -21,10 +21,12 @@
 				</thead>
 				<tbody>
 				<?php if($divisions->count): ?>
-					<?php foreach($divisions->results as $key => $division): ?>
+					<?php foreach($divisions->results as $division): 
+					$counter = ($divisions->page - 1) * Config::meta('posts_per_page')
+					?>
 					<tr class="status draft">
-						<td><?php echo $key+1; ?></td>
-						<td><a href="<?php echo Uri::to('admin/divisions/' . $division->id); ?>"><?php echo $division->title; ?></a></td>
+						<td><?php echo $counter+1; ?></td>
+						<td><a href="<?php echo Uri::to('admin/divisions/edit/' . $division->id); ?>"><?php echo $division->title; ?></a></td>
 						<td><?php echo $division->staff; ?></td>
 						<td><?php echo $division->view; ?></td>
 					</tr>

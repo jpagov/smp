@@ -16,18 +16,61 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 	});
 
 	/*
+		Edit Division
+	*/
+	Route::get('admin/divisions/edit/(:num)', function($id) {
+		$vars['messages'] = Notify::read();
+		$vars['token'] = Csrf::token();
+		$vars['division'] = Division::find($id);
+
+		return View::create('divisions/edit', $vars)
+			->partial('header', 'partials/header')
+			->partial('footer', 'partials/footer');
+	});
+
+	Route::post('admin/divisions/edit/(:num)', function($id) {
+		$input = Input::get(array('title', 'slug', 'description', 'order'));
+
+		if(empty($input['slug'])) {
+			$input['slug'] = acronym($input['title']);
+		}
+
+		$input['slug'] = slug($input['slug']);
+
+		$validator = new Validator($input);
+
+		$validator->check('title')
+			->is_max(3, __('divisions.title_missing'));
+
+		$validator->add('duplicate', function($str) use($id) {
+			return Division::where('slug', '=', $str)->where('id', '<>', $id)->count() == 0;
+		});
+
+		$validator->check('slug')
+			->is_max(3, __('posts.slug_missing'))
+			->is_duplicate(__('posts.slug_duplicate'));
+
+		if($errors = $validator->errors()) {
+			Input::flash();
+
+			Notify::warning($errors);
+
+			return Response::redirect('admin/divisions/edit/' . $id);
+		}
+
+		Division::update($id, $input);
+
+		Notify::success(__('divisions.updated'));
+
+		return Response::redirect('admin/divisions/edit/' . $id);
+	});
+
+	/*
 		Add division
 	*/
 	Route::get('admin/divisions/add', function() {
 		$vars['messages'] = Notify::read();
 		$vars['token'] = Csrf::token();
-		/*
-		$vars['roles'] = array(
-			'administrator' => __('global.administrator'),
-			'editor' => __('global.editor'),
-			'user' => __('global.user')
-		);
-		*/
 
 		return View::create('divisions/add', $vars)
 			->partial('header', 'partials/header')
@@ -37,27 +80,35 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 	Route::post('admin/divisions/add', function() {
 		$input = Input::get(array('title', 'slug', 'description', 'order'));
 
+		if(empty($input['slug'])) {
+			$input['slug'] = acronym($input['title']);
+		}
+
+		$input['slug'] = slug($input['slug']);
+
+		if(empty($input['order'])) {
+			$input['order'] = 0;
+		}
+
 		$validator = new Validator($input);
 
 		$validator->check('title')
 			->is_max(3, __('division.title_missing'));
 
+		$validator->add('duplicate', function($str) use($id) {
+			return Division::where('slug', '=', $str)->where('id', '<>', $id)->count() == 0;
+		});
+
+		$validator->check('slug')
+			->is_max(3, __('posts.slug_missing'))
+			->is_duplicate(__('posts.slug_duplicate'));
+
 		if($errors = $validator->errors()) {
 			Input::flash();
 
-			Notify::danger($errors);
+			Notify::warning($errors);
 
 			return Response::redirect('admin/divisions/add');
-		}
-
-		if(empty($input['slug'])) {
-			$input['slug'] = $input['title'];
-		}
-
-		$input['slug'] = acronym($input['slug']);
-
-		if(empty($input['order'])) {
-			$input['order'] = 0;
 		}
 
 		Division::create($input);
