@@ -31,7 +31,7 @@ function acronym($str) {
 	foreach ($words as $w) {
 	  $acronym .= $w[0];
 	}
-	return trim($acronym);
+	return trim(strtolower($acronym));
 }
 
 function parse($str, $markdown = true) {
