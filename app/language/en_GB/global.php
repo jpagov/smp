@@ -9,6 +9,7 @@
 return array(
 
 	// words
+	'back' => 'Back',
 	'save' => 'Save',
 	'delete' => 'Delete',
 	'update' => 'Update',

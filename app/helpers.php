@@ -25,6 +25,10 @@ function slug($str, $separator = '-') {
 
 function acronym($str) {
 
+	if (empty($str)) {
+		return;
+	}
+
 	$words = explode(' ', $str);
 	$acronym = '';
 
