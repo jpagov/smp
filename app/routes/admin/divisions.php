@@ -40,7 +40,7 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 		$validator = new Validator($input);
 
 		$validator->check('title')
-			->is_max(3, __('divisions.title_missing'));
+			->is_max(3, __('hierarchy.title_missing'));
 
 		$validator->add('duplicate', function($str) use($id) {
 			return Division::where('slug', '=', $str)->where('id', '<>', $id)->count() == 0;
@@ -60,7 +60,7 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 
 		Division::update($id, $input);
 
-		Notify::success(__('divisions.updated'));
+		Notify::success(__('hierarchy.updated'));
 
 		return Response::redirect('admin/divisions/edit/' . $id);
 	});
@@ -127,7 +127,7 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 		//TODO: admin only, not for PTB
 		Hierarchy::where('division', '=', $id)->update(array('division' => 0));
 
-		Notify::success(__('divisions.deleted'));
+		Notify::success(__('hierarchy.deleted'));
 
 		return Response::redirect('admin/divisions');
 	});

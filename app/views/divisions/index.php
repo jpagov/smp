@@ -1,8 +1,8 @@
 <?php echo $header; ?>
 
-<?php echo Html::link('admin/divisions/add', __('division.create_division'), array('class' => 'btn btn-primary pull-right')); ?>
+<?php echo Html::link('admin/divisions/add', __('hierarchy.create_division'), array('class' => 'btn btn-primary pull-right')); ?>
 
-<h1 class="page-header"><?php echo __('division.division'); ?></h1>
+<h1 class="page-header"><?php echo __('hierarchy.division'); ?></h1>
 
 <?php echo $messages; ?>
 
@@ -14,9 +14,9 @@
 				<thead>
 					<tr>
 						<th>#</th>
-						<th><?php echo __('division.division'); ?></th>
-						<th><?php echo __('division.staff'); ?></th>
-						<th><?php echo __('division.view'); ?></th>
+						<th><?php echo __('hierarchy.division'); ?></th>
+						<th><?php echo __('hierarchy.staff'); ?></th>
+						<th><?php echo __('hierarchy.view'); ?></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -57,7 +57,7 @@
 
 						<?php if ( $key.'s' !== basename(Uri::current()) ) : ?>
 					
-						<?php echo Html::link('admin/' . $key, __('division.' . $key), array('class' => 'list-group-item'
+						<?php echo Html::link('admin/' . $key . 's', __('hierarchy.' . $key), array('class' => 'list-group-item'
 						)); ?>
 
 						<?php endif; ?>
