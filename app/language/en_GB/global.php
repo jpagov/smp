@@ -44,7 +44,7 @@ return array(
 	// roles
 	'administrator' => 'Admin',
 	'editor' => 'Editor',
-	'user' => 'User',
+	'staff' => 'Staff',
 
 	'log_in' => 'Log in',
 	'login' => 'Login',

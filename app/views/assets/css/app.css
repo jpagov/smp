@@ -1,5 +1,7 @@
 body { background-color: #eee; }
 
+/*.form-group > .control-label { font-weight: bold; }*/
+
 .page-header { 
   margin: 0 0 21px;
   padding-bottom: 18px;

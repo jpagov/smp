@@ -2,7 +2,7 @@
 
 class Staff extends Base {
 
-	public static $table = 'users';
+	public static $table = 'staffs';
 
 	public static function search($params = array()) {
 		$query = static::where('status', '=', 'active');
@@ -19,9 +19,9 @@ class Staff extends Base {
 
 		$count = $query->count();
 
-		$results = $query->take($perpage)->skip(($page - 1) * $perpage)->sort('real_name', 'desc')->get();
+		$results = $query->take($perpage)->skip(($page - 1) * $perpage)->sort('grade', 'desc')->get();
 
-		return new Paginator($results, $count, $page, $perpage, Uri::to('users'));
+		return new Paginator($results, $count, $page, $perpage, Uri::to('staffs'));
 	}
 
 }
