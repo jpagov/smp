@@ -22,6 +22,7 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 		$vars['messages'] = Notify::read();
 		$vars['token'] = Csrf::token();
 		$vars['staff'] = Staff::find($id);
+    $vars['schemes'] = Scheme::dropdown();
 
 		$vars['genders'] = array(
 			'M' => __('staff.male'),
@@ -45,7 +46,7 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 	});
 
 	Route::post('admin/staffs/edit/(:num)', function($id) {
-		$input = Input::get(array('staffname', 'email', 'real_name', 'bio', 'status', 'role'));
+		$input = Input::get(array('first_name', 'last_name', 'given_name', 'email', 'real_name', 'bio', 'status', 'role'));
 		$password_reset = false;
 
 		if($password = Input::get('password')) {
