@@ -73,6 +73,6 @@ return array(
 	'profile_memory_usage' => 'Total memory usage',
 
 	// messages
-	'confirm_delete' => 'Are you sure you want to delete? This can’t be undone!'
+	'confirm_delete' => 'Are you sure you want to delete? This can’t be undone!\nconsider set their status = inactive'
 
 );

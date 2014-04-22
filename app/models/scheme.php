@@ -8,7 +8,7 @@ class Scheme extends Base {
 		$items = array();
 
 		foreach(static::get() as $item) {
-			$items[strtoupper($item->slug)] = $item->title;
+			$items[strtoupper($item->id)] = $item->title;
 		}
 
 		return $items;

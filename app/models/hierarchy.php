@@ -1,7 +1,7 @@
 <?php
 
-class Category extends Base {
+class Hierarchy extends Base {
 
 	public static $table = 'hierarchies';
-	
+
 }

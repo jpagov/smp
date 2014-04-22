@@ -13,11 +13,21 @@ return array(
 	// roles
 	'administrator' => 'Admin',
 	'administrator_explain' => '',
-
 	'editor' => 'Editor',
 	'editor_explain' => '',
-
 	'staff_explain' => '',
+
+  // position
+  'scheme' => 'Scheme',
+  'grade' => 'Grade',
+  'job_title' => 'Job Title',
+  'position' => 'Position',
+  'description' => 'Description',
+  'division' => 'Division',
+  'branch' => 'Branch',
+  'sector' => 'Sector',
+  'unit' => 'Unit',
+
 
 	// form fields
 	'salutation' => 'Salutation',
@@ -42,6 +52,8 @@ return array(
 	'role' => 'Role',
 	'role_explain' => '',
 
+  'account_explain' => 'Enable account login for this user.',
+
 	'username' => 'Username',
 	'username_explain' => '',
 	'username_missing' => 'Please enter a username, must be at least %s characters',
@@ -56,6 +68,8 @@ return array(
 	'email_explain' => '',
 	'email_missing' => 'Please enter a valid email address',
 	'email_not_found' => 'Profile not found.',
+
+  'please_select' => '- Please select -',
 
 	// messages
 	'updated' => 'User profile updated.',
