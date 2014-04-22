@@ -2,7 +2,7 @@
 
 <?php echo Html::link('admin/staffs', __('global.back'), array('class' => 'btn btn-lg btn-default pull-right')); ?>
 
-<h1 class="page-header"><?php echo __('staff.editing_staff', $staff->given_name); ?></h1>
+<h1 class="page-header"><?php echo __('staff.editing_staff', $staff->display_name); ?></h1>
 
 <?php echo $messages; ?>
 
@@ -54,9 +54,9 @@
               </div>
 
               <div class="form-group">
-                <label class="col-sm-2 control-label" for="given_name"><?php echo __('staff.given_name'); ?></label>
+                <label class="col-sm-2 control-label" for="display_name"><?php echo __('staff.display_name'); ?></label>
                 <div class="col-sm-10">
-                  <?php echo Form::text('given_name', Input::previous('given_name', $staff->given_name), array('class' => 'form-control', 'id' => 'given_name',
+                  <?php echo Form::text('display_name', Input::previous('display_name', $staff->display_name), array('class' => 'form-control', 'id' => 'display_name',
                   )); ?>
                 </div>
               </div>

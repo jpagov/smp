@@ -63,7 +63,7 @@ Route::collection(array('before' => 'auth,csrf'), function() {
       'salutation',
       'first_name',
       'last_name',
-      'given_name',
+      'display_name',
       'gender',
       'email',
       'telephone',
@@ -112,19 +112,19 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 		});
 
     $validator->check('email')
-      ->is_email(__('staffs.email_missing'));
+      ->is_email(__('staff.email_missing'));
 
     $validator->check('telephone')
-      ->is_max(4, __('staffs.telephone_ missing', 4));
+      ->is_max(4, __('staff.telephone_ missing', 4));
 
     if($account_enable) {
   		$validator->check('username')
-  			->is_max(2, __('staffs.username_missing', 2));
+  			->is_max(2, __('staff.username_missing', 2));
     }
 
 		if($password_reset) {
 			$validator->check('password')
-				->is_max(6, __('staffs.password_too_short', 6));
+				->is_max(6, __('staff.password_too_short', 6));
 		}
 
 		if($errors = $validator->errors()) {
@@ -149,7 +149,7 @@ Route::collection(array('before' => 'auth,csrf'), function() {
       Hierarchy::create($hierarchy);
     }
 
-		Notify::success(__('staffs.updated'));
+		Notify::success(__('staff.updated'));
 
 		return Response::redirect('admin/staffs/edit/' . $id);
 	});
@@ -160,6 +160,19 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 	Route::get('admin/staffs/add', function() {
 		$vars['messages'] = Notify::read();
 		$vars['token'] = Csrf::token();
+
+    // extended fields
+    $vars['fields'] = Extend::fields('staff');
+
+    foreach (array('Scheme', 'Division', 'Branch', 'Sector', 'Unit') as $hierarchy) {
+      $vars[strtolower($hierarchy) . 's'] = $hierarchy::dropdown();
+      array_unshift($vars[strtolower($hierarchy) . 's'], __('staff.please_select'));
+    }
+
+    $vars['genders'] = array(
+      'M' => __('staff.male'),
+      'F' => __('staff.female')
+    );
 
 		$vars['statuses'] = array(
 			'inactive' => __('global.inactive'),
@@ -183,13 +196,13 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 		$validator = new Validator($input);
 
 		$validator->check('username')
-			->is_max(2, __('staffs.username_missing', 2));
+			->is_max(2, __('staff.username_missing', 2));
 
 		$validator->check('email')
-			->is_email(__('staffs.email_missing'));
+			->is_email(__('staff.email_missing'));
 
 		$validator->check('password')
-			->is_max(6, __('staffs.password_too_short', 6));
+			->is_max(6, __('staff.password_too_short', 6));
 
 		if($errors = $validator->errors()) {
 			Input::flash();
@@ -203,7 +216,7 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 
 		Staff::create($input);
 
-		Notify::success(__('staffs.created'));
+		Notify::success(__('staff.created'));
 
 		return Response::redirect('admin/staffs');
 	});
@@ -215,14 +228,14 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 		$self = Auth::staff();
 
 		if($self->id == $id) {
-			Notify::warning(__('staffs.delete_error'));
+			Notify::warning(__('staff.delete_error'));
 
 			return Response::redirect('admin/staffs/edit/' . $id);
 		}
 
 		Staff::where('id', '=', $id)->delete();
 
-		Notify::success(__('staffs.deleted'));
+		Notify::success(__('staff.deleted'));
 
 		return Response::redirect('admin/staffs');
 	});

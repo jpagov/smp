@@ -36,7 +36,7 @@ return array(
 	'last_name' => 'Last Name',
 	'telephone' => 'Telephone',
 	'gender' => 'Gender',
-	'given_name' => 'Given Name',
+	'display_name' => 'Display Name',
 	'real_name' => 'Real Name',
 	'real_name_explain' => '',
 
@@ -65,9 +65,9 @@ return array(
 	'new_password' => 'New Password',
 
 	'email' => 'Email',
-	'email_explain' => '',
-	'email_missing' => 'Please enter a valid email address',
-	'email_not_found' => 'Profile not found.',
+  'email_explain' => '',
+  'email_missing' => 'Please enter a valid email address',
+  'email_not_found' => 'Profile not found.',
 
   'please_select' => '- Please select -',
 

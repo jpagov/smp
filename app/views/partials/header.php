@@ -42,7 +42,7 @@
 
 	            <?php foreach($menu as $url): ?>
 	              <li <?php if(strpos(Uri::current(), $url) !== false) echo 'class="active"'; ?>>
-	                  <a href="<?php echo Uri::to('admin/' . $url); ?>">
+	                  <a href="<?php echo Uri::to('admin/' . $url . 's'); ?>">
 	                      <?php echo __($url . '.' . $url); ?>
 	                  </a>
 	              </li>
