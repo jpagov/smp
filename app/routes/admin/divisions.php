@@ -8,7 +8,7 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 	Route::get(array('admin/divisions', 'admin/divisions/(:num)'), function($page = 1) {
 		$vars['messages'] = Notify::read();
 		$vars['divisions'] = Division::paginate($page, Config::get('meta.posts_per_page'));
-		$vars['hierarchies'] = Config::app('hierarchy');		
+		$vars['hierarchies'] = Config::app('hierarchy');
 
 		return View::create('divisions/index', $vars)
 			->partial('header', 'partials/header')
@@ -95,9 +95,9 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 		$validator->check('title')
 			->is_max(3, __('division.title_missing'));
 
-		$validator->add('duplicate', function($str) use($id) {
-			return Division::where('slug', '=', $str)->where('id', '<>', $id)->count() == 0;
-		});
+    $validator->add('duplicate', function($str) {
+      return Division::where('slug', '=', $str)->count() == 0;
+    });
 
 		$validator->check('slug')
 			->is_max(3, __('posts.slug_missing'))
