@@ -13,16 +13,22 @@
 
       <input name="token" type="hidden" value="<?php echo $token; ?>">
 
-      <!-- tabs right -->
+      <!-- tabs -->
       <div class="tabbable tabs-right">
 
         <ul class="nav nav-tabs">
           <li class="active"><a href="#profile" data-toggle="tab">Profile</a></li>
           <li><a href="#positions" data-toggle="tab">Position</a></li>
-          <li><a href="#auth" data-toggle="tab">Authentication</a></li>
+          <?php if($fields): ?>
+          <li><a href="#extend" data-toggle="tab">Extend</a></li>
+          <?php endif; ?>
+          <?php if(Auth::user()->role == 'administrator'): ?>
+          <li><a href="#admin" data-toggle="tab">Administration</a></li>
+          <?php endif; ?>
         </ul>
 
         <div class="tab-content">
+
           <div class="tab-pane active" id="profile">
             <fieldset>
               <legend>Profile</legend>
@@ -166,8 +172,28 @@
             </fieldset>
           </div>
 
-          <div class="tab-pane" id="auth">
-          <br>
+          <?php if($fields): ?>
+          <div class="tab-pane" id="extend">
+
+            <fieldset>
+
+            <?php foreach($fields as $field): ?>
+             <div class="form-group">
+              <label class="col-lg-2 control-label" for="extend_<?php echo $field->key; ?>"><?php echo $field->label; ?></label>
+              <div class="col-lg-6">
+                <?php echo Extend::html($field); ?>
+              </div>
+            </div>
+            <?php endforeach; ?>
+
+            </fieldset>
+
+          </div>
+          <?php endif; ?>
+
+          <?php if(Auth::user()->role == 'administrator'): ?>
+          <div class="tab-pane" id="admin">
+
              <div class="form-group">
               <div class="col-sm-offset-2 col-sm-10">
                 <div class="checkbox">
@@ -180,7 +206,7 @@
             </div>
 
             <fieldset<?php echo (!$staff->account) ? ' disabled' : ''; ?>>
-              <legend>Authentication</legend>
+              <legend>Administration</legend>
 
 
               <div class="form-group">
@@ -210,8 +236,9 @@
 
             </fieldset>
           </div>
+          <?php endif; ?>
 
-        </div>
+        </div><!-- /tab-content -->
       </div><!-- /tabs -->
 
     </div><!-- /col-lg-9 -->

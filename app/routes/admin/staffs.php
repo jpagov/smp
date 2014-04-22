@@ -22,6 +22,7 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 		$vars['messages'] = Notify::read();
 		$vars['token'] = Csrf::token();
 		$vars['staff'] = Staff::find($id);
+    $vars['fields'] = Extend::fields('staff', $id);
 
     $hierarchies = Hierarchy::where('staff', '=', $id)->fetch();
 

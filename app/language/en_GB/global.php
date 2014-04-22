@@ -24,6 +24,18 @@ return array(
 	'reset' => 'Reset',
 	'all' => 'All',
 
+  // menu
+  'division' => 'Division',
+  'divisions' => 'Divisions',
+  'branch' => 'Branch',
+  'branchs' => 'Branchs',
+  'sector' => 'Sector',
+  'sectors' => 'Sectors',
+  'unit' => 'Unit',
+  'units' => 'Units',
+  'users' => 'Users',
+  'setting' => 'Setting',
+
 	// pagination
 	'next' => 'Next',
 	'previous' => 'Previous',
@@ -43,6 +55,7 @@ return array(
 
 	// roles
 	'administrator' => 'Admin',
+  'administration' => 'Administration',
 	'editor' => 'Editor',
 	'staff' => 'Staff',
 
