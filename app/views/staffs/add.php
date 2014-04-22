@@ -232,6 +232,26 @@
                 </div>
               </div>
 
+              <div class="form-group">
+              <?php if ($divisions) : ?>
+              <?php foreach($divisions as $key => $division): ?>
+              <?php if ($key !== 0) : ?>
+
+                <?php if (($key-1) % 2 == 0) : ?><div class="col-sm-offset-2 col-sm-4"><?php endif; ?>
+
+                  <div class="checkbox">
+                    <label for="division_role_<?php echo $key; ?>">
+                    <?php echo Form::checkbox('roles[]', $key, false, array('id' => 'division_role_' . $key)); ?> <?php echo $division; ?>
+                    </label>
+                  </div>
+
+                <?php if (($key-1) % 2 == 1) : ?></div><?php endif; ?>
+
+              <?php endif; ?>
+              <?php endforeach; ?>
+              <?php endif; ?>
+              </div>
+
             </fieldset>
           </div>
           <?php endif; ?>

@@ -15,6 +15,32 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 			->partial('footer', 'partials/footer');
 	});
 
+  /*
+    List staffs by status and paginate through them
+  */
+  Route::get(array(
+    'admin/staffs/status/(:any)',
+    'admin/staffs/status/(:any)/(:num)'), function($status, $page = 1) {
+
+    $query = Staff::where('status', '=', $status);
+
+    $perpage = Config::meta('posts_per_page');
+    $total = $query->count();
+    $staffs = $query->sort('grade', 'desc')->take($perpage)->skip(($page - 1) * $perpage)->get();
+    $url = Uri::to('admin/staffs/status/' . $status);
+
+    $pagination = new Paginator($staffs, $total, $page, $perpage, $url);
+
+    $vars['messages'] = Notify::read();
+    $vars['staffs'] = $pagination;
+    $vars['status'] = $status;
+
+    return View::create('staffs/index', $vars)
+      ->partial('header', 'partials/header')
+      ->partial('footer', 'partials/footer');
+
+  });
+
 	/*
 		Edit staff
 	*/
@@ -23,6 +49,16 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 		$vars['token'] = Csrf::token();
 		$vars['staff'] = Staff::find($id);
     $vars['fields'] = Extend::fields('staff', $id);
+    $division_roles = array();
+
+    // get current staff division role
+    if ($staff_roles = Role::where('staff', '=', $id)->get(array('division'))) {
+      foreach ($staff_roles as $div) {
+        $division_roles[] = $div->division;
+
+      }
+    }
+    $vars['division_roles'] = $division_roles;
 
     $hierarchies = Hierarchy::where('staff', '=', $id)->fetch();
 
@@ -143,10 +179,24 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 
     $hierarchy['staff'] = $id;
 
+    // hierarchy
     if ($exist = Hierarchy::where('staff', '=', $id)->fetch()) {
       Hierarchy::update($exist->id, $hierarchy);
     } else {
       Hierarchy::create($hierarchy);
+    }
+
+    // division roles
+    if($inputroles = Input::get('roles')) {
+
+      $roles = array();
+      Role::where('staff', '=', $id)->delete();
+
+      foreach ($inputroles as $div) {
+        $roles['staff'] = $id;
+        $roles['division'] = $div;
+        Role::create($roles);
+      }
     }
 
 		Notify::success(__('staff.updated'));

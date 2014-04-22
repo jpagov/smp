@@ -194,7 +194,7 @@
           <?php if(Auth::user()->role == 'administrator'): ?>
           <div class="tab-pane" id="admin">
 
-             <div class="form-group">
+            <div class="form-group">
               <div class="col-sm-offset-2 col-sm-10">
                 <div class="checkbox">
                   <label>
@@ -233,6 +233,29 @@
                   )); ?>
                 </div>
               </div>
+
+              <div class="form-group">
+              <?php if ($divisions) : ?>
+              <?php foreach($divisions as $key => $division): ?>
+              <?php if ($key !== 0) : ?>
+
+                <?php if (($key-1) % 2 == 0) : ?><div class="col-sm-offset-2 col-sm-4"><?php endif; ?>
+
+                  <div class="checkbox">
+                    <label for="division_role_<?php echo $key; ?>">
+                    <?php $checked = (in_array($key, $division_roles)) ? true : false; ?>
+                    <?php echo Form::checkbox('roles[]', $key, $checked, array('id' => 'division_role_' . $key)); ?> <?php echo $division; ?>
+                    </label>
+                  </div>
+
+                <?php if (($key-1) % 2 == 1) : ?></div><?php endif; ?>
+
+              <?php endif; ?>
+              <?php endforeach; ?>
+              <?php endif; ?>
+              </div>
+
+
 
             </fieldset>
           </div>
