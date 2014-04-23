@@ -151,7 +151,7 @@ Route::collection(array('before' => 'auth,csrf'), function() {
       ->is_email(__('staff.email_missing'));
 
     $validator->check('telephone')
-      ->is_max(4, __('staff.telephone_ missing', 4));
+      ->is_max(4, __('staff.telephone_missing', 4));
 
     if($account_enable) {
   		$validator->check('username')
@@ -243,18 +243,73 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 	});
 
 	Route::post('admin/staffs/add', function() {
-		$input = Input::get(array('username', 'email', 'real_name', 'password', 'bio', 'status', 'role'));
+
+		$input = Input::get(array(
+      'salutation',
+      'first_name',
+      'last_name',
+      'display_name',
+      'gender',
+      'email',
+      'telephone',
+      'status',
+
+      'scheme',
+      'grade',
+      'job_title',
+      'position',
+      'description',
+
+      'account'
+    ));
+
+    $hierarchy = Input::get(array(
+      'division',
+      'branch',
+      'sector',
+      'unit',
+    ));
+
+    $account_enable = false;
+    $password_reset = false;
+
+    if ($input['account']) {
+      $account_enable = true;
+    } else {
+      $input['account'] = 0;
+      unset($input['username']);
+      unset($input['password']);
+      unset($input['role']);
+    }
+
+    if($role = Input::get('role')) {
+      $input['role'] = $role;
+    }
+
+    if($password = Input::get('password')) {
+      $input['password'] = $password;
+      $password_reset = true;
+    }
 
 		$validator = new Validator($input);
 
-		$validator->check('username')
-			->is_max(2, __('staff.username_missing', 2));
+    if ($account_enable) {
+
+      $validator->check('username')
+        ->is_max(2, __('staff.username_missing', 2));
+
+      $validator->check('password')
+      ->is_max(6, __('staff.password_too_short', 6));
+
+      $input['password'] = Hash::make($input['password']);
+
+    }
 
 		$validator->check('email')
 			->is_email(__('staff.email_missing'));
 
-		$validator->check('password')
-			->is_max(6, __('staff.password_too_short', 6));
+    $validator->check('telephone')
+      ->is_max(4, __('staff.telephone_missing', 4));
 
 		if($errors = $validator->errors()) {
 			Input::flash();
@@ -264,9 +319,42 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 			return Response::redirect('admin/staffs/add');
 		}
 
-		$input['password'] = Hash::make($input['password']);
+    $staff = Staff::create($input);
 
-		Staff::create($input);
+    Extend::process('staff', $staff->id);
+
+    $hierarchy['staff'] = $staff->id;
+
+    if (empty($hierarchy['division'])) {
+      $hierarchy['division'] = 0;
+    }
+
+    if (empty($hierarchy['branch'])) {
+      $hierarchy['branch'] = 0;
+    }
+
+    if (empty($hierarchy['sector'])) {
+      $hierarchy['sector'] = 0;
+    }
+
+    if (empty($hierarchy['unit'])) {
+      $hierarchy['unit'] = 0;
+    }
+
+    Hierarchy::create($hierarchy);
+
+    // division roles
+    if( $account_enable and $inputroles = Input::get('roles') ) {
+
+      $roles = array();
+      Role::where('staff', '=', $staff->id)->delete();
+
+      foreach ($inputroles as $div) {
+        $roles['staff'] = $staff->id;
+        $roles['division'] = $div;
+        Role::create($roles);
+      }
+    }
 
 		Notify::success(__('staff.created'));
 

@@ -57,6 +57,8 @@ return array(
 
   'account_explain' => 'Enable account login for this user.',
 
+  'telephone_missing' => 'Please enter a telphone number',
+
 	'username' => 'Username',
 	'username_explain' => '',
 	'username_missing' => 'Please enter a username, must be at least %s characters',
