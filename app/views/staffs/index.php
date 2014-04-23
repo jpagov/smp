@@ -16,7 +16,8 @@
 						<th>#</th>
 						<th><?php echo __('staff.name'); ?></th>
 						<th><?php echo __('staff.email'); ?></th>
-						<th><?php echo __('staff.role'); ?></th>
+						<!--th><?php echo __('staff.role'); ?></th-->
+            <th><?php echo __('staff.telephone'); ?></th>
 						<th><?php echo __('staff.status'); ?></th>
 					</tr>
 				</thead>
@@ -26,7 +27,7 @@
 						<td>1</td>
 						<td><a href="<?php echo Uri::to('admin/staffs/edit/' . $staff->id); ?>" title=""><?php echo $staff->display_name; ?></a></td>
 						<td><?php echo $staff->email; ?></td>
-						<td><?php echo __('staff.' . $staff->role); ?></td>
+						<td><?php echo $staff->telephone; ?></td>
 						<td><abbr title="<?php echo Date::format($staff->created); ?>"><?php echo __('global.' . $staff->status); ?></abbr></td>
 					</tr>
 					<?php endforeach; ?>
