@@ -33,61 +33,82 @@
             <fieldset>
               <legend>Profile</legend>
 
-              <div class="form-group">
-                <label class="col-sm-2 control-label" for="salutation"><?php echo __('staff.salutation'); ?></label>
-                <div class="col-sm-4">
-                  <?php echo Form::text('salutation', Input::previous('salutation'), array('class' => 'form-control', 'id' => 'salutation',
-                  )); ?>
-                </div>
-              </div>
+              <div class="row">
 
-              <div class="form-group">
-                <label class="col-sm-2 control-label" for="first_name"><?php echo __('staff.first_name'); ?></label>
-                <div class="col-sm-4">
-                  <?php echo Form::text('first_name', Input::previous('first_name'), array('class' => 'form-control', 'id' => 'first_name')); ?>
-                </div>
+                <div class="col-md-3 col-md-push-9">
+                  <div class="form-group">
 
-                <label class="col-sm-2 control-label" for="last_name"><?php echo __('staff.last_name'); ?></label>
-                <div class="col-sm-4">
-                  <?php echo Form::text('last_name', Input::previous('last_name'), array('class' => 'form-control', 'id' => 'last_name')); ?>
-                </div>
-              </div>
+                    <label class="control-label" for="extend_avatar">
+                      <img src="<?php echo avatar('default-male.jpg'); ?>" class="img-responsive img-thumbnail pull-left"></label>
+                      <input class="sr-only" id="extend_avatar" name="extend[avatar]" type="file">
+                    <span class="help-block"><?php echo __('staff.avatar_explain'); ?></span>
+                    </div>
+                  </div> <!-- /col-md-3 -->
 
-              <div class="form-group">
-                <label class="col-sm-2 control-label" for="display_name"><?php echo __('staff.display_name'); ?></label>
-                <div class="col-sm-10">
-                  <?php echo Form::text('display_name', Input::previous('display_name'), array('class' => 'form-control', 'id' => 'display_name',
-                  )); ?>
-                </div>
-              </div>
+                  <div class="col-sm-offset-1 col-md-8 col-md-pull-3">
 
-              <div class="form-group">
-                <label class="col-sm-2 control-label" for="email"><?php echo __('staff.email'); ?></label>
-                <div class="col-sm-4">
-                  <?php echo Form::email('email', Input::previous('email'), array('class' => 'form-control', 'id' => 'email')); ?>
-                </div>
+                    <div class="form-group">
+                      <label class="col-sm-2 control-label" for="salutation"><?php echo __('staff.salutation'); ?></label>
+                      <div class="col-sm-6">
+                        <?php echo Form::text('salutation', Input::previous('salutation'), array('class' => 'form-control', 'id' => 'salutation',
+                        )); ?>
+                      </div>
+                    </div>
 
-                <label class="col-sm-2 control-label" for="telephone"><?php echo __('staff.telephone'); ?></label>
-                <div class="col-sm-4">
-                  <?php echo Form::telephone('telephone', Input::previous('telephone'), array('class' => 'form-control', 'id' => 'telephone')); ?>
-                </div>
-              </div>
+                    <div class="form-group">
+                      <label class="col-sm-2 control-label" for="first_name"><?php echo __('staff.first_name'); ?></label>
+                      <div class="col-sm-6">
+                        <?php echo Form::text('first_name', Input::previous('first_name'), array('class' => 'form-control', 'id' => 'first_name')); ?>
+                      </div>
+                    </div>
 
-              <div class="form-group">
-                <label class="col-sm-2 control-label" for="gender"><?php echo __('staff.gender'); ?></label>
-                <div class="col-sm-2">
-                  <?php echo Form::select('gender', $genders, Input::previous('gender'), array('class' => 'form-control', 'id' => 'gender',
-                  )); ?>
-                </div>
-              </div>
+                    <div class="form-group">
+                      <label class="col-sm-2 control-label" for="last_name"><?php echo __('staff.last_name'); ?></label>
+                      <div class="col-sm-6">
+                        <?php echo Form::text('last_name', Input::previous('last_name'), array('class' => 'form-control', 'id' => 'last_name')); ?>
+                      </div>
+                    </div>
 
-              <div class="form-group">
-                <label class="col-sm-2 control-label" for="status"><?php echo __('staff.status'); ?></label>
-                <div class="col-sm-4">
-                  <?php echo Form::select('status', $statuses, Input::previous('status'), array('class' => 'form-control', 'id' => 'status',
-                  )); ?>
+                    <div class="form-group">
+                      <label class="col-sm-2 control-label" for="display_name"><?php echo __('staff.display_name'); ?></label>
+                      <div class="col-sm-9">
+                        <?php echo Form::text('display_name', Input::previous('display_name'), array('class' => 'form-control', 'id' => 'display_name',
+                        )); ?>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label class="col-sm-2 control-label" for="email"><?php echo __('staff.email'); ?></label>
+                      <div class="col-sm-9">
+                        <?php echo Form::email('email', Input::previous('email'), array('class' => 'form-control', 'id' => 'email')); ?>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label class="col-sm-2 control-label" for="telephone"><?php echo __('staff.telephone'); ?></label>
+                      <div class="col-sm-9">
+                        <?php echo Form::telephone('telephone', Input::previous('telephone'), array('class' => 'form-control', 'id' => 'telephone')); ?>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label class="col-sm-2 control-label" for="gender"><?php echo __('staff.gender'); ?></label>
+                      <div class="col-sm-4">
+                        <?php echo Form::select('gender', $genders, Input::previous('gender'), array('class' => 'form-control', 'id' => 'gender',
+                        )); ?>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label class="col-sm-2 control-label" for="status"><?php echo __('staff.status'); ?></label>
+                      <div class="col-sm-4">
+                        <?php echo Form::select('status', $statuses, Input::previous('status'), array('class' => 'form-control', 'id' => 'status',
+                        )); ?>
+                      </div>
+                    </div>
+                  </div> <!-- /col-sm-offset-1 col-md-8 -->
+
                 </div>
-              </div>
 
             </fieldset>
           </div>

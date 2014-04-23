@@ -14,6 +14,17 @@ function is_installed() {
 	return Config::get('db') !== null or Config::get('database') !== null;
 }
 
+function avatar_url() {
+  return asset('content/avatar/');
+}
+
+function avatar($avatar = 'default-male.jpg') {
+  if (file_exists(avatar_url() . $avatar)) {
+    $avatar = 'default-male.jpg';
+  }
+  return avatar_url() . $avatar;
+}
+
 function slug($str, $separator = '-') {
 	$str = normalize($str);
 

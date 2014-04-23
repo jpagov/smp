@@ -40,6 +40,9 @@ return array(
 	'real_name' => 'Real Name',
 	'real_name_explain' => '',
 
+  'avatar' => 'Avatar',
+  'avatar_explain' => 'Click on image to upload file',
+
 	'male' => 'Male',
 	'female' => 'Female',
 

@@ -1,8 +1,8 @@
 body { background-color: #eee; }
 
-/*.form-group > .control-label { font-weight: bold; }*/
+.tabs-top > .nav-tabs { margin-bottom: 24px; }
 
-.page-header { 
+.page-header {
   margin: 0 0 21px;
   padding-bottom: 18px;
 }

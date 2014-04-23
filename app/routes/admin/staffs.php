@@ -177,6 +177,8 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 
 		Staff::update($id, $input);
 
+    Extend::process('staff', $id);
+
     $hierarchy['staff'] = $id;
 
     // hierarchy

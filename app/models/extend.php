@@ -41,7 +41,7 @@ class Extend extends Base {
 			case 'image':
 			case 'file':
 				if( ! empty($extend->value->filename)) {
-					$value = asset('content/' . $extend->value->filename);
+          $value = asset('content/' . ($extend->key == 'avatar' ? 'avatar' : '') . '/' . $extend->value->filename);
 				}
 				break;
 		}
@@ -68,32 +68,33 @@ class Extend extends Base {
 		switch($item->field) {
 			case 'text':
 				$value = isset($item->value->text) ? $item->value->text : '';
-				$html = '<input id="extend_' . $item->key . '" name="extend[' . $item->key . ']" type="text" value="' . $value . '">';
+				$html = '<input class="form-control" id="extend_' . $item->key . '" name="extend[' . $item->key . ']" type="text" value="' . $value . '">';
 				break;
 
 			case 'html':
 				$value = isset($item->value->html) ? $item->value->html : '';
-				$html = '<textarea id="extend_' . $item->key . '" name="extend[' . $item->key . ']" type="text">' . $value . '</textarea>';
+				$html = '<textarea class="form-control" id="extend_' . $item->key . '" name="extend[' . $item->key . ']" type="text">' . $value . '</textarea>';
 				break;
 
 			case 'image':
 			case 'file':
 				$value = isset($item->value->filename) ? $item->value->filename : '';
 
-				$html = '<span class="current-file">';
+				$html = '';
 
 				if($value) {
-					$html .= '<a href="' . asset('content/' . $value) . '" target="_blank">' . $value . '</a>';
+
+          if ($item->key == 'avatar') {
+            $html .= '<label class="control-label"><img src="' . asset('content/avatar/' . $value) . '" class="img-responsive img-thumbnail"></label>';
+          } else {
+            $html .= '<a href="' . asset('content/' . $value) . '" target="_blank">' . $value . '</a>';
+          }
 				}
 
-				$html .= '</span>
-					<span class="file">
-					<input id="extend_' . $item->key . '" name="extend[' . $item->key . ']" type="file">
-					</span>';
+				$html .= '<input class="' .  ($item->key == 'avatar' ? 'sr-only' : 'form-control') . '" id="extend_' . $item->key . '" name="extend[' . $item->key . ']" type="file">';
 
 				if($value) {
-					$html .= '</p><p>
-					<label>Remove ' . $item->label . ':</label>
+					$html .= '<label>Remove ' . $item->label . ':</label>
 					<input type="checkbox" name="extend_remove[' . $item->key . ']" value="1">';
 				}
 
@@ -135,8 +136,12 @@ class Extend extends Base {
 		return $files;
 	}
 
-	public static function upload($file) {
+	public static function upload($file, $avatar = false) {
 		$storage = PATH . 'content' . DS;
+
+    if ($avatar) {
+      $storage .= 'avatar' . DS;
+    }
 
 		if(!is_dir($storage)) mkdir($storage);
 
@@ -160,7 +165,9 @@ class Extend extends Base {
 			$name = basename($file['name']);
 			$ext = pathinfo($file['name'], PATHINFO_EXTENSION);
 
-			if($filepath = static::upload($file)) {
+      $avatar = ($extend->key == 'avatar') ? true : false;
+
+			if($filepath = static::upload($file, $avatar)) {
 				$filename = basename($filepath);
 
 				// resize image
@@ -245,13 +252,15 @@ class Extend extends Base {
 
 			// remove data
 			if(Input::get('extend_remove.' . $extend->key)) {
+
 				if(isset($extend->value->filename) and strlen($extend->value->filename)) {
+
 					Query::table(static::table($extend->type . '_meta'))
 						->where('extend', '=', $extend->id)
 						->where($extend->type, '=', $item)->delete();
 
-					$resource = PATH . 'content' . DS . $extend->value->filename;
-					file_exists($resource) and unlink(PATH . 'content' . DS . $extend->value->filename);
+          $resource = PATH . 'content' . DS . ($extend->key == 'avatar' ? 'avatar' : '') . DS . $extend->value->filename;
+					file_exists($resource) and unlink(PATH . 'content' . DS . ($extend->key == 'avatar' ? 'avatar' : '') . DS . $extend->value->filename);
 				}
 			}
 		}
