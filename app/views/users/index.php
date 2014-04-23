@@ -14,10 +14,10 @@
 				<thead>
 					<tr>
 						<th>#</th>
-						<th>Name</th>
-						<th>Email</th>
-						<th>Role</th>
-						<th>Status</th>
+            <th><?php echo __('staff.name'); ?></th>
+            <th><?php echo __('staff.email'); ?></th>
+            <th><?php echo __('staff.role'); ?></th>
+            <th><?php echo __('staff.status'); ?></th>
 					</tr>
 				</thead>
 				<tbody>

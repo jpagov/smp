@@ -127,14 +127,11 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 
     if ($input['account']) {
       $account_enable = true;
+      $input['role'] = Input::get('role');
     } else {
       unset($input['username']);
       unset($input['password']);
-      unset($input['role']);
-    }
-
-    if($role = Input::get('role')) {
-      $input['role'] = $role;
+      $input['role'] = 'staff';
     }
 
 		if($password = Input::get('password')) {
@@ -319,6 +316,8 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 
 			return Response::redirect('admin/staffs/add');
 		}
+
+    $input['created'] = Date::mysql('now');
 
     $staff = Staff::create($input);
 
