@@ -79,3 +79,7 @@ function readable_size($size) {
 
 	return round($size / pow(1024, ($i = floor(log($size, 1024)))), 2) . ' ' . $unit[$i];
 }
+
+function onload() {
+  return ' class="' . (is_admin() ? 'admin' : 'login') . '" id="' . explode('/', Uri::current())[1] . '"';
+}

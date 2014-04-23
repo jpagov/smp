@@ -219,14 +219,14 @@
               <div class="col-sm-offset-2 col-sm-10">
                 <div class="checkbox">
                   <label>
-                    <?php echo Form::checkbox('account', 1, Input::previous('account')); ?> Enable account
+                    <?php echo Form::checkbox('account', 1, Input::previous('account'), array('id' => 'account')); ?> Enable account
                   </label>
                 </div>
                 <span class="help-block"><?php echo __('staff.account_explain'); ?></span>
               </div>
             </div>
 
-            <fieldset disabled>
+            <fieldset disabled id="accountAuth">
               <legend>Administration</legend>
 
               <div class="form-group">
@@ -260,9 +260,9 @@
 
                 <?php if (($key-1) % 2 == 0) : ?><div class="col-sm-offset-2 col-sm-4"><?php endif; ?>
 
-                  <div class="checkbox">
-                    <label for="division_role_<?php echo $key; ?>">
-                    <?php echo Form::checkbox('roles[]', $key, false, array('id' => 'division_role_' . $key)); ?> <?php echo $division; ?>
+                  <div class="checkbox" id="division-role">
+                    <label for="division-role-<?php echo $key; ?>">
+                    <?php echo Form::checkbox('roles[]', $key, false, array('id' => 'division-role-' . $key)); ?> <?php echo $division; ?>
                     </label>
                   </div>
 
