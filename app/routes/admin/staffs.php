@@ -58,6 +58,7 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 
       }
     }
+
     $vars['division_roles'] = $division_roles;
 
     $hierarchies = Hierarchy::where('staff', '=', $id)->fetch();

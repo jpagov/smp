@@ -1,20 +1,26 @@
 <?php echo $header; ?>
 
-<section class="login content">
-	<?php echo $messages; ?>
+<div class="text-center"><a href="/">
+  <img src="<?php echo asset('app/views/assets/img/jata-jpa.png'); ?>" alt="<?php echo Config::meta('sitename'); ?>"></a>
+</div>
 
-	<form method="post" action="<?php echo Uri::to('admin/reset/' . $key); ?>">
+<form class="form-signin" method="post" action="<?php echo Uri::to('admin/reset/' . $key); ?>" role="form">
+  <input name="token" type="hidden" value="<?php echo $token; ?>">
 
-		<input name="token" type="hidden" value="<?php echo $token; ?>">
+  <?php echo $messages; ?>
 
-		<fieldset>
-			<p><label for="pass"><?php echo __('users.new_password'); ?>:</label>
-			<input placeholder="<?php echo __('users.new_password'); ?>" type="password" name="pass" id="pass"></p>
+  <h2 class="form-signin-heading">Enter new password</h2>
+  <?php echo Form::password('pass', array(
+    'class' => 'form-control',
+    'required' => 'true',
+    'id' => 'pass'
+  )); ?>
 
-			<p class="buttons">
-			<button type="submit"><?php echo __('global.submit'); ?></button></p>
-		</fieldset>
-	</form>
-</section>
+  <?php echo Form::button(__('global.submit'), array(
+    'class' => 'btn btn-primary btn-block',
+    'type' => 'submit')
+  ); ?>
+
+</form>
 
 <?php echo $footer; ?>

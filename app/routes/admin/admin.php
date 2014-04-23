@@ -57,7 +57,7 @@ Route::post('admin/login', array('before' => 'csrf', 'main' => function() {
 		return Response::redirect('admin/upgrade');
 	}
 
-	return Response::redirect('admin/posts');
+	return Response::redirect('admin/staffs');
 }));
 
 /*
@@ -85,7 +85,7 @@ Route::post('admin/amnesia', array('before' => 'csrf', 'main' => function() {
 	$email = Input::get('email');
 
 	$validator = new Validator(array('email' => $email));
-	$query = User::where('email', '=', $email);
+	$query = Staff::where('email', '=', $email);
 
 	$validator->add('valid', function($email) use($query) {
 		return $query->count();
@@ -163,7 +163,7 @@ Route::post('admin/reset/(:any)', array('before' => 'csrf', 'main' => function($
 		return Response::redirect('admin/reset/' . $key);
 	}
 
-	User::update($user, array('password' => Hash::make($password)));
+	Staff::update($user, array('password' => Hash::make($password)));
 
 	Session::erase('user');
 	Session::erase('token');

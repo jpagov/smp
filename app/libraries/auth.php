@@ -10,14 +10,13 @@ class Auth {
 
 	public static function user() {
 		if($id = Session::get(static::$session)) {
-			return User::find($id);
+			return Staff::find($id);
 		}
 	}
 
 	public static function attempt($username, $password) {
-		if($user = User::where('username', '=', $username)
-			->or_where('email', '=', $username)
-			->where('status', '=', 'active')->fetch()) {
+		if($user = Staff::where('username', '=', $username)
+			->where('account', '=', '1')->fetch()) {
 			// found a valid user now check the password
 			if(Hash::check($password, $user->password)) {
 				// store user ID in the session

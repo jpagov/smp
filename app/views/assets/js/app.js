@@ -26,6 +26,7 @@ var SMP = {
     init: function() {
       // JavaScript to be fired on the home page
     },
+
     staffs: function() {
 
       console.log('Admin::Staff');
@@ -41,6 +42,11 @@ var SMP = {
         $('#division-role input').prop('checked', checked);
       });
 
+    },
+
+    users: function() {
+      SMP.admin.staffs();
+      console.log('Admin::Users');
     },
   }
 };

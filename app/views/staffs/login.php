@@ -1,7 +1,7 @@
-<?php echo $header; print_r(Hash::make('idairah')); ?>
+<?php echo $header; ?>
 
-<div class="text-center"><a href="http://transrec.my">
-	<img src="<?php echo asset('app/views/assets/img/jata-jpa.png'); ?>" alt="TransRec Solution"></a>
+<div class="text-center"><a href="/">
+	<img src="<?php echo asset('app/views/assets/img/jata-jpa.png'); ?>" alt="<?php echo Config::meta('sitename'); ?>"></a>
 </div>
 
 <form class="form-signin" role="form" method="post" action="<?php echo Uri::to('admin/login'); ?>">

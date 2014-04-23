@@ -24,7 +24,7 @@
 					<?php foreach($users->results as $user): ?>
 					<tr class="status draft">
 						<td>1</td>
-						<td><a href="<?php echo Uri::to('admin/users/edit/' . $user->id); ?>" title=""><?php echo $user->real_name; ?></a></td>
+						<td><a href="<?php echo Uri::to('admin/users/edit/' . $user->id); ?>" title=""><?php echo $user->display_name; ?></a></td>
 						<td><?php echo $user->email; ?></td>
 						<td><?php echo __('users.' . $user->role); ?></td>
 						<td><abbr title="<?php echo Date::format($user->created); ?>"><?php echo __('global.' . $user->status); ?></abbr></td>
@@ -35,7 +35,7 @@
 		</div>
 	</div>
 
-	<div class="col col-lg-3">  
+	<div class="col col-lg-3">
 
 		<nav class="list-group sidebar">
 
@@ -43,7 +43,7 @@
 			'class' => ($status == 'all') ? 'list-group-item active' : 'list-group-item'
 		)); ?>
 
-		<?php 
+		<?php
 		foreach(array('active', 'inactive') as $type):
 
 			$status_count = Query::table(Base::table('users'))->where('status', '=', $type)->count();
@@ -54,7 +54,7 @@
 			)); ?>
 			<?php endforeach; ?>
 		</nav>
-	
+
 	</div>
 
 

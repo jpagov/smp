@@ -8,7 +8,7 @@
 
 <div class="row">
 
-  <form class="form-horizontal" method="post" action="<?php echo Uri::to('admin/staffs/edit/' . $staff->id); ?>" novalidate autocomplete="off" enctype="multipart/form-data" role="form">
+  <form class="form-horizontal" method="post" action="<?php echo Uri::to('admin/staffs/edit/' . $staff->id); ?>" enctype="multipart/form-data" role="form">
     <div class="col-md-9">
 
       <input name="token" type="hidden" value="<?php echo $token; ?>">

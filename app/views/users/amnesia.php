@@ -1,28 +1,31 @@
 <?php echo $header; ?>
 
-<section class="login content">
+<div class="text-center"><a href="/">
+  <img src="<?php echo asset('app/views/assets/img/jata-jpa.png'); ?>" alt="<?php echo Config::meta('sitename'); ?>"></a>
+</div>
+
+<form class="form-signin" method="post" action="<?php echo Uri::to('admin/amnesia'); ?>">
+
+  <input name="token" type="hidden" value="<?php echo $token; ?>">
 
 	<?php echo $messages; ?>
 
-	<form method="post" action="<?php echo Uri::to('admin/amnesia'); ?>">
-		<input name="token" type="hidden" value="<?php echo $token; ?>">
+  <h2 class="form-signin-heading">Enter email</h2>
 
-		<fieldset>
-			<p><label for="email"><?php echo __('users.email'); ?>:</label>
-			<?php echo Form::email('email', Input::previous('email'), array(
-				'id' => 'email',
-				'autocapitalize' => 'off',
-				'autofocus' => 'true',
-				'placeholder' => __('users.email')
-			)); ?></p>
+  <?php echo Form::email('email', Input::previous('email'), array(
+    'class' => 'form-control',
+    'id' => 'email',
+    'autofocus' => 'true',
+    'placeholder' => __('users.email')
+  )); ?>
 
-			<p class="buttons">
-			    <a href="<?php echo Uri::to('admin/login'); ?>"><?php echo __('users.remembered'); ?></a>
-    			<button type="submit"><?php echo __('global.reset'); ?></button>
-			</p>
-		</fieldset>
-	</form>
+  <p class="buttons"><a href="<?php echo Uri::to('admin/login'); ?>"><?php echo __('users.remembered'); ?></a></p>
 
-</section>
+  <?php echo Form::button(__('global.reset'), array(
+    'class' => 'btn btn-primary btn-block',
+    'type' => 'submit')
+  ); ?>
+
+</form>
 
 <?php echo $footer; ?>

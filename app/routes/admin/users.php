@@ -15,6 +15,33 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 			->partial('footer', 'partials/footer');
 	});
 
+  /*
+    List users by status and paginate through them
+  */
+  Route::get(array(
+    'admin/users/status/(:any)',
+    'admin/users/status/(:any)/(:num)'), function($status, $page = 1) {
+
+    $query = Staff::where('account', '=', '1')
+      ->where('status', '=', $status);
+
+    $perpage = Config::meta('posts_per_page');
+    $total = $query->count();
+    $users = $query->sort('grade', 'desc')->take($perpage)->skip(($page - 1) * $perpage)->get();
+    $url = Uri::to('admin/users/status/' . $status);
+
+    $pagination = new Paginator($users, $total, $page, $perpage, $url);
+
+    $vars['messages'] = Notify::read();
+    $vars['users'] = $pagination;
+    $vars['status'] = $status;
+
+    return View::create('users/index', $vars)
+      ->partial('header', 'partials/header')
+      ->partial('footer', 'partials/footer');
+
+  });
+
 	/*
 		Edit user
 	*/
@@ -22,6 +49,18 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 		$vars['messages'] = Notify::read();
 		$vars['token'] = Csrf::token();
 		$vars['user'] = User::find($id);
+    $vars['divisions'] = Division::dropdown();
+    $division_roles = array();
+
+    // get current staff division role
+    if ($staff_roles = Role::where('staff', '=', $id)->get(array('division'))) {
+      foreach ($staff_roles as $div) {
+        $division_roles[] = $div->division;
+
+      }
+    }
+
+    $vars['division_roles'] = $division_roles;
 
 		$vars['statuses'] = array(
 			'inactive' => __('global.inactive'),
@@ -31,7 +70,7 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 		$vars['roles'] = array(
 			'administrator' => __('global.administrator'),
 			'editor' => __('global.editor'),
-			'user' => __('global.user')
+			'staff' => __('global.staff')
 		);
 
 		return View::create('users/edit', $vars)
@@ -40,7 +79,14 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 	});
 
 	Route::post('admin/users/edit/(:num)', function($id) {
-		$input = Input::get(array('username', 'email', 'real_name', 'bio', 'status', 'role'));
+		$input = Input::get(array(
+      'username',
+      'email',
+      'display_name',
+      'status',
+      'role')
+    );
+
 		$password_reset = false;
 
 		if($password = Input::get('password')) {
@@ -72,6 +118,18 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 
 			return Response::redirect('admin/users/edit/' . $id);
 		}
+
+    if($inputroles = Input::get('roles')) {
+
+      $roles = array();
+      Role::where('staff', '=', $id)->delete();
+
+      foreach ($inputroles as $div) {
+        $roles['staff'] = $id;
+        $roles['division'] = $div;
+        Role::create($roles);
+      }
+    }
 
 		if($password_reset) {
 			$input['password'] = Hash::make($input['password']);
