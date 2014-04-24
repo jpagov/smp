@@ -11,6 +11,14 @@ Route::action('guest', function() {
 	if(Auth::user()) return Response::redirect('admin/posts');
 });
 
+Route::action('admin', function() {
+  if(Auth::user() and Auth::user()->role != 'administrator') return Response::error(401);
+});
+
+Route::action('editor', function() {
+  if(Auth::user() and Auth::user()->role != 'editor') return Response::error(401);
+});
+
 Route::action('csrf', function() {
 	if(Request::method() == 'POST') {
 		if( ! Csrf::check(Input::get('token'))) {
@@ -213,4 +221,8 @@ Route::get('admin/extend', array('before' => 'auth', 'main' => function($page = 
 */
 Route::error('404', function() {
 	return Response::error(404);
+});
+
+Route::error('401', function() {
+  return Response::error(401);
 });
