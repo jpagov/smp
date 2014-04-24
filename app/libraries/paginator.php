@@ -28,7 +28,7 @@ class Paginator {
 		if($this->page < $pages) {
 			$page = $this->page + 1;
 
-			return '<a href="' . $this->url . '/' . $page . '">' . $text . '</a>';
+			return '<li><a href="' . $this->url . '/' . $page . '">' . $text . '</a></li>';
 		}
 
 		return $default;
@@ -40,7 +40,7 @@ class Paginator {
 		if($this->page > 1) {
 			$page = $this->page - 1;
 
-			return '<a href="' . $this->url . '/' . $page . '">' . $text . '</a>';
+			return '<li><a href="' . $this->url . '/' . $page . '">' . $text . '</a></li>';
 		}
 
 		return $default;
@@ -57,8 +57,8 @@ class Paginator {
 			if($this->page > 1) {
 				$page = $this->page - 1;
 
-				$html = '<a href="' . $this->url . '">' . $this->first . '</a>
-					<a href="' . $this->url . '/' . $page . '">' . $this->prev . '</a>';
+				$html = '<li><a href="' . $this->url . '">' . $this->first . '</a></li>
+					<li><a href="' . $this->url . '/' . $page . '">' . $this->prev . '</a></li>';
 			}
 
 			for($i = $this->page - $range; $i < $this->page + $range; $i++) {
@@ -69,18 +69,18 @@ class Paginator {
 				if($page > $pages) break;
 
 				if($page == $this->page) {
-					$html .= ' <strong>' . $page . '</strong> ';
+					$html .= '<li class="active"><span>' . $page . '<span class="sr-only">(current)</span></span></li>';
 				}
 				else {
-					$html .= ' <a href="' . $this->url . '/' . $page . '">' . $page . '</a> ';
+					$html .= '<li><a href="' . $this->url . '/' . $page . '">' . $page . '</a></li>';
 				}
 			}
 
 			if($this->page < $pages) {
 				$page = $this->page + 1;
 
-				$html .= '<a href="' . $this->url . '/' . $page . '">' . $this->next . '</a>
-					<a href="' . $this->url . '/' . $pages . '">' . $this->last . '</a>';
+				$html .= '<li><a href="' . $this->url . '/' . $page . '">' . $this->next . '</a></li>
+					<li><a href="' . $this->url . '/' . $pages . '">' . $this->last . '</a></li>';
 			}
 
 		}

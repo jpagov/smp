@@ -8,6 +8,7 @@ return array(
 	'slug' => 'Slug',
 	'description' => 'Description',
 	'order' => 'Order',
+  'view' => 'View',
 
 	'division' => 'Division',
 	'divisions' => 'Divisions',
