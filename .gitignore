@@ -6,12 +6,13 @@ Thumbs.db
 *.gz
 
 # env
-/anchor/config/dev
+/app/config/dev
 
 # generated config
-/anchor/config/app.php
-/anchor/config/db.php
-/anchor/config/session.php
+/app/config/app.php
+/app/config/db.php
+/app/config/mail.php
+/app/config/session.php
 
 # user mod_rewrite
 /.htaccess
@@ -29,6 +30,10 @@ Thumbs.db
 
 # phpunit tests
 /tests
+
+# composer
+/composer.lock
+/vendor
 
 # We all love Sublime Text and its awesome plugins, don't we?
 sftp-config.json
