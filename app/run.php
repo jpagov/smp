@@ -32,6 +32,12 @@ Autoloader::directory(array(
 require APP . 'helpers' . EXT;
 
 /**
+ * Composer autoload
+ */
+$composer = PATH . 'vendor/autoload' . EXT;
+file_exists($composer) and require $composer;
+
+/**
  * App setup
  */
 App::setup();

@@ -14,7 +14,7 @@ Route::action('guest', function() {
 Route::action('csrf', function() {
 	if(Request::method() == 'POST') {
 		if( ! Csrf::check(Input::get('token'))) {
-			Notify::error(array('Invalid token'));
+			Notify::warning(array('Invalid token'));
 
 			return Response::redirect('admin/login');
 		}
@@ -45,7 +45,7 @@ Route::post('admin/login', array('before' => 'csrf', 'main' => function() {
 	$attempt = Auth::attempt(Input::get('user'), Input::get('pass'));
 
 	if( ! $attempt) {
-		Notify::error(__('users.login_error'));
+		Notify::warning(__('users.login_error'));
 
 		return Response::redirect('admin/login');
 	}
@@ -98,7 +98,7 @@ Route::post('admin/amnesia', array('before' => 'csrf', 'main' => function() {
 	if($errors = $validator->errors()) {
 		Input::flash();
 
-		Notify::error($errors);
+		Notify::warning($errors);
 
 		return Response::redirect('admin/amnesia');
 	}
@@ -113,7 +113,12 @@ Route::post('admin/amnesia', array('before' => 'csrf', 'main' => function() {
 	$subject = __('users.recovery_subject');
 	$msg = __('users.recovery_message', $uri);
 
-	mail($user->email, $subject, $msg);
+  $mail = new Email($user->email, $subject, $msg, 2);
+
+  if(!$mail->send()) {
+    Notify::warning(__('users.msg_not_send', $mail->ErrorInfo));
+    return Response::redirect('admin/login');
+  }
 
 	Notify::success(__('users.recovery_sent'));
 
@@ -129,7 +134,7 @@ Route::get('admin/reset/(:any)', array('before' => 'guest', 'main' => function($
 	$vars['key'] = ($token = Session::get('token'));
 
 	if($token != $key) {
-		Notify::error(__('users.recovery_expired'));
+		Notify::warning(__('users.recovery_expired'));
 
 		return Response::redirect('admin/login');
 	}
@@ -145,7 +150,7 @@ Route::post('admin/reset/(:any)', array('before' => 'csrf', 'main' => function($
 	$user = Session::get('user');
 
 	if($token != $key) {
-		Notify::error(__('users.recovery_expired'));
+		Notify::warning(__('users.recovery_expired'));
 
 		return Response::redirect('admin/login');
 	}
@@ -158,7 +163,7 @@ Route::post('admin/reset/(:any)', array('before' => 'csrf', 'main' => function($
 	if($errors = $validator->errors()) {
 		Input::flash();
 
-		Notify::error($errors);
+		Notify::warning($errors);
 
 		return Response::redirect('admin/reset/' . $key);
 	}

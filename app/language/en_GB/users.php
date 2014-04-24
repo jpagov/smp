@@ -60,6 +60,7 @@ return array(
 	'password_reset' => 'Your new password has been set. Go and login now!',
 
 	// password recovery email
+  'msg_not_send' => 'Message could not be sent: <code>%s</code>',
 	'recovery_subject' => 'Password Reset',
 	'recovery_message' => 'You have requested to reset your password.' .
 		'To continue follow the link below.' . PHP_EOL . '%s',
