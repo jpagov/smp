@@ -33,4 +33,13 @@ class Items implements Iterator {
 		return count($this->array);
 	}
 
+  public function remove($keys = array()) {
+    if (! is_array($keys)) {
+      $keys = array($keys);
+    }
+    foreach ($keys as $key) {
+      unset($this->array[$key]);
+    }
+  }
+
 }

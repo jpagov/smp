@@ -2,13 +2,33 @@
 
 Route::collection(array('before' => 'auth,csrf'), function() {
 
+  /*
+    Branchs Admin JSON API
+  */
+  Route::get(array('admin/branchs/json', 'admin/branchs/(:num)/json'), function($division = null) {
+
+    $lists = array();
+
+    if ($branchs = Hierarchy::branch($division)) {
+      foreach ($branchs as $branch) {
+        $lists[] = $branch->title;
+      }
+    }
+
+    $json = Json::encode(array(
+      'branchs' => $lists
+    ));
+
+    return Response::create($json, 200, array('content-type' => 'application/json'));
+  });
+
 	/*
 		List Branchs
 	*/
 	Route::get(array('admin/branchs', 'admin/branchs/(:num)'), function($page = 1) {
 		$vars['messages'] = Notify::read();
 		$vars['branchs'] = Branch::paginate($page, Config::get('meta.posts_per_page'));
-		$vars['hierarchies'] = Config::app('hierarchy');		
+		$vars['hierarchies'] = Config::app('hierarchy');
 
 		return View::create('branchs/index', $vars)
 			->partial('header', 'partials/header')
@@ -90,7 +110,7 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 
 		$validator->check('title')
 			->is_max(3, __('branch.title_missing'));
-			
+
 		$validator->add('duplicate', function($str) {
 			return Branch::where('slug', '=', $str)->count() == 0;
 		});

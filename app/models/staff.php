@@ -4,15 +4,129 @@ class Staff extends Base {
 
 	public static $table = 'staffs';
 
-	public static function search($params = array()) {
-		$query = static::where('status', '=', 'active');
+  // default get all field excerpt username and password
+  public static function fields($field = array(
+    'slug',
+    'salutation',
+    'first_name',
+    'last_name',
+    'display_name',
+    'gender',
+    'job_title',
+    'position',
+    'description',
+    'scheme',
+    'grade',
+    'division',
+    'branch',
+    'sector',
+    'unit',
+    'email',
+    'telephone',
+    'status',
+    'role',
+    'account',
+    'hire_date',
+    'created'
+  )) {
+    $fields = array();
+    foreach ($field as $column) {
+      $fields[] = Base::table('staffs.' . $column);
+    }
+    return $fields;
+  }
 
-		foreach($params as $key => $value) {
-			$query->where($key, '=', $value);
-		}
+  public static function id($id) {
+    return static::get('id', $id);
+  }
 
-		return $query->fetch();
-	}
+  public static function slug($slug) {
+    return static::get('slug', $slug);
+  }
+
+  private static function get($row, $val) {
+    return static::left_join(Base::table('divisions'), Base::table('divisions.id'), '=', Base::table('staffs.division'))
+      ->left_join(Base::table('branchs'), Base::table('branchs.id'), '=', Base::table('staffs.branch'))
+      ->where(Base::table('staffs.'.$row), '=', $val)
+      ->fetch(array(static::fields(),
+        Base::table('divisions.slug as division_slug'),
+        Base::table('divisions.title as division_title'),
+        Base::table('branchs.title as branch_slug'),
+        Base::table('branchs.title as branch_title')));
+  }
+
+  public static function listing($page = 1, $per_page = 10, $hierarchy = null) {
+
+    $query = static::where(Base::table('staffs.status'), '=', 'active');
+    $get = array(static::fields());
+
+    if( isset($hierarchy['division']) and $division = $hierarchy['division']) {
+
+      $query = $query->left_join(
+        Base::table('divisions'),
+        Base::table('divisions.id'), '=', Base::table('staffs.division'));
+      $query->where(Base::table('staffs.division'), '=', $division->id);
+
+      array_push($get, Base::table('divisions.slug as division_slug'), Base::table('divisions.title as division_title'));
+    }
+
+    if( isset($hierarchy['branch']) and $branch = $hierarchy['branch']) {
+
+      $query = $query->left_join(
+        Base::table('branchs'),
+        Base::table('branchs.id'), '=', Base::table('staffs.branch'));
+      $query->where(Base::table('staffs.branch'), '=', $branch->id);
+
+      array_push($get, Base::table('branchs.slug as branch_slug'), Base::table('branchs.title as branch_title'));
+    }
+
+    if( isset($hierarchy['sector']) and $sector = $hierarchy['sector']) {
+
+      $query = $query->left_join(
+        Base::table('sectors'),
+        Base::table('sectors.id'), '=', Base::table('staffs.sector'));
+      $query->where(Base::table('staffs.sector'), '=', $sector->id);
+
+      array_push($get, Base::table('sectors.slug as sector_slug'), Base::table('sectors.title as sector_title'));
+    }
+
+    if( isset($hierarchy['unit']) and $unit = $hierarchy['unit']) {
+
+      $query = $query->left_join(
+        Base::table('units'),
+        Base::table('units.id'), '=', Base::table('staffs.unit'));
+      $query->where(Base::table('staffs.unit'), '=', $unit->id);
+
+      array_push($get, Base::table('units.slug as unit_slug'), Base::table('units.title as unit_title'));
+    }
+
+
+    $total = $query->count();
+
+    // get staffs
+    $staffs = $query->sort(Base::table('staffs.created'), 'desc')
+      ->take($per_page)
+      ->skip(--$page * $per_page)
+      ->get($get);
+
+    return array($total, $staffs);
+  }
+
+	public static function search($term, $page = 1, $per_page = 10) {
+    $query = static::left_join(Base::table('divisions'), Base::table('divisions.id'), '=', Base::table('staffs.author'))
+      ->where(Base::table('staffs.status'), '=', 'active')
+      ->where(Base::table('staffs.display_name'), 'like', '%' . $term . '%');
+
+    $total = $query->count();
+
+    $staffs = $query->take($per_page)
+      ->skip(--$page * $per_page)
+      ->get(array(static::fields(),
+        Base::table('divisions.slug as slug'),
+        Base::table('divisions.title as division_title')));
+
+    return array($total, $staffs);
+  }
 
 	public static function paginate($page = 1, $perpage = 10) {
 		$query = Query::table(static::table());

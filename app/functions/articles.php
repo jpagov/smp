@@ -133,7 +133,7 @@ function article_custom_field($key, $default = '') {
 	return $default;
 }
 
-function customised() {
+function customisez() {
 	if($itm = Registry::get('article')) {
 		return $itm->js or $itm->css;
 	}

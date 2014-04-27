@@ -73,6 +73,9 @@ class App {
 		// register posts page
 		Registry::set('posts_page', Page::posts());
 
+    // register posts page
+    Registry::set('staffs_page', Page::staff());
+
 		if( ! is_admin()) {
 			// register categories
 			foreach(Category::get() as $itm) {
@@ -80,6 +83,13 @@ class App {
 			}
 
 			Registry::set('all_categories', $categories);
+
+      // register divisions
+      foreach(Division::get() as $itm) {
+        $divisions[$itm->id] = $itm;
+      }
+
+      Registry::set('all_divisions', $divisions);
 
 			// register menu items
 			$pages = Page::where('status', '=', 'published')

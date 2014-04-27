@@ -32,6 +32,11 @@ Autoloader::directory(array(
 require APP . 'helpers' . EXT;
 
 /**
+ * API prefix
+ */
+define('API', Config::api('prefix') . Config::api('version'));
+
+/**
  * Composer autoload
  */
 $composer = PATH . 'vendor/autoload' . EXT;

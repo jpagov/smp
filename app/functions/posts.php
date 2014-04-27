@@ -61,7 +61,7 @@ function total_posts() {
 	return Registry::get('total_posts');
 }
 
-function has_pagination() {
+function post_has_pagination() {
 	return Registry::get('total_posts') > Config::meta('posts_per_page');
 }
 
