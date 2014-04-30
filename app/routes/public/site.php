@@ -6,6 +6,10 @@
 $home_page = Registry::get('home_page');
 $staffs_page = Registry::get('staffs_page');
 
+$tmp = $staffs_page->slug;
+$staffs_page->slug = empty($tmp) ? '/' : $staffs_page->slug;
+
+
 /**
  * The Home page
  */
@@ -22,7 +26,7 @@ if($home_page->id != $staffs_page->id) {
 }
 
 /**
- * Post listings page
+ * Staff listings page
  */
 $routes = array($staffs_page->slug, $staffs_page->slug . '/(:num)');
 
@@ -72,28 +76,29 @@ function(
   $unit_slug = '',
   $offset = 1) use($staffs_page) {
 
+  $hierarchies = array();
+
   if( ! $division = Division::slug($division_slug )) {
       return Response::create(new Template('404'), 404);
 	}
+  if (isset($division)) $hierarchies['division'] = $division;
 
   if( !empty($branch_slug) and ! $branch = Division::slug($branch_slug )) {
       return Response::create(new Template('404'), 404);
   }
 
+  if (isset($branch)) $hierarchies['branch'] = $branch;
+
   if( !empty($sector_slug) and ! $sector = Division::slug($sector_slug )) {
       return Response::create(new Template('404'), 404);
   }
 
+  if (isset($sector)) $hierarchies['sector'] = $sector;
+
   if( !empty($unit_slug) and ! $unit = Division::slug($unit_slug )) {
       return Response::create(new Template('404'), 404);
   }
-
-  $hierarchies = array(
-    'division' => $division,
-    'branch' => $branch,
-    'sector' => $sector,
-    'unit' => $unit
-    );
+  if (isset($unit)) $hierarchies['unit'] = $unit;
 
 	// get public listings
 	list($total, $staffs) = Staff::listing($offset, $per_page = Config::meta('staffs_per_page'), $hierarchies);
@@ -125,28 +130,38 @@ Route::get('(:num)', function($id) use($staffs_page) {
 		return Response::create(new Template('404'), 404);
 	}
 
-	return Response::redirect($staffs_page->slug . '/' . $staff->data['slug']);
+	return Response::redirect($staff->data['slug']);
 });
 
-/**
- * View staff
- */
-Route::get($staffs_page->slug . '/(:any)', function($slug) use($staffs_page) {
-	if( ! $staff = Staff::slug($slug)) {
-		return Response::create(new Template('404'), 404);
-	}
+Route::get('(:all)', function($uri) use($staffs_page) {
 
-	Registry::set('page', $staffs_page);
-	Registry::set('staff', $staff);
-	Registry::set('division', Division::find($staff->division));
+  // find if slug is staff
+  if( $staff = Staff::slug(basename($uri)) ) {
+    Registry::set('page', $staffs_page);
+    Registry::set('staff', $staff);
+    Registry::set('division', Division::find($staff->division));
 
-	return new Template('staff');
+    return new Template('staff');
+  }
+
+  // Find for page slug
+  if ( $page = Page::slug(basename($uri)) ) {
+    if($page->redirect) {
+      return Response::redirect($page->redirect);
+    }
+    Registry::set('page', $page);
+
+    return new Template('page');
+  }
+
+  return Response::create(new Template('404'), 404);
+
 });
 
 /**
  * Post a comment
  */
-Route::post($staffs_page->slug . '/(:any)', function($slug) use($staffs_page) {
+Route::post('(:any)', function($slug) use($staffs_page) {
 	if( ! $staff = Staff::slug($slug) or ! $staff->comments) {
 		return Response::create(new Template('404'), 404);
 	}
@@ -281,16 +296,6 @@ Route::post('search', function() {
 /**
  * View pages
  */
-Route::get('(:all)', function($uri) {
-	if( ! $page = Page::slug($slug = basename($uri))) {
-		return Response::create(new Template('404'), 404);
-	}
 
-	if($page->redirect) {
-		return Response::redirect($page->redirect);
-	}
 
-	Registry::set('page', $page);
 
-	return new Template('page');
-});

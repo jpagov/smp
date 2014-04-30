@@ -55,6 +55,11 @@ function body_class() {
 	$parts = explode('/', Uri::current());
 	$classes[] = count($parts) ? trim(current($parts)) : 'index';
 
+  //  Is it a posts page?
+  if(is_staffpage()) {
+    $classes[] = 'staffs';
+  }
+
 	//  Is it a posts page?
 	if(is_postspage()) {
 		$classes[] = 'posts';
@@ -77,8 +82,16 @@ function is_postspage() {
 	return Registry::prop('page', 'id') == Config::meta('posts_page');
 }
 
+function is_staffpage() {
+  return Registry::prop('page', 'id') == Config::meta('staffs_page');
+}
+
 function is_article() {
 	return Registry::get('article') !== null;
+}
+
+function is_staff() {
+  return Registry::get('staff') !== null;
 }
 
 function is_page() {

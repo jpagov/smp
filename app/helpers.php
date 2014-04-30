@@ -31,7 +31,7 @@ function slug($str, $separator = '-') {
 	// replace non letter or digits by separator
 	$str = preg_replace('#^[^A-z0-9]+$#', $separator, $str);
 
-	return trim(strtolower($str), $separator);
+  return strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', $separator, $str)));
 }
 
 function acronym($str) {

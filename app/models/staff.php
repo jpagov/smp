@@ -43,7 +43,7 @@ class Staff extends Base {
   public static function slug($slug) {
     return static::get('slug', $slug);
   }
-
+  /*
   private static function get($row, $val) {
     return static::left_join(Base::table('divisions'), Base::table('divisions.id'), '=', Base::table('staffs.division'))
       ->left_join(Base::table('branchs'), Base::table('branchs.id'), '=', Base::table('staffs.branch'))
@@ -54,7 +54,7 @@ class Staff extends Base {
         Base::table('branchs.title as branch_slug'),
         Base::table('branchs.title as branch_title')));
   }
-
+  */
   public static function listing($page = 1, $per_page = 10, $hierarchy = null) {
 
     $query = static::where(Base::table('staffs.status'), '=', 'active');
@@ -133,7 +133,7 @@ class Staff extends Base {
 
 		$count = $query->count();
 
-		$results = $query->take($perpage)->skip(($page - 1) * $perpage)->sort('grade', 'desc')->get();
+		$results = $query->take($perpage)->skip(($page - 1) * $perpage)->sort('grade', 'desc')->get(array(static::fields()));
 
 		return new Paginator($results, $count, $page, $perpage, Uri::to('staffs'));
 	}

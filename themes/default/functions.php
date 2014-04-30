@@ -56,7 +56,7 @@ function relative_time($date) {
 }
 
 function twitter_account() {
-	return site_meta('twitter', 'idiot');
+	return site_meta('twitter', 'hariadi');
 }
 
 function twitter_url() {
@@ -65,4 +65,8 @@ function twitter_url() {
 
 function total_articles() {
 	return Post::where(Base::table('posts.status'), '=', 'published')->count();
+}
+
+function total_staff() {
+  return Staff::where(Base::table('staffs.status'), '=', 'active')->count();
 }

@@ -61,13 +61,14 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 
     $vars['division_roles'] = $division_roles;
 
+    /*
     $hierarchies = Hierarchy::where('staff', '=', $id)->fetch();
 
     $vars['staff']->division = $hierarchies->division;
     $vars['staff']->branch = $hierarchies->branch;
     $vars['staff']->sector = $hierarchies->sector;
     $vars['staff']->unit = $hierarchies->unit;
-
+    */
     foreach (array('Scheme', 'Division', 'Branch', 'Sector', 'Unit') as $hierarchy) {
       $vars[strtolower($hierarchy) . 's'] = $hierarchy::dropdown();
       array_unshift($vars[strtolower($hierarchy) . 's'], __('staff.please_select'));
@@ -112,15 +113,19 @@ Route::collection(array('before' => 'auth,csrf'), function() {
       'position',
       'description',
 
-      'account'
-    ));
-
-    $hierarchy = Input::get(array(
       'division',
       'branch',
       'sector',
       'unit',
+
+      'account'
     ));
+
+    $hierarchy = array(
+      'branch' => $input['branch'],
+      'sector' => $input['sector'],
+      'unit' => $input['unit'],
+    );
 
     $account_enable = false;
 		$password_reset = false;
@@ -177,13 +182,16 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 
     Extend::process('staff', $id);
 
-    $hierarchy['staff'] = $id;
+    if ($division = $input['division']) {
 
-    // hierarchy
-    if ($exist = Hierarchy::where('staff', '=', $id)->fetch()) {
-      Hierarchy::update($exist->id, $hierarchy);
-    } else {
-      Hierarchy::create($hierarchy);
+      $hierarchy['division'] = $division;
+
+      // hierarchy
+      if ($exist = Hierarchy::where('division', '=', $division)->fetch()) {
+        Hierarchy::update($exist->id, $hierarchy);
+      } else {
+        Hierarchy::create($hierarchy);
+      }
     }
 
     // division roles
@@ -258,15 +266,20 @@ Route::collection(array('before' => 'auth,csrf'), function() {
       'position',
       'description',
 
-      'account'
-    ));
-
-    $hierarchy = Input::get(array(
       'division',
       'branch',
       'sector',
       'unit',
+
+      'account'
     ));
+
+
+    $hierarchy = array(
+      'branch' => $input['branch'],
+      'sector' => $input['sector'],
+      'unit' => $input['unit'],
+    );
 
     $account_enable = false;
     $password_reset = false;
@@ -323,25 +336,10 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 
     Extend::process('staff', $staff->id);
 
-    $hierarchy['staff'] = $staff->id;
-
-    if (empty($hierarchy['division'])) {
-      $hierarchy['division'] = 0;
+    if ($division = $input['division']) {
+      $hierarchy['division'] = $division;
+      Hierarchy::create($hierarchy);
     }
-
-    if (empty($hierarchy['branch'])) {
-      $hierarchy['branch'] = 0;
-    }
-
-    if (empty($hierarchy['sector'])) {
-      $hierarchy['sector'] = 0;
-    }
-
-    if (empty($hierarchy['unit'])) {
-      $hierarchy['unit'] = 0;
-    }
-
-    Hierarchy::create($hierarchy);
 
     // division roles
     if( $account_enable and $inputroles = Input::get('roles') ) {

@@ -49,12 +49,12 @@
 					</form>
 
 					<aside>
-						<b>Categories</b>
+						<b>Divisions</b>
 						<ul>
-						<?php while(categories()): ?>
+						<?php while(divisions()): ?>
 							<li>
-								<a href="<?php echo category_url(); ?>" title="<?php echo category_description(); ?>">
-									<?php echo category_title(); ?> <span><?php echo category_count(); ?></span>
+								<a href="<?php echo division_url(); ?>" title="<?php echo division_description(); ?>">
+									<?php echo division_title(); ?> <span><?php echo division_count(); ?></span>
 								</a>
 							</li>
 						<?php endwhile; ?>
@@ -78,7 +78,7 @@
 						<?php endwhile; ?>
 
 						<li class="tray">
-							<a href="#tray" class="linky"><img src="<?php echo theme_url('img/categories.png'); ?>" alt="Categories" title="View my posts by category"></a>
+							<a href="#tray" class="linky"><img src="<?php echo theme_url('img/categories.png'); ?>" alt="Categories" title="View my posts by division"></a>
 						</li>
 					</ul>
 				</nav>

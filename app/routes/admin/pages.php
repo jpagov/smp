@@ -75,9 +75,6 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 		$input = Input::get(array('parent', 'name', 'title', 'slug', 'content', 'status', 'redirect', 'show_in_menu'));
 
 		// if there is no slug try and create one from the title
-		if(empty($input['slug'])) {
-			$input['slug'] = $input['title'];
-		}
 
 		// convert to ascii
 		$input['slug'] = slug($input['slug']);
@@ -87,16 +84,20 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 
 		$validator = new Validator($input);
 
-		$validator->add('duplicate', function($str) use($id) {
-			return Page::where('slug', '=', $str)->where('id', '<>', $id)->count() == 0;
+		$validator->add('staff_duplicate', function($str) use($id) {
+			return Staff::where('slug', '=', $str)->where('id', '<>', $id)->count() == 0;
 		});
+
+    $validator->add('page_duplicate', function($str) use($id) {
+      return Page::where('slug', '=', $str)->where('id', '<>', $id)->count() == 0;
+    });
 
 		$validator->check('title')
 			->is_max(3, __('pages.title_missing'));
 
 		$validator->check('slug')
-			->is_max(3, __('pages.slug_missing'))
-			->is_duplicate(__('pages.slug_duplicate'))
+      ->is_page_duplicate(__('pages.slug_duplicate'))
+			->is_staff_duplicate(__('pages.slug_duplicate'))
 			->not_regex('#^[0-9_-]+$#', __('pages.slug_invalid'));
 
 		if($input['redirect']) {
@@ -107,7 +108,7 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 		if($errors = $validator->errors()) {
 			Input::flash();
 
-			Notify::error($errors);
+			Notify::danger($errors);
 
 			return Response::redirect('admin/pages/edit/' . $id);
 		}
@@ -158,9 +159,6 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 			'status', 'redirect', 'show_in_menu'));
 
 		// if there is no slug try and create one from the title
-		if(empty($input['slug'])) {
-			$input['slug'] = $input['title'];
-		}
 
 		// convert to ascii
 		$input['slug'] = slug($input['slug']);
@@ -170,16 +168,20 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 
 		$validator = new Validator($input);
 
-		$validator->add('duplicate', function($str) {
-			return Page::where('slug', '=', $str)->count() == 0;
+		$validator->add('staff_duplicate', function($str) {
+			return Staff::where('slug', '=', $str)->count() == 0;
 		});
+
+    $validator->add('page_duplicate', function($str) {
+      return Page::where('slug', '=', $str)->count() == 0;
+    });
 
 		$validator->check('title')
 			->is_max(3, __('pages.title_missing'));
 
 		$validator->check('slug')
-			->is_max(3, __('pages.slug_missing'))
-			->is_duplicate(__('pages.slug_duplicate'))
+			->is_staff_duplicate(__('pages.slug_duplicate'))
+      ->is_page_duplicate(__('pages.slug_duplicate'))
 			->not_regex('#^[0-9_-]+$#', __('pages.slug_invalid'));
 
 		if($input['redirect']) {
@@ -190,7 +192,7 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 		if($errors = $validator->errors()) {
 			Input::flash();
 
-			Notify::error($errors);
+			Notify::danger($errors);
 
 			return Response::redirect('admin/pages/add');
 		}

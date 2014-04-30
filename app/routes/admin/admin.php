@@ -34,7 +34,7 @@ Route::action('csrf', function() {
  */
 Route::get('admin', function() {
 	if(Auth::guest()) return Response::redirect('admin/login');
-	return Response::redirect('admin/posts');
+	return Response::redirect('admin/staffs');
 });
 
 /*
