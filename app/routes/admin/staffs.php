@@ -131,6 +131,8 @@ Route::collection(array('before' => 'auth,csrf'), function() {
       'account'
     ));
 
+
+
     $account_enable = false;
 		$password_reset = false;
 
@@ -144,15 +146,19 @@ Route::collection(array('before' => 'auth,csrf'), function() {
       $account_enable = true;
       $input['role'] = Input::get('role');
     } else {
-      unset($input['username']);
-      unset($input['password']);
       $input['role'] = 'staff';
     }
 
-		if($password = Input::get('password')) {
-			$input['password'] = $password;
-			$password_reset = true;
-		}
+    if ($account_enable) {
+      if($username = Input::get('username')) {
+        $input['username'] = $username;
+      }
+
+      if($password = Input::get('password')) {
+        $input['password'] = $password;
+        $password_reset = true;
+      }
+    }
 
 		$validator = new Validator($input);
 
@@ -321,8 +327,6 @@ Route::collection(array('before' => 'auth,csrf'), function() {
       $account_enable = true;
     } else {
       $input['account'] = 0;
-      unset($input['username']);
-      unset($input['password']);
       unset($input['role']);
     }
 
@@ -330,9 +334,15 @@ Route::collection(array('before' => 'auth,csrf'), function() {
       $input['role'] = $role;
     }
 
-    if($password = Input::get('password')) {
-      $input['password'] = $password;
-      $password_reset = true;
+    if ($account_enable) {
+      if($username = Input::get('username')) {
+        $input['username'] = $username;
+      }
+
+      if($password = Input::get('password')) {
+        $input['password'] = $password;
+        $password_reset = true;
+      }
     }
 
 		$validator = new Validator($input);
