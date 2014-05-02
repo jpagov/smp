@@ -10,7 +10,9 @@ class Auth {
 
 	public static function user() {
 		if($id = Session::get(static::$session)) {
-			return Staff::find($id);
+      $staff = Staff::find($id);
+      $staff->roles = Role::staff($id);
+			return $staff;
 		}
 	}
 

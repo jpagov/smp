@@ -15,7 +15,7 @@ class Division extends Base {
 	}
 
 	public static function slug($slug) {
-		return static::where('slug', 'like', $slug)->fetch();
+		return static::where('slug', '=', $slug)->fetch();
 	}
 
 	public static function paginate($page = 1, $perpage = 10) {
@@ -27,5 +27,12 @@ class Division extends Base {
 
 		return new Paginator($results, $count, $page, $perpage, Uri::to('admin/divisions'));
 	}
+
+  public static function counter() {
+    foreach (static::get() as $division) {
+      $total = Staff::where('division', '=', $division->id)->count();
+      Division::update($division->id, array('staff' => $total));
+    }
+  }
 
 }

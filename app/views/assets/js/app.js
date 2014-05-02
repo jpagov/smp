@@ -29,7 +29,13 @@ var SMP = {
 
     staffs: function() {
 
-      console.log('Admin::Staff');
+      //console.log('Admin::Staff');
+
+      $( "#first_name, #last_name" ).keyup(function(e) {
+        var input = $('#first_name').val() + ' ' + $('#last_name').val();
+        console.log( input);
+        $('#display_name').prop('value', input);
+      });
 
       $('#account').on('click', function () {
         var disabled = ($(this).is(":checked")) ? false : true;
@@ -42,11 +48,74 @@ var SMP = {
         $('#division-role input').prop('checked', checked);
       });
 
+      // branch
+      var branchs = new Bloodhound({
+        datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
+        queryTokenizer: Bloodhound.tokenizers.whitespace,
+        limit: 10,
+        prefetch: {
+          url: '/smp/admin/api/branch.json',
+          filter: function(list) {
+            return $.map(list, function(country) { return { name: country }; });
+          }
+        }
+      });
+
+      branchs.initialize();
+
+      $('#branch-prefetch .typeahead').typeahead(null, {
+        name: 'branchs',
+        displayKey: 'name',
+        source: branchs.ttAdapter()
+      });
+
+      // sector
+      var sectors = new Bloodhound({
+        datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
+        queryTokenizer: Bloodhound.tokenizers.whitespace,
+        limit: 10,
+        prefetch: {
+          url: '/smp/admin/api/sector.json',
+          filter: function(list) {
+            return $.map(list, function(country) { return { name: country }; });
+          }
+        }
+      });
+
+      sectors.initialize();
+
+      $('#sector-prefetch .typeahead').typeahead(null, {
+        name: 'sectors',
+        displayKey: 'name',
+        source: sectors.ttAdapter()
+      });
+
+      // unit
+      var units = new Bloodhound({
+        datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
+        queryTokenizer: Bloodhound.tokenizers.whitespace,
+        limit: 10,
+        prefetch: {
+          url: '/smp/admin/api/unit.json',
+          filter: function(list) {
+            return $.map(list, function(country) { return { name: country }; });
+          }
+        }
+      });
+
+      units.initialize();
+
+      $('#unit-prefetch .typeahead').typeahead(null, {
+        name: 'units',
+        displayKey: 'name',
+        source: units.ttAdapter()
+      });
+
     },
 
     users: function() {
       SMP.admin.staffs();
-      console.log('Admin::Users');
+      //console.log('Admin::Users');
     },
   }
 };

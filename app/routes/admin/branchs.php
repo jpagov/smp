@@ -52,10 +52,8 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 		$input = Input::get(array('title', 'slug', 'description'));
 
 		if(empty($input['slug'])) {
-			$input['slug'] = acronym($input['title']);
+			$input['slug'] = slug($input['title']);
 		}
-
-		$input['slug'] = slug($input['slug']);
 
 		$validator = new Validator($input);
 
@@ -101,10 +99,8 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 		$input = Input::get(array('title', 'slug', 'description'));
 
 		if(empty($input['slug'])) {
-			$input['slug'] = acronym($input['title']);
+			$input['slug'] = slug($input['title']);
 		}
-
-		$input['slug'] = slug($input['slug']);
 
 		$validator = new Validator($input);
 

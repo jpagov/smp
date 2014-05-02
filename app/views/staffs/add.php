@@ -168,25 +168,22 @@
 
               <div class="form-group">
                 <label class="col-sm-2 control-label" for="branch"><?php echo __('staff.branch'); ?></label>
-                <div class="col-sm-10">
-                  <?php echo Form::select('branch', $branchs, Input::previous('branch'), array('class' => 'form-control', 'id' => 'branch',
-                  )); ?>
+                <div class="col-sm-8" id="branch-prefetch">
+                  <?php echo Form::text('branch', Input::previous('branch'), array('class' => 'form-control typeahead col-sm-12', 'id' => 'branch')); ?>
                 </div>
               </div>
 
               <div class="form-group">
                 <label class="col-sm-2 control-label" for="sector"><?php echo __('staff.sector'); ?></label>
-                <div class="col-sm-6">
-                  <?php echo Form::select('sector', $sectors, Input::previous('sector'), array('class' => 'form-control', 'id' => 'sector',
-                  )); ?>
+                <div class="col-sm-8" id="sector-prefetch">
+                  <?php echo Form::text('sector', Input::previous('sector'), array('class' => 'form-control typeahead', 'id' => 'sector')); ?>
                 </div>
               </div>
 
               <div class="form-group">
                 <label class="col-sm-2 control-label" for="unit"><?php echo __('staff.unit'); ?></label>
-                <div class="col-sm-6">
-                  <?php echo Form::select('unit', $units, Input::previous('unit'), array('class' => 'form-control', 'id' => 'unit',
-                  )); ?>
+                <div class="col-sm-8" id="unit-prefetch">
+                  <?php echo Form::text('unit', Input::previous('unit'), array('class' => 'form-control typeahead', 'id' => 'unit')); ?>
                 </div>
               </div>
 

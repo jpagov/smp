@@ -6,6 +6,7 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 		List staffs
 	*/
 	Route::get(array('admin/staffs', 'admin/staffs/(:num)'), function($page = 1) {
+
 		$vars['messages'] = Notify::read();
 		$vars['staffs'] = Staff::paginate($page, Config::get('meta.posts_per_page'));
 		$vars['status'] = 'all';
@@ -50,6 +51,18 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 		$vars['staff'] = Staff::find($id);
     $vars['fields'] = Extend::fields('staff', $id);
     $division_roles = array();
+
+    if ($branch = Branch::find($vars['staff']->branch)) {
+      $vars['staff']->branch = $branch->title;
+    }
+
+    if ($sector = Sector::find($vars['staff']->sector)) {
+      $vars['staff']->sector = $sector->title;
+    }
+
+    if ($unit = Unit::find($vars['staff']->unit)) {
+      $vars['staff']->unit = $unit->title;
+    }
 
     // get current staff division role
     if ($staff_roles = Role::where('staff', '=', $id)->get(array('division'))) {
@@ -106,29 +119,26 @@ Route::collection(array('before' => 'auth,csrf'), function() {
       'email',
       'telephone',
       'status',
+      'slug',
 
       'scheme',
       'grade',
       'job_title',
       'position',
       'description',
-
       'division',
-      'branch',
-      'sector',
-      'unit',
 
       'account'
     ));
 
-    $hierarchy = array(
-      'branch' => $input['branch'],
-      'sector' => $input['sector'],
-      'unit' => $input['unit'],
-    );
-
     $account_enable = false;
 		$password_reset = false;
+
+    if(empty($input['slug'])) {
+      $input['slug'] = $input['display_name'];
+    }
+
+    $input['slug'] = slug($input['slug']);
 
     if ($input['account']) {
       $account_enable = true;
@@ -147,7 +157,7 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 		$validator = new Validator($input);
 
 		$validator->add('safe', function($str) use($id) {
-			return ($str != 'inactive' and Auth::staff()->id == $id);
+			return ($str != 'inactive' and Auth::user()->id == $id);
 		});
 
     $validator->check('email')
@@ -178,6 +188,27 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 			$input['password'] = Hash::make($input['password']);
 		}
 
+    $hierarchy = array(
+      'branch' => 0,
+      'sector' => 0,
+      'unit' => 0,
+    );
+
+    if ($branch = Input::get('branch')) {
+      $input['branch'] = Branch::id($branch);
+      $hierarchy['branch'] = $input['branch'];
+    }
+
+    if ($sector = Input::get('sector')) {
+      $input['sector'] = Sector::id($sector);
+      $hierarchy['sector'] = $input['sector'];
+    }
+
+    if ($unit = Input::get('unit')) {
+      $input['unit'] = Unit::id($unit);
+      $hierarchy['unit'] = $input['unit'];
+    }
+
 		Staff::update($id, $input);
 
     Extend::process('staff', $id);
@@ -187,11 +218,14 @@ Route::collection(array('before' => 'auth,csrf'), function() {
       $hierarchy['division'] = $division;
 
       // hierarchy
-      if ($exist = Hierarchy::where('division', '=', $division)->fetch()) {
+      if ($exist = Hierarchy::where('staff', '=', $id)->fetch()) {
         Hierarchy::update($exist->id, $hierarchy);
       } else {
         Hierarchy::create($hierarchy);
       }
+
+      Division::counter();
+
     }
 
     // division roles
@@ -274,12 +308,11 @@ Route::collection(array('before' => 'auth,csrf'), function() {
       'account'
     ));
 
+    if(empty($input['slug'])) {
+      $input['slug'] = $input['display_name'];
+    }
 
-    $hierarchy = array(
-      'branch' => $input['branch'],
-      'sector' => $input['sector'],
-      'unit' => $input['unit'],
-    );
+    $input['slug'] = slug($input['slug']);
 
     $account_enable = false;
     $password_reset = false;
@@ -330,6 +363,27 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 			return Response::redirect('admin/staffs/add');
 		}
 
+    $hierarchy = array(
+      'branch' => 0,
+      'sector' => 0,
+      'unit' => 0,
+    );
+
+    if ($branch = Input::get('branch')) {
+      $input['branch'] = Branch::id($branch);
+      $hierarchy['branch'] = $input['branch'];
+    }
+
+    if ($sector = Input::get('sector')) {
+      $input['sector'] = Sector::id($sector);
+      $hierarchy['sector'] = $input['sector'];
+    }
+
+    if ($unit = Input::get('unit')) {
+      $input['unit'] = Unit::id($unit);
+      $hierarchy['unit'] = $input['unit'];
+    }
+
     $input['created'] = Date::mysql('now');
 
     $staff = Staff::create($input);
@@ -337,8 +391,11 @@ Route::collection(array('before' => 'auth,csrf'), function() {
     Extend::process('staff', $staff->id);
 
     if ($division = $input['division']) {
+      $hierarchy['staff'] = $staff->id;
       $hierarchy['division'] = $division;
       Hierarchy::create($hierarchy);
+
+      Division::counter();
     }
 
     // division roles
@@ -363,7 +420,7 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 		Delete staff
 	*/
 	Route::get('admin/staffs/delete/(:num)', function($id) {
-		$self = Auth::staff();
+		$self = Auth::user();
 
 		if($self->id == $id) {
 			Notify::warning(__('staff.delete_error'));

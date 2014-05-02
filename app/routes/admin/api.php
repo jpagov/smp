@@ -1,81 +1,29 @@
 <?php
 
-Route::collection(array('before' => 'auth,csrf'), function() {
-
+Route::collection(array('before' => 'auth'), function() {
   /*
-    Branchs Admin JSON API
+    Admin JSON API
   */
-  Route::get(array('admin/api/branchs', 'admin/api/branchs/(:num)'), function($division = null) {
+  Route::get('admin/api/(:any)', function($hierarchy) {
 
-    $lists = array();
+    $dataset = pathinfo($hierarchy);
+    $format = isset($dataset['extension']) ? $dataset['extension'] : 'json';
+    $slug = $dataset['filename'];
 
-    if ($branchs = Hierarchy::branch($division)) {
-      foreach ($branchs as $branch) {
-        if ($branch->title) {
-          $lists[] = $branch->title;
-        }
-      }
+    if (! $hierarchies = $slug::get()) {
+      return Response::error(404);
     }
 
-    $json = Json::encode(array(
-      'branchs' => $lists
-      ));
+    $api = array();
 
-    return Response::create($json, 200, array('content-type' => 'application/json'));
-  });
-
-  /*
-    Sectors Admin JSON API
-  */
-  Route::get(array(
-    'admin/api/sectors',
-    'admin/api/sectors/(:num)',
-    'admin/api/sectors/(:num)/(:num)',),
-  function($branch = null, $division = null) {
-
-    $lists = array();
-
-    if ($sectors = Hierarchy::sector($division, $branch)) {
-      foreach ($sectors as $sector) {
-        if ($sector->title) {
-          $lists[] = $sector->title;
-        }
-      }
+    foreach ($hierarchies as $item) {
+      $api[] = $item->title;
     }
 
-    $json = Json::encode(array(
-      'sectors' => $lists
-      ));
+    $json = Json::encode($api);
 
-    return Response::create($json, 200, array('content-type' => 'application/json'));
+    return Response::create($json, 200, array('content-type' => 'application/' . $format));
+
   });
-
-  /*
-    Units Admin JSON API
-  */
-  Route::get(array(
-    'admin/api/units',
-    'admin/api/units/(:num)',
-    'admin/api/units/(:num)/(:num)',
-    'admin/api/units/(:num)/(:num)/(:num)',),
-  function($sector = null, $branch = null, $division = null) {
-
-    $lists = array();
-
-    if ($units = Hierarchy::unit($division, $branch, $sector)) {
-      foreach ($units as $unit) {
-        if ($unit->title) {
-          $lists[] = $unit->title;
-        }
-      }
-    }
-
-    $json = Json::encode(array(
-      'units' => $lists
-      ));
-
-    return Response::create($json, 200, array('content-type' => 'application/json'));
-  });
-
 
 });

@@ -40,6 +40,12 @@ return array(
 	'real_name' => 'Real Name',
 	'real_name_explain' => '',
 
+  'slug' => 'Slug',
+  'slug_explain' => 'Slug uri to identify your staff, should only contain ascii characters',
+  'slug_missing' => 'Please enter a slug uri, slugs can only contain ascii characters',
+  'slug_duplicate' => 'Slug already exists',
+  'slug_invalid' => 'Slug must contain letters',
+
   'avatar' => 'Avatar',
   'avatar_explain' => 'Click on image to upload file',
 

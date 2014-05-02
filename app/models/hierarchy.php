@@ -35,15 +35,15 @@ class Hierarchy extends Base {
   }
 
   public static function branch($division = null) {
-    return self::division('branchs', $division);
+    return static::division('branchs', $division);
   }
 
   public static function sector($division = null, $branch = null) {
-    return self::division('sectors', $division, $branch);
+    return static::division('sectors', $division, $branch);
   }
 
   public static function unit($division = null, $branch = null, $sector = null) {
-    return self::division('units', $division, $branch, $sector);
+    return static::division('units', $division, $branch, $sector);
   }
 
   public static function paginate($page = 1, $perpage = 10, $uri = null) {

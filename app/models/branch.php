@@ -18,6 +18,16 @@ class Branch extends Base {
 		return static::where('slug', 'like', $slug)->fetch();
 	}
 
+  public static function id($name) {
+
+    if ( !$branch = static::where('title', 'like', $name)->fetch()) {
+      $input = array('title' => $name, 'slug' => slug($name));
+      $branch = static::create($input);
+      return $branch->id;
+    }
+    return $branch->id;
+  }
+
   public static function search($params = array()) {
     $query = Query::table(static::table());
 

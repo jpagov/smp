@@ -6,6 +6,7 @@ class Staff extends Base {
 
   // default get all field excerpt username and password
   public static function fields($field = array(
+    'id',
     'slug',
     'salutation',
     'first_name',
@@ -43,18 +44,12 @@ class Staff extends Base {
   public static function slug($slug) {
     return static::get('slug', $slug);
   }
-  /*
+
   private static function get($row, $val) {
-    return static::left_join(Base::table('divisions'), Base::table('divisions.id'), '=', Base::table('staffs.division'))
-      ->left_join(Base::table('branchs'), Base::table('branchs.id'), '=', Base::table('staffs.branch'))
-      ->where(Base::table('staffs.'.$row), '=', $val)
-      ->fetch(array(static::fields(),
-        Base::table('divisions.slug as division_slug'),
-        Base::table('divisions.title as division_title'),
-        Base::table('branchs.title as branch_slug'),
-        Base::table('branchs.title as branch_title')));
+    return static::where($row, '=', $val)
+      ->fetch(array(static::fields()));
   }
-  */
+
   public static function listing($page = 1, $per_page = 10, $hierarchy = null) {
 
     $query = static::where(Base::table('staffs.status'), '=', 'active');
