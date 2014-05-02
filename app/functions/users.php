@@ -23,6 +23,10 @@ function user_authed_role() {
 	if($user = Auth::user()) return $user->role;
 }
 
+function user_authed_division_role() {
+  if($user = Auth::user()) return $user->roles;
+}
+
 function user_authed_real_name() {
-	if($user = Auth::user()) return $user->real_name;
+	if($user = Auth::user()) return $user->display_name;
 }

@@ -77,12 +77,6 @@ class App {
     Registry::set('staffs_page', Page::staff());
 
 		if( ! is_admin()) {
-			// register categories
-			foreach(Category::get() as $itm) {
-				$categories[$itm->id] = $itm;
-			}
-
-			Registry::set('all_categories', $categories);
 
       // register divisions
       foreach(Division::get() as $itm) {

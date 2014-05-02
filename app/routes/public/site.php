@@ -133,7 +133,10 @@ Route::get('(:num)', function($id) use($staffs_page) {
 	return Response::redirect($staff->data['slug']);
 });
 
-Route::get('(:all)', function($uri) use($staffs_page) {
+/**
+ * View article
+ */
+Route::get('(:any)', function($uri) use($staffs_page) {
 
   // find if slug is staff
   if( $staff = Staff::slug(basename($uri)) ) {
@@ -250,7 +253,7 @@ Route::get('feeds/json', function() {
 /**
  * Search
  */
-Route::get(array('search', 'search/(:any)', 'search/(:any)/(:num)'), function($slug = '', $offset = 1) {
+Route::get(array('search', 'search/(:any)', 'search/(:any)/(:num)'), function($term = '', $offset = 1) {
 	// mock search page
 	$page = new Page;
 	$page->id = 0;
@@ -258,8 +261,10 @@ Route::get(array('search', 'search/(:any)', 'search/(:any)/(:num)'), function($s
 	$page->slug = 'search';
 
 	// get search term
-	$term = filter_var($slug, FILTER_SANITIZE_STRING);
-	Session::put(slug($term), $term);
+	//$term = filter_var($term, FILTER_SANITIZE_STRING);
+  $term = htmlspecialchars($term);
+
+	Session::put($term, $term);
 	//$term = Session::get($slug); //this was for POST only searches
 
 	// revert double-dashes back to spaces
@@ -283,19 +288,16 @@ Route::get(array('search', 'search/(:any)', 'search/(:any)/(:num)'), function($s
 
 Route::post('search', function() {
 	// search and save search ID
-	$term = filter_var(Input::get('term', ''), FILTER_SANITIZE_STRING);
+	//$term = filter_var(Input::get('term', ''), FILTER_SANITIZE_STRING);
+  $term = htmlspecialchars(Input::get('term', ''));
 
 	// replace spaces with double-dash to pass through url
 	$term = str_replace(' ', '--', $term);
 
-	Session::put(slug($term), $term);
+	Session::put($term, $term);
 
-	return Response::redirect('search/' . slug($term));
+	return Response::redirect('search/' . $term);
 });
-
-/**
- * View pages
- */
 
 
 

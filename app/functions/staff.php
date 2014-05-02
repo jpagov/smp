@@ -115,19 +115,19 @@ function staff_division() {
 	}
 }
 
-function staff_category_slug() {
-	if($category = Registry::prop('staff', 'category')) {
-		$categories = Registry::get('all_categories');
+function staff_division_slug() {
+	if($division = Registry::prop('staff', 'division')) {
+		$divisions = Registry::get('all_divisions');
 
-		return $categories[$category]->slug;
+		return $divisions[$division]->slug;
 	}
 }
 
-function staff_category_url() {
-	if($category = Registry::prop('staff', 'category')) {
-		$categories = Registry::get('all_categories');
+function staff_division_url() {
+	if($division = Registry::prop('staff', 'division')) {
+		$divisions = Registry::get('all_divisions');
 
-		return base_url('category/' . $categories[$category]->slug);
+		return base_url('division/' . $divisions[$division]->slug);
 	}
 }
 

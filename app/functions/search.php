@@ -1,25 +1,25 @@
 <?php
 
 /**
-	Theme functions for search
+*	Theme functions for search
 */
 function has_search_results() {
-	return Registry::get('total_posts', 0) > 0;
+	return Registry::get('total_staffs', 0) > 0;
 }
 
 function total_search_results() {
-	return Registry::get('total_posts', 0);
+	return Registry::get('total_staffs', 0);
 }
 
 function search_results() {
-	$posts = Registry::get('search_results');
+	$staffs = Registry::get('search_results');
 
-	if($result = $posts->valid()) {
-		// register single post
-		Registry::set('article', $posts->current());
+	if($result = $staffs->valid()) {
+		// register single staff
+		Registry::set('staff', $staffs->current());
 
 		// move to next
-		$posts->next();
+		$staffs->next();
 	}
 
 	return $result;
@@ -30,15 +30,15 @@ function search_term() {
 }
 
 function has_search_pagination() {
-	return Registry::get('total_posts') > Config::meta('posts_per_page');
+	return Registry::get('total_staffs') > Config::meta('staffs_per_page');
 }
 
 function search_next($text = 'Next', $default = '') {
-	$per_page = Config::meta('posts_per_page');
+	$per_page = Config::meta('staffs_per_page');
 	$page = Registry::get('page_offset');
 
 	$offset = ($page - 1) * $per_page;
-	$total = Registry::get('total_posts');
+	$total = Registry::get('total_staffs');
 
 	$pages = floor($total / $per_page);
 
@@ -57,11 +57,11 @@ function search_next($text = 'Next', $default = '') {
 }
 
 function search_prev($text = 'Previous', $default = '') {
-	$per_page = Config::get('meta.posts_per_page');
+	$per_page = Config::get('meta.staffs_per_page');
 	$page = Registry::get('page_offset');
 
 	$offset = ($page - 1) * $per_page;
-	$total = Registry::get('total_posts');
+	$total = Registry::get('total_staffs');
 
 	$pages = ceil($total / $per_page);
 

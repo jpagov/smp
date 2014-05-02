@@ -60,11 +60,6 @@ function body_class() {
     $classes[] = 'staffs';
   }
 
-	//  Is it a posts page?
-	if(is_postspage()) {
-		$classes[] = 'posts';
-	}
-
 	//  Is it the homepage?
 	if(is_homepage()) {
 		$classes[] = 'home';
@@ -78,16 +73,8 @@ function is_homepage() {
 	return Registry::prop('page', 'id') == Config::meta('home_page');
 }
 
-function is_postspage() {
-	return Registry::prop('page', 'id') == Config::meta('posts_page');
-}
-
 function is_staffpage() {
   return Registry::prop('page', 'id') == Config::meta('staffs_page');
-}
-
-function is_article() {
-	return Registry::get('article') !== null;
 }
 
 function is_staff() {

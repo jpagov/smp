@@ -5,10 +5,10 @@
 <?php if(has_search_results()): ?>
 	<ul class="items">
 		<?php $i = 0; while(search_results()): $i++; ?>
-		<li style="background: hsl(215,28%,<?php echo round((($i / posts_per_page()) * 20) + 20); ?>%);">
+		<li style="background: hsl(215,28%,<?php echo round((($i / staffs_per_page()) * 20) + 20); ?>%);">
 			<article class="wrap">
 				<h2>
-					<a href="<?php echo article_url(); ?>" title="<?php echo article_title(); ?>"><?php echo article_title(); ?></a>
+					<a href="<?php echo staff_url(); ?>" title="<?php echo staff_name(); ?>"><?php echo staff_name(); ?></a>
 				</h2>
 			</article>
 		</li>

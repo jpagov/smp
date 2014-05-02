@@ -12,11 +12,11 @@
 					</h1>
 
 					<div class="content">
-						<?php echo article_markdown(); ?>
+						<?php echo staff_markdown(); ?>
 					</div>
 
 					<footer>
-						Posted <time datetime="<?php echo date(DATE_W3C, staff_time()); ?>"><?php echo relative_time(staff_time()); ?></time> by <?php echo article_author('real_name'); ?>.
+						Posted <time datetime="<?php echo date(DATE_W3C, staff_time()); ?>"><?php echo relative_time(staff_time()); ?></time> by <?php echo staff_author('real_name'); ?>.
 					</footer>
 				</article>
 			</li>
