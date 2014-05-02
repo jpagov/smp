@@ -136,7 +136,7 @@ class Extend extends Base {
 		return $files;
 	}
 
-	public static function upload($file, $avatar = false) {
+	public static function upload($file, $avatar = null) {
 		$storage = PATH . 'content' . DS;
 
     if ($avatar) {
@@ -148,7 +148,13 @@ class Extend extends Base {
 		$ext = pathinfo($file['name'], PATHINFO_EXTENSION);
 
 		// Added rtrim to remove file extension before adding again
-		$filename = slug(rtrim($file['name'], '.' . $ext)) . '.' . $ext;
+
+    if ($avatar) {
+      $filename = hash('md5', $avatar) . '.' . $ext;
+    } else {
+      $filename = slug(rtrim($file['name'], '.' . $ext)) . '.' . $ext;
+    }
+
 		$filepath = $storage . $filename;
 
 		if(move_uploaded_file($file['tmp_name'], $filepath)) {
@@ -165,7 +171,7 @@ class Extend extends Base {
 			$name = basename($file['name']);
 			$ext = pathinfo($file['name'], PATHINFO_EXTENSION);
 
-      $avatar = ($extend->key == 'avatar') ? true : false;
+      $avatar = ($extend->key == 'avatar') ? $extend->email : null;
 
 			if($filepath = static::upload($file, $avatar)) {
 				$filename = basename($filepath);
@@ -223,8 +229,13 @@ class Extend extends Base {
 		Save
 	*/
 
-	public static function process($type, $item) {
+	public static function process($type, $item, $email = null) {
 		foreach(static::fields($type, $item) as $extend) {
+
+      if ($email) {
+        $extend->email = $email;
+      }
+
 			if($extend->attributes) {
 				$extend->attributes = Json::decode($extend->attributes);
 			}
