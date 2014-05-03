@@ -56,7 +56,7 @@ var SMP = {
         prefetch: {
           url: '/smp/admin/api/branch.json',
           filter: function(list) {
-            return $.map(list, function(country) { return { name: country }; });
+            return $.map(list, function(item) { return { name: item }; });
           }
         }
       });
@@ -77,7 +77,7 @@ var SMP = {
         prefetch: {
           url: '/smp/admin/api/sector.json',
           filter: function(list) {
-            return $.map(list, function(country) { return { name: country }; });
+            return $.map(list, function(item) { return { name: item }; });
           }
         }
       });
@@ -98,7 +98,7 @@ var SMP = {
         prefetch: {
           url: '/smp/admin/api/unit.json',
           filter: function(list) {
-            return $.map(list, function(country) { return { name: country }; });
+            return $.map(list, function(item) { return { name: item }; });
           }
         }
       });
