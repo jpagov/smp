@@ -86,3 +86,7 @@ function search_url() {
 function search_form_input($extra = '') {
 	return '<input name="term" type="text" ' . $extra . ' value="' . search_term() . '">';
 }
+
+function search_form_notifications() {
+  return Notify::read();
+}

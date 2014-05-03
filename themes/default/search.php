@@ -1,5 +1,7 @@
 <?php theme_include('header'); ?>
 
+<?php echo search_form_notifications(); ?>
+
 <h1 class="wrap">You searched for &ldquo;<?php echo search_term(); ?>&rdquo;.</h1>
 
 <?php if(has_search_results()): ?>
@@ -25,7 +27,7 @@
 	<?php endif; ?>
 
 <?php else: ?>
-	<p class="wrap">Unfortunately, there's no results for &ldquo;<?php echo search_term(); ?>&rdquo;. Did you spell everything correctly?</p>
+	<p class="wrap"><?php echo __('site.search_noresult', search_term()); ?></p>
 <?php endif; ?>
 
 <?php theme_include('footer'); ?>

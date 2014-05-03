@@ -7,7 +7,7 @@
 			  </div>
 			  <div class="panel-body">
 			    <?php foreach($profile as $row): ?>
-					<p><code><?php echo $row['sql']; ?></code></p>
+					<pre><code><?php echo $row['sql']; ?></code></pre>
 					<?php endforeach; ?>
 
 					<p><?php echo __('global.profile_memory_usage'); ?>

@@ -262,7 +262,8 @@ Route::get(array('search', 'search/(:any)', 'search/(:any)/(:num)'), function($t
 
 	// get search term
 	//$term = filter_var($term, FILTER_SANITIZE_STRING);
-  $term = htmlspecialchars($term);
+  //$term = htmlspecialchars($term);
+  $term = filter_var(trim($term), FILTER_SANITIZE_SPECIAL_CHARS);
 
 	Session::put($term, $term);
 	//$term = Session::get($slug); //this was for POST only searches
@@ -287,9 +288,32 @@ Route::get(array('search', 'search/(:any)', 'search/(:any)/(:num)'), function($t
 });
 
 Route::post('search', function() {
-	// search and save search ID
-	//$term = filter_var(Input::get('term', ''), FILTER_SANITIZE_STRING);
-  $term = htmlspecialchars(Input::get('term', ''));
+
+  /* advanced
+  $input = filter_var_array(Input::get(array('term', 'division', 'branch')), array(
+    'name' => FILTER_SANITIZE_STRING,
+    'email' => FILTER_SANITIZE_EMAIL,
+    'text' => FILTER_SANITIZE_SPECIAL_CHARS
+  ));
+  */
+  $input = filter_var_array(Input::get(array('term')), array(
+    'term' => FILTER_SANITIZE_SPECIAL_CHARS
+  ));
+
+
+  $validator = new Validator($input);
+
+  $validator->check('term')
+    ->is_max(3, __('site.search_missing', 3));
+
+  if($errors = $validator->errors()) {
+    Input::flash();
+
+    Notify::warning($errors);
+    return Response::redirect('search/');
+  }
+
+	$term = $input['term'];
 
 	// replace spaces with double-dash to pass through url
 	$term = str_replace(' ', '--', $term);

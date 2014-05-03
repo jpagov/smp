@@ -22,9 +22,13 @@ function page_name() {
 }
 
 function page_title($default = '') {
-	if($title = Registry::prop('article', 'title')) {
+	if($title = Registry::prop('staff', 'display_name')) {
 		return $title;
 	}
+
+  if($title = Registry::prop('staff_division', 'title')) {
+    return $title;
+  }
 
 	if($title = Registry::prop('page', 'title')) {
 		return $title;
