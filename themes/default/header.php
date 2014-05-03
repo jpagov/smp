@@ -57,9 +57,9 @@
               <?php endwhile; ?>
             </ul>
           <?php endif; ?>
-          <form class="navbar-form navbar-right" role="search" action="<?php echo search_url(); ?>" method="post" id="search-form">
+          <form class="navbar-form navbar-right" role="search" action="<?php echo search_url(); ?>" method="post" id="search">
             <div class="input-group">
-              <input type="text" class="form-control" id="term" name="term" placeholder="To search, type and hit enter&hellip;" value="<?php echo search_term(); ?>">
+              <input type="text" class="form-control typeahead" id="term" name="term" placeholder="To search, type and hit enter&hellip;" value="<?php echo search_term(); ?>">
               <div class="input-group-btn">
                 <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
               </div>

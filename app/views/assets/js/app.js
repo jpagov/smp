@@ -18,7 +18,24 @@ var SMP = {
   // All pages
   common: {
     init: function() {
-      // JavaScript to be fired on all pages
+
+      var staff = new Bloodhound({
+        datumTokenizer: function(d) { return d.tokens; },
+        queryTokenizer: Bloodhound.tokenizers.whitespace,
+        prefetch: '/smp/api/staff.json'
+      });
+      staff.initialize();
+
+      $('#search .typeahead').typeahead(null, {
+        name: 'staff',
+        source: staff.ttAdapter(),
+        templates: {
+          suggestion: Handlebars.compile([
+            '<p class="repo-language">{{slug}}</p>',
+            '<p class="repo-name">{{position}}</p>'
+          ].join(''))
+        }
+      });
     }
   },
   // Home page
