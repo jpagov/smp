@@ -1,57 +1,67 @@
 <?php echo $header; ?>
 
-<hgroup class="wrap">
-	<h1><?php echo __('pages.pages'); ?></h1>
+<?php echo Html::link('admin/pages/add', __('pages.create_page'), array('class' => 'btn btn-lg btn-primary pull-right')); ?>
 
-	<?php if($pages->count): ?>
-	<nav>
-		<?php echo Html::link('admin/pages/add', __('pages.create_page'), array('class' => 'btn')); ?>
-	</nav>
-	<?php endif; ?>
-</hgroup>
+<h1 class="page-header"><?php echo __('pages.pages'); ?></h1>
 
-<section class="wrap">
-	<?php echo $messages; ?>
+<?php echo $messages; ?>
 
-	<nav class="sidebar statuses">
-		<?php echo Html::link('admin/pages', '<span class="icon"></span> ' . __('global.all'), array(
-			'class' => ($status == 'all') ? 'active' : ''
-		)); ?>
-		<?php foreach(array('published', 'draft', 'archived') as $type): ?>
-		<?php echo Html::link('admin/pages/status/' . $type, '<span class="icon"></span> ' . __('global.' . $type), array(
-			'class' => ($status == $type) ? 'active' : ''
-		)); ?>
-		<?php endforeach; ?>
-	</nav>
+<section class="row">
+  <div class="col col-lg-9">
 
-	<?php if($pages->count): ?>
-	<ul class="main list">
-		<?php foreach($pages->results as $page): ?>
-		<li>
-			<a href="<?php echo Uri::to('admin/pages/edit/' . $page->id); ?>">
-				<strong><?php echo $page->name; ?></strong>
+    <div class="table-responsive">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th><?php echo __('pages.title'); ?></th>
+            <th><?php echo __('pages.slug'); ?></th>
+            <th><?php echo __('pages.status'); ?></th>
+          </tr>
+        </thead>
+        <tbody>
+          <?php if($pages->count): foreach($pages->results as $page): ?>
+            <tr>
+              <td><?php echo $page->id; ?></td>
+              <td><a href="<?php echo Uri::to('admin/pages/edit/' . $page->id); ?>" title="<?php echo __('global.' . $page->status); ?>"><?php echo $page->title; ?></a></td>
+              <td><?php echo $page->slug; ?></td>
+              <td><abbr title="<?php echo Date::format($page->created); ?>"><?php echo __('global.' . $page->status); ?></abbr></td>
+            </tr>
+          <?php endforeach; else: ?>
+          <tr>
+            <td colspan="4" class="text-center"><?php echo __('pages.nopages_desc'); ?></td>
+          </tr><?php endif; ?>
+        </tbody>
+      </table>
 
-				<span>
-					<?php echo $page->slug; ?>
+      <?php if ($pages->links()) : ?>
+        <ul class="pagination"><?php echo $pages->links(); ?></ul>
+      <?php endif; ?>
 
-					<em class="status <?php echo $page->status; ?>" title="<?php echo __('global.' . $page->status); ?>">
-						<?php echo __('global.' . $page->status); ?>
-					</em>
-				</span>
-			</a>
-		</li>
-		<?php endforeach; ?>
-	</ul>
+    </div>
+  </div>
 
-	<aside class="paging"><?php echo $pages->links(); ?></aside>
+  <div class="col col-lg-3">
 
-	<?php else: ?>
-	<aside class="empty pages">
-		<span class="icon"></span>
-		<?php echo __('pages.nopages_desc'); ?><br>
-		<?php echo Html::link('admin/pages/add', __('pages.create_page'), array('class' => 'btn')); ?>
-	</aside>
-	<?php endif; ?>
+    <nav class="list-group sidebar">
+
+      <?php echo Html::link('admin/pages', '<span class="icon"></span> ' . __('global.all'), array(
+        'class' => ($status == 'all') ? 'list-group-item active' : 'list-group-item'
+        )); ?>
+
+      <?php
+      foreach(array('published', 'draft', 'archived') as $type):
+
+        $status_count = Query::table(Base::table('pages'))->where('status', '=', $type)->count();
+      ?>
+      <?php echo Html::link('admin/pages/status/' . $type, '<span class="icon"></span> ' . __('global.' . $type), array(
+        'class' => ($status == $type) ? 'list-group-item active' : 'list-group-item',
+        'badge' => $status_count
+        )); ?>
+      <?php endforeach; ?>
+    </nav>
+
+  </div>
 </section>
 
 <?php echo $footer; ?>

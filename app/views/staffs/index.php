@@ -33,6 +33,13 @@
 					<?php endforeach; ?>
 				</tbody>
 			</table>
+
+      <?php if ($staffs->links()) : ?>
+        <ul class="pagination">
+         <?php echo $staffs->links(); ?>
+       </ul>
+     <?php endif; ?>
+
 		</div>
 	</div>
 

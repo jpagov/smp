@@ -1,5 +1,5 @@
 Theme name:    Default
-Description:   This is the default, shiny theme for Employee Directory.
-Author name:   Visual Idiot
-Author site:   http://visualidiot.com
-License:       http://licence.visualidiot.com
+Description:   Bootstrap Yeti theme for SMP.
+Author name:   Hariadi Hinta
+Author site:   https://sistem.jpa.gov.my
+License:       MIT

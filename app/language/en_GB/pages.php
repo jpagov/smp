@@ -17,7 +17,7 @@ return array(
 	'title_missing' => 'Please enter a page title',
 
 	'content' => 'Content',
-	'content_explain' => 'Your page’s content. Uses Markdown.',
+	'content_explain' => 'Your page’s content. Uses <a href="http://daringfireball.net/projects/markdown/syntax" target="_blank">Markdown syntax</a>.',
 
 	'show_in_menu' => 'Show In Menu',
 	'show_in_menu_explain' => '',

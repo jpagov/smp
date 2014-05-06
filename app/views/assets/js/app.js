@@ -41,7 +41,7 @@ var SMP = {
         datumTokenizer: function(d) { return d.tokens; },
         queryTokenizer: Bloodhound.tokenizers.whitespace,
         limit: 10,
-        prefetch: '/smp/api/dir.json'
+        prefetch: '/smp/api/staff.json'
       });
       staff.initialize();
 
@@ -54,7 +54,7 @@ var SMP = {
             '<p class="staff-name">',
             '<img src="/smp/content/avatar/{{avatar}}" class="img-responsive staff-search pull-left" height="50" width="50">',
             '<strong>{{display_name}}</strong>',
-            '<small>{{position}}</small>',
+            '<small><span class="glyphicon glyphicon-briefcase"></span> {{position}}</small>',
             '<small><span class="glyphicon glyphicon-envelope"></span> {{email}}</small>',
             '<small><span class="glyphicon glyphicon-phone-alt"></span> {{telephone}}</small>',
             '</p>'
