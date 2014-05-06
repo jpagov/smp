@@ -323,5 +323,11 @@ Route::post('search', function() {
 	return Response::redirect('search/' . $term);
 });
 
+/**
+ * Keyboard Shortcut Helper
+ */
+Route::get(array('help/keys', 'help/hotkey'), function() {
+  return new Template('help');
+});
 
 

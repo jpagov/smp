@@ -23,7 +23,7 @@ Route::get('api/(:any)', function() {
 
         case 'image':
           if( ! empty($extend->value->filename)) {
-            $staff->avatar = asset('content/' . ($extend->key == 'avatar' ? 'avatar' : '') . '/' . $extend->value->filename);
+            $staff->avatar = $extend->value->filename;
           }
           break;
       }
@@ -32,8 +32,10 @@ Route::get('api/(:any)', function() {
     // convert to accosiative array
     foreach ($fields as $field) {
       $api[$key][$field] = $staff->$field;
-      $api[$key]['token'][] = $staff->$field;
+      $api[$key]['tokens'][] = $staff->$field;
       $api[$key]['value'] = $staff->slug;
+      $api[$key]['avatar'] = $staff->avatar;
+      $api[$key]['twitter'] = $staff->twitter;
       //$api[$key]['token'] = array($staff->display_name, $staff->email);
     }
   }

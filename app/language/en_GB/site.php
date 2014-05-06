@@ -6,4 +6,6 @@ return array(
 
   'search_noresult' => 'Unfortunately, there\'s no results for &ldquo;%s&rdquo;. Did you spell everything correctly?',
 
+  'keyboard_shortcuts' => 'Keyboard Shortcuts',
+
 );

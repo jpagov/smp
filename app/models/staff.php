@@ -107,7 +107,7 @@ class Staff extends Base {
     return array($total, $staffs);
   }
 
-	public static function search($term, $page = 1, $per_page = 10, $division = null, $branch = null, $sector = null, $unit = null) {
+	public static function search($term, $page = 1, $per_page = 10, $filter = null, $division = null, $branch = null, $sector = null, $unit = null) {
 
     $query = Query::table(static::table());
 
@@ -130,8 +130,13 @@ class Staff extends Base {
     $query = $query->where(Base::table('staffs.status'), '=', 'active')
       ->where(Base::table('staffs.display_name'), 'like', '%' . $term . '%')
       ->or_where(Base::table('staffs.slug'), 'like', '%' . $term . '%')
-      ->or_where(Base::table('staffs.position'), 'like', '%' . $term . '%')
-      ->or_where(Base::table('staffs.description'), 'like', '%' . $term . '%');
+      ->or_where(Base::table('staffs.position'), 'like', '%' . $term . '%');
+
+    if ($filter) {
+      foreach($filter as $value) {
+        $query = $query->where(Base::table('staffs.' . $value), 'like', '%' . $term . '%');
+      }
+    }
 
     $total = $query->count();
 

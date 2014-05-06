@@ -17,26 +17,57 @@
 var SMP = {
   // All pages
   common: {
+    init: function(){
+
+      $(document).keydown(function(e) {
+        //console.log(e.keyCode);
+        if(e.keyCode == 72) {
+          $("#term").focus();
+        }
+        if(e.shiftKey && e.keyCode == 191) {
+          e.preventDefault();
+          $('#helper-modal').load('/smp/help/keys',function(){
+            $(this).modal();
+          }).modal('show');
+        }
+    });
+
+    }
+  },
+  home: {
     init: function() {
 
       var staff = new Bloodhound({
         datumTokenizer: function(d) { return d.tokens; },
         queryTokenizer: Bloodhound.tokenizers.whitespace,
-        prefetch: '/smp/api/staff.json'
+        limit: 10,
+        prefetch: '/smp/api/dir.json'
       });
       staff.initialize();
 
       $('#search .typeahead').typeahead(null, {
         name: 'staff',
+        minLength: 2,
         source: staff.ttAdapter(),
         templates: {
           suggestion: Handlebars.compile([
-            '<p class="repo-language">{{slug}}</p>',
-            '<p class="repo-name">{{position}}</p>'
+            '<p class="staff-name">',
+            '<img src="/smp/content/avatar/{{avatar}}" class="img-responsive staff-search pull-left" height="50" width="50">',
+            '<strong>{{display_name}}</strong>',
+            '<small>{{position}}</small>',
+            '<small><span class="glyphicon glyphicon-envelope"></span> {{email}}</small>',
+            '<small><span class="glyphicon glyphicon-phone-alt"></span> {{telephone}}</small>',
+            '</p>'
           ].join(''))
         }
+      }).on('typeahead:selected', function(e, data) {
+        //$('#search').submit();
+        //window.location.replace('/smp/' + data.slug);
+        // similar behavior as clicking on a link
+        window.location.href = '/smp/' + data.slug;
       });
-    }
+    },
+
   },
   // Home page
   admin: {

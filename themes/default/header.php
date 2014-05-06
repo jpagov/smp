@@ -57,14 +57,13 @@
               <?php endwhile; ?>
             </ul>
           <?php endif; ?>
-          <form class="navbar-form navbar-right" role="search" action="<?php echo search_url(); ?>" method="post" id="search">
-            <div class="input-group">
-              <input type="text" class="form-control typeahead" id="term" name="term" placeholder="To search, type and hit enter&hellip;" value="<?php echo search_term(); ?>">
-              <div class="input-group-btn">
-                <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
-              </div>
+          <div class="col-md-6">
+          <form class="navbar-form" role="search" action="<?php echo search_url(); ?>" method="post" id="search">
+            <div class="input-group col-md-12">
+              <input type="text" class="form-control search-query typeahead" id="term" name="term" placeholder="To search, type and hit enter&hellip;" value="<?php echo search_term(); ?>">
+              <button class="sr-only" type="submit">Submit</button>
             </div>
-          </form>
+          </form></div>
 
         </div><!-- //.navbar-collapse -->
       </div><!-- //.container -->
