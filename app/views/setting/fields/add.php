@@ -7,7 +7,7 @@
 <section class="wrap">
 	<?php echo $messages; ?>
 
-	<form method="post" action="<?php echo Uri::to('admin/extend/fields/add'); ?>" novalidate>
+	<form method="post" action="<?php echo Uri::to('admin/setting/fields/add'); ?>" novalidate>
 
 		<input name="token" type="hidden" value="<?php echo $token; ?>">
 

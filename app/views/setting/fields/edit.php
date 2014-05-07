@@ -7,7 +7,7 @@
 <section class="wrap">
 	<?php echo $messages; ?>
 
-	<form method="post" action="<?php echo Uri::to('admin/extend/fields/edit/' . $field->id); ?>" novalidate>
+	<form method="post" action="<?php echo Uri::to('admin/setting/fields/edit/' . $field->id); ?>" novalidate>
 
 		<input name="token" type="hidden" value="<?php echo $token; ?>">
 
@@ -78,7 +78,7 @@
 		<aside class="buttons">
 			<button class="btn" type="submit"><?php echo __('global.update'); ?></button>
 
-			<a class="btn delete red" href="<?php echo Uri::to('admin/extend/fields/delete/' . $field->id); ?>">
+			<a class="btn delete red" href="<?php echo Uri::to('admin/setting/fields/delete/' . $field->id); ?>">
 				<?php echo __('global.delete'); ?>
 			</a>
 		</aside>

@@ -1,8 +1,8 @@
 <?php echo $header; ?>
 
-<?php echo Html::link('admin/staffs/add', __('staff.create_staff'), array('class' => 'btn btn-lg btn-primary pull-right')); ?>
+<?php echo Html::link('admin/staffs/add', __('staffs.create_staff'), array('class' => 'btn btn-lg btn-primary pull-right')); ?>
 
-<h1 class="page-header"><?php echo __('staff.staff'); ?></h1>
+<h1 class="page-header"><?php echo __('staffs.staff'); ?></h1>
 
 <?php echo $messages; ?>
 
@@ -14,11 +14,11 @@
 				<thead>
 					<tr>
 						<th>ID</th>
-						<th><?php echo __('staff.name'); ?></th>
-						<th><?php echo __('staff.email'); ?></th>
-						<!--th><?php echo __('staff.role'); ?></th-->
-            <th><?php echo __('staff.telephone'); ?></th>
-						<th><?php echo __('staff.status'); ?></th>
+						<th><?php echo __('staffs.name'); ?></th>
+						<th><?php echo __('staffs.email'); ?></th>
+						<!--th><?php echo __('staffs.role'); ?></th-->
+            <th><?php echo __('staffs.telephone'); ?></th>
+						<th><?php echo __('staffs.status'); ?></th>
 					</tr>
 				</thead>
 				<tbody>

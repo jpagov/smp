@@ -46,7 +46,7 @@
 		<?php
 		foreach(array('active', 'inactive') as $type):
 
-			$status_count = Query::table(Base::table('users'))->where('status', '=', $type)->count();
+			$status_count = Query::table(Base::table('staffs'))->where('status', '=', $type)->count();
 		?>
 			<?php echo Html::link('admin/users/status/' . $type, '<span class="icon"></span> ' . __('global.' . $type), array(
 				'class' => ($status == $type) ? 'list-group-item active' : 'list-group-item',

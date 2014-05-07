@@ -22,7 +22,7 @@ Route::collection(array('before' => 'auth,csrf'), function() {
     'admin/users/status/(:any)',
     'admin/users/status/(:any)/(:num)'), function($status, $page = 1) {
 
-    $query = Staff::where('account', '=', '1')
+    $query = User::where('account', '=', '1')
       ->where('status', '=', $status);
 
     $perpage = Config::meta('posts_per_page');

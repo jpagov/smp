@@ -2,7 +2,7 @@
 						<?php if(Auth::user()): ?>
 						<footer class="wrap bottom">
 							<small><?php echo __('global.powered_by_app', VERSION); ?>.</small>
-							<em><?php echo __('global.make_blogging_beautiful'); ?></em>
+							<em><?php echo __('global.site_slogan'); ?></em>
 						</footer>
 						<?php endif; ?>
 

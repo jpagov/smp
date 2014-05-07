@@ -8,6 +8,7 @@
  */
 return array(
 
+  'extend' => 'Extend',
 	// words
 	'back' => 'Back',
 	'save' => 'Save',
@@ -67,7 +68,7 @@ return array(
 	// pharses
 	'visit_your_site' => 'Visit your site',
 	'powered_by_app' => 'Powered by Directory, version %s',
-	'make_blogging_beautiful' => 'Make blogging beautiful.',
+	'site_slogan' => 'Make contact directory beautiful.',
 
 	// intro
 	'welcome_to_app' => 'Welcome to Directory',

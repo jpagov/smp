@@ -3,6 +3,7 @@
 return array(
 
 	'staff' => 'Staff',
+  'staffs' => 'Staff',
 
 	'create_staff' => 'Create a new staff',
 	'add_staff' => 'Add a new staff',

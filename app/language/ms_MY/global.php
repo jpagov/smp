@@ -53,7 +53,7 @@ return array(
 	// pharses
 	'visit_your_site' => 'Guarda il tuo sito',
 	'powered_by_app' => 'Creato con App, version %s',
-	'make_blogging_beautiful' => 'Fai del blog un esperienza bellissima.',
+	'site_slogan' => 'Fai del blog un esperienza bellissima.',
 
 	// intro
 	'welcome_to_app' => 'Benvenuto su App',

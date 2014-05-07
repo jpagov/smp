@@ -206,13 +206,13 @@ Route::get('admin/upgrade', function() {
 });
 
 /*
-	List extend
+	List setting
 */
-Route::get('admin/extend', array('before' => 'auth', 'main' => function($page = 1) {
+Route::get('admin/setting', array('before' => 'auth', 'main' => function($page = 1) {
 	$vars['messages'] = Notify::read();
 	$vars['token'] = Csrf::token();
 
-	return View::create('extend/index', $vars)
+	return View::create('setting/index', $vars)
 		->partial('header', 'partials/header')
 		->partial('footer', 'partials/footer');
 }));

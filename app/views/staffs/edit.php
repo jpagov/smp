@@ -2,7 +2,7 @@
 
 <?php echo Html::link('admin/staffs', __('global.back'), array('class' => 'btn btn-lg btn-default pull-right')); ?>
 
-<h1 class="page-header"><?php echo __('staff.editing_staff', $staff->display_name); ?></h1>
+<h1 class="page-header"><?php echo __('staffs.editing_staff', $staff->display_name); ?></h1>
 
 <?php echo $messages; ?>
 
@@ -60,14 +60,14 @@
                       <label>Remove Avatar:</label>
                       <input type="checkbox" name="extend_remove[avatar]" value="1">
                     <?php endif; ?>
-                    <span class="help-block"><?php echo __('staff.avatar_explain'); ?></span>
+                    <span class="help-block"><?php echo __('staffs.avatar_explain'); ?></span>
                     </div>
                   </div> <!-- /col-md-3 -->
 
                   <div class="col-sm-offset-1 col-md-8 col-md-pull-3">
 
                     <div class="form-group">
-                      <label class="col-sm-2 control-label" for="salutation"><?php echo __('staff.salutation'); ?></label>
+                      <label class="col-sm-2 control-label" for="salutation"><?php echo __('staffs.salutation'); ?></label>
                       <div class="col-sm-6">
                         <?php echo Form::text('salutation', Input::previous('salutation', $staff->salutation), array('class' => 'form-control', 'id' => 'salutation',
                         )); ?>
@@ -75,21 +75,21 @@
                     </div>
 
                     <div class="form-group">
-                      <label class="col-sm-2 control-label" for="first_name"><?php echo __('staff.first_name'); ?></label>
+                      <label class="col-sm-2 control-label" for="first_name"><?php echo __('staffs.first_name'); ?></label>
                       <div class="col-sm-6">
                         <?php echo Form::text('first_name', Input::previous('first_name', $staff->first_name), array('class' => 'form-control', 'id' => 'first_name')); ?>
                       </div>
                     </div>
 
                     <div class="form-group">
-                      <label class="col-sm-2 control-label" for="last_name"><?php echo __('staff.last_name'); ?></label>
+                      <label class="col-sm-2 control-label" for="last_name"><?php echo __('staffs.last_name'); ?></label>
                       <div class="col-sm-6">
                         <?php echo Form::text('last_name', Input::previous('last_name', $staff->last_name), array('class' => 'form-control', 'id' => 'last_name')); ?>
                       </div>
                     </div>
 
                     <div class="form-group">
-                      <label class="col-sm-2 control-label" for="display_name"><?php echo __('staff.display_name'); ?></label>
+                      <label class="col-sm-2 control-label" for="display_name"><?php echo __('staffs.display_name'); ?></label>
                       <div class="col-sm-9">
                         <?php echo Form::text('display_name', Input::previous('display_name', $staff->display_name), array('class' => 'form-control', 'id' => 'display_name',
                         )); ?>
@@ -97,21 +97,21 @@
                     </div>
 
                     <div class="form-group">
-                      <label class="col-sm-2 control-label" for="email"><?php echo __('staff.email'); ?></label>
+                      <label class="col-sm-2 control-label" for="email"><?php echo __('staffs.email'); ?></label>
                       <div class="col-sm-9">
                         <?php echo Form::email('email', Input::previous('email', $staff->email), array('class' => 'form-control', 'id' => 'email')); ?>
                       </div>
                     </div>
 
                     <div class="form-group">
-                      <label class="col-sm-2 control-label" for="telephone"><?php echo __('staff.telephone'); ?></label>
+                      <label class="col-sm-2 control-label" for="telephone"><?php echo __('staffs.telephone'); ?></label>
                       <div class="col-sm-9">
                         <?php echo Form::telephone('telephone', Input::previous('telephone', $staff->telephone), array('class' => 'form-control', 'id' => 'telephone')); ?>
                       </div>
                     </div>
 
                     <div class="form-group">
-                      <label class="col-sm-2 control-label" for="gender"><?php echo __('staff.gender'); ?></label>
+                      <label class="col-sm-2 control-label" for="gender"><?php echo __('staffs.gender'); ?></label>
                       <div class="col-sm-4">
                         <?php echo Form::select('gender', $genders, Input::previous('gender', $staff->gender), array('class' => 'form-control', 'id' => 'gender',
                         )); ?>
@@ -119,7 +119,7 @@
                     </div>
 
                     <div class="form-group">
-                      <label class="col-sm-2 control-label" for="status"><?php echo __('staff.status'); ?></label>
+                      <label class="col-sm-2 control-label" for="status"><?php echo __('staffs.status'); ?></label>
                       <div class="col-sm-4">
                         <?php echo Form::select('status', $statuses, Input::previous('status', $staff->status), array('class' => 'form-control', 'id' => 'status',
                         )); ?>
@@ -136,13 +136,13 @@
               <fieldset>
                 <legend>Position</legend>
                 <div class="form-group">
-                  <label class="col-sm-2 control-label" for="scheme"><?php echo __('staff.scheme'); ?></label>
+                  <label class="col-sm-2 control-label" for="scheme"><?php echo __('staffs.scheme'); ?></label>
                   <div class="col-sm-4">
                     <?php echo Form::select('scheme', $schemes, Input::previous('scheme', $staff->scheme), array('class' => 'form-control', 'id' => 'scheme',
                     )); ?>
                   </div>
 
-                  <label class="col-sm-2 control-label" for="grade"><?php echo __('staff.grade'); ?></label>
+                  <label class="col-sm-2 control-label" for="grade"><?php echo __('staffs.grade'); ?></label>
                   <div class="col-sm-4">
                     <?php echo Form::text('grade', Input::previous('grade', $staff->grade), array('class' => 'form-control', 'id' => 'grade',
                     )); ?>
@@ -151,7 +151,7 @@
                 </div>
 
                 <div class="form-group">
-                  <label class="col-sm-2 control-label" for="job_title"><?php echo __('staff.job_title'); ?></label>
+                  <label class="col-sm-2 control-label" for="job_title"><?php echo __('staffs.job_title'); ?></label>
                   <div class="col-sm-10">
                     <?php echo Form::text('job_title', Input::previous('job_title', $staff->job_title), array('class' => 'form-control', 'id' => 'job_title',
                     )); ?>
@@ -159,7 +159,7 @@
                 </div>
 
                 <div class="form-group">
-                  <label class="col-sm-2 control-label" for="position"><?php echo __('staff.position'); ?></label>
+                  <label class="col-sm-2 control-label" for="position"><?php echo __('staffs.position'); ?></label>
                   <div class="col-sm-4">
                     <?php echo Form::text('position', Input::previous('position', $staff->position), array('class' => 'form-control', 'id' => 'position',
                     )); ?>
@@ -167,7 +167,7 @@
                 </div>
 
                 <div class="form-group">
-                  <label class="col-sm-2 control-label" for="description"><?php echo __('staff.description'); ?></label>
+                  <label class="col-sm-2 control-label" for="description"><?php echo __('staffs.description'); ?></label>
                   <div class="col-sm-10">
                     <?php echo Form::textarea('description', Input::previous('description', $staff->description), array(
                       'rows' => 3,
@@ -178,7 +178,7 @@
                   </div>
 
                   <div class="form-group">
-                    <label class="col-sm-2 control-label" for="division"><?php echo __('staff.division'); ?></label>
+                    <label class="col-sm-2 control-label" for="division"><?php echo __('staffs.division'); ?></label>
                     <div class="col-sm-6">
                       <?php echo Form::select('division', $divisions, Input::previous('division', $staff->division), array('class' => 'form-control', 'id' => 'division',
                       )); ?>
@@ -186,21 +186,21 @@
                   </div>
 
                   <div class="form-group">
-                    <label class="col-sm-2 control-label" for="branch"><?php echo __('staff.branch'); ?></label>
+                    <label class="col-sm-2 control-label" for="branch"><?php echo __('staffs.branch'); ?></label>
                     <div class="col-sm-8" id="branch-prefetch">
                       <?php echo Form::text('branch', Input::previous('branch', $staff->branch), array('class' => 'form-control typeahead col-sm-12', 'id' => 'branch')); ?>
                     </div>
                   </div>
 
                   <div class="form-group">
-                    <label class="col-sm-2 control-label" for="sector"><?php echo __('staff.sector'); ?></label>
+                    <label class="col-sm-2 control-label" for="sector"><?php echo __('staffs.sector'); ?></label>
                     <div class="col-sm-8" id="sector-prefetch">
                       <?php echo Form::text('sector', Input::previous('sector', $staff->sector), array('class' => 'form-control typeahead', 'id' => 'sector')); ?>
                     </div>
                   </div>
 
                   <div class="form-group">
-                    <label class="col-sm-2 control-label" for="unit"><?php echo __('staff.unit'); ?></label>
+                    <label class="col-sm-2 control-label" for="unit"><?php echo __('staffs.unit'); ?></label>
                     <div class="col-sm-8" id="unit-prefetch">
                       <?php echo Form::text('unit', Input::previous('unit', $staff->unit), array('class' => 'form-control typeahead', 'id' => 'unit')); ?>
                     </div>
@@ -238,7 +238,7 @@
                         <?php echo Form::checkbox('account', 1, Input::previous('account', $staff->account), array('id' => 'account')); ?> Enable account
                       </label>
                     </div>
-                    <span class="help-block"><?php echo __('staff.account_explain'); ?></span>
+                    <span class="help-block"><?php echo __('staffs.account_explain'); ?></span>
                   </div>
                 </div>
 
@@ -246,7 +246,7 @@
                 <legend>Administration</legend>
 
                 <div class="form-group">
-                  <label class="col-sm-2 control-label" for="slug"><?php echo __('staff.slug'); ?></label>
+                  <label class="col-sm-2 control-label" for="slug"><?php echo __('staffs.slug'); ?></label>
                   <div class="col-sm-6">
                     <?php echo Form::text('slug', Input::previous('slug', $staff->slug), array('class' => 'form-control', 'id' => 'slug',
                     )); ?>
@@ -254,7 +254,7 @@
                 </div>
 
                 <div class="form-group">
-                  <label class="col-sm-2 control-label" for="username"><?php echo __('staff.username'); ?></label>
+                  <label class="col-sm-2 control-label" for="username"><?php echo __('staffs.username'); ?></label>
                   <div class="col-sm-6">
                     <?php echo Form::text('username', Input::previous('username', $staff->username), array('class' => 'form-control', 'id' => 'username',
                     )); ?>
@@ -262,7 +262,7 @@
                 </div>
 
                 <div class="form-group">
-                  <label class="col-sm-2 control-label" for="password"><?php echo __('staff.password'); ?></label>
+                  <label class="col-sm-2 control-label" for="password"><?php echo __('staffs.password'); ?></label>
                   <div class="col-sm-6">
                     <?php echo Form::password('password', array('class' => 'form-control', 'id' => 'password',
                     )); ?>
@@ -270,7 +270,7 @@
                 </div>
 
                 <div class="form-group">
-                  <label class="col-sm-2 control-label" for="role"><?php echo __('staff.role'); ?></label>
+                  <label class="col-sm-2 control-label" for="role"><?php echo __('staffs.role'); ?></label>
                   <div class="col-sm-4">
                     <?php $role = ($staff->role) ? $staff->role : 'staff'; ?>
                     <?php echo Form::select('role', $roles, Input::previous('role', $role), array('class' => 'form-control', 'id' => 'role',

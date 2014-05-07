@@ -5,7 +5,7 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 	/*
 		List Metadata
 	*/
-	Route::get('admin/extend/metadata', function() {
+	Route::get('admin/setting/metadata', function() {
 		$vars['messages'] = Notify::read();
 		$vars['token'] = Csrf::token();
 
@@ -13,7 +13,7 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 		$vars['pages'] = Page::dropdown();
 		$vars['themes'] = Themes::all();
 
-		return View::create('extend/metadata/edit', $vars)
+		return View::create('setting/metadata/edit', $vars)
 			->partial('header', 'partials/header')
 			->partial('footer', 'partials/footer');
 	});
@@ -21,7 +21,7 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 	/*
 		Update Metadata
 	*/
-	Route::post('admin/extend/metadata', function() {
+	Route::post('admin/setting/metadata', function() {
 		$input = Input::get(array('sitename', 'description', 'home_page', 'posts_page',
 			'posts_per_page', 'auto_published_comments', 'theme', 'comment_notifications', 'comment_moderation_keys'));
 
@@ -41,7 +41,7 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 
 			Notify::error($errors);
 
-			return Response::redirect('admin/extend/metadata');
+			return Response::redirect('admin/setting/metadata');
 		}
 
 		// convert double quotes so we dont break html
@@ -54,7 +54,7 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 
 		Notify::success(__('metadata.updated'));
 
-		return Response::redirect('admin/extend/metadata');
+		return Response::redirect('admin/setting/metadata');
 	});
 
 });

@@ -5,12 +5,12 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 	/*
 		List Fields
 	*/
-	Route::get(array('admin/extend/fields', 'admin/extend/fields/(:num)'), function($page = 1) {
+	Route::get(array('admin/setting/fields', 'admin/setting/fields/(:num)'), function($page = 1) {
 		$vars['messages'] = Notify::read();
 		$vars['token'] = Csrf::token();
 		$vars['extend'] = Extend::paginate($page, Config::get('meta.posts_per_page'));
 
-		return View::create('extend/fields/index', $vars)
+		return View::create('setting/fields/index', $vars)
 			->partial('header', 'partials/header')
 			->partial('footer', 'partials/footer');
 	});
@@ -18,16 +18,16 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 	/*
 		Add Field
 	*/
-	Route::get('admin/extend/fields/add', function() {
+	Route::get('admin/setting/fields/add', function() {
 		$vars['messages'] = Notify::read();
 		$vars['token'] = Csrf::token();
 
-		return View::create('extend/fields/add', $vars)
+		return View::create('setting/fields/add', $vars)
 			->partial('header', 'partials/header')
 			->partial('footer', 'partials/footer');
 	});
 
-	Route::post('admin/extend/fields/add', function() {
+	Route::post('admin/setting/fields/add', function() {
 		$input = Input::get(array('type', 'field', 'key', 'label', 'attributes'));
 
 		if(empty($input['key'])) {
@@ -55,7 +55,7 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 
 			Notify::error($errors);
 
-			return Response::redirect('admin/extend/fields/add');
+			return Response::redirect('admin/setting/fields/add');
 		}
 
 		if($input['field'] == 'image') {
@@ -82,13 +82,13 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 
 		Notify::success(__('extend.field_created'));
 
-		return Response::redirect('admin/extend/fields');
+		return Response::redirect('admin/setting/fields');
 	});
 
 	/*
 		Edit Field
 	*/
-	Route::get('admin/extend/fields/edit/(:num)', function($id) {
+	Route::get('admin/setting/fields/edit/(:num)', function($id) {
 		$vars['messages'] = Notify::read();
 		$vars['token'] = Csrf::token();
 
@@ -100,12 +100,12 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 
 		$vars['field'] = $extend;
 
-		return View::create('extend/fields/edit', $vars)
+		return View::create('setting/fields/edit', $vars)
 			->partial('header', 'partials/header')
 			->partial('footer', 'partials/footer');
 	});
 
-	Route::post('admin/extend/fields/edit/(:num)', function($id) {
+	Route::post('admin/setting/fields/edit/(:num)', function($id) {
 		$input = Input::get(array('type', 'field', 'key', 'label', 'attributes'));
 
 		if(empty($input['key'])) {
@@ -134,7 +134,7 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 
 			Notify::error($errors);
 
-			return Response::redirect('admin/extend/fields/add');
+			return Response::redirect('admin/setting/fields/add');
 		}
 
 		if($input['field'] == 'image') {
@@ -161,13 +161,13 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 
 		Notify::success(__('extend.field_updated'));
 
-		return Response::redirect('admin/extend/fields/edit/' . $id);
+		return Response::redirect('admin/setting/fields/edit/' . $id);
 	});
 
 	/*
 		Delete Field
 	*/
-	Route::get('admin/extend/fields/delete/(:num)', function($id) {
+	Route::get('admin/setting/fields/delete/(:num)', function($id) {
 		$field = Extend::find($id);
 
 		Query::table(Base::table($field->type . '_meta'))->where('extend', '=', $field->id)->delete();
@@ -176,7 +176,7 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 
 		Notify::success(__('extend.field_deleted'));
 
-		return Response::redirect('admin/extend/fields');
+		return Response::redirect('admin/setting/fields');
 	});
 
 });

@@ -20,66 +20,68 @@
 </head>
 <body<?php echo onload(); ?>>
 <div class="navbar navbar-inverse" role="navigation">
- <div class="container">
-   <div class="navbar-header">
-     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-inverse-collapse">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-inverse-collapse">
       <span class="sr-only">Toggle navigation</span>
       <span class="icon-bar"></span>
       <span class="icon-bar"></span>
       <span class="icon-bar"></span>
-    </button>
-    <a class="navbar-brand" href="<?php echo Uri::to('admin/staffs'); ?>">Employee Directory</a>
-  </div>
+      </button>
+      <a class="navbar-brand" href="<?php echo Uri::to('admin/staffs'); ?>">Employee Directory</a>
+    </div>
 
-  <div class="navbar-collapse collapse navbar-inverse-collapse">
-   <?php
-   if(Auth::user()):
-    $menu = array('staff');
-  $admin = array('divisions', 'branchs', 'sectors', 'units', 'users', 'extend');
-  ?>
+    <?php $user = Auth::user(); if($user): ?>
+    <div class="navbar-collapse collapse navbar-inverse-collapse">
 
-  <ul class="nav navbar-nav">
+    <?php
+      $menu = array('staffs', 'pages');
+      $hierarchies = array('divisions', 'branchs', 'sectors', 'units');
+      $admin = array('users');
+    ?>
 
-   <?php foreach($menu as $url): ?>
-     <li <?php if(strpos(Uri::current(), $url) !== false) echo 'class="active"'; ?>>
-       <a href="<?php echo Uri::to('admin/' . $url . 's'); ?>">
-         <?php echo __($url . '.' . $url); ?>
-       </a>
-     </li>
-   <?php endforeach; ?>
+      <ul class="nav navbar-nav">
 
-   <?php if(Auth::user()->role == 'administrator'): ?>
-    <li class="dropdown">
-      <a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo __('global.administration'); ?> <b class="caret"></b></a>
-      <ul class="dropdown-menu">
-        <?php foreach($admin as $url): ?>
-          <li <?php if(strpos(Uri::current(), $url) !== false) echo 'class="active"'; ?>>
-            <a href="<?php echo Uri::to('admin/' . $url); ?>">
-              <?php echo __('global.' . $url); ?>
-            </a>
-          </li>
+        <?php foreach($menu as $url): ?>
+        <li <?php if(strpos(Uri::current(), $url) !== false) echo 'class="active"'; ?>>
+          <a href="<?php echo Uri::to('admin/' . $url); ?>"><?php echo __($url . '.' . $url); ?></a>
+        </li>
         <?php endforeach; ?>
-      </ul>
-    </li>
-  <?php endif; ?>
 
-</ul>
-<ul class="nav navbar-nav navbar-right">
- <li><a href="<?php echo Uri::to('admin/logout'); ?>"><span class="glyphicon glyphicon-off"></span> <?php echo __('global.logout'); ?></a></li>
- <li class="dropdown">
-   <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
-   <ul class="dropdown-menu">
-     <li><a href="#">Action</a></li>
-     <li><a href="#">Another action</a></li>
-     <li><a href="#">Something else here</a></li>
-     <li class="divider"></li>
-     <li><a href="#">Separated link</a></li>
-   </ul>
- </li>
-</ul>
-<?php endif; ?>
-</div> <!-- //.navbar-collapse -->
-</div> <!-- //.container -->
+        <?php if($user->role == 'administrator'): ?>
+        <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo __('global.administration'); ?> <b class="caret"></b></a>
+          <ul class="dropdown-menu">
+            <?php foreach($hierarchies as $url): ?>
+              <li <?php if(strpos(Uri::current(), $url) !== false) echo 'class="active"'; ?>>
+                <a href="<?php echo Uri::to('admin/' . $url); ?>">
+                  <?php echo __('global.' . $url); ?>
+                </a>
+              </li>
+            <?php endforeach; ?>
+          </ul>
+        </li>
+        <?php endif; ?>
+
+      </ul>
+
+      <ul class="nav navbar-nav navbar-right">
+       <li><a href="<?php echo Uri::to('admin/logout'); ?>"><span class="glyphicon glyphicon-off"></span> <?php echo __('global.logout'); ?></a></li>
+       <li class="dropdown">
+         <a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo __('settings.setting'); ?> <b class="caret"></b></a>
+         <ul class="dropdown-menu">
+            <li><a href="<?php echo Uri::to('admin/users'); ?>"><?php echo __('users.users'); ?></a></li>
+           <li><a href="<?php echo Uri::to('admin/setting/fields'); ?>"><?php echo __('settings.fields'); ?></a></li>
+           <li><a href="<?php echo Uri::to('admin/setting/variables'); ?>"><?php echo __('settings.variables'); ?></a></li>
+           <li><a href="<?php echo Uri::to('admin/setting/metadata'); ?>"><?php echo __('metadata.metadata'); ?></a></li>
+           <li class="divider"></li>
+           <li><a href="<?php echo Uri::to('/'); ?>"><?php echo __('global.visit_your_site'); ?></a></li>
+         </ul>
+       </li>
+      </ul>
+    </div> <!-- //.navbar-collapse -->
+    <?php endif; ?>
+
+  </div> <!-- //.container -->
 </div> <!-- //.navbar -->
 
 <div class="container">

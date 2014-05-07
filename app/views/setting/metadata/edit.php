@@ -7,7 +7,7 @@
 <section class="wrap">
 	<?php echo $messages; ?>
 
-	<form method="post" action="<?php echo Uri::to('admin/extend/metadata'); ?>" novalidate>
+	<form method="post" action="<?php echo Uri::to('admin/setting/metadata'); ?>" novalidate>
 
 		<input name="token" type="hidden" value="<?php echo $token; ?>">
 

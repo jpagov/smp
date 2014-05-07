@@ -7,7 +7,7 @@
 <section class="wrap">
 	<?php echo $messages; ?>
 
-	<form method="post" action="<?php echo Uri::to('admin/extend/variables/edit/' . $variable->key); ?>" novalidate>
+	<form method="post" action="<?php echo Uri::to('admin/setting/variables/edit/' . $variable->key); ?>" novalidate>
 
 		<input name="token" type="hidden" value="<?php echo $token; ?>">
 
@@ -28,7 +28,7 @@
 
 		<aside class="buttons">
 			<?php echo Form::button(__('global.update'), array('class' => 'btn', 'type' => 'submit')); ?>
-			<?php echo Html::link('admin/extend/variables/delete/' . $variable->key,
+			<?php echo Html::link('admin/setting/variables/delete/' . $variable->key,
 				__('global.delete'), array('class' => 'btn delete red')); ?>
 		</aside>
 	</form>

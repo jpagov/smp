@@ -5,7 +5,7 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 	/*
 		List Vars
 	*/
-	Route::get('admin/extend/variables', function() {
+	Route::get('admin/setting/variables', function() {
 		$vars['messages'] = Notify::read();
 		$vars['token'] = Csrf::token();
 
@@ -17,7 +17,7 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 
 		$vars['variables'] = $variables;
 
-		return View::create('extend/variables/index', $vars)
+		return View::create('setting/variables/index', $vars)
 			->partial('header', 'partials/header')
 			->partial('footer', 'partials/footer');
 	});
@@ -25,16 +25,16 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 	/*
 		Add Var
 	*/
-	Route::get('admin/extend/variables/add', function() {
+	Route::get('admin/setting/variables/add', function() {
 		$vars['messages'] = Notify::read();
 		$vars['token'] = Csrf::token();
 
-		return View::create('extend/variables/add', $vars)
+		return View::create('setting/variables/add', $vars)
 			->partial('header', 'partials/header')
 			->partial('footer', 'partials/footer');
 	});
 
-	Route::post('admin/extend/variables/add', function() {
+	Route::post('admin/setting/variables/add', function() {
 		$input = Input::get(array('key', 'value'));
 
 		$input['key'] = 'custom_' . slug($input['key'], '_');
@@ -61,20 +61,20 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 
 			Notify::error($errors);
 
-			return Response::redirect('admin/extend/variables/add');
+			return Response::redirect('admin/setting/variables/add');
 		}
 
 		Query::table(Base::table('meta'))->insert($input);
 
 		Notify::success(__('extend.variable_created'));
 
-		return Response::redirect('admin/extend/variables');
+		return Response::redirect('admin/setting/variables');
 	});
 
 	/*
 		Edit Var
 	*/
-	Route::get('admin/extend/variables/edit/(:any)', function($key) {
+	Route::get('admin/setting/variables/edit/(:any)', function($key) {
 		$vars['messages'] = Notify::read();
 		$vars['token'] = Csrf::token();
 		$vars['variable'] = Query::table(Base::table('meta'))->where('key', '=', $key)->fetch();
@@ -82,12 +82,12 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 		// remove prefix
 		$vars['variable']->user_key = substr($vars['variable']->key, strlen('custom_'));
 
-		return View::create('extend/variables/edit', $vars)
+		return View::create('setting/variables/edit', $vars)
 			->partial('header', 'partials/header')
 			->partial('footer', 'partials/footer');
 	});
 
-	Route::post('admin/extend/variables/edit/(:any)', function($key) {
+	Route::post('admin/setting/variables/edit/(:any)', function($key) {
 		$input = Input::get(array('key', 'value'));
 
 		$input['key'] = 'custom_' . slug($input['key'], '_');
@@ -112,25 +112,25 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 
 			Notify::error($errors);
 
-			return Response::redirect('admin/extend/variables/edit/' . $key);
+			return Response::redirect('admin/setting/variables/edit/' . $key);
 		}
 
 		Query::table(Base::table('meta'))->where('key', '=', $key)->update($input);
 
 		Notify::success(__('extend.variable_updated'));
 
-		return Response::redirect('admin/extend/variables');
+		return Response::redirect('admin/setting/variables');
 	});
 
 	/*
 		Delete Var
 	*/
-	Route::get('admin/extend/variables/delete/(:any)', function($key) {
+	Route::get('admin/setting/variables/delete/(:any)', function($key) {
 		Query::table(Base::table('meta'))->where('key', '=', $key)->delete();
 
 		Notify::success(__('extend.variable_deleted'));
 
-		return Response::redirect('admin/extend/variables');
+		return Response::redirect('admin/setting/variables');
 	});
 
 });
