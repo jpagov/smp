@@ -84,12 +84,12 @@ Route::collection(array('before' => 'auth,csrf'), function() {
     */
     foreach (array('Scheme', 'Division', 'Branch', 'Sector', 'Unit') as $hierarchy) {
       $vars[strtolower($hierarchy) . 's'] = $hierarchy::dropdown();
-      array_unshift($vars[strtolower($hierarchy) . 's'], __('staff.please_select'));
+      array_unshift($vars[strtolower($hierarchy) . 's'], __('staffs.please_select'));
     }
 
 		$vars['genders'] = array(
-			'M' => __('staff.male'),
-			'F' => __('staff.female')
+			'M' => __('staffs.male'),
+			'F' => __('staffs.female')
 		);
 
 		$vars['statuses'] = array(
@@ -165,19 +165,19 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 		});
 
     $validator->check('email')
-      ->is_email(__('staff.email_missing'));
+      ->is_email(__('staffs.email_missing'));
 
     $validator->check('telephone')
-      ->is_max(4, __('staff.telephone_missing', 4));
+      ->is_max(4, __('staffs.telephone_missing', 4));
 
     if($account_enable) {
   		$validator->check('username')
-  			->is_max(2, __('staff.username_missing', 2));
+  			->is_max(2, __('staffs.username_missing', 2));
     }
 
 		if($password_reset) {
 			$validator->check('password')
-				->is_max(6, __('staff.password_too_short', 6));
+				->is_max(6, __('staffs.password_too_short', 6));
 		}
 
 		if($errors = $validator->errors()) {
@@ -245,7 +245,7 @@ Route::collection(array('before' => 'auth,csrf'), function() {
       }
     }
 
-		Notify::success(__('staff.updated'));
+		Notify::success(__('staffs.updated'));
 
 		return Response::redirect('admin/staffs/edit/' . $id);
 	});
@@ -262,12 +262,12 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 
     foreach (array('Scheme', 'Division', 'Branch', 'Sector', 'Unit') as $hierarchy) {
       $vars[strtolower($hierarchy) . 's'] = $hierarchy::dropdown();
-      array_unshift($vars[strtolower($hierarchy) . 's'], __('staff.please_select'));
+      array_unshift($vars[strtolower($hierarchy) . 's'], __('staffs.please_select'));
     }
 
     $vars['genders'] = array(
-      'M' => __('staff.male'),
-      'F' => __('staff.female')
+      'M' => __('staffs.male'),
+      'F' => __('staffs.female')
     );
 
 		$vars['statuses'] = array(
@@ -348,20 +348,20 @@ Route::collection(array('before' => 'auth,csrf'), function() {
     if ($account_enable) {
 
       $validator->check('username')
-        ->is_max(2, __('staff.username_missing', 2));
+        ->is_max(2, __('staffs.username_missing', 2));
 
       $validator->check('password')
-      ->is_max(6, __('staff.password_too_short', 6));
+      ->is_max(6, __('staffs.password_too_short', 6));
 
       $input['password'] = Hash::make($input['password']);
 
     }
 
 		$validator->check('email')
-			->is_email(__('staff.email_missing'));
+			->is_email(__('staffs.email_missing'));
 
     $validator->check('telephone')
-      ->is_max(4, __('staff.telephone_missing', 4));
+      ->is_max(4, __('staffs.telephone_missing', 4));
 
 		if($errors = $validator->errors()) {
 			Input::flash();
@@ -419,7 +419,7 @@ Route::collection(array('before' => 'auth,csrf'), function() {
       }
     }
 
-		Notify::success(__('staff.created'));
+		Notify::success(__('staffs.created'));
 
 		return Response::redirect('admin/staffs');
 	});
@@ -431,14 +431,14 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 		$self = Auth::user();
 
 		if($self->id == $id) {
-			Notify::warning(__('staff.delete_error'));
+			Notify::warning(__('staffs.delete_error'));
 
 			return Response::redirect('admin/staffs/edit/' . $id);
 		}
 
 		Staff::where('id', '=', $id)->delete();
 
-		Notify::success(__('staff.deleted'));
+		Notify::success(__('staffs.deleted'));
 
 		return Response::redirect('admin/staffs');
 	});

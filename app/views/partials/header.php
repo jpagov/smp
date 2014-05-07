@@ -66,7 +66,7 @@
 
       <ul class="nav navbar-nav navbar-right">
        <li><a href="<?php echo Uri::to('admin/logout'); ?>"><span class="glyphicon glyphicon-off"></span> <?php echo __('global.logout'); ?></a></li>
-       <li><a href="<?php echo Uri::to('/'); ?>"><span class="glyphicon glyphicon-globe"></span> <?php echo __('global.visit_your_site'); ?></a></li>
+       <li><a href="<?php echo Uri::to('/'); ?>"><span class="glyphicon glyphicon-globe"></span> <?php echo __('global.view_directory'); ?></a></li>
 
        <?php if($user->role == 'administrator'): ?>
        <li class="dropdown">

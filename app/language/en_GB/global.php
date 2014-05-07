@@ -67,7 +67,7 @@ return array(
 	'logout' => 'Logout',
 
 	// pharses
-	'visit_your_site' => 'Visit your site',
+	'view_directory' => 'View Directory',
 	'powered_by_app' => 'Powered by Directory, version %s',
 	'site_slogan' => 'Make contact directory beautiful.',
 
