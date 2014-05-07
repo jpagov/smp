@@ -2,8 +2,10 @@
 
 return array(
 
+  'users' => 'Users',
+  'pages' => 'Pages',
 	'setting' => 'Setting',
-
+  'metadata' => 'Site Metadata',
 	'fields' => 'Custom Fields',
 	'fields_desc' => 'Create additional fields',
 

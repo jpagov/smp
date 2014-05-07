@@ -218,6 +218,14 @@ Route::get('admin/setting', array('before' => 'auth', 'main' => function($page =
 }));
 
 /*
+  Redirect tp users page
+*/
+Route::get('admin/setting/users', function() {
+  return Response::redirect('admin/users');
+});
+
+
+/*
 	404 error
 */
 Route::error('404', function() {

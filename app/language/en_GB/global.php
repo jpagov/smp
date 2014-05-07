@@ -36,6 +36,7 @@ return array(
   'units' => 'Units',
   'users' => 'Users',
   'setting' => 'Setting',
+  'hierarchies' => 'Hierarchies',
 
 	// pagination
 	'next' => 'Next',
