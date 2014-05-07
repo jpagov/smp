@@ -78,6 +78,7 @@
                 <a href="<?php echo Uri::to('admin/setting/' . $url); ?>"><?php echo __('settings.' . $url); ?></a>
               </li>
            <?php endforeach; ?>
+
          </ul>
        </li>
       <?php endif; ?>

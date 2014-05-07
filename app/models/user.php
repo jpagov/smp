@@ -14,15 +14,30 @@ class User extends Base {
 		return $query->fetch();
 	}
 
-	public static function paginate($page = 1, $perpage = 10) {
-		$query = Query::table(static::table());
-    $query = $query->where('account', '=', '1');
+  public static function paginate($page = 1, $perpage = 10) {
+    $query = Query::table(static::table());
 
-		$count = $query->count();
+    $count = $query->count();
 
-		$results = $query->take($perpage)->skip(($page - 1) * $perpage)->sort('grade', 'desc')->get();
+    $results = $query->take($perpage)->skip(($page - 1) * $perpage)->sort('grade', 'desc')->get(array(Staff::fields()));
 
-		return new Paginator($results, $count, $page, $perpage, Uri::to('users'));
-	}
+    $division_roles = array();
+
+    foreach ($results as $user) {
+
+      if ($staff_roles = Role::where('staff', '=', $user->id)->get(array('division'))) {
+        foreach ($staff_roles as $div) {
+          $division_roles[] = Division::find($div->division)->title;
+        }
+        $user->roles = $division_roles;
+        unset($division_roles);
+      } else {
+        $user->roles = array();
+      }
+
+    }
+
+    return new Paginator($results, $count, $page, $perpage, Uri::to('staffs'));
+  }
 
 }

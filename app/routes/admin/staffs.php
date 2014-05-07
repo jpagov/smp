@@ -131,8 +131,6 @@ Route::collection(array('before' => 'auth,csrf'), function() {
       'account'
     ));
 
-
-
     $account_enable = false;
 		$password_reset = false;
 

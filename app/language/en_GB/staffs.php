@@ -10,6 +10,7 @@ return array(
 	'editing_staff' => 'Editing %s&rsquo;s Profile',
 	'remembered' => 'I know my password',
 	'forgotten_password' => 'Forgotten your password?',
+  'enable_account' => 'Enable account',
 
 	// roles
 	'administrator' => 'Admin',

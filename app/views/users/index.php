@@ -14,19 +14,19 @@
 				<thead>
 					<tr>
 						<th>#</th>
-            <th><?php echo __('staff.name'); ?></th>
-            <th><?php echo __('staff.email'); ?></th>
-            <th><?php echo __('staff.role'); ?></th>
-            <th><?php echo __('staff.status'); ?></th>
+            <th><?php echo __('staffs.name'); ?></th>
+            <th><?php echo __('staffs.role'); ?></th>
+            <th><?php echo __('staffs.division'); ?></th>
+            <th><?php echo __('staffs.status'); ?></th>
 					</tr>
 				</thead>
 				<tbody>
 					<?php foreach($users->results as $user): ?>
 					<tr class="status draft">
 						<td>1</td>
-						<td><a href="<?php echo Uri::to('admin/users/edit/' . $user->id); ?>" title=""><?php echo $user->display_name; ?></a></td>
-						<td><?php echo $user->email; ?></td>
+						<td><a href="<?php echo Uri::to('admin/staffs/edit/' . $user->id . '#admin'); ?>" title=""><?php echo $user->display_name; ?></a></td>
 						<td><?php echo __('users.' . $user->role); ?></td>
+            <td><?php foreach($user->roles as $role): echo '<code>' . $role . '</code><br>'; endforeach; ?></td>
 						<td><abbr title="<?php echo Date::format($user->created); ?>"><?php echo __('global.' . $user->status); ?></abbr></td>
 					</tr>
 					<?php endforeach; ?>
