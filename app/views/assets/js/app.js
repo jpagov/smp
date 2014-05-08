@@ -161,6 +161,22 @@ var SMP = {
 
     },
 
+    setting: function() {
+      console.log('Setting');
+
+      $("#field").on("change", function(e) {
+        var value = $(this).val(), all = $(".attributes_type, .attributes_width, .attributes_height");
+        if(value == 'image') {
+          all.removeClass('hide');
+        } else if(value == 'file') {
+          $(".attributes_width, .attributes_height").addClass('hide');
+          $('.attributes_type').removeClass('hide');
+        } else {
+          all.addClass('hide');
+        }
+      });
+    },
+
     users: function() {
       SMP.admin.staffs();
       //console.log('Admin::Users');

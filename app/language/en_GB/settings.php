@@ -21,6 +21,7 @@ return array(
 	'novars_desc' => 'No variables yet',
 
 	// form fields
+  'post' => 'Post',
 	'type' => 'Type',
 	'type_explain' => 'The type of content you want to add this field to.',
 

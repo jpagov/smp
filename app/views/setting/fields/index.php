@@ -1,34 +1,49 @@
 <?php echo $header; ?>
 
-<hgroup class="wrap">
-	<h1><?php echo __('extend.fields'); ?></h1>
+<?php echo Html::link('admin/setting/fields/add', __('extend.create_field'), array('class' => 'btn btn-lg btn-primary pull-right')); ?>
 
-	<nav>
-		<a class="btn" href="<?php echo Uri::to('admin/setting/fields/add'); ?>"><?php echo __('extend.create_field'); ?></a>
-	</nav>
-</hgroup>
+<h1 class="page-header"><?php echo __('extend.fields'); ?></h1>
 
-<section class="wrap">
-	<?php echo $messages; ?>
+<?php echo $messages; ?>
 
-	<?php if(count($extend->results)): ?>
-	<ul class="list">
-		<?php foreach($extend->results as $field): ?>
-		<li>
-			<a href="<?php echo Uri::to('admin/setting/fields/edit/' . $field->id); ?>">
-				<strong><?php echo $field->label; ?></strong>
-				<span><?php echo $field->type . ' ' . $field->field; ?></span>
-			</a>
-		</li>
-		<?php endforeach; ?>
-	</ul>
+<div class="row">
+  <div class="col col-lg-9">
 
-	<aside class="paging"><?php echo $extend->links(); ?></aside>
-	<?php else: ?>
-	<p class="empty">
-		<span class="icon"></span> <?php echo __('extend.nofields_desc'); ?>
-	</p>
-	<?php endif; ?>
-</section>
+    <div class="table-responsive">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th><?php echo __('extend.label'); ?></th>
+            <th><?php echo __('extend.type'); ?></th>
+            <th><?php echo __('extend.fields'); ?></th>
+          </tr>
+        </thead>
+        <tbody>
+        <?php if(count($extend->results)): ?>
+          <?php foreach($extend->results as $field): ?>
+          <tr class="status draft">
+            <td><?php echo $field->id; ?></td>
+            <td><a href="<?php echo Uri::to('admin/setting/fields/edit/' . $field->id); ?>" title=""><?php echo $field->label; ?></a></td>
+            <td><?php echo $field->type; ?></td>
+            <td><?php echo $field->field; ?></td>
+          </tr>
+          <?php endforeach; ?>
+          <?php else: ?>
+            <tr><?php echo __('extend.nofields_desc'); ?></tr>
+          <?php endif; ?>
+        </tbody>
+      </table>
+
+      <?php if ($extend->links()) : ?>
+        <ul class="pagination">
+         <?php echo $extend->links(); ?>
+       </ul>
+     <?php endif; ?>
+
+    </div>
+
+  </div>
+</div>
 
 <?php echo $footer; ?>

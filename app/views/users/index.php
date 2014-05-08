@@ -13,7 +13,7 @@
 			<table class="table table-hover">
 				<thead>
 					<tr>
-						<th>#</th>
+						<th>ID</th>
             <th><?php echo __('staffs.name'); ?></th>
             <th><?php echo __('staffs.role'); ?></th>
             <th><?php echo __('staffs.division'); ?></th>
@@ -23,7 +23,7 @@
 				<tbody>
 					<?php foreach($users->results as $user): ?>
 					<tr class="status draft">
-						<td>1</td>
+						<td><?php echo $user->id; ?></td>
 						<td><a href="<?php echo Uri::to('admin/staffs/edit/' . $user->id . '#admin'); ?>" title=""><?php echo $user->display_name; ?></a></td>
 						<td><?php echo __('users.' . $user->role); ?></td>
             <td><?php foreach($user->roles as $role): echo '<code>' . $role . '</code><br>'; endforeach; ?></td>
@@ -33,6 +33,7 @@
 				</tbody>
 			</table>
 		</div>
+
 	</div>
 
 	<div class="col col-lg-3">

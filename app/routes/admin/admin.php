@@ -224,6 +224,12 @@ Route::get('admin/setting/users', function() {
   return Response::redirect('admin/users');
 });
 
+/*
+  Redirect tp users page
+*/
+Route::get('admin/setting/pages', function() {
+  return Response::redirect('admin/pages');
+});
 
 /*
 	404 error
