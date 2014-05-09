@@ -2,7 +2,7 @@
 
 <?php echo Html::link('admin/setting/fields', __('global.back'), array('class' => 'btn btn-lg btn-primary pull-right')); ?>
 
-<h1 class="page-header"><h1><?php echo __('extend.editing_custom_field', $field->label); ?></h1></h1>
+<h1 class="page-header"><?php echo __('extend.editing_custom_field', $field->label); ?></h1>
 
 <?php echo $messages; ?>
 

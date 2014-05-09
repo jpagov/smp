@@ -1,80 +1,117 @@
 <?php echo $header; ?>
 
-<hgroup class="wrap">
-	<h1><?php echo __('extend.create_field'); ?></h1>
-</hgroup>
+<?php echo Html::link('admin/setting/fields', __('global.back'), array('class' => 'btn btn-lg btn-primary pull-right')); ?>
 
-<section class="wrap">
-	<?php echo $messages; ?>
+<h1 class="page-header"><?php echo __('extend.create_field'); ?></h1>
 
-	<form method="post" action="<?php echo Uri::to('admin/setting/fields/add'); ?>" novalidate>
+<?php echo $messages; ?>
 
-		<input name="token" type="hidden" value="<?php echo $token; ?>">
+<div class="row">
 
-		<fieldset class="split">
-			<p>
-				<label for="type"><?php echo __('extend.type'); ?>:</label>
-				<select id="type" name="type">
-          <?php foreach(array('post', 'page', 'staff') as $type): ?>
-					<?php $selected = (Input::previous('type') == $type) ? ' selected' : ''; ?>
-					<option<?php echo $selected; ?>><?php echo $type; ?></option>
-					<?php endforeach; ?>
-				</select>
-				<em><?php echo __('extend.type_explain'); ?></em>
-			</p>
 
-			<p>
-				<label for="field"><?php echo __('extend.field'); ?>:</label>
-				<select id="field" name="field">
-					<?php foreach(array('text', 'html', 'image', 'file') as $type): ?>
-					<?php $selected = (Input::previous('field') == $type) ? ' selected' : ''; ?>
-					<option<?php echo $selected; ?>><?php echo $type; ?></option>
-					<?php endforeach; ?>
-				</select>
-				<em><?php echo __('extend.field_explain'); ?></em>
-			</p>
 
-			<p>
-				<label for="key"><?php echo __('extend.key'); ?>:</label>
-				<input id="key" name="key" value="<?php echo Input::previous('key'); ?>">
-				<em><?php echo __('extend.key_explain'); ?></em>
-			</p>
+    <form class="form-horizontal" method="post" action="<?php echo Uri::to('admin/setting/fields/add'); ?>" novalidate>
 
-			<p>
-				<label for="label"><?php echo __('extend.label'); ?>:</label>
-				<input id="label" name="label" value="<?php echo Input::previous('label'); ?>">
-				<em><?php echo __('extend.label_explain'); ?></em>
-			</p>
+        <div class="col-md-9">
 
-			<p class="hide attributes_type">
-				<label for="attributes_type"><?php echo __('extend.attribute_type'); ?>:</label>
-				<input id="attributes_type" name="attributes[type]" value="<?php echo Input::previous('attributes.type'); ?>">
-				<em><?php echo __('extend.attribute_type_explain'); ?></em>
-			</p>
+            <input name="token" type="hidden" value="<?php echo $token; ?>">
 
-			<p class="hide attributes_width">
-				<label for="attributes_size_width"><?php echo __('extend.attributes_size_width'); ?>:</label>
-				<input id="attributes_size_width" name="attributes[size][width]"
-					value="<?php echo Input::previous('attributes.size.width'); ?>">
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="type"><?php echo __('settings.type'); ?></label>
+                <div class="col-sm-6">
+                <?php echo Form::select('type', $types, Input::previous('type'), array(
+                    'class' => 'form-control',
+                    'id' => 'type',
+                )); ?>
+                <em class="help-block"><?php echo __('extend.type_explain'); ?></em>
+                </div>
+            </div>
 
-				<em><?php echo __('extend.attributes_size_width_explain'); ?></em>
-			</p>
+            <div class="form-group">
+            <label class="col-sm-2 control-label" for="field"><?php echo __('settings.field'); ?></label>
+                <div class="col-sm-6">
+                <?php echo Form::select('field', $fields, Input::previous('field'), array(
+                    'class' => 'form-control',
+                    'id' => 'field',
+                )); ?>
+                <em class="help-block"><?php echo __('extend.field_explain'); ?></em>
+                </div>
+            </div>
 
-			<p class="hide attributes_height">
-				<label for="attributes_size_height"><?php echo __('extend.attributes_size_height'); ?>:</label>
-				<input id="attributes_size_height" name="attributes[size][height]"
-					value="<?php echo Input::previous('attributes.size.height'); ?>">
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="key"><?php echo __('settings.key'); ?></label>
+                <div class="col-sm-6">
+                <?php echo Form::text('key', Input::previous('key'), array(
+                    'class' => 'form-control',
+                    'id' => 'key',
+                )); ?>
+                <em class="help-block"><?php echo __('extend.key_explain'); ?></em>
+                </div>
+            </div>
 
-				<em><?php echo __('extend.attributes_size_height_explain'); ?></em>
-			</p>
-		</fieldset>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="label"><?php echo __('settings.label'); ?></label>
+                <div class="col-sm-6">
+                <?php echo Form::text('label', Input::previous('label'), array(
+                    'class' => 'form-control',
+                    'id' => 'label',
+                )); ?>
+                <em class="help-block"><?php echo __('extend.label_explain'); ?></em>
+                </div>
+            </div>
 
-		<aside class="buttons">
-			<button class="btn" type="submit"><?php echo __('global.save'); ?></button>
-		</aside>
-	</form>
-</section>
+            <div class="form-group attributes_type hide">
+                <label class="col-sm-2 control-label" for="attributes_type"><?php echo __('settings.attribute_type'); ?></label>
+                <div class="col-sm-6">
+                <?php $value = isset($field->attributes->type) ? $field->attributes->type : ''; ?>
+                <?php echo Form::text('attributes[type]', Input::previous('attributes.type', $value), array(
+                    'class' => 'form-control',
+                    'id' => 'attributes_type',
+                )); ?>
+                <em class="help-block"><?php echo __('extend.attribute_type_explain'); ?></em>
+                </div>
+            </div>
 
-<script src="<?php echo asset('app/views/assets/js/custom-fields.js'); ?>"></script>
+            <div class="form-group attributes_width hide">
+                <label class="col-sm-2 control-label" for="attributes_size_width"><?php echo __('settings.attributes_size_width'); ?></label>
+                <div class="col-sm-6">
+                <?php $value = isset($field->attributes->size->width) ? $field->attributes->size->width : ''; ?>
+                <?php echo Form::text('attributes[size][width]', Input::previous('attributes.size.width', $value), array(
+                    'class' => 'form-control',
+                    'id' => 'attributes_size_width',
+                )); ?>
+                <em class="help-block"><?php echo __('extend.attributes_size_width_explain'); ?></em>
+                </div>
+            </div>
+
+            <div class="form-group attributes_height hide">
+                <label class="col-sm-2 control-label" for="attributes_size_height"><?php echo __('settings.attributes_size_height'); ?></label>
+                <div class="col-sm-6">
+                <?php $value = isset($field->attributes->size->height) ? $field->attributes->size->height : ''; ?>
+                <?php echo Form::text('attributes[size][height]', Input::previous('attributes.size.width', $value), array(
+                    'class' => 'form-control',
+                    'id' => 'attributes_size_height',
+                )); ?>
+                <em class="help-block"><?php echo __('extend.attributes_size_height_explain'); ?></em>
+                </div>
+            </div>
+
+        </div><!--/.col-md-9 -->
+
+        <aside class="col-md-3">
+
+            <?php echo Form::button(__('global.save'), array(
+                'class' => 'btn btn-primary btn-lg btn-block',
+                'type' => 'submit'
+            )); ?>
+
+        </aside>
+
+    </form>
+
+
+
+</div>
+
 
 <?php echo $footer; ?>
