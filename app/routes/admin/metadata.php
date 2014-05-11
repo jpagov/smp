@@ -11,7 +11,13 @@ Route::collection(array('before' => 'auth,admin,csrf'), function() {
 
 		$vars['meta'] = Config::get('meta');
 		$vars['pages'] = Page::dropdown();
-		$vars['themes'] = Themes::all();
+        $themes = array();
+
+        foreach(Themes::all() as $theme => $about):
+            $themes[$theme] = $about['name'] . __('metadata.by') . $about['author'];
+        endforeach;
+
+        $vars['themes'] = $themes;
 
 		return View::create('setting/metadata/edit', $vars)
 			->partial('header', 'partials/header')

@@ -44,7 +44,7 @@ Route::get('admin/login', function() {
 	$vars['messages'] = Notify::read();
 	$vars['token'] = Csrf::token();
 
-	return View::create('users/login', $vars)
+	return View::create('staffs/login', $vars)
 		->partial('header', 'partials/header')
 		->partial('footer', 'partials/footer');
 });
@@ -85,7 +85,7 @@ Route::get('admin/amnesia', array('before' => 'guest', 'main' => function() {
 	$vars['messages'] = Notify::read();
 	$vars['token'] = Csrf::token();
 
-	return View::create('users/amnesia', $vars)
+	return View::create('staffs/amnesia', $vars)
 		->partial('header', 'partials/header')
 		->partial('footer', 'partials/footer');
 }));
@@ -148,7 +148,7 @@ Route::get('admin/reset/(:any)', array('before' => 'guest', 'main' => function($
 		return Response::redirect('admin/login');
 	}
 
-	return View::create('users/reset', $vars)
+	return View::create('staffs/reset', $vars)
 		->partial('header', 'partials/header')
 		->partial('footer', 'partials/footer');
 }));

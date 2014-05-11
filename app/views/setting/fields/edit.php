@@ -8,8 +8,6 @@
 
 <div class="row">
 
-
-
     <form class="form-horizontal" method="post" action="<?php echo Uri::to('admin/setting/fields/edit/' . $field->id); ?>" novalidate>
 
         <div class="col-md-9">

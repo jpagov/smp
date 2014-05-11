@@ -42,4 +42,6 @@ return array(
 	// messages
 	'updated' => 'Metadata updated',
 
+    'by' => ' by ',
+
 );
