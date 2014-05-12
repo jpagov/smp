@@ -40,7 +40,7 @@
                 <div class="form-group">
                     <label class="col-sm-3 control-label" for="homepage"><?php echo __('metadata.homepage'); ?></label>
                     <div class="col-sm-6">
-                    <?php echo Form::select('homepage', $pages, Input::previous('homepage', $meta['home_page']), array('class' => 'form-control', 'id' => 'homepage',
+                    <?php echo Form::select('home_page', $pages, Input::previous('home_page', $meta['home_page']), array('class' => 'form-control', 'id' => 'home_page',
                     )); ?>
                     </div>
                 </div>
@@ -114,7 +114,7 @@
 
                 <div class="form-group">
                     <label class="col-sm-3 control-label" for="theme"><?php echo __('metadata.current_theme'); ?></label>
-                    <div class="col-sm-9">
+                    <div class="col-sm-6">
                     <?php echo Form::select('theme', $themes, Input::previous('theme', $meta['theme']), array('class' => 'form-control', 'id' => 'theme',
                     )); ?>
                     </div>
