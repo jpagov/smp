@@ -134,12 +134,15 @@ Route::get('(:num)', function($id) use($staffs_page) {
 });
 
 /**
- * View article
+ * View staff
  */
 Route::get('(:any)', function($uri) use($staffs_page) {
 
   // find if slug is staff
   if( $staff = Staff::slug(basename($uri)) ) {
+
+    Staff::update($staff->id, array('view' => $staff->view +1));
+
     Registry::set('page', $staffs_page);
     Registry::set('staff', $staff);
     Registry::set('division', Division::find($staff->division));

@@ -27,7 +27,7 @@ class Staff extends Base {
     'status',
     'role',
     'account',
-    'hire_date',
+    'view',
     'created'
   )) {
     $fields = array();
