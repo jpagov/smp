@@ -7,7 +7,7 @@ Route::collection(array('before' => 'auth,admin,csrf'), function() {
 	*/
 	Route::get(array('admin/divisions', 'admin/divisions/(:num)'), function($page = 1) {
 		$vars['messages'] = Notify::read();
-		$vars['divisions'] = Division::paginate($page, Config::get('meta.posts_per_page'));
+		$vars['divisions'] = Division::paginate($page, Config::get('meta.staffs_per_page'));
 		$vars['hierarchies'] = Config::app('hierarchy');
 
 		return View::create('divisions/index', $vars)

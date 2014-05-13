@@ -6,7 +6,7 @@ Route::collection(array('before' => 'auth,admin,csrf'), function() {
 		List Pages
 	*/
 	Route::get(array('admin/pages', 'admin/pages/(:num)'), function($page = 1) {
-		$perpage = Config::meta('posts_per_page');
+		$perpage = Config::meta('staffs_per_page');
 		$total = Page::count();
 		$pages = Page::sort('title')->take($perpage)->skip(($page - 1) * $perpage)->get();
 		$url = Uri::to('admin/pages');
@@ -31,7 +31,7 @@ Route::collection(array('before' => 'auth,admin,csrf'), function() {
 
 		$query = Page::where('status', '=', $status);
 
-		$perpage = Config::meta('posts_per_page');
+		$perpage = Config::meta('staffs_per_page');
 		$total = $query->count();
 		$pages = $query->sort('title')->take($perpage)->skip(($page - 1) * $perpage)->get();
 		$url = Uri::to('admin/pages/status');

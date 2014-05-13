@@ -7,8 +7,8 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 	*/
 	Route::get(array('admin/units', 'admin/units/(:num)'), function($page = 1) {
 		$vars['messages'] = Notify::read();
-		$vars['units'] = Unit::paginate($page, Config::get('meta.posts_per_page'));
-		$vars['hierarchies'] = Config::app('hierarchy');		
+		$vars['units'] = Unit::paginate($page, Config::get('meta.staffs_per_page'));
+		$vars['hierarchies'] = Config::app('hierarchy');
 
 		return View::create('units/index', $vars)
 			->partial('header', 'partials/header')

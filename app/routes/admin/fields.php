@@ -8,7 +8,7 @@ Route::collection(array('before' => 'auth,admin,csrf'), function() {
 	Route::get(array('admin/setting/fields', 'admin/setting/fields/(:num)'), function($page = 1) {
 		$vars['messages'] = Notify::read();
 		$vars['token'] = Csrf::token();
-		$vars['extend'] = Extend::paginate($page, Config::get('meta.posts_per_page'));
+		$vars['extend'] = Extend::paginate($page, Config::get('meta.staffs_per_page'));
 
 		return View::create('setting/fields/index', $vars)
 			->partial('header', 'partials/header')

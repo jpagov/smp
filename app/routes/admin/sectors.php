@@ -7,8 +7,8 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 	*/
 	Route::get(array('admin/sectors', 'admin/sectors/(:num)'), function($page = 1) {
 		$vars['messages'] = Notify::read();
-		$vars['sectors'] = Sector::paginate($page, Config::get('meta.posts_per_page'));
-		$vars['hierarchies'] = Config::app('hierarchy');		
+		$vars['sectors'] = Sector::paginate($page, Config::get('meta.staffs_per_page'));
+		$vars['hierarchies'] = Config::app('hierarchy');
 
 		return View::create('sectors/index', $vars)
 			->partial('header', 'partials/header')

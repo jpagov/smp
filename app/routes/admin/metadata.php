@@ -29,7 +29,7 @@ Route::collection(array('before' => 'auth,admin,csrf'), function() {
 	*/
 	Route::post('admin/setting/metadata', function() {
 		$input = Input::get(array('sitename', 'description', 'home_page', 'posts_page',
-			'posts_per_page', 'auto_published_comments', 'theme', 'comment_notifications', 'comment_moderation_keys'));
+			'staffs_per_page', 'auto_published_comments', 'theme', 'comment_notifications', 'comment_moderation_keys'));
 
 		$validator = new Validator($input);
 
@@ -39,8 +39,8 @@ Route::collection(array('before' => 'auth,admin,csrf'), function() {
 		$validator->check('description')
 			->is_max(3, __('metadata.sitedescription_missing'));
 
-		$validator->check('posts_per_page')
-			->is_regex('#^[0-9]+$#', __('metadata.missing_posts_per_page', 'Please enter a number for posts per page'));
+		$validator->check('staffs_per_page')
+			->is_regex('#^[0-9]+$#', __('metadata.missing_staffs_per_page', 'Please enter a number for posts per page'));
 
 		if($errors = $validator->errors()) {
 			Input::flash();

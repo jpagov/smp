@@ -27,7 +27,7 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 	*/
 	Route::get(array('admin/branchs', 'admin/branchs/(:num)'), function($page = 1) {
 		$vars['messages'] = Notify::read();
-		$vars['branchs'] = Branch::paginate($page, Config::get('meta.posts_per_page'));
+		$vars['branchs'] = Branch::paginate($page, Config::get('meta.staffs_per_page'));
 		$vars['hierarchies'] = Config::app('hierarchy');
 
 		return View::create('branchs/index', $vars)

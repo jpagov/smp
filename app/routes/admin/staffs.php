@@ -8,7 +8,7 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 	Route::get(array('admin/staffs', 'admin/staffs/(:num)'), function($page = 1) {
 
 		$vars['messages'] = Notify::read();
-		$vars['staffs'] = Staff::paginate($page, Config::get('meta.posts_per_page'));
+		$vars['staffs'] = Staff::paginate($page, Config::get('meta.staffs_per_page'));
 		$vars['status'] = 'all';
 
 		return View::create('staffs/index', $vars)
@@ -25,7 +25,7 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 
     $query = Staff::where('status', '=', $status);
 
-    $perpage = Config::meta('posts_per_page');
+    $perpage = Config::meta('staffs_per_page');
     $total = $query->count();
     $staffs = $query->sort('grade', 'desc')->take($perpage)->skip(($page - 1) * $perpage)->get();
     $url = Uri::to('admin/staffs/status/' . $status);
