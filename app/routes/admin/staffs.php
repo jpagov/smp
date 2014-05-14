@@ -2,445 +2,445 @@
 
 Route::collection(array('before' => 'auth,csrf'), function() {
 
-	/*
-		List staffs
-	*/
-	Route::get(array('admin/staffs', 'admin/staffs/(:num)'), function($page = 1) {
+    /*
+        List staffs
+    */
+    Route::get(array('admin/staffs', 'admin/staffs/(:num)'), function($page = 1) {
 
-		$vars['messages'] = Notify::read();
-		$vars['staffs'] = Staff::paginate($page, Config::get('meta.staffs_per_page'));
-		$vars['status'] = 'all';
+        $vars['messages'] = Notify::read();
+        $vars['staffs'] = Staff::paginate($page, Config::get('meta.staffs_per_page'));
+        $vars['status'] = 'all';
 
-		return View::create('staffs/index', $vars)
-			->partial('header', 'partials/header')
-			->partial('footer', 'partials/footer');
-	});
-
-  /*
-    List staffs by status and paginate through them
-  */
-  Route::get(array(
-    'admin/staffs/status/(:any)',
-    'admin/staffs/status/(:any)/(:num)'), function($status, $page = 1) {
-
-    $query = Staff::where('status', '=', $status);
-
-    $perpage = Config::meta('staffs_per_page');
-    $total = $query->count();
-    $staffs = $query->sort('grade', 'desc')->take($perpage)->skip(($page - 1) * $perpage)->get();
-    $url = Uri::to('admin/staffs/status/' . $status);
-
-    $pagination = new Paginator($staffs, $total, $page, $perpage, $url);
-
-    $vars['messages'] = Notify::read();
-    $vars['staffs'] = $pagination;
-    $vars['status'] = $status;
-
-    return View::create('staffs/index', $vars)
-      ->partial('header', 'partials/header')
-      ->partial('footer', 'partials/footer');
-
-  });
-
-	/*
-		Edit staff
-	*/
-	Route::get('admin/staffs/edit/(:num)', function($id) {
-		$vars['messages'] = Notify::read();
-		$vars['token'] = Csrf::token();
-		$vars['staff'] = Staff::find($id);
-    $vars['fields'] = Extend::fields('staff', $id);
-    $division_roles = array();
-
-    if ($branch = Branch::find($vars['staff']->branch)) {
-      $vars['staff']->branch = $branch->title;
-    }
-
-    if ($sector = Sector::find($vars['staff']->sector)) {
-      $vars['staff']->sector = $sector->title;
-    }
-
-    if ($unit = Unit::find($vars['staff']->unit)) {
-      $vars['staff']->unit = $unit->title;
-    }
-
-    // get current staff division role
-    if ($staff_roles = Role::where('staff', '=', $id)->get(array('division'))) {
-      foreach ($staff_roles as $div) {
-        $division_roles[] = $div->division;
-
-      }
-    }
-
-    $vars['division_roles'] = $division_roles;
+        return View::create('staffs/index', $vars)
+            ->partial('header', 'partials/header')
+            ->partial('footer', 'partials/footer');
+    });
 
     /*
-    $hierarchies = Hierarchy::where('staff', '=', $id)->fetch();
-
-    $vars['staff']->division = $hierarchies->division;
-    $vars['staff']->branch = $hierarchies->branch;
-    $vars['staff']->sector = $hierarchies->sector;
-    $vars['staff']->unit = $hierarchies->unit;
+    List staffs by status and paginate through them
     */
-    foreach (array('Scheme', 'Division', 'Branch', 'Sector', 'Unit') as $hierarchy) {
-      $vars[strtolower($hierarchy) . 's'] = $hierarchy::dropdown();
-      array_unshift($vars[strtolower($hierarchy) . 's'], __('staffs.please_select'));
-    }
-
-		$vars['genders'] = array(
-			'M' => __('staffs.male'),
-			'F' => __('staffs.female')
-		);
-
-		$vars['statuses'] = array(
-			'inactive' => __('global.inactive'),
-			'active' => __('global.active')
-		);
-
-		$vars['roles'] = array(
-			'administrator' => __('global.administrator'),
-			'editor' => __('global.editor'),
-			'staff' => __('global.staff')
-		);
-
-		return View::create('staffs/edit', $vars)
-			->partial('header', 'partials/header')
-			->partial('footer', 'partials/footer');
-	});
-
-	Route::post('admin/staffs/edit/(:num)', function($id) {
-
-		$input = Input::get(array(
-      'salutation',
-      'first_name',
-      'last_name',
-      'display_name',
-      'gender',
-      'email',
-      'telephone',
-      'status',
-      'slug',
-
-      'scheme',
-      'grade',
-      'job_title',
-      'position',
-      'description',
-      'division',
-
-      'account'
-    ));
-
-    $account_enable = false;
-		$password_reset = false;
-
-    if(empty($input['slug'])) {
-      $input['slug'] = $input['display_name'];
-    }
-
-    $input['slug'] = slug($input['slug']);
-
-    if ($input['account']) {
-      $account_enable = true;
-      $input['role'] = Input::get('role');
-    } else {
-      $input['role'] = 'staff';
-    }
-
-    if ($account_enable) {
-      if($username = Input::get('username')) {
-        $input['username'] = $username;
-      }
-
-      if($password = Input::get('password')) {
-        $input['password'] = $password;
-        $password_reset = true;
-      }
-    }
-
-		$validator = new Validator($input);
-
-		$validator->add('safe', function($str) use($id) {
-			return ($str != 'inactive' and Auth::user()->id == $id);
-		});
-
-    $validator->check('email')
-      ->is_email(__('staffs.email_missing'));
-
-    $validator->check('telephone')
-      ->is_max(4, __('staffs.telephone_missing', 4));
-
-    if($account_enable) {
-  		$validator->check('username')
-  			->is_max(2, __('staffs.username_missing', 2));
-    }
-
-		if($password_reset) {
-			$validator->check('password')
-				->is_max(6, __('staffs.password_too_short', 6));
-		}
-
-		if($errors = $validator->errors()) {
-			Input::flash();
-
-			Notify::warning($errors);
+    Route::get(array(
+        'admin/staffs/status/(:any)',
+        'admin/staffs/status/(:any)/(:num)'), function($status, $page = 1) {
+
+        $query = Staff::where('status', '=', $status);
+
+        $perpage = Config::meta('staffs_per_page');
+        $total = $query->count();
+        $staffs = $query->sort('grade', 'desc')->take($perpage)->skip(($page - 1) * $perpage)->get();
+        $url = Uri::to('admin/staffs/status/' . $status);
+
+        $pagination = new Paginator($staffs, $total, $page, $perpage, $url);
+
+        $vars['messages'] = Notify::read();
+        $vars['staffs'] = $pagination;
+        $vars['status'] = $status;
+
+        return View::create('staffs/index', $vars)
+          ->partial('header', 'partials/header')
+          ->partial('footer', 'partials/footer');
+
+    });
+
+    /*
+        Edit staff
+    */
+    Route::get('admin/staffs/edit/(:num)', function($id) {
+        $vars['messages'] = Notify::read();
+        $vars['token'] = Csrf::token();
+        $vars['staff'] = Staff::find($id);
+        $vars['fields'] = Extend::fields('staff', $id);
+        $division_roles = array();
+
+        if ($branch = Branch::find($vars['staff']->branch)) {
+          $vars['staff']->branch = $branch->title;
+        }
+
+        if ($sector = Sector::find($vars['staff']->sector)) {
+          $vars['staff']->sector = $sector->title;
+        }
+
+        if ($unit = Unit::find($vars['staff']->unit)) {
+          $vars['staff']->unit = $unit->title;
+        }
+
+        // get current staff division role
+        if ($staff_roles = Role::where('staff', '=', $id)->get(array('division'))) {
+          foreach ($staff_roles as $div) {
+            $division_roles[] = $div->division;
+
+          }
+        }
+
+        $vars['division_roles'] = $division_roles;
+
+        /*
+        $hierarchies = Hierarchy::where('staff', '=', $id)->fetch();
+
+        $vars['staff']->division = $hierarchies->division;
+        $vars['staff']->branch = $hierarchies->branch;
+        $vars['staff']->sector = $hierarchies->sector;
+        $vars['staff']->unit = $hierarchies->unit;
+        */
+        foreach (array('Scheme', 'Division', 'Branch', 'Sector', 'Unit') as $hierarchy) {
+          $vars[strtolower($hierarchy) . 's'] = $hierarchy::dropdown();
+          array_unshift($vars[strtolower($hierarchy) . 's'], __('staffs.please_select'));
+        }
+
+        $vars['genders'] = array(
+            'M' => __('staffs.male'),
+            'F' => __('staffs.female')
+        );
+
+        $vars['statuses'] = array(
+            'inactive' => __('global.inactive'),
+            'active' => __('global.active')
+        );
+
+        $vars['roles'] = array(
+            'administrator' => __('global.administrator'),
+            'editor' => __('global.editor'),
+            'staff' => __('global.staff')
+        );
+
+        return View::create('staffs/edit', $vars)
+            ->partial('header', 'partials/header')
+            ->partial('footer', 'partials/footer');
+    });
+
+    Route::post('admin/staffs/edit/(:num)', function($id) {
+
+        $input = Input::get(array(
+            'salutation',
+            'first_name',
+            'last_name',
+            'display_name',
+            'gender',
+            'email',
+            'telephone',
+            'status',
+            'slug',
 
-			return Response::redirect('admin/staffs/edit/' . $id);
-		}
+            'scheme',
+            'grade',
+            'job_title',
+            'position',
+            'description',
+            'division',
 
-		if($password_reset) {
-			$input['password'] = Hash::make($input['password']);
-		}
+            'account'
+        ));
 
-    $hierarchy = array(
-      'branch' => 0,
-      'sector' => 0,
-      'unit' => 0,
-    );
-
-    if ($branch = Input::get('branch')) {
-      $input['branch'] = Branch::id($branch);
-      $hierarchy['branch'] = $input['branch'];
-    }
-
-    if ($sector = Input::get('sector')) {
-      $input['sector'] = Sector::id($sector);
-      $hierarchy['sector'] = $input['sector'];
-    }
-
-    if ($unit = Input::get('unit')) {
-      $input['unit'] = Unit::id($unit);
-      $hierarchy['unit'] = $input['unit'];
-    }
-
-		Staff::update($id, $input);
-
-    Extend::process('staff', $id, $input['email']);
-
-    if ($division = $input['division']) {
+        $account_enable = false;
+            $password_reset = false;
 
-      $hierarchy['division'] = $division;
-
-      // hierarchy
-      if ($exist = Hierarchy::where('staff', '=', $id)->fetch()) {
-        Hierarchy::update($exist->id, $hierarchy);
-      } else {
-        Hierarchy::create($hierarchy);
-      }
-
-      Division::counter();
-
-    }
-
-    // division roles
-    if($inputroles = Input::get('roles')) {
-
-      $roles = array();
-      Role::where('staff', '=', $id)->delete();
-
-      foreach ($inputroles as $div) {
-        $roles['staff'] = $id;
-        $roles['division'] = $div;
-        Role::create($roles);
-      }
-    }
-
-		Notify::success(__('staffs.updated'));
-
-		return Response::redirect('admin/staffs/edit/' . $id);
-	});
-
-	/*
-		Add staff
-	*/
-	Route::get('admin/staffs/add', function() {
-		$vars['messages'] = Notify::read();
-		$vars['token'] = Csrf::token();
+        if(empty($input['slug'])) {
+          $input['slug'] = $input['display_name'];
+        }
 
-    // extended fields
-    $vars['fields'] = Extend::fields('staff');
+        $input['slug'] = slug($input['slug']);
 
-    foreach (array('Scheme', 'Division', 'Branch', 'Sector', 'Unit') as $hierarchy) {
-      $vars[strtolower($hierarchy) . 's'] = $hierarchy::dropdown();
-      array_unshift($vars[strtolower($hierarchy) . 's'], __('staffs.please_select'));
-    }
+        if ($input['account']) {
+          $account_enable = true;
+          $input['role'] = Input::get('role');
+        } else {
+          $input['role'] = 'staff';
+        }
 
-    $vars['genders'] = array(
-      'M' => __('staffs.male'),
-      'F' => __('staffs.female')
-    );
+        if ($account_enable) {
+          if($username = Input::get('username')) {
+            $input['username'] = $username;
+          }
 
-		$vars['statuses'] = array(
-			'inactive' => __('global.inactive'),
-			'active' => __('global.active')
-		);
+          if($password = Input::get('password')) {
+            $input['password'] = $password;
+            $password_reset = true;
+          }
+        }
 
-		$vars['roles'] = array(
-			'administrator' => __('global.administrator'),
-			'editor' => __('global.editor'),
-			'staff' => __('global.staff')
-		);
+        $validator = new Validator($input);
 
-		return View::create('staffs/add', $vars)
-			->partial('header', 'partials/header')
-			->partial('footer', 'partials/footer');
-	});
+        $validator->add('safe', function($str) use($id) {
+            return ($str != 'inactive' and Auth::user()->id == $id);
+        });
 
-	Route::post('admin/staffs/add', function() {
+        $validator->check('email')
+          ->is_email(__('staffs.email_missing'));
 
-		$input = Input::get(array(
-      'salutation',
-      'first_name',
-      'last_name',
-      'display_name',
-      'gender',
-      'email',
-      'telephone',
-      'status',
+        $validator->check('telephone')
+          ->is_max(4, __('staffs.telephone_missing', 4));
 
-      'scheme',
-      'grade',
-      'job_title',
-      'position',
-      'description',
+        if($account_enable) {
+            $validator->check('username')
+                ->is_max(2, __('staffs.username_missing', 2));
+        }
 
-      'division',
-      'branch',
-      'sector',
-      'unit',
+        if($password_reset) {
+            $validator->check('password')
+                ->is_max(6, __('staffs.password_too_short', 6));
+        }
 
-      'account'
-    ));
+        if($errors = $validator->errors()) {
+            Input::flash();
 
-    if(empty($input['slug'])) {
-      $input['slug'] = $input['display_name'];
-    }
+            Notify::warning($errors);
+
+            return Response::redirect('admin/staffs/edit/' . $id);
+        }
 
-    $input['slug'] = slug($input['slug']);
+        if($password_reset) {
+            $input['password'] = Hash::make($input['password']);
+        }
 
-    $account_enable = false;
-    $password_reset = false;
+        $hierarchy = array(
+          'branch' => 0,
+          'sector' => 0,
+          'unit' => 0,
+        );
+
+        if ($branch = Input::get('branch')) {
+          $input['branch'] = Branch::id($branch);
+          $hierarchy['branch'] = $input['branch'];
+        }
+
+        if ($sector = Input::get('sector')) {
+          $input['sector'] = Sector::id($sector);
+          $hierarchy['sector'] = $input['sector'];
+        }
+
+        if ($unit = Input::get('unit')) {
+          $input['unit'] = Unit::id($unit);
+          $hierarchy['unit'] = $input['unit'];
+        }
+
+        Staff::update($id, $input);
+
+        Extend::process('staff', $id, $input['email']);
+
+        if ($division = $input['division']) {
+
+            $hierarchy['division'] = $division;
+
+            // hierarchy
+            if ($exist = Hierarchy::where('staff', '=', $id)->fetch()) {
+                Hierarchy::update($exist->id, $hierarchy);
+            } else {
+                Hierarchy::create($hierarchy);
+            }
+
+            Division::counter();
+
+        }
+
+        // division roles
+        if($inputroles = Input::get('roles')) {
+
+            $roles = array();
+            Role::where('staff', '=', $id)->delete();
+
+            foreach ($inputroles as $div) {
+                $roles['staff'] = $id;
+                $roles['division'] = $div;
+                Role::create($roles);
+            }
+        }
+
+        Notify::success(__('staffs.updated'));
+
+        return Response::redirect('admin/staffs/edit/' . $id);
+    });
+
+    /*
+        Add staff
+    */
+    Route::get('admin/staffs/add', function() {
+        $vars['messages'] = Notify::read();
+        $vars['token'] = Csrf::token();
+
+        // extended fields
+        $vars['fields'] = Extend::fields('staff');
 
-    if ($input['account']) {
-      $account_enable = true;
-    } else {
-      $input['account'] = 0;
-      unset($input['role']);
-    }
+        foreach (array('Scheme', 'Division', 'Branch', 'Sector', 'Unit') as $hierarchy) {
+            $vars[strtolower($hierarchy) . 's'] = $hierarchy::dropdown();
+            array_unshift($vars[strtolower($hierarchy) . 's'], __('staffs.please_select'));
+        }
 
-    if($role = Input::get('role')) {
-      $input['role'] = $role;
-    }
+        $vars['genders'] = array(
+            'M' => __('staffs.male'),
+            'F' => __('staffs.female')
+        );
 
-    if ($account_enable) {
-      if($username = Input::get('username')) {
-        $input['username'] = $username;
-      }
+        $vars['statuses'] = array(
+            'inactive' => __('global.inactive'),
+            'active' => __('global.active')
+        );
 
-      if($password = Input::get('password')) {
-        $input['password'] = $password;
-        $password_reset = true;
-      }
-    }
+        $vars['roles'] = array(
+            'administrator' => __('global.administrator'),
+            'editor' => __('global.editor'),
+            'staff' => __('global.staff')
+        );
 
-		$validator = new Validator($input);
+        return View::create('staffs/add', $vars)
+            ->partial('header', 'partials/header')
+            ->partial('footer', 'partials/footer');
+    });
 
-    if ($account_enable) {
+    Route::post('admin/staffs/add', function() {
 
-      $validator->check('username')
-        ->is_max(2, __('staffs.username_missing', 2));
+        $input = Input::get(array(
+            'salutation',
+            'first_name',
+            'last_name',
+            'display_name',
+            'gender',
+            'email',
+            'telephone',
+            'status',
 
-      $validator->check('password')
-      ->is_max(6, __('staffs.password_too_short', 6));
+            'scheme',
+            'grade',
+            'job_title',
+            'position',
+            'description',
 
-      $input['password'] = Hash::make($input['password']);
+            'division',
+            'branch',
+            'sector',
+            'unit',
 
-    }
+            'account'
+        ));
 
-		$validator->check('email')
-			->is_email(__('staffs.email_missing'));
+        if(empty($input['slug'])) {
+          $input['slug'] = $input['display_name'];
+        }
 
-    $validator->check('telephone')
-      ->is_max(4, __('staffs.telephone_missing', 4));
+        $input['slug'] = slug($input['slug']);
 
-		if($errors = $validator->errors()) {
-			Input::flash();
+        $account_enable = false;
+        $password_reset = false;
 
-			Notify::warning($errors);
+        if ($input['account']) {
+          $account_enable = true;
+        } else {
+          $input['account'] = 0;
+          unset($input['role']);
+        }
 
-			return Response::redirect('admin/staffs/add');
-		}
+        if($role = Input::get('role')) {
+          $input['role'] = $role;
+        }
 
-    $hierarchy = array(
-      'branch' => 0,
-      'sector' => 0,
-      'unit' => 0,
-    );
+        if ($account_enable) {
+          if($username = Input::get('username')) {
+            $input['username'] = $username;
+          }
 
-    if ($branch = Input::get('branch')) {
-      $input['branch'] = Branch::id($branch);
-      $hierarchy['branch'] = $input['branch'];
-    }
+          if($password = Input::get('password')) {
+            $input['password'] = $password;
+            $password_reset = true;
+          }
+        }
 
-    if ($sector = Input::get('sector')) {
-      $input['sector'] = Sector::id($sector);
-      $hierarchy['sector'] = $input['sector'];
-    }
+            $validator = new Validator($input);
 
-    if ($unit = Input::get('unit')) {
-      $input['unit'] = Unit::id($unit);
-      $hierarchy['unit'] = $input['unit'];
-    }
+        if ($account_enable) {
 
-    $input['created'] = Date::mysql('now');
+          $validator->check('username')
+            ->is_max(2, __('staffs.username_missing', 2));
 
-    $staff = Staff::create($input);
+          $validator->check('password')
+          ->is_max(6, __('staffs.password_too_short', 6));
 
-    Extend::process('staff', $staff->id, $staff->email);
+          $input['password'] = Hash::make($input['password']);
 
-    if ($division = $input['division']) {
-      $hierarchy['staff'] = $staff->id;
-      $hierarchy['division'] = $division;
-      Hierarchy::create($hierarchy);
+        }
 
-      Division::counter();
-    }
+            $validator->check('email')
+                ->is_email(__('staffs.email_missing'));
 
-    // division roles
-    if( $account_enable and $inputroles = Input::get('roles') ) {
+        $validator->check('telephone')
+          ->is_max(4, __('staffs.telephone_missing', 4));
 
-      $roles = array();
-      Role::where('staff', '=', $staff->id)->delete();
+            if($errors = $validator->errors()) {
+                Input::flash();
 
-      foreach ($inputroles as $div) {
-        $roles['staff'] = $staff->id;
-        $roles['division'] = $div;
-        Role::create($roles);
-      }
-    }
+                Notify::warning($errors);
 
-		Notify::success(__('staffs.created'));
+                return Response::redirect('admin/staffs/add');
+            }
 
-		return Response::redirect('admin/staffs');
-	});
+        $hierarchy = array(
+          'branch' => 0,
+          'sector' => 0,
+          'unit' => 0,
+        );
 
-	/*
-		Delete staff
-	*/
-	Route::get('admin/staffs/delete/(:num)', function($id) {
-		$self = Auth::user();
+        if ($branch = Input::get('branch')) {
+          $input['branch'] = Branch::id($branch);
+          $hierarchy['branch'] = $input['branch'];
+        }
 
-		if($self->id == $id) {
-			Notify::warning(__('staffs.delete_error'));
+        if ($sector = Input::get('sector')) {
+          $input['sector'] = Sector::id($sector);
+          $hierarchy['sector'] = $input['sector'];
+        }
 
-			return Response::redirect('admin/staffs/edit/' . $id);
-		}
+        if ($unit = Input::get('unit')) {
+          $input['unit'] = Unit::id($unit);
+          $hierarchy['unit'] = $input['unit'];
+        }
 
-		Staff::where('id', '=', $id)->delete();
+        $input['created'] = Date::mysql('now');
 
-		Notify::success(__('staffs.deleted'));
+        $staff = Staff::create($input);
 
-		return Response::redirect('admin/staffs');
-	});
+        Extend::process('staff', $staff->id, $staff->email);
+
+        if ($division = $input['division']) {
+          $hierarchy['staff'] = $staff->id;
+          $hierarchy['division'] = $division;
+          Hierarchy::create($hierarchy);
+
+          Division::counter();
+        }
+
+        // division roles
+        if( $account_enable and $inputroles = Input::get('roles') ) {
+
+          $roles = array();
+          Role::where('staff', '=', $staff->id)->delete();
+
+          foreach ($inputroles as $div) {
+            $roles['staff'] = $staff->id;
+            $roles['division'] = $div;
+            Role::create($roles);
+          }
+        }
+
+        Notify::success(__('staffs.created'));
+
+        return Response::redirect('admin/staffs');
+    });
+
+    /*
+        Delete staff
+    */
+    Route::get('admin/staffs/delete/(:num)', function($id) {
+        $self = Auth::user();
+
+        if($self->id == $id) {
+            Notify::warning(__('staffs.delete_error'));
+
+            return Response::redirect('admin/staffs/edit/' . $id);
+        }
+
+        Staff::where('id', '=', $id)->delete();
+
+        Notify::success(__('staffs.deleted'));
+
+        return Response::redirect('admin/staffs');
+    });
 
 });

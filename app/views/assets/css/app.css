@@ -120,7 +120,11 @@ form.navbar-form:before {
     opacity: .5;
     z-index: 1000;
 }
-.navbar-form input[type="text"], .tt-hint, .tt-input {
+.navbar-form input[type="text"] {
   width: 100%;
   padding-left:26px;
 }
+
+.branch-prefetch > .twitter-typeahead > .tt-hint,
+.sector-prefetch > .twitter-typeahead> .tt-hint,
+.unit-prefetch > .twitter-typeahead > .tt-hint { visibility: hidden; }

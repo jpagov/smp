@@ -41,7 +41,10 @@ var SMP = {
         datumTokenizer: function(d) { return d.tokens; },
         queryTokenizer: Bloodhound.tokenizers.whitespace,
         limit: 10,
-        prefetch: '/smp/api/staff.json'
+        prefetch: {
+            url: '/smp/api/staff.json',
+            ttl: 0
+        }
       });
       staff.initialize();
 
@@ -111,7 +114,7 @@ var SMP = {
 
       branchs.initialize();
 
-      $('#branch-prefetch .typeahead').typeahead(null, {
+      $('.branch-prefetch .typeahead').typeahead(null, {
         name: 'branchs',
         displayKey: 'name',
         source: branchs.ttAdapter()
@@ -132,7 +135,7 @@ var SMP = {
 
       sectors.initialize();
 
-      $('#sector-prefetch .typeahead').typeahead(null, {
+      $('.sector-prefetch .typeahead').typeahead(null, {
         name: 'sectors',
         displayKey: 'name',
         source: sectors.ttAdapter()
@@ -153,7 +156,7 @@ var SMP = {
 
       units.initialize();
 
-      $('#unit-prefetch .typeahead').typeahead(null, {
+      $('.unit-prefetch .typeahead').typeahead(null, {
         name: 'units',
         displayKey: 'name',
         source: units.ttAdapter()

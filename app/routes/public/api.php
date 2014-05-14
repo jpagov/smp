@@ -44,5 +44,8 @@ Route::get('api/(:any)', function() {
 
   $json = Json::encode($api);
 
-  return Response::create($json, 200, array('content-type' => 'application/json'));
+  return Response::create($json, 200, array(
+        'X-Frame-Options' => 'SAMEORIGIN',
+        'content-type' => 'application/json'
+    ));
 });
