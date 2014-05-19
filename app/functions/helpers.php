@@ -32,7 +32,7 @@ function asset_url($extra = '') {
 }
 
 function current_url() {
-	return Uri::current();
+	return base_url(Uri::current());
 }
 
 function rss_url() {

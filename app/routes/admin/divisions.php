@@ -47,7 +47,7 @@ Route::collection(array('before' => 'auth,admin,csrf'), function() {
 		});
 
 		$validator->check('slug')
-			->is_max(3, __('posts.slug_missing'))
+			->is_max(2, __('posts.slug_missing'))
 			->is_duplicate(__('posts.slug_duplicate'));
 
 		if($errors = $validator->errors()) {
@@ -100,7 +100,7 @@ Route::collection(array('before' => 'auth,admin,csrf'), function() {
     });
 
 		$validator->check('slug')
-			->is_max(3, __('posts.slug_missing'))
+			->is_max(2, __('posts.slug_missing'))
 			->is_duplicate(__('posts.slug_duplicate'));
 
 		if($errors = $validator->errors()) {

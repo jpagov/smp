@@ -19,18 +19,23 @@ var SMP = {
   common: {
     init: function(){
 
-      $(document).keydown(function(e) {
-        //console.log(e.keyCode);
-        if(e.keyCode == 72) {
-          $("#term").focus();
-        }
-        if(e.shiftKey && e.keyCode == 191) {
-          e.preventDefault();
-          $('#helper-modal').load('/smp/help/keys',function(){
-            $(this).modal();
-          }).modal('show');
-        }
-    });
+        $(document).keydown(function(e) {
+            //console.log(e.keyCode);
+            if(e.keyCode == 72) {
+                $("#term").focus();
+            }
+            if(e.shiftKey && e.keyCode == 191) {
+                e.preventDefault();
+                $('#helper-modal').load('/smp/help/keys',function(){
+                    $(this).modal();
+                }).modal('show');
+            }
+        });
+
+        $('.navbar-right .view').popover({
+            trigger: 'hover',
+            placement: 'auto bottom'
+        })
 
     }
   },
@@ -82,9 +87,9 @@ var SMP = {
 
       //console.log('Admin::Staff');
 
-      $( "#first_name, #last_name" ).keyup(function(e) {
-        var input = $('#first_name').val() + ' ' + $('#last_name').val();
-        console.log( input);
+      $( "#salutation, #first_name, #last_name" ).keyup(function(e) {
+        var input = $('#salutation').val() + ' ' + $('#first_name').val() + ' ' + $('#last_name').val();
+        console.log(input);
         $('#display_name').prop('value', input);
       });
 

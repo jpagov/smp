@@ -75,6 +75,11 @@ function staff_grade() {
   return Registry::prop('staff', 'grade');
 }
 
+function staff_description() {
+    return Registry::prop('staff', 'description', false);
+}
+
+
 function staff_description_html() {
 	return Registry::prop('staff', 'description', false);
 }

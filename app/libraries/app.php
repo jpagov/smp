@@ -73,28 +73,28 @@ class App {
 		// register posts page
 		Registry::set('posts_page', Page::posts());
 
-    // register posts page
-    Registry::set('staffs_page', Page::staff());
+        // register posts page
+        Registry::set('staffs_page', Page::staff());
 
 		if( ! is_admin()) {
 
-      // register divisions
-      foreach(Division::get() as $itm) {
-        $divisions[$itm->id] = $itm;
-      }
+            // register divisions
+            foreach(Division::get() as $itm) {
+                $divisions[$itm->id] = $itm;
+            }
 
-      Registry::set('all_divisions', $divisions);
+            Registry::set('all_divisions', $divisions);
 
-			// register menu items
-			$pages = Page::where('status', '=', 'published')
-				->where('show_in_menu', '=', '1')
-				->sort('menu_order')
-				->get();
+    		// register menu items
+    		$pages = Page::where('status', '=', 'published')
+    			->where('show_in_menu', '=', '1')
+    			->sort('menu_order')
+    			->get();
 
-			$pages = new Items($pages);
+    		$pages = new Items($pages);
 
-			Registry::set('menu', $pages);
-			Registry::set('total_menu_items', $pages->length());
+    		Registry::set('menu', $pages);
+    		Registry::set('total_menu_items', $pages->length());
 		}
 	}
 

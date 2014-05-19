@@ -1,5 +1,5 @@
 Theme name:    Default
-Description:   Bootstrap Yeti theme for SMP.
+Description:   Bootstrap Yeti theme for SMP
 Author name:   Hariadi Hinta
 Author site:   https://sistem.jpa.gov.my
 License:       MIT

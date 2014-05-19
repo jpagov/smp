@@ -68,3 +68,7 @@ function has_pagination() {
 function staffs_per_page() {
 	return min(Registry::get('total_staffs'), Config::meta('staffs_per_page'));
 }
+
+function division() {
+    return Registry::get('division_slug');
+}

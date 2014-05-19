@@ -1,4 +1,4 @@
-		</div> <!-- //.well -->
+
           <footer id="bottom">
               <small>&copy; <?php echo date('Y'); ?> <?php echo site_name(); ?>. All rights reserved.</small>
 
@@ -14,7 +14,6 @@
               </ul>
           </footer>
 
-	      </div> <!-- //.col-lg-12 -->
       </div> <!-- //.row -->
     </div> <!-- //.container -->
     <div id="helper-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"><!-- /.modal-dalog --></div>

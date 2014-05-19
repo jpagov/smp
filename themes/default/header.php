@@ -12,7 +12,7 @@
 
   <link rel="alternate" type="application/rss+xml" title="RSS" href="<?php echo rss_url(); ?>">
 
-  <meta property="og:title" content="<?php echo site_name(); ?>">
+  <meta property="og:title" content="<?php echo page_title('Page can’t be found'); ?>">
   <meta property="og:type" content="website">
   <meta property="og:url" content="<?php echo e(current_url()); ?>">
   <meta property="og:image" content="<?php echo theme_url('img/og_image.gif'); ?>">
@@ -43,7 +43,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="<?php echo base_url(); ?>"><?php echo site_name(); ?></a>
+          <a class="navbar-brand" href="<?php echo base_url(); ?>"><h1><?php echo site_name(); ?></h1></a>
         </div><!-- //.navbar-header -->
         <div class="navbar-collapse collapse navbar-inverse-collapse">
           <?php if(has_menu_items()): ?>
@@ -63,27 +63,22 @@
               <input type="text" class="form-control search-query typeahead" id="term" name="term" placeholder="To search, type and hit enter&hellip;" value="<?php echo search_term(); ?>">
               <button class="sr-only" type="submit">Submit</button>
             </div>
-          </form></div>
-
+          </form>
+          </div>
+          <ul class="nav navbar-nav navbar-right">
+            <li><a class="view" data-container="body" data-toggle="popover" data-placement="bottom" data-content="View by Division" href="#"><span class="glyphicon glyphicon-th-large"></span>&nbsp;<span class="hidden-lg hidden-md">View by Division</span></a></li>
+            <li><a class="view" data-container="body" data-toggle="popover" data-placement="bottom" data-content="View by Directory" href="#"><span class="glyphicon glyphicon-th-list"></span>&nbsp;<span class="hidden-lg hidden-md">View by Directory</span></a></li>
+          </ul>
         </div><!-- //.navbar-collapse -->
       </div><!-- //.container -->
     </div><!-- //.navbar -->
 
+  <?php if (Uri::current() == '/') : ?>
+    <?php theme_include('divisions'); ?>
+  <?php endif; ?>
+
     <div class="container">
       <div class="row">
-        <div class="col-md-12">
-          <div class="well admin-container">
 
 
-      <aside>
-        <b>Divisions</b>
-        <ul>
-          <?php while(divisions()): ?>
-           <li>
-            <a href="<?php echo division_url(); ?>" title="<?php echo division_description(); ?>">
-             <?php echo division_title(); ?> <span><?php echo division_count(); ?></span>
-           </a>
-         </li>
-       <?php endwhile; ?>
-     </ul>
-   </aside>
+

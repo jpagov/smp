@@ -7,5 +7,10 @@ return array(
   'search_noresult' => 'Unfortunately, there\'s no results for &ldquo;%s&rdquo;. Did you spell everything correctly?',
 
   'keyboard_shortcuts' => 'Keyboard Shortcuts',
+  'view_staff_profile' => 'View %s profile on %s',
+
+  'divisions' => 'Divisions',
+
+  'top_management' => 'Top Management',
 
 );

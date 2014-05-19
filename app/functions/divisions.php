@@ -16,6 +16,14 @@ function total_divisions() {
 	return $divisions->length();
 }
 
+function all_divisions() {
+    if( ! $divisions = Registry::get('all_divisions')) {
+        $divisions = Division::get();
+    }
+
+    return $divisions;
+}
+
 // loop divisions
 function divisions() {
 	if( ! total_divisions()) return false;

@@ -1,7 +1,10 @@
 <?php theme_include('header'); ?>
+<?php if (Uri::current() == '/') : theme_include('footer'); exit(); endif; ?>
 
-<section class="content">
 
+
+<section class="content col-lg-8 hiro one-edge-shadow">
+    <?php theme_include('breadcrumb'); ?>
 	<?php if(has_staffs()): ?>
 		<ul class="items">
 			<?php staffs(); ?>

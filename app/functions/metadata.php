@@ -8,7 +8,7 @@ function site_name() {
 }
 
 function site_description() {
-	return Config::meta('description');
+	return is_staff() ? staff_description() : Config::meta('description');
 }
 
 function site_meta($key, $default = '') {

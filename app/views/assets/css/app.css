@@ -1,4 +1,6 @@
-body { background-color: #eee; }
+html,body {
+    height:100%;
+}body.admin { background-color: #eee; }
 
 .tabs-top > .nav-tabs { margin-bottom: 24px; }
 
@@ -128,3 +130,55 @@ form.navbar-form:before {
 .branch-prefetch > .twitter-typeahead > .tt-hint,
 .sector-prefetch > .twitter-typeahead> .tt-hint,
 .unit-prefetch > .twitter-typeahead > .tt-hint { visibility: hidden; }
+
+.divisions .alert a, .divisions .alert .alert-link {
+    text-decoration: none;
+}
+
+.divisions .alert a:hover {
+    text-decoration: underline;
+}
+.navbar h1 {
+    font-size: 19px;
+    height: 45px;
+    line-height: 21px;
+    padding: 0;
+    margin: 0;
+}
+
+.divisions > .well {
+    background: none repeat scroll 0 0 rgba(232, 232, 232, 0.3);
+    box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.1);
+}
+
+.divisions > .well:hover {
+    background: none repeat scroll 0 0 rgba(232, 232, 232, 0.5);
+}
+
+@media(min-width:992px) {
+
+    .divisions > .well > p { font-size: 12px; }
+    .row-flex, .row-flex > div[class*='col-'] {
+        display: -webkit-box;
+        display: -moz-box;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+        flex:1 1 auto;
+    }
+
+    .row-flex-wrap {
+        -webkit-flex-flow: row wrap;
+        align-content: flex-start;
+        flex:0;
+    }
+}
+
+.ir {
+    background-image:url('myImage.jpg');
+    background-color: rgba(0, 0, 0, 0);
+    border: 0 none;
+    color: rgba(0, 0, 0, 0);
+    font: 0px/0 a;
+    text-shadow: none;
+}

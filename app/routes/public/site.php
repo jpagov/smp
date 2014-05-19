@@ -14,7 +14,7 @@ $staffs_page->slug = empty($tmp) ? '/' : $staffs_page->slug;
  * The Home page
  */
 if($home_page->id != $staffs_page->id) {
-	Route::get(array('/', $home_page->slug), function() use($home_page) {
+	Route::get(array('/', $home_page->slug, 'divisions'), function() use($home_page) {
     if($home_page->redirect) {
       return Response::redirect($home_page->redirect);
     }
@@ -59,6 +59,13 @@ Route::get($routes, function($offset = 1) use($staffs_page) {
 	Registry::set('page_offset', $offset);
 
 	return new Template('staffs');
+});
+
+/**
+ * View divisions list
+ */
+Route::get(array('divisions'), function() {
+    return Response::redirect('/');
 });
 
 /**
@@ -118,6 +125,7 @@ function(
 	Registry::set('page', $staffs_page);
 	Registry::set('page_offset', $offset);
 	Registry::set('staff_division', $division);
+    Registry::set('division_slug', $division_slug);
 
 	return new Template('staffs');
 });
