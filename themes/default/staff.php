@@ -1,5 +1,5 @@
 <?php theme_include('header'); ?>
-
+    <?php theme_include('breadcrumb'); ?>
     <section class="content wrap" id="staff-<?php echo staff_id(); ?>">
       <h1><?php echo staff_name(); ?></h1>
 

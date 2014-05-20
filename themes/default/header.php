@@ -66,8 +66,8 @@
           </form>
           </div>
           <ul class="nav navbar-nav navbar-right">
-            <li><a class="view" data-container="body" data-toggle="popover" data-placement="bottom" data-content="View by Division" href="#"><span class="glyphicon glyphicon-th-large"></span>&nbsp;<span class="hidden-lg hidden-md">View by Division</span></a></li>
-            <li><a class="view" data-container="body" data-toggle="popover" data-placement="bottom" data-content="View by Directory" href="#"><span class="glyphicon glyphicon-th-list"></span>&nbsp;<span class="hidden-lg hidden-md">View by Directory</span></a></li>
+            <li<?php if(strpos(Uri::current(), '/') !== false) echo ' class="active"'; ?>><a class="view btn-lg" data-container="body" data-toggle="popover" data-placement="bottom" data-content="View by Division" href="#"><span class="glyphicon glyphicon-th-large"></span>&nbsp; <span class="hidden-lg hidden-md">View by Division</span></a></li>
+            <li<?php if(strpos(Uri::current(), 'view/list') !== false) echo ' class="active"'; ?>><a class="view btn-lg" data-container="body" data-toggle="popover" data-placement="bottom" data-content="View by Directory" href="#"><span class="glyphicon glyphicon-th-list"></span>&nbsp; <span class="hidden-lg hidden-md">View by Directory</span></a></li>
           </ul>
         </div><!-- //.navbar-collapse -->
       </div><!-- //.container -->
