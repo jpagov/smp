@@ -43,7 +43,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="<?php echo base_url(); ?>"><h1><?php echo site_name(); ?></h1></a>
+          <a class="navbar-brand" href="<?php echo base_url(); ?>"><?php if(!staff_id()) : ?><h1><?php endif; ?><?php echo site_name(); ?><?php if(!staff_id()) : ?></h1><?php endif; ?></a>
         </div><!-- //.navbar-header -->
         <div class="navbar-collapse collapse navbar-inverse-collapse">
           <?php if(has_menu_items()): ?>
@@ -65,10 +65,13 @@
             </div>
           </form>
           </div>
+          <?php if(!staff_id()) : ?>
           <ul class="nav navbar-nav navbar-right">
             <li<?php if(strpos(Uri::current(), '/') !== false) echo ' class="active"'; ?>><a class="view btn-lg" data-container="body" data-toggle="popover" data-placement="bottom" data-content="View by Division" href="#"><span class="glyphicon glyphicon-th-large"></span>&nbsp; <span class="hidden-lg hidden-md">View by Division</span></a></li>
             <li<?php if(strpos(Uri::current(), 'view/list') !== false) echo ' class="active"'; ?>><a class="view btn-lg" data-container="body" data-toggle="popover" data-placement="bottom" data-content="View by Directory" href="#"><span class="glyphicon glyphicon-th-list"></span>&nbsp; <span class="hidden-lg hidden-md">View by Directory</span></a></li>
           </ul>
+        <?php endif; ?>
+
         </div><!-- //.navbar-collapse -->
       </div><!-- //.container -->
     </div><!-- //.navbar -->

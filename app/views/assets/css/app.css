@@ -182,3 +182,24 @@ form.navbar-form:before {
     font: 0px/0 a;
     text-shadow: none;
 }
+
+/* STAFF */
+.staff h1 em {
+    display: block;
+    color: #6F6F6F;
+    font-size: 17px;
+    font-weight: 200;
+    line-height: 1.4;
+}
+
+.meta { padding-top: 20px; }
+/*
+.meta .dl-horizontal dd {margin-left: 0;}
+.meta .dl-horizontal dt, .meta .dl-horizontal dd { border-bottom: 1px solid #DDDDDD; padding: 10px 15px; }
+.meta .dl-horizontal dd i { padding-right: 2px; }
+*/
+@media(min-width:767px) {
+    .star-rating {
+        text-align: center
+    }
+}

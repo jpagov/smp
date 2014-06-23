@@ -15,6 +15,14 @@ function staff_name() {
 	return Registry::prop('staff', 'display_name');
 }
 
+function staff_first_name() {
+    return Registry::prop('staff', 'first_name');
+}
+
+function staff_last_name() {
+    return Registry::prop('staff', 'last_name');
+}
+
 function staff_gender() {
   return Registry::prop('staff', 'gender');
 }
@@ -23,8 +31,16 @@ function staff_email() {
   return Registry::prop('staff', 'email');
 }
 
+function staff_email_encode() {
+  return Encode::email(Registry::prop('staff', 'email'));
+}
+
 function staff_telephone() {
   return Registry::prop('staff', 'telephone');
+}
+
+function staff_telephone_link() {
+  return '<a href="tel:+6'. str_replace(' ', '', staff_telephone()) .'">'. staff_telephone() . '</a> ';
 }
 
 function staff_slug() {
@@ -155,7 +171,7 @@ function staff_author_bio() {
 function staff_custom_field($key, $default = '') {
 	$id = Registry::prop('staff', 'id');
 
-	if($extend = Extend::field('post', $key, $id)) {
+	if($extend = Extend::field('staff', $key, $id)) {
 		return Extend::value($extend, $default);
 	}
 

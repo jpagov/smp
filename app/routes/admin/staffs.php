@@ -437,6 +437,8 @@ Route::collection(array('before' => 'auth,csrf'), function() {
         }
 
         Staff::where('id', '=', $id)->delete();
+        Hierarchy::where('staff', '=', $id)->delete();
+        Role::where('staff', '=', $id)->delete();
 
         Notify::success(__('staffs.deleted'));
 

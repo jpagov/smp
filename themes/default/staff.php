@@ -1,63 +1,137 @@
 <?php theme_include('header'); ?>
+
+<section class="col-xs-12 col-md-8 staff well" id="staff-<?php echo staff_id(); ?>">
     <?php theme_include('breadcrumb'); ?>
-    <section class="content wrap" id="staff-<?php echo staff_id(); ?>">
-      <h1><?php echo staff_name(); ?></h1>
 
-      <article>
-        <?php echo staff_job_title(); ?>
-      </article>
 
-      <section class="footnote">
-        <!-- Unfortunately, CSS means everything's got to be inline. -->
-        <p>This staff is my <?php echo numeral(total_staffs()); ?> oldest. It is <?php echo count_words(staff_job_title()); ?> words long<?php if(comments_open()): ?>, and it’s got <?php echo total_comments() . pluralise(total_comments(), ' comment'); ?> for now.<?php endif; ?> <?php echo staff_custom_field('attribution'); ?></p>
-      </section>
-    </section>
+    <div class="row">
 
-    <?php if(comments_open()): ?>
+        <div class="col-xs-8 col-md-push-4">
+            <h1><em><?php echo staff_salutation(); ?></em> <?php echo staff_first_name(); ?> <?php echo staff_last_name(); ?></h1>
+            <p class="lead"><span itemprop="jobTitle"><?php echo staff_description(); ?></span></p>
+        </div>
+
+        <div class="col-xs-4 col-md-pull-8">
+            <figure><img src="<?php echo staff_custom_field('avatar', 'http://localhost/smp/content/avatar/default-male.jpg'); ?>" class="img-responsive img-thumbnail pull-left"></figure>
+
+        </div>
+
+    </div>
+
+    <div class="row">
+
+        <div class="col-md-2 star-rating">
+            <p> 14240 <small> views </small></p>
+            <div class="stars">
+                <span class="glyphicon glyphicon-star"></span>
+                <span class="glyphicon glyphicon-star"></span>
+                <span class="glyphicon glyphicon-star"></span>
+                <span class="glyphicon glyphicon-star"></span>
+                <span class="glyphicon glyphicon-star-empty"></span>
+            </div>
+            <p> Average 4.5 <small> / </small> 5 </p>
+        </div>
+
+        <div class="col-md-10 meta">
+            <dl class="dl-horizontal">
+
+              <dt>Position</dt>
+              <dd><i class="glyphicon glyphicon-pushpin"></i> <span itemprop="jobTitle"><?php echo staff_job_title(); ?></span></dd>
+              <dt>Designation</dt>
+              <dd><i class="glyphicon glyphicon-barcode"></i> <?php echo staff_position(); ?></dd>
+              <dt>Email</dt>
+              <dd><i class="glyphicon glyphicon-comment"></i> <a class="email" itemprop="email" href="mailto:<?php echo staff_email_encode(); ?>"><?php echo staff_email_encode(); ?></a></dd>
+              <dt>Office Phone</dt>
+              <dd><i class="glyphicon glyphicon-earphone"></i> <?php echo staff_telephone_link(); ?>&#1730;</dd>
+          </dl>
+      </div>
+  </div>
+
+</section>
+
+<section class="col-xs-12 col-md-4 sidebar">
+    <div class="">
+        <h2 class="modal-header">Direct Reports</h2>
+
+        <div class="list-group">
+            <a href="#" class="list-group-item clearfix">
+                <img width="50" height="50" class="media-object img-circle pull-left" src="<?php echo staff_custom_field('avatar', 'http://localhost/smp/content/avatar/default-male.jpg'); ?>" alt="...">
+                <h4 class="list-group-item-heading">Hasim Zainal Abidin</h4>
+                <p class="list-group-item-text">KPP(M)TP</p>
+            </a>
+        </div>
+
+
+  <h2 class="modal-header">Related</h2>
+  <div class="list-group">
+    <a href="#" class="list-group-item clearfix">
+        <img width="50" height="50" class="media-object img-circle pull-left" src="<?php echo staff_custom_field('avatar', 'http://localhost/smp/content/avatar/default-male.jpg'); ?>" alt="...">
+        <h4 class="list-group-item-heading">Wan Anisah Binti Wan Razak</h4>
+        <p class="list-group-item-text">PPTM(M)TP</p>
+    </a>
+
+    <a href="#" class="list-group-item clearfix">
+        <img width="50" height="50" class="media-object img-circle pull-left" src="<?php echo staff_custom_field('avatar', 'http://localhost/smp/content/avatar/default-male.jpg'); ?>" alt="...">
+        <h4 class="list-group-item-heading">Helmee Izani Bin Manap</h4>
+        <p class="list-group-item-text">PPTM(M)TP7</p>
+    </a>
+
+    <a href="#" class="list-group-item clearfix">
+        <img width="50" height="50" class="media-object img-circle pull-left" src="<?php echo staff_custom_field('avatar', 'http://localhost/smp/content/avatar/default-male.jpg'); ?>" alt="...">
+        <h4 class="list-group-item-heading">Razali Azri</h4>
+        <p class="list-group-item-text">PPTM(M)TP3</p>
+    </a>
+</div>
+
+</div>
+
+</section>
+
+<?php if(comments_open()): ?>
     <section class="comments">
       <?php if(has_comments()): ?>
-      <ul class="commentlist">
-        <?php $i = 0; while(comments()): $i++; ?>
-        <li class="comment" id="comment-<?php echo comment_id(); ?>">
-          <div class="wrap">
-            <h2><?php echo comment_name(); ?></h2>
-            <time><?php echo relative_time(comment_time()); ?></time>
+          <ul class="commentlist">
+            <?php $i = 0; while(comments()): $i++; ?>
+            <li class="comment" id="comment-<?php echo comment_id(); ?>">
+              <div class="wrap">
+                <h2><?php echo comment_name(); ?></h2>
+                <time><?php echo relative_time(comment_time()); ?></time>
 
-            <div class="content">
-              <?php echo comment_text(); ?>
-            </div>
+                <div class="content">
+                  <?php echo comment_text(); ?>
+              </div>
 
-            <span class="counter"><?php echo $i; ?></span>
+              <span class="counter"><?php echo $i; ?></span>
           </div>
-        </li>
-        <?php endwhile; ?>
-      </ul>
-      <?php endif; ?>
+      </li>
+  <?php endwhile; ?>
+</ul>
+<?php endif; ?>
 
-      <form id="comment" class="commentform wrap" method="post" action="<?php echo comment_form_url(); ?>#comment">
-        <?php echo comment_form_notifications(); ?>
+<form id="comment" class="commentform wrap" method="post" action="<?php echo comment_form_url(); ?>#comment">
+    <?php echo comment_form_notifications(); ?>
 
-        <p class="name">
-          <label for="name">Your name:</label>
-          <?php echo comment_form_input_name('placeholder="Your name"'); ?>
-        </p>
+    <p class="name">
+      <label for="name">Your name:</label>
+      <?php echo comment_form_input_name('placeholder="Your name"'); ?>
+  </p>
 
-        <p class="email">
-          <label for="email">Your email address:</label>
-          <?php echo comment_form_input_email('placeholder="Your email (won’t be published)"'); ?>
-        </p>
+  <p class="email">
+      <label for="email">Your email address:</label>
+      <?php echo comment_form_input_email('placeholder="Your email (won’t be published)"'); ?>
+  </p>
 
-        <p class="textarea">
-          <label for="text">Your comment:</label>
-          <?php echo comment_form_input_text('placeholder="Your comment"'); ?>
-        </p>
+  <p class="textarea">
+      <label for="text">Your comment:</label>
+      <?php echo comment_form_input_text('placeholder="Your comment"'); ?>
+  </p>
 
-        <p class="submit">
-          <?php echo comment_form_button(); ?>
-        </p>
-      </form>
+  <p class="submit">
+      <?php echo comment_form_button(); ?>
+  </p>
+</form>
 
-    </section>
-    <?php endif; ?>
+</section>
+<?php endif; ?>
 
 <?php theme_include('footer'); ?>
