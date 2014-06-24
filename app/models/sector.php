@@ -19,7 +19,7 @@ class Sector extends Base {
 	}
 
   public static function id($name) {
-
+    if (empty(trim($name))) return;
     if ( !$sector = static::where('title', 'like', $name)->fetch()) {
       $input = array('title' => $name, 'slug' => slug($name));
       $sector = static::create($input);

@@ -19,7 +19,7 @@ class Unit extends Base {
 	}
 
   public static function id($name) {
-
+    if (empty(trim($name))) return;
     if ( !$unit = static::where('title', 'like', $name)->fetch()) {
       $input = array('title' => $name, 'slug' => slug($name));
       $unit = static::create($input);

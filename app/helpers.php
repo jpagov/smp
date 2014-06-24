@@ -83,3 +83,36 @@ function readable_size($size) {
 function onload() {
   return ' class="' . (is_admin() ? 'admin' : 'login') . '" id="' . explode('/', Uri::current())[1] . '"';
 }
+
+function jusa($gred) {
+    $gred = intval($gred);
+
+    switch ($gred) {
+
+        case ($gred >= 99):
+            return 'TURUS I';
+
+        case ($gred >= 97 && $gred <= 98):
+            return 'TURUS II';
+
+        case ($gred >= 95 && $gred <= 97):
+            return 'TURUS III';
+
+        case ($gred >= 91 && $gred <= 94):
+            return 'A';
+
+        case ($gred >= 88 && $gred <= 90):
+            return 'B';
+
+        case ($gred >= 56 && $gred <= 87):
+            return 'C';
+
+        default:
+            return;
+    }
+}
+
+function reportTo($desc) {
+    $desc = trim(strip_tags(parse($desc), '<ol><ul><li>'));
+    return $desc;
+}
