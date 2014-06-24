@@ -54,9 +54,21 @@
 		<?php
 		foreach(array('active', 'inactive') as $type):
 
-			$status_count = Query::table(Base::table('staffs'))->where('status', '=', $type)->count();
+            $query = Query::table(Base::table('staffs'))->where('status', '=', $type);
+            $status_link = 'admin/staffs/status/' . $type;
+
+            if ($division) {
+                $query = $query->where('division', '=', $division);
+                $status_link = 'admin/staffs/division/' . $division . '/' .'status/' . $type;
+            }
+
+            if ($staffs->links()) {
+                $status_link .= '/' . $staffs->page;
+            }
+
+            $status_count = $query->count();
 		?>
-			<?php echo Html::link('admin/staffs/status/' . $type, '<span class="icon"></span> ' . __('global.' . $type), array(
+			<?php echo Html::link($status_link, '<span class="icon"></span> ' . __('global.' . $type), array(
 				'class' => ($status == $type) ? 'list-group-item active' : 'list-group-item',
 				'badge' => $status_count
 			)); ?>

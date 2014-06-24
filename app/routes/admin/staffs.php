@@ -17,6 +17,54 @@ Route::collection(array('before' => 'auth,csrf'), function() {
     });
 
     /*
+    List staffs by department and paginate through them
+    */
+    Route::get(array(
+        'admin/staffs/division/(:any)',
+        'admin/staffs/division/(:any)/(:num)',
+        'admin/staffs/division/(:any)/status/(:any)',
+        'admin/staffs/division/(:any)/status/(:any)/(:num)'), function($slug, $status = 1, $page = 1) {
+
+        $statuses = false;
+        $pager = $status;
+
+        if (is_string($status)) {
+            $pager = $page;
+            $statuses = true;
+        }
+
+        $division = Division::slug($slug)->id;
+
+        $query = Staff::where('division', '=', $division);
+
+        if ($statuses) {
+            $query = $query->where('status', '=', $status);
+        }
+
+        $perpage = Config::meta('staffs_per_page');
+        $total = $query->count();
+        $staffs = $query->sort('grade', 'desc')->take($perpage)->skip(($page - 1) * $perpage)->get();
+
+        $url = Uri::to('admin/staffs/division/' . $slug);
+
+        if ($statuses) {
+            $url .= '/' . 'status/' . $status;
+        }
+
+        $pagination = new Paginator($staffs, $total, $page, $perpage, $url);
+
+        $vars['messages'] = Notify::read();
+        $vars['staffs'] = $pagination;
+        $vars['division'] = $slug;
+        $vars['status'] = $statuses ? $status : 'all';
+
+        return View::create('staffs/index', $vars)
+          ->partial('header', 'partials/header')
+          ->partial('footer', 'partials/footer');
+
+    });
+
+    /*
     List staffs by status and paginate through them
     */
     Route::get(array(
@@ -41,6 +89,8 @@ Route::collection(array('before' => 'auth,csrf'), function() {
           ->partial('footer', 'partials/footer');
 
     });
+
+
 
     /*
         Edit staff

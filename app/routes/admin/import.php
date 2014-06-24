@@ -49,7 +49,6 @@ Route::collection(array('before' => 'auth'), function() {
 
 
             $staff = Staff::create($input);
-            Extend::process('staff', $staff->id, $staff->email);
 
             $hierarchy = array(
                 'staff' => $staff->id
