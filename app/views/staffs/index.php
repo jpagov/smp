@@ -57,7 +57,7 @@
             $query = Query::table(Base::table('staffs'))->where('status', '=', $type);
             $status_link = 'admin/staffs/status/' . $type;
 
-            if ($division) {
+            if (isset($division)) {
                 $query = $query->where('division', '=', $division);
                 $status_link = 'admin/staffs/division/' . $division . '/' .'status/' . $type;
             }

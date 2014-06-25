@@ -8,7 +8,8 @@
 	],
 	"require": {
 		"php": ">=5.3.6",
-    "phpmailer/phpmailer": "dev-master"
+        "phpmailer/phpmailer": "dev-master",
+        "hariadi/siapa": "dev-master"
 	},
 	"extra": {
 		"installer-paths": {

@@ -58,6 +58,8 @@ Route::post('admin/login', array('before' => 'csrf', 'main' => function() {
 		return Response::redirect('admin/login');
 	}
 
+    $division = Division::find(Auth::user()->division)->slug;
+
 	// check for updates
 	//Update::version();
   Division::counter();
@@ -66,7 +68,7 @@ Route::post('admin/login', array('before' => 'csrf', 'main' => function() {
 		return Response::redirect('admin/upgrade');
 	}
 
-	return Response::redirect('admin/staffs');
+	return Response::redirect(($division) ? 'admin/staffs/division/' . $division : 'admin/staffs');
 }));
 
 /*

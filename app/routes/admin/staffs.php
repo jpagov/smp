@@ -134,7 +134,9 @@ Route::collection(array('before' => 'auth,csrf'), function() {
         */
         foreach (array('Scheme', 'Division', 'Branch', 'Sector', 'Unit') as $hierarchy) {
           $vars[strtolower($hierarchy) . 's'] = $hierarchy::dropdown();
-          array_unshift($vars[strtolower($hierarchy) . 's'], __('staffs.please_select'));
+          //array_unshift($vars[strtolower($hierarchy) . 's'], __('staffs.please_select'));
+
+          $vars[strtolower($hierarchy) . 's'] = array_unshift_assoc($vars[strtolower($hierarchy) . 's'], '0', __('staffs.please_select'));
         }
 
         $vars['genders'] = array(

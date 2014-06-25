@@ -116,3 +116,9 @@ function reportTo($desc) {
     $desc = trim(strip_tags(parse($desc), '<ol><ul><li>'));
     return $desc;
 }
+
+function array_unshift_assoc(&$arr, $key, $val) {
+    $arr = array_reverse($arr, true);
+    $arr[$key] = $val;
+    return array_reverse($arr, true);
+}
