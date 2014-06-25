@@ -45,34 +45,67 @@
 
 	<div class="col col-lg-3">
 
-		<nav class="list-group sidebar">
+		<nav class="sidebar">
 
-		<?php echo Html::link('admin/staffs', '<span class="icon"></span> ' . __('global.all'), array(
-			'class' => ($status == 'all') ? 'list-group-item active' : 'list-group-item'
-		)); ?>
+            <div class="list-group">
 
-		<?php
-		foreach(array('active', 'inactive') as $type):
+        		<?php echo Html::link('admin/staffs', '<span class="icon"></span> ' . __('global.all'), array(
+        			'class' => (!isset($division)) ? 'list-group-item active' : 'list-group-item'
+        		)); ?>
 
-            $query = Query::table(Base::table('staffs'))->where('status', '=', $type);
-            $status_link = 'admin/staffs/status/' . $type;
+        		<?php
+        		foreach($divisions as $div):
 
-            if (isset($division)) {
-                $query = $query->where('division', '=', $division);
-                $status_link = 'admin/staffs/division/' . $division . '/' .'status/' . $type;
-            }
+                    $division_link = 'admin/staffs/division/' . $div->slug;
 
-            if ($staffs->links()) {
-                $status_link .= '/' . $staffs->page;
-            }
+                    if ($status != 'all') {
+                        $division_link = 'admin/staffs/division/' . $div->slug . '/' .'status/' . $status;
+                    }
 
-            $status_count = $query->count();
-		?>
-			<?php echo Html::link($status_link, '<span class="icon"></span> ' . __('global.' . $type), array(
-				'class' => ($status == $type) ? 'list-group-item active' : 'list-group-item',
-				'badge' => $status_count
-			)); ?>
-			<?php endforeach; ?>
+                    if ($staffs->links() && $staffs->page != 1) {
+                        $division_link .= '/' . $staffs->page;
+                    }
+        		?>
+        			<?php echo Html::link($division_link, '<span class="icon"></span> ' . strtoupper($div->slug), array(
+        				'class' => (isset($division) && $division == $div->slug) ? 'list-group-item active' : 'list-group-item',
+        				'badge' => $div->staff
+        			)); ?>
+        			<?php endforeach; ?>
+             </div>
+
+             <div class="list-group">
+
+                <?php
+
+                echo Html::link(isset($division) ? 'admin/staffs/division/' . $division : 'admin/staffs', '<span class="icon"></span> ' . __('global.all'), array(
+                    'class' => ($status == 'all') ? 'list-group-item active' : 'list-group-item'
+                )); ?>
+
+                <?php
+                foreach(array('active', 'inactive') as $type):
+
+                    $query = Query::table(Base::table('staffs'))->where('status', '=', $type);
+
+                    $status_link = 'admin/staffs/status/' . $type;
+
+                    if (isset($division)) {
+                        $query = $query->where('division', '=', $division);
+                        $status_link = 'admin/staffs/division/' . $division . '/' .'status/' . $type;
+                    }
+
+                    if ($staffs->links() && $staffs->page != 1) {
+                        $status_link .= '/' . $staffs->page;
+                    }
+
+                    $status_count = $query->count();
+                ?>
+                    <?php echo Html::link($status_link, '<span class="icon"></span> ' . __('global.' . $type), array(
+                        'class' => ($status == $type) ? 'list-group-item active' : 'list-group-item',
+                        'badge' => $status_count
+                    )); ?>
+                    <?php endforeach; ?>
+             </div>
+
 		</nav>
 
 	</div>

@@ -9,6 +9,7 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 
         $vars['messages'] = Notify::read();
         $vars['staffs'] = Staff::paginate($page, Config::get('meta.staffs_per_page'));
+        $vars['divisions'] = Division::listing();
         $vars['status'] = 'all';
 
         return View::create('staffs/index', $vars)
@@ -55,6 +56,7 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 
         $vars['messages'] = Notify::read();
         $vars['staffs'] = $pagination;
+        $vars['divisions'] = Division::listing();
         $vars['division'] = $slug;
         $vars['status'] = $statuses ? $status : 'all';
 

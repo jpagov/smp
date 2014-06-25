@@ -14,6 +14,11 @@ class Division extends Base {
 		return $items;
 	}
 
+    public static function listing() {
+
+        return static::get(array('slug', 'title', 'staff'));
+    }
+
 	public static function slug($slug) {
 		return static::where('slug', '=', $slug)->fetch();
 	}
