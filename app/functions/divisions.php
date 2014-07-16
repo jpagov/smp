@@ -50,6 +50,10 @@ function division_title() {
 	return Registry::prop('division', 'title');
 }
 
+function division_title_en() {
+    return Registry::prop('division', 'title_en');
+}
+
 function division_slug() {
 	return Registry::prop('division', 'slug');
 }

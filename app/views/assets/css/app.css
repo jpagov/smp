@@ -192,6 +192,11 @@ form.navbar-form:before {
     line-height: 1.4;
 }
 
+.text-center > p > em {
+  display: block;
+  margin-top: 8px;
+}
+
 .meta { padding-top: 20px; }
 /*
 .meta .dl-horizontal dd {margin-left: 0;}
@@ -202,4 +207,9 @@ form.navbar-form:before {
     .star-rating {
         text-align: center
     }
+}
+
+ul.list-unstyled > li:nth-child(4n+1) {
+    display: block;
+    margin-left: 0px;
 }
