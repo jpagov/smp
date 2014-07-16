@@ -4,6 +4,7 @@
  * Admin actions
  */
 Route::action('auth', function() {
+    Session::put('redirect', Uri::current());
 	if(Auth::guest()) return Response::redirect('admin/login');
 });
 
@@ -57,6 +58,11 @@ Route::post('admin/login', array('before' => 'csrf', 'main' => function() {
 
 		return Response::redirect('admin/login');
 	}
+
+    if ($redirect = Session::get('redirect')) {
+        Session::erase('redirect');
+        return Response::redirect($redirect);
+    }
 
     $division = Division::find(Auth::user()->division)->slug;
 

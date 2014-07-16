@@ -10,6 +10,12 @@ Route::collection(array('before' => 'auth'), function() {
     Route::get(array('admin/import', 'admin/import/(:num)'), function($page = 1) {
     //Route::get('admin/import', function() {
 
+        // count existing table, if more than 10 rows then migrate will abort
+        if (Staff::count() > 10) {
+            echo 'ABORT - You already have uptodate table. To re-migrate, clean your table and run again.';
+            exit();
+        }
+
         $loop = round(Migrate::count()/100);
 
         $migrates = Migrate::paginate($page, 100);
