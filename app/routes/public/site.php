@@ -1,344 +1,378 @@
-<?php
+    <?php
 
-/**
- * Important pages
- */
-$home_page = Registry::get('home_page');
-$staffs_page = Registry::get('staffs_page');
+    /**
+    * Important pages
+    */
+    $home_page = Registry::get('home_page');
+    $staffs_page = Registry::get('staffs_page');
 
-$tmp = $staffs_page->slug;
-$staffs_page->slug = empty($tmp) ? '/' : $staffs_page->slug;
+    $tmp = $staffs_page->slug;
+    $staffs_page->slug = empty($tmp) ? '/' : $staffs_page->slug;
 
 
-/**
- * The Home page
- */
-if($home_page->id != $staffs_page->id) {
-	Route::get(array('/', $home_page->slug, 'divisions'), function() use($home_page) {
-    if($home_page->redirect) {
-      return Response::redirect($home_page->redirect);
+    /**
+    * The Home page
+    */
+    if($home_page->id != $staffs_page->id) {
+        Route::get(array('/', $home_page->slug, 'divisions'), function() use($home_page) {
+            if($home_page->redirect) {
+              return Response::redirect($home_page->redirect);
+          }
+
+          Registry::set('page', $home_page);
+
+          return new Template('page');
+      });
     }
 
-		Registry::set('page', $home_page);
+    /**
+    * Staff listings page
+    */
+    $routes = array($staffs_page->slug, $staffs_page->slug . '/(:num)');
 
-		return new Template('page');
-	});
-}
-
-/**
- * Staff listings page
- */
-$routes = array($staffs_page->slug, $staffs_page->slug . '/(:num)');
-
-if($home_page->id == $staffs_page->id) {
-	array_unshift($routes, '/');
-}
-
-Route::get($routes, function($offset = 1) use($staffs_page) {
-	if($offset > 0) {
-		// get public listings
-		list($total, $staffs) = Staff::listing($offset, $per_page = Config::meta('staffs_per_page'));
-
-	} else {
-		return Response::create(new Template('404'), 404);
-	}
-
-	// get the last page
-	$max_page = ($total > $per_page) ? ceil($total / $per_page) : 1;
-
-	// stop users browsing to non existing ranges
-	if(($offset > $max_page) or ($offset < 1)) {
-		return Response::create(new Template('404'), 404);
-	}
-
-	$staffs = new Items($staffs);
-
-	Registry::set('staffs', $staffs);
-	Registry::set('total_staffs', $total);
-	Registry::set('page', $staffs_page);
-	Registry::set('page_offset', $offset);
-
-	return new Template('staffs');
-});
-
-/**
- * View divisions list
- */
-Route::get(array('divisions'), function() {
-    return Response::redirect('/');
-});
-
-/**
- * View staffs by hierarchies
- */
-Route::get(array(
-  'division/(:any)', 'division/(:any)/(:num)',
-  'division/(:any)/(:any)', 'division/(:any)/(:any)/(:num)',
-  'division/(:any)/(:any)/(:any)', 'division/(:any)/(:any)/(:any)/(:num)',
-  'division/(:any)/(:any)/(:any)/(:any)', 'division/(:any)/(:any)/(:any)/(:any)/(:num)'),
-function(
-  $division_slug = '',
-  $branch_slug = '',
-  $sector_slug = '',
-  $unit_slug = '',
-  $offset = 1) use($staffs_page) {
-
-  $hierarchies = array();
-
-  if( ! $division = Division::slug($division_slug )) {
-      return Response::create(new Template('404'), 404);
-	}
-  if (isset($division)) $hierarchies['division'] = $division;
-
-  if( !empty($branch_slug) and ! $branch = Division::slug($branch_slug )) {
-      return Response::create(new Template('404'), 404);
-  }
-
-  if (isset($branch)) $hierarchies['branch'] = $branch;
-
-  if( !empty($sector_slug) and ! $sector = Division::slug($sector_slug )) {
-      return Response::create(new Template('404'), 404);
-  }
-
-  if (isset($sector)) $hierarchies['sector'] = $sector;
-
-  if( !empty($unit_slug) and ! $unit = Division::slug($unit_slug )) {
-      return Response::create(new Template('404'), 404);
-  }
-  if (isset($unit)) $hierarchies['unit'] = $unit;
-
-	// get public listings
-	list($total, $staffs) = Staff::listing($offset, $per_page = Config::meta('staffs_per_page'), $hierarchies);
-
-	// get the last page
-	$max_page = ($total > $per_page) ? ceil($total / $per_page) : 1;
-
-	// stop users browsing to non existing ranges
-	if(($offset > $max_page) or ($offset < 1)) {
-		return Response::create(new Template('404'), 404);
-	}
-
-	$staffs = new Items($staffs);
-
-	Registry::set('staffs', $staffs);
-	Registry::set('total_staffs', $total);
-	Registry::set('page', $staffs_page);
-	Registry::set('page_offset', $offset);
-	Registry::set('staff_division', $division);
-    Registry::set('division_slug', $division_slug);
-
-	return new Template('staffs');
-});
-
-/**
- * Redirect by staff ID
- */
-Route::get('(:num)', function($id) use($staffs_page) {
-	if( ! $staff = Staff::id($id)) {
-		return Response::create(new Template('404'), 404);
-	}
-
-	return Response::redirect($staff->data['slug']);
-});
-
-/**
- * View staff
- */
-Route::get('(:any)', function($uri) use($staffs_page) {
-
-  // find if slug is staff
-  if( $staff = Staff::slug(basename($uri)) ) {
-
-    Staff::update($staff->id, array('view' => $staff->view +1));
-
-    Registry::set('page', $staffs_page);
-    Registry::set('staff', $staff);
-    Registry::set('division', Division::find($staff->division));
-
-    return new Template('staff');
-  }
-
-  // Find for page slug
-  if ( $page = Page::slug(basename($uri)) ) {
-    if($page->redirect) {
-      return Response::redirect($page->redirect);
+    if($home_page->id == $staffs_page->id) {
+        array_unshift($routes, '/');
     }
-    Registry::set('page', $page);
 
-    return new Template('page');
-  }
+    Route::get($routes, function($offset = 1) use($staffs_page) {
+        if($offset > 0) {
+    	// get public listings
+           list($total, $staffs) = Staff::listing($offset, $per_page = Config::meta('staffs_per_page'));
 
-  return Response::create(new Template('404'), 404);
+       } else {
+           return Response::create(new Template('404'), 404);
+       }
 
+    // get the last page
+       $max_page = ($total > $per_page) ? ceil($total / $per_page) : 1;
+
+    // stop users browsing to non existing ranges
+       if(($offset > $max_page) or ($offset < 1)) {
+           return Response::create(new Template('404'), 404);
+       }
+
+       $staffs = new Items($staffs);
+
+       Registry::set('staffs', $staffs);
+       Registry::set('total_staffs', $total);
+       Registry::set('page', $staffs_page);
+       Registry::set('page_offset', $offset);
+
+       return new Template('staffs');
+   });
+
+    /**
+    * View divisions list
+    */
+    Route::get(array('divisions'), function() {
+        return Response::redirect('/');
+    });
+
+    /**
+    * View staffs by hierarchies
+    */
+
+    // division / num
+    Route::get(array('division/(:any)', 'division/(:any)/(:num)'), function($division_slug, $offset = 1) use ($staffs_page) {
+
+        if( ! $division = Division::slug($division_slug )) {
+            return Response::create(new Template('404'), 404);
+        }
+
+        $hierarchies = array();
+        $hierarchies['division'] = $division;
+
+        // get public listings
+        list($total, $staffs) = Staff::listing($offset, $per_page = Config::meta('staffs_per_page'), $hierarchies);
+
+        // get the last page
+        $max_page = ($total > $per_page) ? ceil($total / $per_page) : 1;
+
+        // stop users browsing to non existing ranges
+        if(($offset > $max_page) or ($offset < 1)) {
+            return Response::create(new Template('404'), 404);
+        }
+
+        $staffs = new Items($staffs);
+
+        Registry::set('staffs', $staffs);
+        Registry::set('total_staffs', $total);
+        Registry::set('page', $staffs_page);
+        Registry::set('page_offset', $offset);
+        Registry::set('staff_division', $division);
+        Registry::set('division_slug', $division_slug);
+
+        return new Template('staffs');
+    });
+
+    Route::get(array(
+        'division/(:any)/(:any)/(:any)', 'division/(:any)/(:any)/(:any)/(:num)',
+        'division/(:any)/(:any)', 'division/(:any)/(:any)/(:num)',
+        'division/(:any)/(:any)/(:any)/(:any)', 'division/(:any)/(:any)/(:any)/(:any)/(:num)'),
+    function(
+        $division_slug = '',
+        $branch_slug = '',
+        $sector_slug = '',
+        $unit_slug = '',
+        $offset = 1) use($staffs_page) {
+
+        $hierarchies = array();
+
+        if( ! $division = Division::slug($division_slug )) {
+            return Response::create(new Template('404'), 404);
+        }
+
+        if (isset($division)) $hierarchies['division'] = $division;
+
+        if( !empty($branch_slug) and ! $branch = Branch::slug($branch_slug )) {
+            return Response::create(new Template('404'), 404);
+        }
+
+        if (isset($branch)) $hierarchies['branch'] = $branch;
+
+        if( !empty($sector_slug) and ! $sector = Sector::slug($sector_slug )) {
+            return Response::create(new Template('404'), 404);
+        }
+
+        if (isset($sector)) $hierarchies['sector'] = $sector;
+
+        if( !empty($unit_slug) and ! $unit = Unit::slug($unit_slug )) {
+            return Response::create(new Template('404'), 404);
+        }
+        if (isset($unit)) $hierarchies['unit'] = $unit;
+
+        // get public listings
+        list($total, $staffs) = Staff::listing($offset, $per_page = Config::meta('staffs_per_page'), $hierarchies);
+
+    // get the last page
+      $max_page = ($total > $per_page) ? ceil($total / $per_page) : 1;
+
+    // stop users browsing to non existing ranges
+      if(($offset > $max_page) or ($offset < 1)) {
+       return Response::create(new Template('404'), 404);
+   }
+
+   $staffs = new Items($staffs);
+
+   Registry::set('staffs', $staffs);
+   Registry::set('total_staffs', $total);
+   Registry::set('page', $staffs_page);
+   Registry::set('page_offset', $offset);
+   Registry::set('staff_division', $division);
+   Registry::set('division_slug', $division_slug);
+
+   return new Template('staffs');
 });
 
-/**
- * Post a comment
- */
-Route::post('(:any)', function($slug) use($staffs_page) {
-	if( ! $staff = Staff::slug($slug) or ! $staff->comments) {
-		return Response::create(new Template('404'), 404);
-	}
+    /**
+    * Redirect by staff ID
+    */
+    Route::get('(:num)', function($id) use($staffs_page) {
+        if( ! $staff = Staff::id($id)) {
+           return Response::create(new Template('404'), 404);
+       }
 
-	$input = filter_var_array(Input::get(array('name', 'email', 'text')), array(
-		'name' => FILTER_SANITIZE_STRING,
-		'email' => FILTER_SANITIZE_EMAIL,
-		'text' => FILTER_SANITIZE_SPECIAL_CHARS
-	));
+       return Response::redirect($staff->data['slug']);
+   });
 
-	$validator = new Validator($input);
+    /**
+    * View staff
+    */
+    Route::get('(:any)', function($uri) use($staffs_page) {
 
-	$validator->check('email')
-		->is_email(__('comments.email_missing'));
+    // find if slug is staff
+        if( $staff = Staff::slug(basename($uri)) ) {
 
-	$validator->check('text')
-		->is_max(3, __('comments.text_missing'));
+            Staff::update($staff->id, array('view' => $staff->view +1));
 
-	if($errors = $validator->errors()) {
-		Input::flash();
+            Registry::set('page', $staffs_page);
+            Registry::set('staff', $staff);
+            Registry::set('division', Division::find($staff->division));
 
-		Notify::error($errors);
+            return new Template('staff');
+        }
 
-		return Response::redirect($staffs_page->slug . '/' . $slug . '#comment');
-	}
+    // Find for page slug
+        if ( $page = Page::slug(basename($uri)) ) {
+            if($page->redirect) {
+              return Response::redirect($page->redirect);
+          }
+          Registry::set('page', $page);
 
-	$input['staff'] = Staff::slug($slug)->id;
-	$input['date'] = Date::mysql('now');
-	$input['status'] = Config::meta('auto_published_comments') ? 'approved' : 'pending';
+          return new Template('page');
+      }
 
-	// remove bad tags
-	$input['text'] = strip_tags($input['text'], '<a>,<b>,<blockquote>,<code>,<em>,<i>,<p>,<pre>');
+      return Response::create(new Template('404'), 404);
 
-	// check if the comment is possibly spam
-	if($spam = Comment::spam($input)) {
-		$input['status'] = 'spam';
-	}
+  });
 
-	$comment = Comment::create($input);
+    /**
+    * Post a comment
+    */
+    Route::post('(:any)', function($slug) use($staffs_page) {
+        if( ! $staff = Staff::slug($slug) or ! $staff->comments) {
+           return Response::create(new Template('404'), 404);
+       }
 
-	Notify::success(__('comments.created'));
+       $input = filter_var_array(Input::get(array('name', 'email', 'text')), array(
+           'name' => FILTER_SANITIZE_STRING,
+           'email' => FILTER_SANITIZE_EMAIL,
+           'text' => FILTER_SANITIZE_SPECIAL_CHARS
+           ));
 
-	// dont notify if we have marked as spam
-	if( ! $spam and Config::meta('comment_notifications')) {
-		$comment->notify();
-	}
+       $validator = new Validator($input);
 
-	return Response::redirect($staffs_page->slug . '/' . $slug . '#comment');
-});
+       $validator->check('email')
+       ->is_email(__('comments.email_missing'));
 
-/**
- * Rss feed
- */
-Route::get(array('rss', 'feeds/rss'), function() {
-	$uri = 'http://' . $_SERVER['HTTP_HOST'];
-	$rss = new Rss(Config::meta('sitename'), Config::meta('description'), $uri, Config::app('language'));
+       $validator->check('text')
+       ->is_max(3, __('comments.text_missing'));
 
-	$query = Staff::where('status', '=', 'published')->sort(Base::table('staffs.created'), 'desc');
+       if($errors = $validator->errors()) {
+           Input::flash();
 
-	foreach($query->get() as $staff) {
-		$rss->item(
-			$staff->title,
-			Uri::full(Registry::get('staffs_page')->slug . '/' . $staff->slug),
-			$staff->description,
-			$staff->created
-		);
-	}
+           Notify::error($errors);
 
-	$xml = $rss->output();
+           return Response::redirect($staffs_page->slug . '/' . $slug . '#comment');
+       }
 
-	return Response::create($xml, 200, array('content-type' => 'application/xml'));
-});
+       $input['staff'] = Staff::slug($slug)->id;
+       $input['date'] = Date::mysql('now');
+       $input['status'] = Config::meta('auto_published_comments') ? 'approved' : 'pending';
 
-/**
- * Json feed
- */
-Route::get('feeds/json', function() {
-	$json = Json::encode(array(
-		'meta' => Config::get('meta'),
-		'staffs' => Staff::where('status', '=', 'active')->sort(Base::table('staffs.created'), 'desc')->get()
-	));
+    // remove bad tags
+       $input['text'] = strip_tags($input['text'], '<a>,<b>,<blockquote>,<code>,<em>,<i>,<p>,<pre>');
 
-	return Response::create($json, 200, array('content-type' => 'application/json'));
-});
+    // check if the comment is possibly spam
+       if($spam = Comment::spam($input)) {
+           $input['status'] = 'spam';
+       }
 
-/**
- * Search
- */
-Route::get(array('search', 'search/(:any)', 'search/(:any)/(:num)'), function($term = '', $offset = 1) {
-	// mock search page
-	$page = new Page;
-	$page->id = 0;
-	$page->title = 'Search';
-	$page->slug = 'search';
+       $comment = Comment::create($input);
 
-	// get search term
-	//$term = filter_var($term, FILTER_SANITIZE_STRING);
-  //$term = htmlspecialchars($term);
-  $term = filter_var(trim($term), FILTER_SANITIZE_SPECIAL_CHARS);
+       Notify::success(__('comments.created'));
 
-	Session::put($term, $term);
-	//$term = Session::get($slug); //this was for POST only searches
+    // dont notify if we have marked as spam
+       if( ! $spam and Config::meta('comment_notifications')) {
+           $comment->notify();
+       }
 
-	// revert double-dashes back to spaces
-	$term = str_replace('--', ' ', $term);
+       return Response::redirect($staffs_page->slug . '/' . $slug . '#comment');
+   });
 
-	if($offset > 0) {
-		list($total, $staffs) = Staff::search($term, $offset, Config::meta('staffs_per_page'));
-	} else {
-		return Response::create(new Template('404'), 404);
-	}
+    /**
+    * Rss feed
+    */
+    Route::get(array('rss', 'feeds/rss'), function() {
+        $uri = 'http://' . $_SERVER['HTTP_HOST'];
+        $rss = new Rss(Config::meta('sitename'), Config::meta('description'), $uri, Config::app('language'));
 
-	// search templating vars
-	Registry::set('page', $page);
-	Registry::set('page_offset', $offset);
-	Registry::set('search_term', $term);
-	Registry::set('search_results', new Items($staffs));
-	Registry::set('total_staffs', $total);
+        $query = Staff::where('status', '=', 'published')->sort(Base::table('staffs.created'), 'desc');
 
-	return new Template('search');
-});
+        foreach($query->get() as $staff) {
+           $rss->item(
+              $staff->title,
+              Uri::full(Registry::get('staffs_page')->slug . '/' . $staff->slug),
+              $staff->description,
+              $staff->created
+              );
+       }
 
-Route::post('search', function() {
+       $xml = $rss->output();
 
-  /* advanced
-  $input = filter_var_array(Input::get(array('term', 'division', 'branch')), array(
+       return Response::create($xml, 200, array('content-type' => 'application/xml'));
+   });
+
+    /**
+    * Json feed
+    */
+    Route::get('feeds/json', function() {
+        $json = Json::encode(array(
+           'meta' => Config::get('meta'),
+           'staffs' => Staff::where('status', '=', 'active')->sort(Base::table('staffs.created'), 'desc')->get()
+           ));
+
+        return Response::create($json, 200, array('content-type' => 'application/json'));
+    });
+
+    /**
+    * Search
+    */
+    Route::get(array('search', 'search/(:any)', 'search/(:any)/(:num)'), function($term = '', $offset = 1) {
+    // mock search page
+        $page = new Page;
+        $page->id = 0;
+        $page->title = 'Search';
+        $page->slug = 'search';
+
+    // get search term
+    //$term = filter_var($term, FILTER_SANITIZE_STRING);
+    //$term = htmlspecialchars($term);
+        $term = filter_var(trim($term), FILTER_SANITIZE_SPECIAL_CHARS);
+
+        Session::put($term, $term);
+    //$term = Session::get($slug); //this was for POST only searches
+
+    // revert double-dashes back to spaces
+        $term = str_replace('--', ' ', $term);
+
+        if($offset > 0) {
+           list($total, $staffs) = Staff::search($term, $offset, Config::meta('staffs_per_page'));
+       } else {
+           return Response::create(new Template('404'), 404);
+       }
+
+    // search templating vars
+       Registry::set('page', $page);
+       Registry::set('page_offset', $offset);
+       Registry::set('search_term', $term);
+       Registry::set('search_results', new Items($staffs));
+       Registry::set('total_staffs', $total);
+
+       return new Template('search');
+   });
+
+    Route::post('search', function() {
+
+    /* advanced
+    $input = filter_var_array(Input::get(array('term', 'division', 'branch')), array(
     'name' => FILTER_SANITIZE_STRING,
     'email' => FILTER_SANITIZE_EMAIL,
     'text' => FILTER_SANITIZE_SPECIAL_CHARS
-  ));
-  */
-  $input = filter_var_array(Input::get(array('term')), array(
-    'term' => FILTER_SANITIZE_SPECIAL_CHARS
-  ));
+    ));
+    */
+    $input = filter_var_array(Input::get(array('term')), array(
+        'term' => FILTER_SANITIZE_SPECIAL_CHARS
+        ));
 
 
-  $validator = new Validator($input);
+    $validator = new Validator($input);
 
-  $validator->check('term')
+    $validator->check('term')
     ->is_max(3, __('site.search_missing', 3));
 
-  if($errors = $validator->errors()) {
-    Input::flash();
+    if($errors = $validator->errors()) {
+        Input::flash();
 
-    Notify::warning($errors);
-    return Response::redirect('search/');
-  }
+        Notify::warning($errors);
+        return Response::redirect('search/');
+    }
 
-	$term = $input['term'];
+    $term = $input['term'];
 
-	// replace spaces with double-dash to pass through url
-	$term = str_replace(' ', '--', $term);
+    // replace spaces with double-dash to pass through url
+    $term = str_replace(' ', '--', $term);
 
-	Session::put($term, $term);
+    Session::put($term, $term);
 
-	return Response::redirect('search/' . $term);
+    return Response::redirect('search/' . $term);
 });
 
-/**
- * Keyboard Shortcut Helper
- */
-Route::get(array('help/keys', 'help/hotkey'), function() {
-  return new Template('help');
-});
+    /**
+    * Keyboard Shortcut Helper
+    */
+    Route::get(array('help/keys', 'help/hotkey'), function() {
+        return new Template('help');
+    });
 
 

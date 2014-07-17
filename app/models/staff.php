@@ -99,7 +99,7 @@ class Staff extends Base {
     $total = $query->count();
 
     // get staffs
-    $staffs = $query->sort(Base::table('staffs.created'), 'desc')
+    $staffs = $query->sort(Base::table('staffs.grade'), 'desc')
       ->take($per_page)
       ->skip(--$page * $per_page)
       ->get($get);
