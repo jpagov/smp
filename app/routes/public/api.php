@@ -5,7 +5,7 @@
  */
 Route::get('api/(:any)', function() {
 
-  $fields = array(  'display_name', 'position', 'email', 'telephone', 'slug');
+  $fields = array('id', 'display_name', 'position', 'email', 'telephone', 'slug', 'gender');
   $staffs = Staff::where('status', '=', 'active')->where('grade', '>=', '22')->sort(Base::table('staffs.grade'), 'desc')->get(Staff::fields($fields));
   $api = array();
 
@@ -24,6 +24,10 @@ Route::get('api/(:any)', function() {
         case 'image':
           if( ! empty($extend->value->filename)) {
             $staff->avatar = $extend->value->filename;
+          }
+
+          if (!$staff->avatar) {
+              $staff->avatar = ($staff->gender == 'M') ? 'default-male.jpg' : 'default-female.jpg';
           }
           break;
       }
