@@ -45,7 +45,6 @@ var SMP = {
       var staff = new Bloodhound({
         datumTokenizer: function(d) { return d.tokens; },
         queryTokenizer: Bloodhound.tokenizers.whitespace,
-        limit: 10,
         prefetch: {
             url: '/smp/api/staff.json',
             ttl: 0
@@ -108,7 +107,6 @@ var SMP = {
       var branchs = new Bloodhound({
         datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
         queryTokenizer: Bloodhound.tokenizers.whitespace,
-        limit: 10,
         prefetch: {
           url: '/smp/admin/api/branch.json',
           filter: function(list) {
@@ -129,7 +127,6 @@ var SMP = {
       var sectors = new Bloodhound({
         datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
         queryTokenizer: Bloodhound.tokenizers.whitespace,
-        limit: 10,
         prefetch: {
           url: '/smp/admin/api/sector.json',
           filter: function(list) {
@@ -150,7 +147,6 @@ var SMP = {
       var units = new Bloodhound({
         datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
         queryTokenizer: Bloodhound.tokenizers.whitespace,
-        limit: 10,
         prefetch: {
           url: '/smp/admin/api/unit.json',
           filter: function(list) {

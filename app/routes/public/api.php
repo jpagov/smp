@@ -5,8 +5,8 @@
  */
 Route::get('api/(:any)', function() {
 
-  $fields = array('id', 'display_name', 'position', 'email', 'telephone', 'slug');
-  $staffs = Staff::where('status', '=', 'active')->sort(Base::table('staffs.created'), 'desc')->get(Staff::fields($fields));
+  $fields = array(  'display_name', 'position', 'email', 'telephone', 'slug');
+  $staffs = Staff::where('status', '=', 'active')->where('grade', '>=', '22')->sort(Base::table('staffs.grade'), 'desc')->get(Staff::fields($fields));
   $api = array();
 
   foreach ($staffs as $key => $staff) {
