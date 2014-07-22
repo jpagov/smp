@@ -128,6 +128,10 @@ function staff_status() {
 	return Registry::prop('staff', 'status');
 }
 
+function staff_view() {
+    return Registry::prop('staff', 'view');
+}
+
 function staff_division() {
 	if($division = Registry::prop('staff', 'division')) {
 		$divisions = Registry::get('all_divisions');

@@ -21,7 +21,7 @@
     <div class="row">
 
         <div class="col-md-2 star-rating">
-            <p> 14240 <small> views </small></p>
+            <p> <abbr title="<?php echo staff_view(); ?>"><?php echo custom_number_format(staff_view()); ?></abbr> <small> views </small></p>
             <div class="stars">
                 <span class="glyphicon glyphicon-star"></span>
                 <span class="glyphicon glyphicon-star"></span>
@@ -29,7 +29,7 @@
                 <span class="glyphicon glyphicon-star"></span>
                 <span class="glyphicon glyphicon-star-empty"></span>
             </div>
-            <p> Average 4.5 <small> / </small> 5 </p>
+            <p><small> Average 4.5 / 5</small> </p>
         </div>
 
         <div class="col-md-10 meta">

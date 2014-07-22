@@ -122,3 +122,23 @@ function array_unshift_assoc(&$arr, $key, $val) {
     $arr[$key] = $val;
     return array_reverse($arr, true);
 }
+
+function custom_number_format($n, $precision = 1) {
+    if ($n < 1000) {
+
+        $n_format = number_format($n);
+
+    } else if ($n >= 1000) {
+
+        $n_format = number_format($n / 1000 , $precision) . 'K';
+
+    } else if ($n < 1000000000) {
+        // Anything less than a billion
+        $n_format = number_format($n / 1000000, $precision) . 'M';
+    } else {
+        // At least a billion
+        $n_format = number_format($n / 1000000000, $precision) . 'B';
+    }
+
+    return $n_format;
+}

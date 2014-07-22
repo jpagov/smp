@@ -55,10 +55,10 @@ function body_class() {
 	$parts = explode('/', Uri::current());
 	$classes[] = count($parts) ? trim(current($parts)) : 'index';
 
-  //  Is it a posts page?
-  if(is_staffpage()) {
-    $classes[] = 'staffs';
-  }
+    //  Is it a posts page?
+    if(is_staffpage()) {
+        $classes[] = 'staffs';
+    }
 
 	//  Is it the homepage?
 	if(is_homepage()) {

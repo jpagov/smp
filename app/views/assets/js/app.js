@@ -46,7 +46,7 @@ var SMP = {
         datumTokenizer: function(d) { return d.tokens; },
         queryTokenizer: Bloodhound.tokenizers.whitespace,
         prefetch: {
-            url: '/smp/api/staff.json',
+            url: '/smp/api',
             ttl: 0
         }
       });

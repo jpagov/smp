@@ -33,7 +33,7 @@
       <script><?php echo staff_js(); ?></script>
     <?php endif; ?>
   </head>
-  <body class="<?php echo body_class(); ?>">
+  <body class="<?php echo trim(body_class()); ?>">
     <div class="navbar navbar-inverse" role="navigation">
       <div class="container">
         <div class="navbar-header">

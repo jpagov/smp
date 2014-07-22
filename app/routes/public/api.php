@@ -10,7 +10,12 @@ Route::get(array('api', 'api/(:any)'), function($slug = '') {
     $division = !empty($slug) ? Division::slug($slug)->id : '';
 
     $fields = array('id', 'display_name', 'position', 'email', 'telephone', 'slug', 'gender');
-    $staffs = Staff::where('status', '=', 'active')->where('grade', '>=', '22')->sort(Base::table('staffs.grade'), 'desc');
+
+    //TODO: make this configurable via admin under setting->user
+    $staffs = Staff::where('status', '=', 'active')
+            ->where('grade', '>=', '22')
+            ->where('view', '>', '999')
+            ->sort(Base::table('staffs.grade'), 'desc');
 
     if ( !empty($slug) and $division = Division::slug($slug)->id) {
         $staffs = $staffs->where('division', '=', $division);
