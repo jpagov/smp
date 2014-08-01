@@ -1,37 +1,34 @@
 <?php theme_include('header'); ?>
 <?php if (Uri::current() == '/') : theme_include('footer'); exit(); endif; ?>
 
-<section class="content col-lg-8 hiro one-edge-shadow">
+<section class="content col-lg-12">
     <?php theme_include('breadcrumb'); ?>
 	<?php if(has_staffs()): ?>
-		<ul class="items">
-			<?php staffs(); ?>
-			<li>
-				<article class="wrap">
-					<h1>
-						<a href="<?php echo staff_url(); ?>" title="<?php echo staff_name(); ?>"><?php echo staff_name(); ?></a>
-					</h1>
 
-					<div class="content">
-						<?php echo staff_markdown(); ?>
-					</div>
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th><?php echo __('site.name'); ?></th>
+                <th><?php echo __('site.position'); ?></th>
+                <th><?php echo __('site.designation'); ?></th>
+                <th><?php echo __('site.email'); ?></th>
+                <th><?php echo __('site.telephone'); ?></th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php $i = 0; while(staffs()): ?>
+            <tr>
+                <td><a class="hovercard" href="<?php echo staff_url(); ?>" title="<?php echo staff_name(); ?>" data-img="<?php echo staff_custom_field('avatar', 'http://localhost/smp/content/avatar/default-male.jpg'); ?>" data-salutation="<?php echo staff_salutation(); ?>" data-jobtitle="<?php echo staff_job_title(); ?>" rel="popover"><?php echo staff_name(); ?></a></td>
+                <td><?php echo staff_job_title(); ?></td>
+                <td><?php echo staff_position(); ?></td>
+                <td><?php echo staff_email_encode(); ?></td>
+                <td><?php echo staff_telephone(); ?></td>
+            </tr>
+            <?php endwhile; ?>
+        </tbody>
+    </table>
 
-					<footer>
-						Posted <time datetime="<?php echo date(DATE_W3C, staff_time()); ?>"><?php echo relative_time(staff_time()); ?></time> by <?php echo staff_author('real_name'); ?>.
-					</footer>
-				</article>
-			</li>
-			<?php $i = 0; while(staffs()): ?>
-			<?php $bg = sprintf('background: hsl(215, 28%%, %d%%);', round(((++$i / staffs_per_page()) * 20) + 20)); ?>
-			<li style="<?php echo $bg; ?>">
-				<article class="wrap">
-					<h2>
-						<a href="<?php echo staff_url(); ?>" title="<?php echo staff_name(); ?>"><?php echo staff_name(); ?></a>
-					</h2>
-				</article>
-			</li>
-			<?php endwhile; ?>
-		</ul>
+
 
 		<?php if(has_pagination()): ?>
 		<nav class="pagination">

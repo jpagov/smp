@@ -73,6 +73,28 @@ var SMP = {
         // similar behavior as clicking on a link
         window.location.href = '/smp/' + data.slug;
       });
+
+      // hover cards
+      $('a[rel=popover]').popover({
+            html: true,
+            delay: { show: 100, hide: 1000 },
+            trigger: "hover focus",
+            content: function () {
+
+                var hovercard = ['<div class="media block-update-card">',
+                    '<a class="pull-left" href="#">',
+                    '<img class="media-object img-responsive img-thumbnail" src="'+$(this).data('img') + '" width="90" height="90">',
+                    '</a>',
+                    '<div class="media-body update-card-body">',
+                    '<h4 class="media-heading">'+ $(this).attr('title') + '</h4>',
+                    '<p>'+ $(this).data('jobtitle') + '</p>',
+                    '<button class="btn btn-block">Details</button>',
+                    '</div>',
+                    '</div>'].join('');
+
+                return hovercard;
+            }
+        });
     },
 
   },

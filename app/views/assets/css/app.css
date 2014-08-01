@@ -213,3 +213,7 @@ ul.list-unstyled > li:nth-child(4n+1) {
     display: block;
     margin-left: 0px;
 }
+.popover{
+    width:300px;
+    max-width:600px;
+}

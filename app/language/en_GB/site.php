@@ -13,4 +13,11 @@ return array(
 
   'top_management' => 'Top Management',
 
+  // staff
+  'name' => 'Name',
+  'position' => 'Position',
+  'designation' => 'Designation',
+  'email' => 'Email',
+  'telephone' => 'Telephone',
+
 );
