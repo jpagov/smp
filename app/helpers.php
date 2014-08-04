@@ -20,9 +20,7 @@ function avatar_url() {
 
 function avatar($avatar = 'default-male.jpg') {
   $avatar = avatar_url() . $avatar . '.jpg';
-  if (!file_exists($avatar)) {
-    $avatar = avatar_url() . 'default-male.jpg';
-  }
+  $avatar = str_replace('.jpg.jpg', '.jpg', $avatar);
   return $avatar;
 }
 
