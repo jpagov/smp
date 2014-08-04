@@ -74,8 +74,8 @@ var SMP = {
         window.location.href = '/smp/' + data.slug;
       });
 
-      // hover cards
-      $('a[rel=popover]').popover({
+        // hover cards
+        $('a[rel=popover]').popover({
             html: true,
             delay: { show: 100, hide: 1000 },
             trigger: "hover focus",
