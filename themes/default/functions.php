@@ -70,3 +70,12 @@ function total_articles() {
 function total_staff() {
   return Staff::where(Base::table('staffs.status'), '=', 'active')->count();
 }
+
+function staff_avatar($id, $gender = 'M') {
+    $default = avatar_url();
+    $default .=  ($gender == 'M') ? 'default-male.jpg' : 'default-female.jpg';
+
+    if($extend = Extend::field('staff', 'avatar', $id)) {
+        return Extend::value($extend, $default);
+    }
+}

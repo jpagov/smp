@@ -50,40 +50,39 @@
 </section>
 
 <section class="col-xs-12 col-md-4 sidebar">
-    <div class="">
+
+    <?php if (staff_report_to_id()) : $boss = staff_report_to(); ?>
+
         <h2 class="modal-header">Direct Reports</h2>
 
+        <?php foreach($boss->results as $bos): ?>
+
         <div class="list-group">
-            <a href="#" class="list-group-item clearfix">
-                <img width="50" height="50" class="media-object img-circle pull-left" src="<?php echo staff_custom_field('avatar', 'http://localhost/smp/content/avatar/default-male.jpg'); ?>" alt="...">
-                <h4 class="list-group-item-heading">Hasim Zainal Abidin</h4>
-                <p class="list-group-item-text">KPP(M)TP</p>
+            <a href="<?php echo Config::app('url') . '/' . $bos->slug; ?>" class="list-group-item clearfix">
+                <img width="50" height="50" class="media-object img-circle pull-left" src="<?php echo staff_avatar($bos->id); ?>" alt="...">
+                <h4 class="list-group-item-heading"><?php echo $bos->display_name; ?></h4>
+                <p class="list-group-item-text"><?php echo $bos->position; ?></p>
             </a>
         </div>
 
+    <?php endforeach; ?>
 
-  <h2 class="modal-header">Related</h2>
-  <div class="list-group">
-    <a href="#" class="list-group-item clearfix">
-        <img width="50" height="50" class="media-object img-circle pull-left" src="<?php echo staff_custom_field('avatar', 'http://localhost/smp/content/avatar/default-male.jpg'); ?>" alt="...">
-        <h4 class="list-group-item-heading">Wan Anisah Binti Wan Razak</h4>
-        <p class="list-group-item-text">PPTM(M)TP</p>
-    </a>
+    <?php endif; ?>
 
-    <a href="#" class="list-group-item clearfix">
-        <img width="50" height="50" class="media-object img-circle pull-left" src="<?php echo staff_custom_field('avatar', 'http://localhost/smp/content/avatar/default-male.jpg'); ?>" alt="...">
-        <h4 class="list-group-item-heading">Helmee Izani Bin Manap</h4>
-        <p class="list-group-item-text">PPTM(M)TP7</p>
-    </a>
 
-    <a href="#" class="list-group-item clearfix">
-        <img width="50" height="50" class="media-object img-circle pull-left" src="<?php echo staff_custom_field('avatar', 'http://localhost/smp/content/avatar/default-male.jpg'); ?>" alt="...">
-        <h4 class="list-group-item-heading">Razali Azri</h4>
-        <p class="list-group-item-text">PPTM(M)TP3</p>
-    </a>
-</div>
+      <h2 class="modal-header">Related</h2>
+      <div class="list-group">
 
-</div>
+        <?php $related = Staff::related(staff_id()); ?>
+
+        <?php foreach($related->results as $relate): ?>
+        <a href="<?php echo Config::app('url') . '/' . $relate->slug; ?>" class="list-group-item clearfix">
+            <img width="50" height="50" class="media-object img-circle pull-left" src="<?php echo staff_avatar($relate->id); ?>" alt="...">
+            <h4 class="list-group-item-heading"><?php echo $relate->display_name; ?></h4>
+            <p class="list-group-item-text"><?php echo $relate->position; ?></p>
+        </a>
+        <?php endforeach; ?>
+    </div>
 
 </section>
 

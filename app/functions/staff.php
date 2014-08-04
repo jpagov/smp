@@ -172,6 +172,19 @@ function staff_author_bio() {
 	return Registry::prop('staff', 'author_bio');
 }
 
+function staff_report_to_id() {
+    return Registry::prop('staff', 'report_to');
+}
+
+function staff_report_to() {
+    $query = Staff::where('id', '=', staff_report_to_id());
+    $count = $query->count();
+
+    $results = $query->take(10)->skip((1 - 1) * 10)->get(array(Staff::fields()));
+
+    return new Paginator($results, $count, 1, 10, Uri::to('staffs'));
+}
+
 function staff_custom_field($key, $default = '') {
 	$id = Registry::prop('staff', 'id');
 

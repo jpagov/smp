@@ -217,3 +217,8 @@ ul.list-unstyled > li:nth-child(4n+1) {
     width:300px;
     max-width:600px;
 }
+
+.sidebar >
+.list-group >
+.list-group-item >
+img.media-object { margin-right: 4px ;}

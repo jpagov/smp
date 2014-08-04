@@ -19,10 +19,11 @@ function avatar_url() {
 }
 
 function avatar($avatar = 'default-male.jpg') {
-  if (file_exists(avatar_url() . $avatar)) {
-    $avatar = 'default-male.jpg';
+  $avatar = avatar_url() . $avatar . '.jpg';
+  if (!file_exists($avatar)) {
+    $avatar = avatar_url() . 'default-male.jpg';
   }
-  return avatar_url() . $avatar;
+  return $avatar;
 }
 
 function slug($str, $separator = '-') {

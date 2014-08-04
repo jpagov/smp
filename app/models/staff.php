@@ -14,6 +14,7 @@ class Staff extends Base {
     'display_name',
     'gender',
     'job_title',
+    'report_to',
     'position',
     'description',
     'scheme',
@@ -156,5 +157,35 @@ class Staff extends Base {
 
 		return new Paginator($results, $count, $page, $perpage, Uri::to('staffs'));
 	}
+
+    public static function related($id, $page = 1, $perpage = 6) {
+
+        $staff = static::find($id);
+
+        $query = Query::table(static::table());
+
+        if ($staff->grade < 41) {
+            $query = $query->where('division', '=', $staff->division)
+                ->where('branch', '=', $staff->branch)
+                ->where('sector', '=', $staff->sector)
+                ->where('unit', '=', $staff->unit)
+                ->where('grade', '=', $staff->grade)
+                ->where('id', '<>', $staff->id)
+                ->or_where('report_to', '=', $staff->id);
+        } else {
+            $query = $query->where('division', '=', $staff->division)
+                ->where('grade', '=', $staff->grade)
+                ->where('id', '<>', $staff->id)
+                ->or_where('report_to', '=', $staff->id)
+                ->where('grade', '=', $staff->grade);
+        }
+
+
+        $count = $query->count();
+
+        $results = $query->take($perpage)->skip(($page - 1) * $perpage)->sort('grade', 'desc')->get(array(static::fields()));
+
+        return new Paginator($results, $count, $page, $perpage, Uri::to('staffs'));
+    }
 
 }
