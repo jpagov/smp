@@ -131,7 +131,8 @@ class Staff extends Base {
     $query = $query->where(Base::table('staffs.status'), '=', 'active')
       ->where(Base::table('staffs.display_name'), 'like', '%' . $term . '%')
       ->or_where(Base::table('staffs.slug'), 'like', '%' . $term . '%')
-      ->or_where(Base::table('staffs.position'), 'like', '%' . $term . '%');
+      ->or_where(Base::table('staffs.position'), 'like', '%' . $term . '%')
+      ->or_where(Base::table('staffs.description'), 'like', '%' . $term . '%');
 
     if ($filter) {
       foreach($filter as $value) {
