@@ -24,12 +24,15 @@ Route::collection(array('before' => 'auth,csrf'), function() {
         'admin/staffs/division/(:any)',
         'admin/staffs/division/(:any)/(:num)',
         'admin/staffs/division/(:any)/status/(:any)',
-        'admin/staffs/division/(:any)/status/(:any)/(:num)'), function($slug, $status = 1, $page = 1) {
+        'admin/staffs/division/(:any)/status/(:any)/(:num)'), function(
+            $slug,
+            $status = 1,
+            $page = 1) {
 
         $statuses = false;
         $pager = $status;
 
-        if (is_string($status)) {
+        if (!ctype_digit($status)) {
             $pager = $page;
             $statuses = true;
         }
@@ -44,7 +47,7 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 
         $perpage = Config::meta('staffs_per_page');
         $total = $query->count();
-        $staffs = $query->sort('grade', 'desc')->take($perpage)->skip(($page - 1) * $perpage)->get();
+        $staffs = $query->sort('grade', 'desc')->take($perpage)->skip(($pager - 1) * $perpage)->get();
 
         $url = Uri::to('admin/staffs/division/' . $slug);
 
@@ -52,7 +55,7 @@ Route::collection(array('before' => 'auth,csrf'), function() {
             $url .= '/' . 'status/' . $status;
         }
 
-        $pagination = new Paginator($staffs, $total, $page, $perpage, $url);
+        $pagination = new Paginator($staffs, $total, $pager, $perpage, $url);
 
         $vars['messages'] = Notify::read();
         $vars['staffs'] = $pagination;

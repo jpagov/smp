@@ -156,7 +156,7 @@ class Staff extends Base {
 
 		$results = $query->take($perpage)->skip(($page - 1) * $perpage)->sort('grade', 'desc')->get(array(static::fields()));
 
-		return new Paginator($results, $count, $page, $perpage, Uri::to('staffs'));
+		return new Paginator($results, $count, $page, $perpage, Uri::to('admin/staffs'));
 	}
 
     public static function related($id, $page = 1, $perpage = 6) {
