@@ -139,9 +139,9 @@ class Extend extends Base {
 	public static function upload($file, $avatar = null) {
 		$storage = PATH . 'content' . DS;
 
-    if ($avatar) {
-      $storage .= 'avatar' . DS;
-    }
+        if ($avatar) {
+          $storage .= 'avatar' . DS;
+        }
 
 		if(!is_dir($storage)) mkdir($storage);
 
@@ -149,11 +149,11 @@ class Extend extends Base {
 
 		// Added rtrim to remove file extension before adding again
 
-    if ($avatar) {
-      $filename = hash('md5', $avatar) . '.' . $ext;
-    } else {
-      $filename = slug(rtrim($file['name'], '.' . $ext)) . '.' . $ext;
-    }
+        if ($avatar) {
+          $filename = hash('md5', $avatar) . '.' . $ext;
+        } else {
+          $filename = slug(rtrim($file['name'], '.' . $ext)) . '.' . $ext;
+        }
 
 		$filepath = $storage . $filename;
 
@@ -171,7 +171,7 @@ class Extend extends Base {
 			$name = basename($file['name']);
 			$ext = pathinfo($file['name'], PATHINFO_EXTENSION);
 
-      $avatar = ($extend->key == 'avatar') ? $extend->email : null;
+            $avatar = ($extend->key == 'avatar') ? $extend->email : null;
 
 			if($filepath = static::upload($file, $avatar)) {
 				$filename = basename($filepath);

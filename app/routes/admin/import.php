@@ -79,6 +79,9 @@ Route::collection(array('before' => 'auth'), function() {
             Hierarchy::create($hierarchy);
             Division::counter();
 
+            // TODo: Create image from email
+            Encode::email2image($staff->emel);
+
         }
 
 

@@ -35,6 +35,11 @@ function staff_email_encode() {
   return Encode::email(Registry::prop('staff', 'email'));
 }
 
+function staff_email_image() {
+    $img = Encode::email2image(Registry::prop('staff', 'email'));
+    return '<img src="' . $img . '" alt="'. staff_name() .'">';
+}
+
 function staff_telephone() {
   return Registry::prop('staff', 'telephone');
 }
