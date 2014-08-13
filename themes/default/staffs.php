@@ -28,16 +28,11 @@
         </tbody>
     </table>
 
-
-
-		<?php if(has_pagination()): ?>
-		<nav class="pagination">
-			<div class="wrap">
-				<?php echo staffs_prev(); ?>
-				<?php echo staffs_next(); ?>
-			</div>
-		</nav>
-		<?php endif; ?>
+	<?php if(has_pagination()): ?>
+	<nav class="pagination">
+            <?php echo staffs_paging()->links(); ?>
+	</nav>
+	<?php endif; ?>
 
 	<?php else: ?>
 		<p>Looks like you have some writing to do!</p>

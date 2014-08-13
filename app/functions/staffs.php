@@ -57,6 +57,23 @@ function staffs_prev($text = '&larr; Previous', $default = '') {
 	return $pagination->next_link($text, $default);
 }
 
+function staffs_paging() {
+    $total = Registry::get('total_staffs');
+    $offset = Registry::get('page_offset');
+    $per_page = Config::meta('staffs_per_page');
+    $page = Registry::get('page');
+    $url = base_url($page->slug . '/');
+
+    // filter division
+    if($division = Registry::get('staff_division')) {
+        $url = base_url('division/' . $division->slug . '/');
+    }
+
+    $pagination = new Paginator(array(), $total, $offset, $per_page, $url);
+
+    return $pagination;
+}
+
 function total_staffs() {
 	return Registry::get('total_staffs');
 }
