@@ -267,7 +267,7 @@
         $uri = 'http://' . $_SERVER['HTTP_HOST'];
         $rss = new Rss(Config::meta('sitename'), Config::meta('description'), $uri, Config::app('language'));
 
-        $query = Staff::where('status', '=', 'published')->sort(Base::table('staffs.created'), 'desc');
+        $query = Staff::where('status', '=', 'active')->sort(Base::table('staffs.grade'), 'desc');
 
         foreach($query->get() as $staff) {
            $rss->item(

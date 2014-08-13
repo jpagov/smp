@@ -222,3 +222,19 @@ ul.list-unstyled > li:nth-child(4n+1) {
 .list-group >
 .list-group-item >
 img.media-object { margin-right: 4px ;}
+
+/*
+ * Footer
+ */
+
+.footer {
+  padding: 40px 0;
+  color: #999;
+  text-align: center;
+  background-color: #f9f9f9;
+  border-top: 1px solid #e5e5e5;
+}
+.footer p:last-child {
+  margin-bottom: 0;
+}
+
