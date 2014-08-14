@@ -3,7 +3,7 @@
 
     <div class="col-md-12 divisions">
       <div class="col-md-4 col-md-offset-4 well text-center">
-        <a href="#"><h3><?php echo __('site.top_management'); ?></h3></a>
+        <a href="<?php echo base_url('top-management'); ?>"><h3><?php echo __('site.top_management'); ?></h3></a>
         <p><em><?php echo __('site.top_management'); ?></em></p>
       </div>
     </div>

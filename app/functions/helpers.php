@@ -73,6 +73,10 @@ function is_homepage() {
 	return Registry::prop('page', 'id') == Config::meta('home_page');
 }
 
+function is_managementpage() {
+  return Registry::prop('page', 'id') == Config::meta('management_page');
+}
+
 function is_staffpage() {
   return Registry::prop('page', 'id') == Config::meta('staffs_page');
 }

@@ -46,24 +46,32 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="col-sm-3 control-label" for="postspage"><?php echo __('metadata.postspage'); ?></label>
+                    <label class="col-sm-3 control-label" for="staffspage"><?php echo __('metadata.staffspage'); ?></label>
                     <div class="col-sm-6">
-                    <?php echo Form::select('postspage', $pages, Input::previous('postspage', $meta['posts_page']), array('class' => 'form-control', 'id' => 'postspage',
+                    <?php echo Form::select('staffspage', $pages, Input::previous('staffspage', $meta['staffs_page']), array('class' => 'form-control', 'id' => 'staffspage',
                     )); ?>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label class="col-sm-3 control-label" for="posts_per_page"><?php echo __('metadata.posts_per_page'); ?></label>
+                    <label class="col-sm-3 control-label" for="management_page"><?php echo __('metadata.management_page'); ?></label>
+                    <div class="col-sm-6">
+                    <?php echo Form::select('management_page', $pages, Input::previous('management_page', $meta['management_page']), array('class' => 'form-control', 'id' => 'management_page',
+                    )); ?>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label" for="staffs_per_page"><?php echo __('metadata.staffs_per_page'); ?></label>
                     <div class="col-sm-6">
                     <div class="input-group">
-                    <?php echo Form::input('range', 'posts_per_page', Input::previous('posts_per_page', $meta['posts_per_page']), array('class' => 'form-control',
+                    <?php echo Form::input('range', 'staffs_per_page', Input::previous('staffs_per_page', $meta['staffs_per_page']), array('class' => 'form-control',
                         'min' => 1,
                         'max' => 15,
-                        'id' => 'posts_per_page',
+                        'id' => 'staffs_per_page',
                         'onchange' => 'ppp.value=value'
                     )); ?>
-                    <output class="input-group-addon" id="ppp"><?php echo Input::previous('posts_per_page', $meta['posts_per_page']); ?></output>
+                    <output class="input-group-addon" id="ppp"><?php echo Input::previous('staffs_per_page', $meta['staffs_per_page']); ?></output>
                     </div>
                     </div>
                 </div>

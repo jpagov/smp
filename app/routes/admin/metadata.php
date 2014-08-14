@@ -28,7 +28,7 @@ Route::collection(array('before' => 'auth,admin,csrf'), function() {
 		Update Metadata
 	*/
 	Route::post('admin/setting/metadata', function() {
-		$input = Input::get(array('sitename', 'description', 'home_page', 'posts_page',
+		$input = Input::get(array('sitename', 'description', 'home_page', 'staffs_page', 'management_page',
 			'staffs_per_page', 'auto_published_comments', 'theme', 'comment_notifications', 'comment_moderation_keys'));
 
 		$validator = new Validator($input);
@@ -40,7 +40,7 @@ Route::collection(array('before' => 'auth,admin,csrf'), function() {
 			->is_max(3, __('metadata.sitedescription_missing'));
 
 		$validator->check('staffs_per_page')
-			->is_regex('#^[0-9]+$#', __('metadata.missing_staffs_per_page', 'Please enter a number for posts per page'));
+			->is_regex('#^[0-9]+$#', __('metadata.missing_staffs_per_page', 'Please enter a number for staffs per page'));
 
 		if($errors = $validator->errors()) {
 			Input::flash();

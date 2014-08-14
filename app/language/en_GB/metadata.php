@@ -20,11 +20,14 @@ return array(
 	'homepage' => 'Home Page',
 	'homepage_explain' => '',
 
-	'postspage' => 'Posts Page',
-	'postspage_explain' => '',
+	'staffspage' => 'Staffs Page',
+	'staffspage_explain' => '',
 
-	'posts_per_page' => 'Posts per page',
-	'posts_per_page_explain' => '',
+    'management_page' => 'Management Page',
+    'management_page_explain' => '',
+
+	'staffs_per_page' => 'Staffs per page',
+	'staffs_per_page_explain' => '',
 
 	'auto_publish_comments' => 'Auto-allow comments',
 	'auto_publish_comments_explain' => '',

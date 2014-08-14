@@ -33,13 +33,13 @@ class Page extends Base {
 		return static::find(Config::meta('home_page'));
 	}
 
-	public static function posts() {
-		return static::find(Config::meta('posts_page'));
-	}
+    public static function management() {
+        return static::find(Config::meta('management_page'));
+    }
 
-  public static function staff() {
-    return static::find(Config::meta('staff_page'));
-  }
+    public static function staff() {
+        return static::find(Config::meta('staff_page'));
+    }
 
 	public function uri() {
 		return Uri::to($this->relative_uri());

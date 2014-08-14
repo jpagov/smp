@@ -51,51 +51,55 @@ class Staff extends Base {
       ->fetch(array(static::fields()));
   }
 
-  public static function listing($page = 1, $per_page = 10, $hierarchy = null) {
+  public static function listing($page = 1, $per_page = 10, $hierarchy = null, $top = null) {
 
     $query = static::where(Base::table('staffs.status'), '=', 'active');
     $get = array(static::fields());
 
-    if( isset($hierarchy['division']) and $division = $hierarchy['division']) {
+    if ($top) {
+        $query = $query->where(Base::table('staffs.management'), '=', '1');
+    } else {
 
-      $query = $query->left_join(
-        Base::table('divisions'),
-        Base::table('divisions.id'), '=', Base::table('staffs.division'));
-      $query->where(Base::table('staffs.division'), '=', $division->id);
+        if( isset($hierarchy['division']) and $division = $hierarchy['division']) {
 
-      array_push($get, Base::table('divisions.slug as division_slug'), Base::table('divisions.title as division_title'));
+          $query = $query->left_join(
+            Base::table('divisions'),
+            Base::table('divisions.id'), '=', Base::table('staffs.division'));
+          $query->where(Base::table('staffs.division'), '=', $division->id);
+
+          array_push($get, Base::table('divisions.slug as division_slug'), Base::table('divisions.title as division_title'));
+        }
+
+        if( isset($hierarchy['branch']) and $branch = $hierarchy['branch']) {
+
+          $query = $query->left_join(
+            Base::table('branchs'),
+            Base::table('branchs.id'), '=', Base::table('staffs.branch'));
+          $query->where(Base::table('staffs.branch'), '=', $branch->id);
+
+          array_push($get, Base::table('branchs.slug as branch_slug'), Base::table('branchs.title as branch_title'));
+        }
+
+        if( isset($hierarchy['sector']) and $sector = $hierarchy['sector']) {
+
+          $query = $query->left_join(
+            Base::table('sectors'),
+            Base::table('sectors.id'), '=', Base::table('staffs.sector'));
+          $query->where(Base::table('staffs.sector'), '=', $sector->id);
+
+          array_push($get, Base::table('sectors.slug as sector_slug'), Base::table('sectors.title as sector_title'));
+        }
+
+        if( isset($hierarchy['unit']) and $unit = $hierarchy['unit']) {
+
+          $query = $query->left_join(
+            Base::table('units'),
+            Base::table('units.id'), '=', Base::table('staffs.unit'));
+          $query->where(Base::table('staffs.unit'), '=', $unit->id);
+
+          array_push($get, Base::table('units.slug as unit_slug'), Base::table('units.title as unit_title'));
+        }
     }
-
-    if( isset($hierarchy['branch']) and $branch = $hierarchy['branch']) {
-
-      $query = $query->left_join(
-        Base::table('branchs'),
-        Base::table('branchs.id'), '=', Base::table('staffs.branch'));
-      $query->where(Base::table('staffs.branch'), '=', $branch->id);
-
-      array_push($get, Base::table('branchs.slug as branch_slug'), Base::table('branchs.title as branch_title'));
-    }
-
-    if( isset($hierarchy['sector']) and $sector = $hierarchy['sector']) {
-
-      $query = $query->left_join(
-        Base::table('sectors'),
-        Base::table('sectors.id'), '=', Base::table('staffs.sector'));
-      $query->where(Base::table('staffs.sector'), '=', $sector->id);
-
-      array_push($get, Base::table('sectors.slug as sector_slug'), Base::table('sectors.title as sector_title'));
-    }
-
-    if( isset($hierarchy['unit']) and $unit = $hierarchy['unit']) {
-
-      $query = $query->left_join(
-        Base::table('units'),
-        Base::table('units.id'), '=', Base::table('staffs.unit'));
-      $query->where(Base::table('staffs.unit'), '=', $unit->id);
-
-      array_push($get, Base::table('units.slug as unit_slug'), Base::table('units.title as unit_title'));
-    }
-
 
     $total = $query->count();
 

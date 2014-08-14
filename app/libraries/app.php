@@ -70,10 +70,10 @@ class App {
 		// register home page
 		Registry::set('home_page', Page::home());
 
-		// register posts page
-		Registry::set('posts_page', Page::posts());
+		// register management page
+		Registry::set('management_page', Page::management());
 
-        // register posts page
+        // register staff page
         Registry::set('staffs_page', Page::staff());
 
 		if( ! is_admin()) {
