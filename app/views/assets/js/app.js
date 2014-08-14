@@ -98,6 +98,12 @@ var SMP = {
     },
 
   },
+
+  top_management: {
+    init: function() {
+        SMP.home.init();
+    },
+  },
   // Home page
   admin: {
     init: function() {
