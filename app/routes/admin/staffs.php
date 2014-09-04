@@ -22,46 +22,60 @@ Route::collection(array('before' => 'auth,csrf'), function() {
     */
     Route::get(array(
         'admin/staffs/division/(:any)',
-        'admin/staffs/division/(:any)/(:num)',
-        'admin/staffs/division/(:any)/status/(:any)',
-        'admin/staffs/division/(:any)/status/(:any)/(:num)'), function(
+        'admin/staffs/division/(:any)/(:num)'), function(
             $slug,
-            $status = 1,
             $page = 1) {
-
-        $statuses = false;
-        $pager = $status;
-
-        if (!ctype_digit($status)) {
-            $pager = $page;
-            $statuses = true;
-        }
 
         $division = Division::slug($slug)->id;
 
         $query = Staff::where('division', '=', $division);
-
-        if ($statuses) {
-            $query = $query->where('status', '=', $status);
-        }
-
         $perpage = Config::meta('staffs_per_page');
         $total = $query->count();
-        $staffs = $query->sort('grade', 'desc')->take($perpage)->skip(($pager - 1) * $perpage)->get();
+        $staffs = $query->sort('grade', 'desc')->take($perpage)->skip(($page - 1) * $perpage)->get();
 
         $url = Uri::to('admin/staffs/division/' . $slug);
 
-        if ($statuses) {
-            $url .= '/' . 'status/' . $status;
-        }
-
-        $pagination = new Paginator($staffs, $total, $pager, $perpage, $url);
+        $pagination = new Paginator($staffs, $total, $page, $perpage, $url);
 
         $vars['messages'] = Notify::read();
         $vars['staffs'] = $pagination;
         $vars['divisions'] = Division::listing();
         $vars['division'] = $slug;
-        $vars['status'] = $statuses ? $status : 'all';
+        $vars['status'] = 'all';
+
+        return View::create('staffs/index', $vars)
+          ->partial('header', 'partials/header')
+          ->partial('footer', 'partials/footer');
+
+    });
+
+    /*
+    List staffs by department and paginate through them
+    */
+    Route::get(array(
+        'admin/staffs/division/(:any)/status/(:any)',
+        'admin/staffs/division/(:any)/status/(:any)/(:num)'), function(
+            $slug,
+            $status = 'active',
+            $page = 1) {
+
+        $division = Division::slug($slug)->id;
+
+        $query = Staff::where('division', '=', $division)->where('status', '=', $status);
+
+        $perpage = Config::meta('staffs_per_page');
+        $total = $query->count();
+        $staffs = $query->sort('grade', 'desc')->take($perpage)->skip(($page - 1) * $perpage)->get();
+
+        $url = Uri::to('admin/staffs/division/' . $slug . '/' . 'status/' . $status);
+
+        $pagination = new Paginator($staffs, $total, $page, $perpage, $url);
+
+        $vars['messages'] = Notify::read();
+        $vars['staffs'] = $pagination;
+        $vars['divisions'] = Division::listing();
+        $vars['division'] = $slug;
+        $vars['status'] = $status;
 
         return View::create('staffs/index', $vars)
           ->partial('header', 'partials/header')
