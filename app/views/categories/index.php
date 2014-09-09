@@ -1,29 +1,69 @@
 <?php echo $header; ?>
 
-<hgroup class="wrap">
-	<h1><?php echo __('categories.categories'); ?></h1>
+<?php echo Html::link('admin/categories/add', __('categories.create_category'), array('class' => 'btn btn-primary pull-right')); ?>
 
-	<nav>
-		<?php echo Html::link('admin/categories/add', __('categories.create_category'), array('class' => 'btn')); ?>
-	</nav>
-</hgroup>
+<h1 class="page-header"><?php echo __('categories.categories'); ?></h1>
 
-<section class="wrap">
-	<?php echo $messages; ?>
+<?php echo $messages; ?>
 
-	<ul class="list">
-		<?php foreach($categories->results as $category): ?>
-		<li>
-			<a href="<?php echo Uri::to('admin/categories/edit/' . $category->id); ?>">
-				<strong><?php echo $category->title; ?></strong>
+<div class="row">
+    <div class="col-lg-9">
+        <?php //print_r($sectors); ?>
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th><?php echo __('categories.categories'); ?></th>
+                        <th><?php echo __('categories.slug'); ?></th>
+                        <th><?php echo __('hierarchy.view'); ?></th>
+                    </tr>
+                </thead>
+                <tbody>
+                <?php if($categories->count): ?>
+                    <?php foreach($categories->results as $category): ?>
+                    <tr class="status draft">
+                        <td><?php echo $category->id; ?></td>
+                        <td><a href="<?php echo Uri::to('admin/categories/edit/' . $category->id); ?>"><?php echo $category->title; ?></a></td>
+                        <td><?php echo $category->slug; ?></td>
+                        <td><?php echo $category->view; ?></td>
+                    </tr>
+                <?php endforeach; ?>
+                <?php else: ?>
+                <tr>
+                  <td colspan="7"><?php echo __('hierarchy.no_reports'); ?></td>
+                </tr>
+                <?php endif; ?>
+            </tbody>
+        </table>
 
-				<span><?php echo $category->slug; ?></span>
-			</a>
-		</li>
-		<?php endforeach; ?>
-	</ul>
+        <?php if ($categories->links()) : ?>
+        <ul class="pagination">
+            <?php echo $categories->links(); ?>
+        </ul>
+        <?php endif; ?>
 
-	<aside class="paging"><?php echo $categories->links(); ?></aside>
-</section>
+        </div>
+    </div>
+    <div class="col col-lg-3">
+        <nav class="list-sector sidebar">
+
+            <div class="panel panel-default">
+                <div class="panel-heading">Related</div>
+                <div class="list-group">
+                    <?php foreach($hierarchies as $key => $hierarchy): ?>
+
+                        <?php if ( $key.'s' !== basename(Uri::current()) ) : ?>
+
+                        <?php echo Html::link('admin/' . $key . 's', __('hierarchy.' . $key), array('class' => 'list-group-item'
+                        )); ?>
+
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+        </nav>
+    </div>
+</div>
 
 <?php echo $footer; ?>
