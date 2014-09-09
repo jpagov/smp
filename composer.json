@@ -8,12 +8,14 @@
 	],
 	"require": {
 		"php": ">=5.3.6",
-        "phpmailer/phpmailer": "dev-master",
+        "phpmailer/phpmailer": "dev-master"
+	},
+	"require-dev": {
         "hariadi/siapa": "dev-master"
 	},
 	"extra": {
 		"installer-paths": {
-			"anchor/vendor/{$name}": ["vendor/package"]
+			"app/vendor/{$name}": ["vendor/package"]
 		}
 	}
 }
