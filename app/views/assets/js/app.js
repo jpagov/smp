@@ -193,6 +193,71 @@ var SMP = {
 
     },
 
+    categories: function() {
+
+        console.log('ha');
+        // branch
+      var branchs = new Bloodhound({
+        datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
+        queryTokenizer: Bloodhound.tokenizers.whitespace,
+        prefetch: {
+          url: '/smp/admin/api/branch.json',
+          filter: function(list) {
+            return $.map(list, function(item) { return { name: item }; });
+          }
+        }
+      });
+
+      branchs.initialize();
+
+      // sector
+      var sectors = new Bloodhound({
+        datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
+        queryTokenizer: Bloodhound.tokenizers.whitespace,
+        prefetch: {
+          url: '/smp/admin/api/sector.json',
+          filter: function(list) {
+            return $.map(list, function(item) { return { name: item }; });
+          }
+        }
+      });
+
+      sectors.initialize();
+
+      // unit
+      var units = new Bloodhound({
+        datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
+        queryTokenizer: Bloodhound.tokenizers.whitespace,
+        prefetch: {
+          url: '/smp/admin/api/unit.json',
+          filter: function(list) {
+            return $.map(list, function(item) { return { name: item }; });
+          }
+        }
+      });
+
+      units.initialize();
+
+      $('.redirect-prefetch .typeahead').typeahead({
+            highlight: true
+        }, {
+            name: 'branchs',
+            displayKey: 'name',
+            source: branchs.ttAdapter(),
+            templates: {
+                header: '<h3 class="category-name">Branchs</h3>'
+            }
+        },
+        {
+            name: 'sectors',
+            displayKey: 'name',
+            source: sectors.ttAdapter(),
+            templates: {
+                header: '<h3 class="category-name">Sectors</h3>'
+            }
+        });
+    },
+
     setting: function() {
       console.log('Setting');
 
