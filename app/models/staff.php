@@ -114,43 +114,47 @@ class Staff extends Base {
 
 	public static function search($term, $page = 1, $per_page = 10, $filter = null, $division = null, $branch = null, $sector = null, $unit = null) {
 
-    $query = Query::table(static::table());
+		$search = array('slug', 'email', 'telephone', 'description');
 
-    if ($division) {
-      $query = $query->left_join(Base::table('divisions'), Base::table('divisions.id'), '=', Base::table('staffs.division'))->where(Base::table('staffs.division'), '=', $division);
-    }
+	if ($filter) {
+		$search = array_merge($filter, $search);
+	}
 
-    if ($branch) {
-      $query = $query->left_join(Base::table('branchs'), Base::table('branchs.id'), '=', Base::table('staffs.branch'))->where(Base::table('staffs.branch'), '=', $branch);
-    }
 
-    if ($sector) {
-      $query = $query->left_join(Base::table('sectors'), Base::table('sectors.id'), '=', Base::table('staffs.sector'))->where(Base::table('staffs.sector'), '=', $sector);
-    }
+	$query = Query::table(static::table());
 
-    if ($unit) {
-      $query = $query->left_join(Base::table('units'), Base::table('units.id'), '=', Base::table('staffs.unit'))->where(Base::table('staffs.unit'), '=', $unit);
-    }
+	if ($division) {
+	  $query = $query->left_join(Base::table('divisions'), Base::table('divisions.id'), '=', Base::table('staffs.division'))->where(Base::table('staffs.division'), '=', $division);
+	}
 
-    $query = $query->where(Base::table('staffs.status'), '=', 'active')
-      ->where(Base::table('staffs.display_name'), 'like', '%' . $term . '%')
-      ->or_where(Base::table('staffs.slug'), 'like', '%' . $term . '%')
-      ->or_where(Base::table('staffs.position'), 'like', '%' . $term . '%')
-      ->or_where(Base::table('staffs.description'), 'like', '%' . $term . '%');
+	if ($branch) {
+	  $query = $query->left_join(Base::table('branchs'), Base::table('branchs.id'), '=', Base::table('staffs.branch'))->where(Base::table('staffs.branch'), '=', $branch);
+	}
 
-    if ($filter) {
-      foreach($filter as $value) {
-        $query = $query->where(Base::table('staffs.' . $value), 'like', '%' . $term . '%');
-      }
-    }
+	if ($sector) {
+	  $query = $query->left_join(Base::table('sectors'), Base::table('sectors.id'), '=', Base::table('staffs.sector'))->where(Base::table('staffs.sector'), '=', $sector);
+	}
 
-    $total = $query->count();
+	if ($unit) {
+	  $query = $query->left_join(Base::table('units'), Base::table('units.id'), '=', Base::table('staffs.unit'))->where(Base::table('staffs.unit'), '=', $unit);
+	}
 
-    $staffs = $query->take($per_page)
-      ->skip(--$page * $per_page)
-      ->get(array(static::fields()));
+	$query = $query->where(Base::table('staffs.status'), '=', 'active')
+	  ->where(Base::table('staffs.display_name'), 'like', '%' . $term . '%');
 
-    return array($total, $staffs);
+	if ($search) {
+	  foreach($search as $value) {
+	    $query = $query->or_where(Base::table('staffs.' . $value), 'like', '%' . $term . '%');
+	  }
+	}
+
+	$total = $query->count();
+
+	$staffs = $query->take($per_page)
+	  ->skip(--$page * $per_page)
+	  ->get(array(static::fields()));
+
+	return array($total, $staffs);
   }
 
 	public static function paginate($page = 1, $perpage = 10) {

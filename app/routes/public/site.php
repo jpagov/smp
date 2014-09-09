@@ -30,11 +30,13 @@ if($home_page->id != $staffs_page->id) {
 /**
 * Staff listings page
 */
-$routes = array($staffs_page->slug, $staffs_page->slug . '/(:num)');
+$routes = array($staffs_page->slug, $staffs_page->slug . '(:num)');
 
-if($home_page->id == $staffs_page->id) {
-    array_unshift($routes, '/');
-}
+/**
+*if($home_page->id == $staffs_page->id) {
+*    array_unshift($routes, '/');
+*}
+*/
 
 Route::get($routes, function($offset = 1) use($staffs_page) {
 
