@@ -9,6 +9,7 @@ date_default_timezone_set(Config::app('timezone', 'UTC'));
  * Define the application error reporting level based on your environment
  */
 switch(constant('ENV')) {
+	case 'local':
 	case 'dev':
 		ini_set('display_errors', true);
 		error_reporting(-1);
