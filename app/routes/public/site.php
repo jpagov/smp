@@ -113,6 +113,8 @@ Route::get(array('division/(:any)', 'division/(:any)/(:num)'), function($divisio
         return Response::create(new Template('404'), 404);
     }
 
+    Division::update($division->id, array('view' => $division->view +1));
+
     $hierarchies = array();
     $hierarchies['division'] = $division;
 
