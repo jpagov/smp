@@ -38,7 +38,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="col-sm-3 control-label" for="homepage"><?php echo __('metadata.homepage'); ?></label>
+                    <label class="col-sm-3 control-label" for="home_page"><?php echo __('metadata.homepage'); ?></label>
                     <div class="col-sm-6">
                     <?php echo Form::select('home_page', $pages, Input::previous('home_page', $meta['home_page']), array('class' => 'form-control', 'id' => 'home_page',
                     )); ?>
@@ -48,7 +48,7 @@
                 <div class="form-group">
                     <label class="col-sm-3 control-label" for="staffspage"><?php echo __('metadata.staffspage'); ?></label>
                     <div class="col-sm-6">
-                    <?php echo Form::select('staffspage', $pages, Input::previous('staffspage', $meta['staffs_page']), array('class' => 'form-control', 'id' => 'staffspage',
+                    <?php echo Form::select('staffs_page', $pages, Input::previous('staffs_page', $meta['staffs_page']), array('class' => 'form-control', 'id' => 'staffspage',
                     )); ?>
                     </div>
                 </div>

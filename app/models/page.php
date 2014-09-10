@@ -38,7 +38,7 @@ class Page extends Base {
     }
 
     public static function staff() {
-        return static::find(Config::meta('staff_page'));
+        return static::find(Config::meta('staffs_page'));
     }
 
 	public function uri() {
