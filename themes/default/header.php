@@ -77,7 +77,7 @@
     </div><!-- //.navbar -->
 
   <?php if (Uri::current() == '/') : ?>
-    <?php theme_include('divisions'); ?>
+    <?php theme_include(is_category() ? 'categories' : 'divisions'); ?>
   <?php endif; ?>
 
     <div class="container">

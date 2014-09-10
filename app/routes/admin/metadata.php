@@ -28,8 +28,18 @@ Route::collection(array('before' => 'auth,admin,csrf'), function() {
 		Update Metadata
 	*/
 	Route::post('admin/setting/metadata', function() {
-		$input = Input::get(array('sitename', 'description', 'home_page', 'staffs_page', 'management_page',
-			'staffs_per_page', 'auto_published_comments', 'theme', 'comment_notifications', 'comment_moderation_keys'));
+		$input = Input::get(array(
+			'sitename',
+			'description',
+			'home_page',
+			'staffs_page',
+			'management_page',
+			'staffs_per_page',
+			'default_page',
+			'auto_published_comments',
+			'theme',
+			'comment_notifications',
+			'comment_moderation_keys'));
 
 		$validator = new Validator($input);
 

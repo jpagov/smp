@@ -10,6 +10,7 @@ return array(
   'view_staff_profile' => 'View %s profile on %s',
 
   'divisions' => 'Divisions',
+  'category' => 'Category',
 
   'top_management' => 'Top Management',
 

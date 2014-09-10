@@ -76,6 +76,18 @@
                     </div>
                 </div>
 
+                <div class="form-group">
+                  <div class="col-sm-offset-3 col-sm-9">
+                    <div class="checkbox">
+                      <label><?php $checked = Input::previous('default_page', $meta['default_page']) ? ' checked' : ''; ?>
+                        <?php echo Form::checkbox('default_page', 1, $checked, array(
+                        'id' => 'default_page')); ?> <?php echo __('metadata.default_page'); ?>
+                      </label>
+                    </div>
+                    <span class="help-block"><?php echo __('metadata.default_page_explain'); ?></span>
+                  </div>
+                </div>
+
             </fieldset>
 
             <fieldset>

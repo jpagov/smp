@@ -14,6 +14,10 @@ function is_installed() {
 	return Config::get('db') !== null or Config::get('database') !== null;
 }
 
+function is_category() {
+	return Config::meta('default_page');
+}
+
 function avatar_url() {
   return asset('content/avatar/');
 }
