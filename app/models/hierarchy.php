@@ -31,6 +31,7 @@ class Hierarchy extends Base {
     }
 
     $query = $query->group(Base::table($hierarchy . '.title'));
+
     return $query->get(array(Base::table($hierarchy . '.id'), Base::table($hierarchy . '.title')));
   }
 

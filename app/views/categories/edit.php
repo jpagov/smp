@@ -7,8 +7,11 @@
 <?php echo $messages; ?>
 
 <div class="row">
-  <div class="col-lg-9">
+
       <form class="form-horizontal" method="post" action="<?php echo Uri::to('admin/categories/edit/' . $category->id); ?>" novalidate autocomplete="off" enctype="multipart/form-data">
+
+      <div class="col-lg-9">
+
         <input name="token" type="hidden" value="<?php echo $token; ?>">
 
         <fieldset>
@@ -46,49 +49,66 @@
             </div>
 
             <div class="form-group">
-                <label class="col-sm-3 control-label" for="redirect"><?php echo __('categories.redirect'); ?></label>
-                <div class="col-lg-9 redirect-prefetch">
-                  <?php echo Form::text('redirect', Input::previous('redirect', $category->redirect), array('class' => 'form-control typeahead col-sm-12', 'id' => 'redirect')); ?>
-                </div>
+		          <label class="col-md-3 control-label" for="redirect"><?php echo __('pages.redirect'); ?></label>
+		          <div class="col-md-9">
+		           <?php echo Form::text('redirect', Input::previous('redirect', $category->redirect), array(
+		              'class' => 'form-control',
+		              'placeholder' => __('pages.redirect_url'),
+		              'id' => 'redirect',
+		            )); ?>
+		            <span class="help-block"><?php echo __('pages.redirect_explain'); ?></span>
+		          </div>
+		        </div>
+
+           </fieldset>
+           <fieldset>
+           	<legend><?php echo __('categories.redirect'); ?></legend>
+
+           	<div class="form-group">
+              <label class="col-sm-2 control-label" for="division"><?php echo __('staffs.division'); ?></label>
+              <div class="col-sm-6">
+                <?php echo Form::select('division', $divisions, Input::previous('division', $division), array('class' => 'form-control', 'id' => 'division',
+                )); ?>
+              </div>
             </div>
+
+            <div class="form-group">
+              <label class="col-sm-2 control-label" for="branch"><?php echo __('staffs.branch'); ?></label>
+              <div class="col-sm-8 branch-prefetch">
+                <?php echo Form::text('branch', Input::previous('branch', $branch), array('class' => 'form-control typeahead col-sm-12', 'id' => 'branch')); ?>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="col-sm-2 control-label" for="sector"><?php echo __('staffs.sector'); ?></label>
+              <div class="col-sm-8 sector-prefetch">
+                <?php echo Form::text('sector', Input::previous('sector', $sector), array('class' => 'form-control typeahead', 'id' => 'sector')); ?>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="col-sm-2 control-label" for="unit"><?php echo __('staffs.unit'); ?></label>
+              <div class="col-sm-8 unit-prefetch">
+                <?php echo Form::text('unit', Input::previous('unit', $unit), array('class' => 'form-control typeahead', 'id' => 'unit')); ?>
+              </div>
+            </div>
+
+           </fieldset>
+
+        </div>
+        <div class="col-md-3">
+
+      <?php echo Form::button(__('global.update'), array(
+        'class' => 'btn btn-primary btn-lg btn-block',
+        'type' => 'submit'
+        )); ?>
+
+      <?php echo Html::link('admin/categories/delete/' . $category->id,
+        __('global.delete'), array(
+          'class' => 'btn btn-warning btn-lg btn-block delete'
+          )); ?>
 
       </form>
   </div>
-</div>
-
-<section class="wrap">
-	<?php echo $messages; ?>
-
-	<form method="post" action="<?php echo Uri::to('admin/categories/edit/' . $category->id); ?>" novalidate>
-
-		<input name="token" type="hidden" value="<?php echo $token; ?>">
-
-		<fieldset class="split">
-			<p>
-				<label><?php echo __('categories.title'); ?>:</label>
-				<?php echo Form::text('title', Input::previous('title', $category->title)); ?>
-				<em><?php echo __('categories.title_explain'); ?></em>
-			</p>
-			<p>
-				<label><?php echo __('categories.slug'); ?>:</label>
-				<?php echo Form::text('slug', Input::previous('slug', $category->slug)); ?>
-				<em><?php echo __('categories.slug_explain'); ?></em>
-			</p>
-			<p>
-				<label><?php echo __('categories.description'); ?>:</label>
-				<?php echo Form::textarea('description', Input::previous('description', $category->description)); ?>
-				<em><?php echo __('categories.description_explain'); ?></em>
-			</p>
-		</fieldset>
-
-		<aside class="buttons">
-			<?php echo Form::button(__('global.save'), array('type' => 'submit', 'class' => 'btn')); ?>
-
-			<?php echo Html::link('admin/categories/delete/' . $category->id, __('global.delete'), array(
-				'class' => 'btn delete red'
-			)); ?>
-		</aside>
-	</form>
-</section>
 
 <?php echo $footer; ?>

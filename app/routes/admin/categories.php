@@ -9,6 +9,7 @@ Route::collection(array('before' => 'auth,admin,csrf'), function() {
 		$vars['messages'] = Notify::read();
 		$vars['categories'] = Category::paginate($page, Config::get('meta.staffs_per_page'));
         $vars['hierarchies'] = Config::app('hierarchy');
+        $vars['divisions'] = Division::listing();
 
 		return View::create('categories/index', $vars)
 			->partial('header', 'partials/header')
@@ -22,6 +23,25 @@ Route::collection(array('before' => 'auth,admin,csrf'), function() {
 		$vars['messages'] = Notify::read();
 		$vars['token'] = Csrf::token();
 		$vars['category'] = Category::find($id);
+		$vars['divisions'] = array_unshift_assoc(Division::dropdown(), '0', __('staffs.please_select'));
+
+		$vars['hierarchy'] = array(
+			'division' => 0,
+			'branch' => 0,
+			'sector' => 0,
+			'unit' => 0,
+		);
+
+		if ( $vars['category']->hierarchy and $hierarchy = Hierarchy::find($vars['category']->hierarchy)) {
+
+			$vars['division'] = $hierarchy->division;
+
+			$vars['branch'] = ($branch = Branch::find($hierarchy->branch)) ? $branch->title : '';
+
+			$vars['sector'] = ($sector = Sector::find($hierarchy->sector)) ? $sector->title : '';
+
+			$vars['unit'] = ($unit = Unit::find($hierarchy->unit)) ? $unit->title : '';
+		}
 
 		return View::create('categories/edit', $vars)
 			->partial('header', 'partials/header')
@@ -29,7 +49,10 @@ Route::collection(array('before' => 'auth,admin,csrf'), function() {
 	});
 
 	Route::post('admin/categories/edit/(:num)', function($id) {
-		$input = Input::get(array('title', 'slug', 'description', 'redirect'));
+
+		$input = Input::get(array('title', 'slug', 'description', 'redirect', 'division', 'branch', 'sector', 'unit'));
+
+		//$hierarchies = array('division', 'branch', 'sector', 'unit');
 
 		$validator = new Validator($input);
 
@@ -43,6 +66,23 @@ Route::collection(array('before' => 'auth,admin,csrf'), function() {
 
 			return Response::redirect('admin/categories/edit/' . $id);
 		}
+
+		$hierarchies = array();
+
+		$hierarchies['division'] = !empty($input['division']) ? $input['division'] : 0;
+
+		foreach (array('branch', 'sector', 'unit') as $hierarchy) {
+
+			$hierarchies[$hierarchy] = !empty($input[$hierarchy]) ? $hierarchy::id($input[$hierarchy]) : 0;
+			unset($input[$hierarchy]);
+		}
+		unset($input['division']);
+
+		if (!$hierarchy = Hierarchy::search($hierarchies)) {
+			$hierarchy = Hierarchy::create($hierarchies);
+		}
+
+		$input['hierarchy'] = $hierarchy->id;
 
 		if(empty($input['slug'])) {
 			$input['slug'] = $input['title'];
@@ -64,13 +104,16 @@ Route::collection(array('before' => 'auth,admin,csrf'), function() {
 		$vars['messages'] = Notify::read();
 		$vars['token'] = Csrf::token();
 
+		$vars['divisions'] = array_unshift_assoc(Division::dropdown(), '0', __('staffs.please_select'));
+
 		return View::create('categories/add', $vars)
 			->partial('header', 'partials/header')
 			->partial('footer', 'partials/footer');
 	});
 
 	Route::post('admin/categories/add', function() {
-		$input = Input::get(array('title', 'slug', 'description', 'redirect'));
+
+		$input = Input::get(array('title', 'slug', 'description', 'redirect', 'division', 'branch', 'sector', 'unit'));
 
 		$validator = new Validator($input);
 
@@ -84,6 +127,23 @@ Route::collection(array('before' => 'auth,admin,csrf'), function() {
 
 			return Response::redirect('admin/categories/add');
 		}
+
+		$hierarchies = array();
+
+		$hierarchies['division'] = !empty($input['division']) ? $input['division'] : 0;
+
+		foreach (array('branch', 'sector', 'unit') as $hierarchy) {
+
+			$hierarchies[$hierarchy] = !empty($input[$hierarchy]) ? $hierarchy::id($input[$hierarchy]) : 0;
+			unset($input[$hierarchy]);
+		}
+		unset($input['division']);
+
+		if (!$hierarchy = Hierarchy::search($hierarchies)) {
+			$hierarchy = Hierarchy::create($hierarchies);
+		}
+
+		$input['hierarchy'] = $hierarchy->id;
 
 		if(empty($input['slug'])) {
 			$input['slug'] = $input['title'];

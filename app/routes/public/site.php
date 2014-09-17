@@ -67,13 +67,6 @@ Route::get($routes, function($offset = 1) use($staffs_page) {
 });
 
 /**
-* View divisions list
-*/
-Route::get(array('divisions'), function() {
-    return Response::redirect('/');
-});
-
-/**
 * View staffs by hierarchies
 */
 

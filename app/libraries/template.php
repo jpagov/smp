@@ -7,7 +7,7 @@ class Template extends View {
 		$base = PATH . 'themes' . DS . Config::meta('theme') . DS;
 
 		// custom article and page templates
-		if($template == 'page' or $template == 'article') {
+		if($template == 'page' or $template == 'staff') {
 			if($item = Registry::get($template)) {
 				if(is_readable($base . $template . '-' . $item->slug . EXT)) {
 					$template .= '-' . $item->slug;

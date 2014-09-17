@@ -15,7 +15,7 @@ function is_installed() {
 }
 
 function is_category() {
-	return Config::meta('default_page');
+	return Config::meta('category');
 }
 
 function avatar_url() {

@@ -76,7 +76,12 @@ Route::collection(array('before' => 'auth'), function() {
                 $hierarchy['unit'] = $input['unit'];
             }
 
-            Hierarchy::create($hierarchy);
+            $hierarchsm = array_intersect_key($input, array_flip(array('division', 'branch', 'sector', 'unit')));
+
+            if (!$hierarchy_update = Hierarchy::search($hierarchsm)) {
+            	Hierarchy::create($hierarchy);
+            }
+
             Division::counter();
 
             // TODo: Create image from email

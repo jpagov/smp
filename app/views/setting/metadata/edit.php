@@ -79,12 +79,12 @@
                 <div class="form-group">
                   <div class="col-sm-offset-3 col-sm-9">
                     <div class="checkbox">
-                      <label><?php $checked = Input::previous('default_page', $meta['default_page']) ? ' checked' : ''; ?>
-                        <?php echo Form::checkbox('default_page', 1, $checked, array(
-                        'id' => 'default_page')); ?> <?php echo __('metadata.default_page'); ?>
+                      <label><?php $checked = Input::previous('category', $meta['category']) ? ' checked' : ''; ?>
+                        <?php echo Form::checkbox('category', 1, $checked, array(
+                        'id' => 'category')); ?> <?php echo __('metadata.category'); ?>
                       </label>
                     </div>
-                    <span class="help-block"><?php echo __('metadata.default_page_explain'); ?></span>
+                    <span class="help-block"><?php echo __('metadata.category_explain'); ?></span>
                   </div>
                 </div>
 

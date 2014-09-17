@@ -29,8 +29,8 @@ return array(
 	'staffs_per_page' => 'Staffs per page',
 	'staffs_per_page_explain' => '',
 
-	'default_page' => 'Default to show Category Page',
-    'default_page_explain' => 'Show category instead of division in home page',
+	'category' => 'Default to show Category Page',
+    'category_explain' => 'Show category instead of division in home page',
 
 	'auto_publish_comments' => 'Auto-allow comments',
 	'auto_publish_comments_explain' => '',

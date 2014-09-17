@@ -131,12 +131,37 @@ var SMP = {
         $('#division-role input').prop('checked', checked);
       });
 
+      var endpoint = '/smp/admin/api/';
+
+      $('#division').on('change', function (e) {
+
+      	//var optionSelected = $("option:selected", this);
+      	//var valueSelected = this.value;
+      	//console.log(valueSelected);
+      	$('.branchs-prefetch .typeahead').typeahead('destroy');
+      	$('.sectors-prefetch .typeahead').typeahead('destroy');
+      	$('.units-prefetch .typeahead').typeahead('destroy');
+
+      	branchs.initialize(true);
+      	sectors.initialize(true);
+      	units.initialize(true);
+
+		  });
+
       // branch
       var branchs = new Bloodhound({
         datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
         queryTokenizer: Bloodhound.tokenizers.whitespace,
-        prefetch: {
-          url: '/smp/admin/api/branch.json',
+        limit: 10,
+        remote: {
+          url: endpoint + 'branch.json',
+          replace: function () {
+          	if ($('#division').val() == 0) {
+          		return endpoint + 'branch.json';
+          	} else {
+          		return endpoint + $('#division').val() + '/branch.json';
+          	}
+          },
           filter: function(list) {
             return $.map(list, function(item) { return { name: item }; });
           }
@@ -155,8 +180,16 @@ var SMP = {
       var sectors = new Bloodhound({
         datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
         queryTokenizer: Bloodhound.tokenizers.whitespace,
-        prefetch: {
-          url: '/smp/admin/api/sector.json',
+        limit: 10,
+        remote: {
+          url: endpoint + 'sector.json',
+          replace: function () {
+          	if ($('#division').val() == 0) {
+          		return endpoint + 'sector.json';
+          	} else {
+          		return endpoint + $('#division').val() + '/sector.json';
+          	}
+          },
           filter: function(list) {
             return $.map(list, function(item) { return { name: item }; });
           }
@@ -175,8 +208,16 @@ var SMP = {
       var units = new Bloodhound({
         datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
         queryTokenizer: Bloodhound.tokenizers.whitespace,
-        prefetch: {
-          url: '/smp/admin/api/unit.json',
+        limit: 10,
+        remote: {
+          url: endpoint + 'unit.json',
+          replace: function () {
+          	if ($('#division').val() == 0) {
+          		return endpoint + 'unit.json';
+          	} else {
+          		return endpoint + $('#division').val() + '/unit.json';
+          	}
+          },
           filter: function(list) {
             return $.map(list, function(item) { return { name: item }; });
           }
@@ -194,68 +235,7 @@ var SMP = {
     },
 
     categories: function() {
-
-        console.log('ha');
-        // branch
-      var branchs = new Bloodhound({
-        datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
-        queryTokenizer: Bloodhound.tokenizers.whitespace,
-        prefetch: {
-          url: '/smp/admin/api/branch.json',
-          filter: function(list) {
-            return $.map(list, function(item) { return { name: item }; });
-          }
-        }
-      });
-
-      branchs.initialize();
-
-      // sector
-      var sectors = new Bloodhound({
-        datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
-        queryTokenizer: Bloodhound.tokenizers.whitespace,
-        prefetch: {
-          url: '/smp/admin/api/sector.json',
-          filter: function(list) {
-            return $.map(list, function(item) { return { name: item }; });
-          }
-        }
-      });
-
-      sectors.initialize();
-
-      // unit
-      var units = new Bloodhound({
-        datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
-        queryTokenizer: Bloodhound.tokenizers.whitespace,
-        prefetch: {
-          url: '/smp/admin/api/unit.json',
-          filter: function(list) {
-            return $.map(list, function(item) { return { name: item }; });
-          }
-        }
-      });
-
-      units.initialize();
-
-      $('.redirect-prefetch .typeahead').typeahead({
-            highlight: true
-        }, {
-            name: 'branchs',
-            displayKey: 'name',
-            source: branchs.ttAdapter(),
-            templates: {
-                header: '<h3 class="category-name">Branchs</h3>'
-            }
-        },
-        {
-            name: 'sectors',
-            displayKey: 'name',
-            source: sectors.ttAdapter(),
-            templates: {
-                header: '<h3 class="category-name">Sectors</h3>'
-            }
-        });
+        SMP.admin.staffs();
     },
 
     setting: function() {
