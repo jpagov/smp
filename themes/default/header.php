@@ -67,8 +67,19 @@
           </div>
           <?php if(!staff_id()) : ?>
           <ul class="nav navbar-nav navbar-right">
-            <li<?php if(strpos(Uri::current(), '/') !== false) echo ' class="active"'; ?>><a class="view btn-lg" data-container="body" data-toggle="popover" data-placement="bottom" data-content="View by Division" href="#"><span class="glyphicon glyphicon-th-large"></span>&nbsp; <span class="hidden-lg hidden-md">View by Division</span></a></li>
-            <li<?php if(strpos(Uri::current(), 'view/list') !== false) echo ' class="active"'; ?>><a class="view btn-lg" data-container="body" data-toggle="popover" data-placement="bottom" data-content="View by Directory" href="#"><span class="glyphicon glyphicon-th-list"></span>&nbsp; <span class="hidden-lg hidden-md">View by Directory</span></a></li>
+
+            <li<?php if(is_category() or Uri::current() == 'categories') echo ' class="active"'; ?>>
+
+            	<a class="view btn-lg" data-container="body" data-content="View by categories" href="<?php echo base_url('categories'); ?>"><span class="glyphicon glyphicon-th-list"></span>&nbsp; <span class="hidden-lg hidden-md">View by categories</span></a>
+
+            </li>
+
+            <li<?php if(!is_category() or Uri::current() == 'divisions') echo ' class="active"'; ?>>
+
+            	<a class="view btn-lg" data-container="body" data-content="View by divisions" href="<?php echo base_url('divisions'); ?>"><span class="glyphicon glyphicon-th-large"></span>&nbsp; <span class="hidden-lg hidden-md">View by divisions</span></a>
+
+            </li>
+
           </ul>
         <?php endif; ?>
 

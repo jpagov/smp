@@ -50,6 +50,11 @@ html,body {
 .twitter-typeahead {
   width: 100%;
 }
+
+.twitter-typeahead > .form-control {
+	float: none;
+}
+
 .tt-dropdown-menu {
   width:100%;
   position: absolute;

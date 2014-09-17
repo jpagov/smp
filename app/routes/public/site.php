@@ -405,4 +405,15 @@ Route::get(array('help/keys', 'help/hotkey'), function() {
     return new Template('help');
 });
 
+/**
+* Special page redirect
+*/
+Route::get('division', function() {
+    return Response::redirect('divisions');
+});
+
+Route::get('category', function() {
+    return Response::redirect('categories');
+});
+
 
