@@ -145,3 +145,15 @@ function custom_number_format($n, $precision = 1) {
 
     return $n_format;
 }
+
+function active($check) {
+	$default = is_category() ? 'categories' : 'divisions';
+	if (Uri::current() != '/') {
+		if(Uri::current() == 'categories') {
+			$default = 'categories';
+		} else {
+			$default = 'divisions';
+		}
+	}
+	return ($default == $check);
+}
