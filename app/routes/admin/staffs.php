@@ -91,9 +91,18 @@ Route::collection(array('before' => 'auth,csrf'), function() {
             $status = 'active',
             $page = 1) {
 
+        $input = filter_var_array(Input::get(array('term')), array(
+		    'term' => FILTER_SANITIZE_SPECIAL_CHARS
+		));
+
         $division = Division::slug($slug)->id;
 
         $query = Staff::where('division', '=', $division)->where('status', '=', $status);
+
+        if (array_filter($input)) {
+			$query = $query->where('display_name', 'like', '%' . $input['term'] . '%');
+			Registry::set('search_term', $input['term']);
+        }
 
         $perpage = Config::meta('staffs_per_page');
         $total = $query->count();
@@ -123,7 +132,16 @@ Route::collection(array('before' => 'auth,csrf'), function() {
         'admin/staffs/status/(:any)',
         'admin/staffs/status/(:any)/(:num)'), function($status, $page = 1) {
 
+    	$input = filter_var_array(Input::get(array('term')), array(
+		    'term' => FILTER_SANITIZE_SPECIAL_CHARS
+		));
+
         $query = Staff::where('status', '=', $status);
+
+        if (array_filter($input)) {
+			$query = $query->where('display_name', 'like', '%' . $input['term'] . '%');
+			Registry::set('search_term', $input['term']);
+        }
 
         $perpage = Config::meta('staffs_per_page');
         $total = $query->count();
@@ -135,9 +153,11 @@ Route::collection(array('before' => 'auth,csrf'), function() {
         $vars['messages'] = Notify::read();
         $vars['staffs'] = $pagination;
         $vars['status'] = $status;
+        $vars['divisions'] = Division::listing();
 
         return View::create('staffs/index', $vars)
           ->partial('header', 'partials/header')
+          ->partial('search', 'partials/search')
           ->partial('footer', 'partials/footer');
 
     });
