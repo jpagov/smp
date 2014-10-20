@@ -1,6 +1,8 @@
 html,body {
     height:100%;
-}body.admin { background-color: #eee; }
+}
+
+body.admin { background-color: #eee; }
 
 .tabs-top > .nav-tabs { margin-bottom: 24px; }
 
@@ -114,7 +116,7 @@ input.search-query,  {
 form.navbar-form {
     position: relative;
 }
-form.form-inline:before,
+
 form.navbar-form:before {
     display: block;
     width: 14px;
@@ -128,7 +130,7 @@ form.navbar-form:before {
     opacity: .5;
     z-index: 1000;
 }
-.form-inline input[type="text"],
+
 .navbar-form input[type="text"] {
   width: 100%;
   padding-left:26px;

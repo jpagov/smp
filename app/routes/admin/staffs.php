@@ -14,6 +14,18 @@ Route::collection(array('before' => 'auth,csrf'), function() {
         $vars['messages'] = Notify::read();
 
         if (array_filter($input)) {
+
+        	$validator = new Validator($input);
+
+		    $validator->check('term')->is_max(3, __('site.search_missing', 3));
+
+		    if($errors = $validator->errors()) {
+		        Input::flash();
+
+		        Notify::warning($errors);
+		        return Response::redirect(Uri::current());
+		    }
+
         	$query = Staff::where('display_name', 'like', '%' . $input['term'] . '%');
         	Registry::set('search_term', $input['term']);
         } else {
@@ -56,6 +68,18 @@ Route::collection(array('before' => 'auth,csrf'), function() {
         $query = Staff::where('division', '=', $division);
 
         if (array_filter($input)) {
+
+        	$validator = new Validator($input);
+
+		    $validator->check('term')->is_max(3, __('site.search_missing', 3));
+
+		    if($errors = $validator->errors()) {
+		        Input::flash();
+
+		        Notify::warning($errors);
+		        return Response::redirect(Uri::current());
+		    }
+
 			$query = $query->where('display_name', 'like', '%' . $input['term'] . '%');
 			Registry::set('search_term', $input['term']);
         }
@@ -100,6 +124,18 @@ Route::collection(array('before' => 'auth,csrf'), function() {
         $query = Staff::where('division', '=', $division)->where('status', '=', $status);
 
         if (array_filter($input)) {
+
+        	$validator = new Validator($input);
+
+		    $validator->check('term')->is_max(3, __('site.search_missing', 3));
+
+		    if($errors = $validator->errors()) {
+		        Input::flash();
+
+		        Notify::warning($errors);
+		        return Response::redirect(Uri::current());
+		    }
+
 			$query = $query->where('display_name', 'like', '%' . $input['term'] . '%');
 			Registry::set('search_term', $input['term']);
         }
@@ -139,6 +175,18 @@ Route::collection(array('before' => 'auth,csrf'), function() {
         $query = Staff::where('status', '=', $status);
 
         if (array_filter($input)) {
+
+        	$validator = new Validator($input);
+
+		    $validator->check('term')->is_max(3, __('site.search_missing', 3));
+
+		    if($errors = $validator->errors()) {
+		        Input::flash();
+
+		        Notify::warning($errors);
+		        return Response::redirect(Uri::current());
+		    }
+
 			$query = $query->where('display_name', 'like', '%' . $input['term'] . '%');
 			Registry::set('search_term', $input['term']);
         }
