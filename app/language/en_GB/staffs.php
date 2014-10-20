@@ -3,14 +3,14 @@
 return array(
 
 	'staff' => 'Staff',
-  'staffs' => 'Staff',
+	'staffs' => 'Staff',
 
 	'create_staff' => 'Create a new staff',
 	'add_staff' => 'Add a new staff',
 	'editing_staff' => 'Editing %s&rsquo;s Profile',
 	'remembered' => 'I know my password',
 	'forgotten_password' => 'Forgotten your password?',
-  'enable_account' => 'Enable account',
+	'enable_account' => 'Enable account',
 
 	// roles
 	'administrator' => 'Admin',
@@ -19,16 +19,17 @@ return array(
 	'editor_explain' => '',
 	'staff_explain' => '',
 
-  // position
-  'scheme' => 'Scheme',
-  'grade' => 'Grade',
-  'job_title' => 'Job Title',
-  'position' => 'Position',
-  'description' => 'Description',
-  'division' => 'Division',
-  'branch' => 'Branch',
-  'sector' => 'Sector',
-  'unit' => 'Unit',
+  	// position
+	'report_to' => 'Reporting To',
+	'scheme' => 'Scheme',
+	'grade' => 'Grade',
+	'job_title' => 'Job Title',
+	'position' => 'Position',
+	'description' => 'Description',
+	'division' => 'Division',
+	'branch' => 'Branch',
+	'sector' => 'Sector',
+	'unit' => 'Unit',
 
 
 	// form fields
@@ -42,14 +43,14 @@ return array(
 	'real_name' => 'Real Name',
 	'real_name_explain' => '',
 
-  'slug' => 'Slug',
-  'slug_explain' => 'Slug uri to identify your staff, should only contain ascii characters',
-  'slug_missing' => 'Please enter a slug uri, slugs can only contain ascii characters',
-  'slug_duplicate' => 'Slug already exists',
-  'slug_invalid' => 'Slug must contain letters',
+	'slug' => 'Slug',
+	'slug_explain' => 'Slug uri to identify your staff, should only contain ascii characters',
+	'slug_missing' => 'Please enter a slug uri, slugs can only contain ascii characters',
+	'slug_duplicate' => 'Slug already exists',
+	'slug_invalid' => 'Slug must contain letters',
 
-  'avatar' => 'Avatar',
-  'avatar_explain' => 'Click on image to upload file',
+	'avatar' => 'Avatar',
+	'avatar_explain' => 'Click on image to upload file',
 
 	'male' => 'Male',
 	'female' => 'Female',
@@ -63,9 +64,9 @@ return array(
 	'role' => 'Role',
 	'role_explain' => '',
 
-  'account_explain' => 'Enable account login for this user.',
+	'account_explain' => 'Enable account login for this user.',
 
-  'telephone_missing' => 'Please enter a telphone number',
+	'telephone_missing' => 'Please enter a telphone number',
 
 	'username' => 'Username',
 	'username_explain' => '',
@@ -78,11 +79,11 @@ return array(
 	'new_password' => 'New Password',
 
 	'email' => 'Email',
-  'email_explain' => '',
-  'email_missing' => 'Please enter a valid email address',
-  'email_not_found' => 'Profile not found.',
+	'email_explain' => '',
+	'email_missing' => 'Please enter a valid email address',
+	'email_not_found' => 'Profile not found.',
 
-  'please_select' => '- Please select -',
+	'please_select' => '- Please select -',
 
 	// messages
 	'updated' => 'User profile updated.',
@@ -98,6 +99,6 @@ return array(
 	// password recovery email
 	'recovery_subject' => 'Password Reset',
 	'recovery_message' => 'You have requested to reset your password.' .
-		'To continue follow the link below.' . PHP_EOL . '%s',
+	'To continue follow the link below.' . PHP_EOL . '%s',
 
-);
+	);

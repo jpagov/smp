@@ -3,6 +3,62 @@
 Route::collection(array('before' => 'auth'), function() {
 
 
+	/*
+    Admin Staff JSON API
+  */
+  Route::get('admin/api/(:any)/staff.json', function($divisions_slug = null) {
+
+  	if (!ctype_digit($divisions_slug)) {
+  		$division_id = Division::slug($divisions_slug)->slug;
+  	} else {
+  		$division_id = $divisions_slug;
+  	}
+
+    if (! $staffs = Staff::where('division', '=', $division_id)->get()) {
+      return Response::create(Json::encode(array('no result')), 200, array('content-type' => 'application/json'));
+    }
+
+    $api = array();
+
+    foreach ($staffs as $staff) {
+      $api[] = $staff->display_name;
+    }
+
+    $json = Json::encode($api);
+
+    return Response::create($json, 200, array('content-type' => 'application/json'));
+
+  });
+
+  /*
+    Admin Staff JSON API
+  */
+  Route::get('admin/api/(:any)/queries/(:any).json', function($divisions_slug = null, $name = null) {
+
+  	if (!ctype_digit($divisions_slug)) {
+  		$division_id = Division::slug($divisions_slug)->slug;
+  	} else {
+  		$division_id = $divisions_slug;
+  	}
+
+    if (! $staffs = Staff::where('division', '=', $division_id)
+    	->where('display_name', 'like', '%' . $name . '%')
+    	->get()) {
+      return Response::create(Json::encode(array('no result')), 200, array('content-type' => 'application/json'));
+    }
+
+    $api = array();
+
+    foreach ($staffs as $staff) {
+      $api[] = $staff->display_name;
+    }
+
+    $json = Json::encode($api);
+
+    return Response::create($json, 200, array('content-type' => 'application/json'));
+
+  });
+
   /*
     Admin JSON API
   */

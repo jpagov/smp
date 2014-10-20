@@ -222,6 +222,10 @@ Route::collection(array('before' => 'auth,csrf'), function() {
         $vars['fields'] = Extend::fields('staff', $id);
         $division_roles = array();
 
+        if ($report = Staff::find($vars['staff']->report_to)) {
+          $vars['staff']->report_to = $report->display_name;
+        }
+
         if ($branch = Branch::find($vars['staff']->branch)) {
           $vars['staff']->branch = $branch->title;
         }
@@ -292,7 +296,7 @@ Route::collection(array('before' => 'auth,csrf'), function() {
             'telephone',
             'status',
             'slug',
-
+            'report_to',
             'scheme',
             'grade',
             'job_title',
@@ -369,6 +373,10 @@ Route::collection(array('before' => 'auth,csrf'), function() {
           'sector' => 0,
           'unit' => 0,
         );
+
+        if ($reportTo = Input::get('report_to')) {
+          $input['report_to'] = Staff::setid($reportTo);
+        }
 
         if ($branch = Input::get('branch')) {
           $input['branch'] = Branch::id($branch);

@@ -148,6 +148,34 @@ var SMP = {
 
 		  });
 
+		  // staff
+      var staffs = new Bloodhound({
+        datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
+        queryTokenizer: Bloodhound.tokenizers.whitespace,
+        remote: {
+          url: endpoint + 'queries/%QUERY.json',
+          replace: function () {
+          	var query = $('#report_to').val();
+          	if ($('#division').val() == 0) {
+          		return endpoint + 'queries' + '/' + query + '.json';
+          	} else {
+          		return endpoint + $('#division').val() + '/queries' + '/' + query + '.json';
+          	}
+          },
+          filter: function(list) {
+            return $.map(list, function(item) { return { name: item }; });
+          }
+        }
+      });
+
+      staffs.initialize();
+
+      $('.reportto-prefetch .typeahead').typeahead(null, {
+        name: 'staffs',
+        displayKey: 'name',
+        source: staffs.ttAdapter()
+      });
+
       // branch
       var branchs = new Bloodhound({
         datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
