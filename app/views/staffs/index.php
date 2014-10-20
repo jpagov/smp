@@ -7,7 +7,10 @@
 <?php echo $messages; ?>
 
 <div class="row">
+
 	<div class="col col-lg-9">
+
+	<?php echo $search; ?>
 
 		<div class="table-responsive">
 			<table class="table table-hover">

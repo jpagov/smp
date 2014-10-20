@@ -21,17 +21,17 @@ Route::collection(array('before' => 'auth,admin,csrf'), function() {
 	Route::get('admin/setting/fields/add', function() {
 		$vars['messages'] = Notify::read();
 		$vars['token'] = Csrf::token();
-        $vars['types'] = array(
-          'post' => 'post',
-          'page' => 'page',
-          'staff' => 'staff'
-        );
-        $vars['fields'] = array(
-          'text' => 'text',
-          'html' => 'html',
-          'image' => 'image',
-          'file' => 'file'
-        );
+		$vars['types'] = array(
+		  'post' => 'post',
+		  'page' => 'page',
+		  'staff' => 'staff'
+		);
+		$vars['fields'] = array(
+		  'text' => 'text',
+		  'html' => 'html',
+		  'image' => 'image',
+		  'file' => 'file'
+		);
 
 		return View::create('setting/fields/add', $vars)
 			->partial('header', 'partials/header')
@@ -102,17 +102,17 @@ Route::collection(array('before' => 'auth,admin,csrf'), function() {
 	Route::get('admin/setting/fields/edit/(:num)', function($id) {
 		$vars['messages'] = Notify::read();
 		$vars['token'] = Csrf::token();
-        $vars['types'] = array(
-          'post' => 'post',
-          'page' => 'page',
-          'staff' => 'staff'
-        );
-        $vars['fields'] = array(
-          'text' => 'text',
-          'html' => 'html',
-          'image' => 'image',
-          'file' => 'file'
-        );
+		$vars['types'] = array(
+		  'post' => 'post',
+		  'page' => 'page',
+		  'staff' => 'staff'
+		);
+		$vars['fields'] = array(
+		  'text' => 'text',
+		  'html' => 'html',
+		  'image' => 'image',
+		  'file' => 'file'
+		);
 
 		$extend = Extend::find($id);
 

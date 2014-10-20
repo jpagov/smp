@@ -157,3 +157,7 @@ function active($check) {
 	}
 	return ($default == $check);
 }
+
+function search_term() {
+	return Registry::get('search_term');
+}

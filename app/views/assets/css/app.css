@@ -114,6 +114,7 @@ input.search-query,  {
 form.navbar-form {
     position: relative;
 }
+form.form-inline:before,
 form.navbar-form:before {
     display: block;
     width: 14px;
@@ -127,6 +128,7 @@ form.navbar-form:before {
     opacity: .5;
     z-index: 1000;
 }
+.form-inline input[type="text"],
 .navbar-form input[type="text"] {
   width: 100%;
   padding-left:26px;
@@ -136,10 +138,14 @@ form.navbar-form:before {
 .sector-prefetch > .twitter-typeahead> .tt-hint,
 .unit-prefetch > .twitter-typeahead > .tt-hint { visibility: hidden; }
 
-.divisions .alert a, .divisions .alert .alert-link {
+.categories .alert a,
+.categories .alert .alert-link,
+.divisions .alert a,
+.divisions .alert .alert-link {
     text-decoration: none;
 }
 
+.categories .alert a:hover,
 .divisions .alert a:hover {
     text-decoration: underline;
 }
@@ -151,18 +157,20 @@ form.navbar-form:before {
     margin: 0;
 }
 
+.categories > .well,
 .divisions > .well {
     background: none repeat scroll 0 0 rgba(232, 232, 232, 0.3);
     box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.1);
 }
 
+.categories > .well:hover,
 .divisions > .well:hover {
     background: none repeat scroll 0 0 rgba(232, 232, 232, 0.5);
 }
 
 @media(min-width:992px) {
 
-    .divisions > .well > p { font-size: 12px; }
+    .categories > .well, .divisions > .well > p { font-size: 12px; }
     .row-flex, .row-flex > div[class*='col-'] {
         display: -webkit-box;
         display: -moz-box;

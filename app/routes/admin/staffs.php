@@ -7,13 +7,34 @@ Route::collection(array('before' => 'auth,csrf'), function() {
     */
     Route::get(array('admin/staffs', 'admin/staffs/(:num)'), function($page = 1) {
 
+    	$input = filter_var_array(Input::get(array('term')), array(
+		    'term' => FILTER_SANITIZE_SPECIAL_CHARS
+		));
+
         $vars['messages'] = Notify::read();
-        $vars['staffs'] = Staff::paginate($page, Config::get('meta.staffs_per_page'));
+
+        if (array_filter($input)) {
+        	$query = Staff::where('display_name', 'like', '%' . $input['term'] . '%');
+        	Registry::set('search_term', $input['term']);
+        } else {
+        	$query = Query::table(Base::table('staffs'));
+        }
+
+		$count = $query->count();
+
+		$perpage = Config::meta('staffs_per_page');
+
+		$results = $query->take($perpage)->skip(($page - 1) * $perpage)->sort('grade', 'desc')->get(array(Staff::fields()));
+
+		$pagination =  new Paginator($results, $count, $page, $perpage, Uri::to('admin/staffs'));
+
+        $vars['staffs'] = $pagination;
         $vars['divisions'] = Division::listing();
         $vars['status'] = 'all';
 
         return View::create('staffs/index', $vars)
             ->partial('header', 'partials/header')
+            ->partial('search', 'partials/search')
             ->partial('footer', 'partials/footer');
     });
 
@@ -28,7 +49,17 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 
         $division = Division::slug($slug)->id;
 
+        $input = filter_var_array(Input::get(array('term')), array(
+		    'term' => FILTER_SANITIZE_SPECIAL_CHARS
+		));
+
         $query = Staff::where('division', '=', $division);
+
+        if (array_filter($input)) {
+			$query = $query->where('display_name', 'like', '%' . $input['term'] . '%');
+			Registry::set('search_term', $input['term']);
+        }
+
         $perpage = Config::meta('staffs_per_page');
         $total = $query->count();
         $staffs = $query->sort('grade', 'desc')->take($perpage)->skip(($page - 1) * $perpage)->get();
@@ -45,6 +76,7 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 
         return View::create('staffs/index', $vars)
           ->partial('header', 'partials/header')
+          ->partial('search', 'partials/search')
           ->partial('footer', 'partials/footer');
 
     });
@@ -79,6 +111,7 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 
         return View::create('staffs/index', $vars)
           ->partial('header', 'partials/header')
+		  ->partial('search', 'partials/search')
           ->partial('footer', 'partials/footer');
 
     });

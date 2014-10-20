@@ -416,4 +416,16 @@ Route::get('category', function() {
     return Response::redirect('categories');
 });
 
+Route::get('test', function() {
+
+	$page = new Page;
+    $page->id = 0;
+    $page->title = 'Test';
+    $page->slug = 'test';
+
+    Registry::set('page', $page);
+
+    return new Template('test');
+});
+
 
