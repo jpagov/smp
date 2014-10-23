@@ -158,6 +158,6 @@ function active($check) {
 	return ($default == $check);
 }
 
-function search_term() {
-	return Registry::get('search_term');
+function admin_search_term() {
+	return Registry::get('admin_search_term');
 }

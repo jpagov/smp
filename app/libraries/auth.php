@@ -16,6 +16,18 @@ class Auth {
 		}
 	}
 
+	public static function admin() {
+		if($id = Session::get(static::$session)) {
+			return User::find($id)->role == "administrator";
+		}
+
+		return false;
+	}
+
+	public static function me($id) {
+		return $id == Session::get(static::$session);
+	}
+
 	public static function attempt($username, $password) {
 		if($user = Staff::where('username', '=', $username)
 			->where('account', '=', '1')->fetch()) {

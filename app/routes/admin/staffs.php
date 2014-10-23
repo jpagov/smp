@@ -27,7 +27,7 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 		    }
 
         	$query = Staff::where('display_name', 'like', '%' . $input['term'] . '%');
-        	Registry::set('search_term', $input['term']);
+        	Registry::set('admin_search_term', $input['term']);
         } else {
         	$query = Query::table(Base::table('staffs'));
         }
@@ -40,9 +40,15 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 
 		$pagination =  new Paginator($results, $count, $page, $perpage, Uri::to('admin/staffs'));
 
+		$vars['token'] = Csrf::token();
         $vars['staffs'] = $pagination;
         $vars['divisions'] = Division::listing();
         $vars['status'] = 'all';
+        $vars['roles'] = array(
+            'administrator' => __('global.administrator'),
+            'editor' => __('global.editor'),
+            'staff' => __('global.staff')
+        );
 
         return View::create('staffs/index', $vars)
             ->partial('header', 'partials/header')
@@ -81,7 +87,7 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 		    }
 
 			$query = $query->where('display_name', 'like', '%' . $input['term'] . '%');
-			Registry::set('search_term', $input['term']);
+			Registry::set('admin_search_term', $input['term']);
         }
 
         $perpage = Config::meta('staffs_per_page');
@@ -97,6 +103,11 @@ Route::collection(array('before' => 'auth,csrf'), function() {
         $vars['divisions'] = Division::listing();
         $vars['division'] = $slug;
         $vars['status'] = 'all';
+        $vars['roles'] = array(
+            'administrator' => __('global.administrator'),
+            'editor' => __('global.editor'),
+            'staff' => __('global.staff')
+        );
 
         return View::create('staffs/index', $vars)
           ->partial('header', 'partials/header')
@@ -137,7 +148,7 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 		    }
 
 			$query = $query->where('display_name', 'like', '%' . $input['term'] . '%');
-			Registry::set('search_term', $input['term']);
+			Registry::set('admin_search_term', $input['term']);
         }
 
         $perpage = Config::meta('staffs_per_page');
@@ -188,7 +199,7 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 		    }
 
 			$query = $query->where('display_name', 'like', '%' . $input['term'] . '%');
-			Registry::set('search_term', $input['term']);
+			Registry::set('admin_search_term', $input['term']);
         }
 
         $perpage = Config::meta('staffs_per_page');
@@ -307,6 +318,8 @@ Route::collection(array('before' => 'auth,csrf'), function() {
             'account'
         ));
 
+
+
         $account_enable = false;
             $password_reset = false;
 
@@ -392,6 +405,8 @@ Route::collection(array('before' => 'auth,csrf'), function() {
           $input['unit'] = Unit::id($unit);
           $hierarchy['unit'] = $input['unit'];
         }
+
+        $input['updated'] = Date::mysql('now');
 
         Staff::update($id, $input);
 
@@ -624,5 +639,34 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 
         return Response::redirect('admin/staffs');
     });
+});
+
+Route::collection(array('before' => 'auth'), function() {
+
+	/*
+        Ajax change roles
+    */
+    Route::post('admin/staffs/role', function() {
+        $self = Auth::user();
+
+        if (!Auth::admin()) {
+        	return Response::create(Json::encode(array('You are not allowed to do that!')), 200, array('content-type' => 'application/json'));
+        }
+
+        $input = filter_var_array(Input::get(array('id', 'role')), array(
+				'id' => FILTER_SANITIZE_NUMBER_INT,
+				'role' => FILTER_SANITIZE_STRING
+	    	)
+	    );
+
+	    if (!$staff = Staff::find($input['id'])) {
+	    	return Response::create(Json::encode(array('Staff not exist!')), 200, array('content-type' => 'application/json'));
+	    }
+
+	    Staff::update($staff->id, array('role' => $input['role'], 'updated' => Date::mysql('now')));
+
+        return Response::create(Json::encode($input), 200, array('content-type' => 'application/json'));
+    });
+
 
 });

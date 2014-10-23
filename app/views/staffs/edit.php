@@ -125,6 +125,15 @@
                         )); ?>
                       </div>
                     </div>
+
+                    <div class="form-group">
+		                  <label class="col-sm-2 control-label" for="slug"><?php echo __('staffs.slug'); ?></label>
+		                  <div class="col-sm-6">
+		                    <?php echo Form::text('slug', Input::previous('slug', $staff->slug), array('class' => 'form-control', 'id' => 'slug',
+		                    )); ?>
+		                  </div>
+		                </div>
+
                   </div> <!-- /col-sm-offset-1 col-md-8 -->
 
                 </div>
@@ -252,14 +261,6 @@
 
                 <fieldset<?php echo (!$staff->account) ? ' disabled' : ''; ?> id="accountAuth">
                 <legend>Administration</legend>
-
-                <div class="form-group">
-                  <label class="col-sm-2 control-label" for="slug"><?php echo __('staffs.slug'); ?></label>
-                  <div class="col-sm-6">
-                    <?php echo Form::text('slug', Input::previous('slug', $staff->slug), array('class' => 'form-control', 'id' => 'slug',
-                    )); ?>
-                  </div>
-                </div>
 
                 <div class="form-group">
                   <label class="col-sm-2 control-label" for="username"><?php echo __('staffs.username'); ?></label>

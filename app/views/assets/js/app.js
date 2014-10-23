@@ -19,6 +19,8 @@ var SMP = {
   common: {
     init: function(){
 
+    	var path = '/' + window.location.pathname.split('/')[1] || '/';
+
         $(document).keydown(function(e) {
             //console.log(e.keyCode);
             if(e.keyCode == 72) {
@@ -31,6 +33,22 @@ var SMP = {
                 }).modal('show');
             }
         });
+
+				$("select#role").change(function() {
+
+					// Possibly show an ajax loading image $("#ajax_loading").show();
+					$.ajax({
+							type: "POST",
+							url: path + "/admin/staffs/role",
+							data: { token: $('input[name=token]').val(), id: $('input[name=staff-id]').val(), role: $(this).val() }
+						})
+						.done(function( msg ) {
+						$( ".alert" ).remove();
+						$('.page-header').after('<div class="alert alert-success alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>Success!</div>');
+					});
+
+
+				});
 
         $('.navbar-right .view').popover({
             trigger: 'hover',

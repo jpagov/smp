@@ -22,6 +22,7 @@
 						<!--th><?php echo __('staffs.role'); ?></th-->
             <th><?php echo __('staffs.telephone'); ?></th>
 						<th><?php echo __('staffs.status'); ?></th>
+						<?php if (Auth::admin()): ?><th><?php echo __('staffs.role'); ?></th><?php endif; ?>
 					</tr>
 				</thead>
 				<tbody>
@@ -32,6 +33,19 @@
 						<td><?php echo $staff->email; ?></td>
 						<td><?php echo $staff->telephone; ?></td>
 						<td><abbr title="<?php echo Date::format($staff->created); ?>"><?php echo __('global.' . $staff->status); ?></abbr></td>
+						<?php if (Auth::admin()): ?><td>
+							<input name="staff-id-<?php echo $staff->id; ?>" type="hidden" value="<?php echo $staff->id; ?>">
+							<?php
+							$attr = array(
+								'class' => 'form-control input-sm',
+								'id' => 'role',
+							);
+
+							if (!$staff->account) {
+								$attr['disabled'] = 'disabled';
+							}
+							 ?>
+							<?php echo Form::select('role', $roles, Input::previous('role', $staff->role), $attr); ?></td><?php endif; ?>
 					</tr>
 					<?php endforeach; ?>
 				</tbody>
