@@ -70,7 +70,7 @@
 					<div class="panel-heading">
 						<h4 class="panel-title">
 					        <a data-toggle="collapse" data-parent="#accordion" href="#collapseDivision" title="Filter by Division">
-					          Division <span class="pull-right division-toggle glyphicon glyphicon-minus"></span>
+					          Division <span class="pull-right division-toggle glyphicon glyphicon-plus"></span>
 					        </a>
 					    </h4>
 					</div><!--/.panel-heading -->
@@ -109,7 +109,7 @@
 					<div class="panel-heading">
 						<h4 class="panel-title">
 					        <a data-toggle="collapse" data-parent="#accordion" href="#collapseStatus" title="Filter by Status">
-					          Status <span class="pull-right status-toggle glyphicon glyphicon-plus"></span>
+					          Status <span class="pull-right status-toggle glyphicon glyphicon-minus"></span>
 					        </a>
 					    </h4>
 					</div><!--/.panel-heading -->

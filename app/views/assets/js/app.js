@@ -66,19 +66,23 @@ var SMP = {
         */
 
         $('#collapseDivision').on('shown.bs.collapse', function (){
-        		$(".division-toggle").removeClass("glyphicon-minus").addClass("glyphicon-plus");
-		    });
-
-		    $('#collapseDivision').on('hidden.bs.collapse', function(){
-		        $(".division-toggle").removeClass("glyphicon-plus").addClass("glyphicon-minus");
+        		$(".division-toggle")
+        			.removeClass("glyphicon-plus")
+        			.addClass("glyphicon-minus");
+		    }).on('hidden.bs.collapse', function(){
+		        $(".division-toggle")
+		        	.removeClass("glyphicon-minus")
+		        	.addClass("glyphicon-plus");
 		    });
 
 		    $('#collapseStatus').on('shown.bs.collapse', function (){
-        		$(".status-toggle").removeClass("glyphicon-minus").addClass("glyphicon-plus");
-		    });
-
-		    $('#collapseStatus').on('hidden.bs.collapse', function(){
-		        $(".status-toggle").removeClass("glyphicon-plus").addClass("glyphicon-minus");
+        		$(".status-toggle")
+        			.removeClass("glyphicon-plus")
+        			.addClass("glyphicon-minus");
+		    }).on('hidden.bs.collapse', function(){
+		        $(".status-toggle")
+		        	.removeClass("glyphicon-minus")
+		        	.addClass("glyphicon-plus");
 		    });
 
 
