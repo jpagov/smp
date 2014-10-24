@@ -19,11 +19,9 @@
 				</thead>
 				<tbody>
 				<?php if($units->count): ?>
-					<?php foreach($units->results as $unit): 
-					$counter = ($units->page - 1) * Config::meta('posts_per_page')
-					?>
+					<?php foreach($units->results as $unit): ?>
 					<tr class="status draft">
-						<td><?php echo $counter+1; ?></td>
+						<td><?php echo $unit->id; ?></td>
 						<td><a href="<?php echo Uri::to('admin/units/edit/' . $unit->id); ?>"><?php echo $unit->title; ?></a></td>
 					</tr>
 				<?php endforeach; ?>
@@ -40,7 +38,7 @@
 			<?php echo $units->links(); ?>
 		</ul>
 		<?php endif; ?>
-		
+
 		</div>
 	</div>
 	<div class="col col-lg-3">
@@ -52,7 +50,7 @@
 					<?php foreach($hierarchies as $key => $hierarchy): ?>
 
 						<?php if ( $key.'s' !== basename(Uri::current()) ) : ?>
-					
+
 						<?php echo Html::link('admin/' . $key . 's', __('hierarchy.' . $key), array('class' => 'list-group-item'
 						)); ?>
 

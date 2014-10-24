@@ -19,11 +19,9 @@
 				</thead>
 				<tbody>
 				<?php if($sectors->count): ?>
-					<?php foreach($sectors->results as $sector): 
-					$counter = ($sectors->page - 1) * Config::meta('posts_per_page')
-					?>
+					<?php foreach($sectors->results as $sector): ?>
 					<tr class="status draft">
-						<td><?php echo $counter+1; ?></td>
+						<td><?php echo $sector->id; ?></td>
 						<td><a href="<?php echo Uri::to('admin/sectors/edit/' . $sector->id); ?>"><?php echo $sector->title; ?></a></td>
 					</tr>
 				<?php endforeach; ?>
@@ -40,7 +38,7 @@
 			<?php echo $sectors->links(); ?>
 		</ul>
 		<?php endif; ?>
-		
+
 		</div>
 	</div>
 	<div class="col col-lg-3">
@@ -52,7 +50,7 @@
 					<?php foreach($hierarchies as $key => $hierarchy): ?>
 
 						<?php if ( $key.'s' !== basename(Uri::current()) ) : ?>
-					
+
 						<?php echo Html::link('admin/' . $key . 's', __('hierarchy.' . $key), array('class' => 'list-group-item'
 						)); ?>
 

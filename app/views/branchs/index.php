@@ -13,17 +13,15 @@
 			<table class="table table-hover">
 				<thead>
 					<tr>
-						<th>#</th>
+						<th>ID</th>
 						<th><?php echo __('hierarchy.branch'); ?></th>
 					</tr>
 				</thead>
 				<tbody>
 				<?php if($branchs->count): ?>
-					<?php foreach($branchs->results as $branch): 
-					$counter = ($branchs->page - 1) * Config::meta('posts_per_page')
-					?>
+					<?php foreach($branchs->results as $branch): ?>
 					<tr class="status draft">
-						<td><?php echo $counter+1; ?></td>
+						<td><?php echo $branch->id; ?></td>
 						<td><a href="<?php echo Uri::to('admin/branchs/edit/' . $branch->id); ?>"><?php echo $branch->title; ?></a></td>
 					</tr>
 				<?php endforeach; ?>
@@ -40,7 +38,7 @@
 			<?php echo $branchs->links(); ?>
 		</ul>
 		<?php endif; ?>
-		
+
 		</div>
 	</div>
 	<div class="col col-lg-3">
@@ -52,7 +50,7 @@
 					<?php foreach($hierarchies as $key => $hierarchy): ?>
 
 						<?php if ( $key.'s' !== basename(Uri::current()) ) : ?>
-					
+
 						<?php echo Html::link('admin/' . $key . 's', __('hierarchy.' . $key), array('class' => 'list-group-item'
 						)); ?>
 
