@@ -92,6 +92,13 @@
                     </div>
 
                     <div class="form-group">
+                      <label class="col-sm-2 control-label" for="fax"><?php echo __('staffs.fax'); ?></label>
+                      <div class="col-sm-9">
+                        <?php echo Form::telephone('fax', Input::previous('fax'), array('class' => 'form-control', 'id' => 'fax')); ?>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
                       <label class="col-sm-2 control-label" for="gender"><?php echo __('staffs.gender'); ?></label>
                       <div class="col-sm-4">
                         <?php echo Form::select('gender', $genders, Input::previous('gender'), array('class' => 'form-control', 'id' => 'gender',

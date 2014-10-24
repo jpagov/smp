@@ -25,6 +25,7 @@ class Staff extends Base {
 		'unit',
 		'email',
 		'telephone',
+		'fax',
 		'status',
 		'role',
 		'account',

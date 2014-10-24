@@ -305,6 +305,7 @@ Route::collection(array('before' => 'auth,csrf'), function() {
             'gender',
             'email',
             'telephone',
+            'fax',
             'status',
             'slug',
             'report_to',
@@ -491,6 +492,7 @@ Route::collection(array('before' => 'auth,csrf'), function() {
             'gender',
             'email',
             'telephone',
+            'fax',
             'status',
 
             'scheme',
