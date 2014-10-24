@@ -8,7 +8,7 @@
  */
 return array(
 
-  'extend' => 'Extend',
+	'extend' => 'Extend',
 	// words
 	'back' => 'Back',
 	'save' => 'Save',
@@ -26,17 +26,17 @@ return array(
 	'all' => 'All',
 
   // menu
-  'division' => 'Division',
-  'divisions' => 'Divisions',
-  'branch' => 'Branch',
-  'branchs' => 'Branchs',
-  'sector' => 'Sector',
-  'sectors' => 'Sectors',
-  'unit' => 'Unit',
-  'units' => 'Units',
-  'users' => 'Users',
-  'setting' => 'Setting',
-  'hierarchies' => 'Hierarchies',
+	'division' => 'Division',
+	'divisions' => 'Divisions',
+	'branch' => 'Branch',
+	'branchs' => 'Branchs',
+	'sector' => 'Sector',
+	'sectors' => 'Sectors',
+	'unit' => 'Unit',
+	'units' => 'Units',
+	'users' => 'Users',
+	'setting' => 'Setting',
+	'hierarchies' => 'Hierarchies',
 
 	// pagination
 	'next' => 'Next',
@@ -57,7 +57,7 @@ return array(
 
 	// roles
 	'administrator' => 'Admin',
-  'administration' => 'Administration',
+	'administration' => 'Administration',
 	'editor' => 'Editor',
 	'staff' => 'Staff',
 
@@ -90,4 +90,4 @@ return array(
 	// messages
 	'confirm_delete' => 'Are you sure you want to delete? This can’t be undone!\nconsider set their status = inactive'
 
-);
+	);

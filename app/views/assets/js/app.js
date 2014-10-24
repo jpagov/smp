@@ -55,6 +55,29 @@ var SMP = {
             placement: 'auto bottom'
         })
 
+        /*
+        $('#collapseOne').on('hidden.bs.collapse', function (e) {
+        	e.stopPropagation();
+        	console.log('Event fired on #' + e.currentTarget.id);
+
+        	//dont know why append dont work
+        	$('#collapseOne').on('hidden.bs.collapse', function(){
+		        $(".division-toggle").toggleClass("glyphicon glyphicon-plus")
+		    })
+        })
+        */
+
+        $('#collapseOne').on('shown.bs.collapse', function (){
+        		$(".division-toggle").removeClass("glyphicon-minus");
+		        $(".division-toggle").addClass("glyphicon-plus");
+		    })
+
+
+		    $('#collapseOne').on('hidden.bs.collapse', function(){
+		        $(".division-toggle").removeClass("glyphicon-plus");
+		        $(".division-toggle").addClass("glyphicon-minus");
+		    })
+
     }
   },
   home: {

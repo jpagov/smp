@@ -2,33 +2,52 @@
 
 Route::collection(array('before' => 'auth,csrf'), function() {
 
-  /*
-    Branchs Admin JSON API
-  */
-  Route::get(array('admin/branchs/json', 'admin/branchs/(:num)/json'), function($division = null) {
+	/*
+	Branchs Admin JSON API
+	*/
+	Route::get(array('admin/branchs/json', 'admin/branchs/(:num)/json'), function($division = null) {
 
-    $lists = array();
+	$lists = array();
 
-    if ($branchs = Hierarchy::branch($division)) {
-      foreach ($branchs as $branch) {
-        $lists[] = $branch->title;
-      }
-    }
+	if ($branchs = Hierarchy::branch($division)) {
+	  foreach ($branchs as $branch) {
+	    $lists[] = $branch->title;
+	  }
+	}
 
-    $json = Json::encode(array(
-      'branchs' => $lists
-    ));
+	$json = Json::encode(array(
+	  'branchs' => $lists
+	));
 
-    return Response::create($json, 200, array('content-type' => 'application/json'));
-  });
+	return Response::create($json, 200, array('content-type' => 'application/json'));
+	});
 
 	/*
 		List Branchs
 	*/
 	Route::get(array('admin/branchs', 'admin/branchs/(:num)'), function($page = 1) {
+
+		$input = filter_var_array(Input::get(array('division')), array(
+		    'division' => FILTER_SANITIZE_SPECIAL_CHARS
+		));
+
+		$input = array_filter($input);
+
 		$vars['messages'] = Notify::read();
-		$vars['branchs'] = Branch::paginate($page, Config::get('meta.staffs_per_page'));
+
+		$vars['branchs'] = (array_filter($input)) ?
+			Branch::division($input['division'], $page, Config::get('meta.staffs_per_page')) :
+			Branch::paginate($page, Config::get('meta.staffs_per_page'));
+
+
 		$vars['hierarchies'] = Config::app('hierarchy');
+		$vars['divisions'] = Division::listing();
+		$vars['status'] = 'all';
+
+		if ($input) {
+			$vars['division'] = $input['division'];
+			Session::put('redirect', Uri::current());
+		}
 
 		return View::create('branchs/index', $vars)
 			->partial('header', 'partials/header')
@@ -139,7 +158,12 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 		//TODO: admin only, not for PTB
 		Hierarchy::where('branch', '=', $id)->update(array('branch' => 0));
 
-		Notify::success(__('hierarchy.deleted'));
+		Notify::success(__('hierarchy.deleted', 'branch'));
+
+		if ($redirect = Session::get('redirect')) {
+	        Session::erase('redirect');
+	        return Response::redirect($redirect);
+	    }
 
 		return Response::redirect('admin/branchs');
 	});

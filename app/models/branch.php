@@ -48,4 +48,37 @@ class Branch extends Base {
 		return new Paginator($results, $count, $page, $perpage, Uri::to('admin/branchs'));
 	}
 
+
+	public static function division($division, $page = 1, $perpage = 10) {
+
+		if ( !$div = Division::slug($division)) {
+			Notify::warning(__('branchs.no_result'));
+			return Response::redirect('admin/branchs');
+		}
+
+		if (!$hierarchies = Hierarchy::where('division', '=', $div->id)->group('branch')->get()) {
+			Notify::warning(__('branchs.no_result'));
+			return Response::redirect('admin/branchs');
+		}
+
+		$branchs = array();
+
+		foreach ($hierarchies as $hierarchy) {
+			$branchs[] = $hierarchy->branch;
+		}
+
+		$branchs = array_filter($branchs);
+
+
+		$query = Query::table(static::table());
+
+		$query = $query->where_in('id', $branchs);
+
+		$count = $query->count();
+
+		$results = $query->take($perpage)->skip(($page - 1) * $perpage)->sort('id')->get();
+
+		return new Paginator($results, $count, $page, $perpage, Uri::to('admin/branchs'));
+	}
+
 }
