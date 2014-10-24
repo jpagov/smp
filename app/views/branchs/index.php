@@ -44,56 +44,60 @@
 	<div class="col col-lg-3">
 		<nav class="list-branch sidebar">
 
-			<div class="panel panel-default">
-				<div class="panel-heading">
-					<h4 class="panel-title">
-				        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" title="Filter by Division">
-				          Division <span class="pull-right division-toggle glyphicon glyphicon-minus"></span>
-				        </a>
-				    </h4>
+			<div class="panel-group" id="accordion">
+
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h4 class="panel-title">
+					        <a data-toggle="collapse" data-parent="#accordion" href="#collapseDivision" title="Filter by Division">
+					          Division <span class="pull-right division-toggle glyphicon glyphicon-minus"></span>
+					        </a>
+					    </h4>
+					</div>
+					<div id="collapseDivision" class="panel-collapse collapse<?php echo (count($divisions) > 3) ? '' : 'in'; ?>">
+						<div class="list-group">
+							<?php echo Html::link('admin/branchs', __('global.all'), array(
+			        			'class' => (!isset($division)) ? 'list-group-item active' : 'list-group-item'
+			        		)); ?>
+
+			        		<?php
+			        		foreach($divisions as $div):
+
+			                    $division_link = 'admin/branchs/?division=' . $div->slug;
+
+			                    if ($status != 'all') {
+			                        $division_link = 'admin/branchs/?division=' . $div->slug . '/' .'status/' . $status;
+			                    }
+
+			                    if ($branchs->links() && $branchs->page != 1) {
+			                        $division_link .= '/' . $branchs->page;
+			                    }
+			        		?>
+			        			<?php echo Html::link($division_link, strtoupper($div->slug), array(
+			        				'class' => (isset($division) && $division == $div->slug) ? 'list-group-item active' : 'list-group-item',
+			        				'badge' => $div->staff
+			        			)); ?>
+			        			<?php endforeach; ?>
+						</div>
+					</div>
 				</div>
-				<div id="collapseOne" class="panel-collapse collapse">
+
+				<div class="panel panel-default">
+					<div class="panel-heading">Related</div>
 					<div class="list-group">
-						<?php echo Html::link('admin/branchs', __('global.all'), array(
-		        			'class' => (!isset($division)) ? 'list-group-item active' : 'list-group-item'
-		        		)); ?>
+						<?php foreach($hierarchies as $key => $hierarchy): ?>
 
-		        		<?php
-		        		foreach($divisions as $div):
+							<?php if ( $key.'s' !== basename(Uri::current()) ) : ?>
 
-		                    $division_link = 'admin/branchs/?division=' . $div->slug;
+							<?php echo Html::link('admin/' . $key . 's', __('hierarchy.' . $key), array('class' => 'list-group-item'
+							)); ?>
 
-		                    if ($status != 'all') {
-		                        $division_link = 'admin/branchs/?division=' . $div->slug . '/' .'status/' . $status;
-		                    }
-
-		                    if ($branchs->links() && $branchs->page != 1) {
-		                        $division_link .= '/' . $branchs->page;
-		                    }
-		        		?>
-		        			<?php echo Html::link($division_link, strtoupper($div->slug), array(
-		        				'class' => (isset($division) && $division == $div->slug) ? 'list-group-item active' : 'list-group-item',
-		        				'badge' => $div->staff
-		        			)); ?>
-		        			<?php endforeach; ?>
+							<?php endif; ?>
+						<?php endforeach; ?>
 					</div>
 				</div>
 			</div>
 
-			<div class="panel panel-default">
-				<div class="panel-heading">Related</div>
-				<div class="list-group">
-					<?php foreach($hierarchies as $key => $hierarchy): ?>
-
-						<?php if ( $key.'s' !== basename(Uri::current()) ) : ?>
-
-						<?php echo Html::link('admin/' . $key . 's', __('hierarchy.' . $key), array('class' => 'list-group-item'
-						)); ?>
-
-						<?php endif; ?>
-					<?php endforeach; ?>
-				</div>
-			</div>
 		</nav>
 	</div>
 </div>

@@ -64,64 +64,99 @@
 
 		<nav class="sidebar">
 
-            <div class="list-group">
+			<div class="panel-group" id="accordion">
+				<div class="panel panel-default">
 
-        		<?php echo Html::link('admin/staffs', '<span class="icon"></span> ' . __('global.all'), array(
-        			'class' => (!isset($division)) ? 'list-group-item active' : 'list-group-item'
-        		)); ?>
+					<div class="panel-heading">
+						<h4 class="panel-title">
+					        <a data-toggle="collapse" data-parent="#accordion" href="#collapseDivision" title="Filter by Division">
+					          Division <span class="pull-right division-toggle glyphicon glyphicon-minus"></span>
+					        </a>
+					    </h4>
+					</div><!--/.panel-heading -->
 
-        		<?php
-        		foreach($divisions as $div):
+					<div id="collapseDivision" class="panel-collapse collapse <?php echo (count($divisions) > 3) ? '' : 'in'; ?>">
+						<div class="list-group">
 
-                    $division_link = 'admin/staffs/division/' . $div->slug;
+			        		<?php echo Html::link('admin/staffs', '<span class="icon"></span> ' . __('global.all'), array(
+			        			'class' => (!isset($division)) ? 'list-group-item active' : 'list-group-item'
+			        		)); ?>
 
-                    if ($status != 'all') {
-                        $division_link = 'admin/staffs/division/' . $div->slug . '/' .'status/' . $status;
-                    }
+			        		<?php
+			        		foreach($divisions as $div):
 
-                    if ($staffs->links() && $staffs->page != 1) {
-                        $division_link .= '/' . $staffs->page;
-                    }
-        		?>
-        			<?php echo Html::link($division_link, '<span class="icon"></span> ' . strtoupper($div->slug), array(
-        				'class' => (isset($division) && $division == $div->slug) ? 'list-group-item active' : 'list-group-item',
-        				'badge' => $div->staff
-        			)); ?>
-        			<?php endforeach; ?>
-             </div>
+			                    $division_link = 'admin/staffs/division/' . $div->slug;
 
-             <div class="list-group">
+			                    if ($status != 'all') {
+			                        $division_link = 'admin/staffs/division/' . $div->slug . '/' .'status/' . $status;
+			                    }
 
-                <?php
+			                    if ($staffs->links() && $staffs->page != 1) {
+			                        $division_link .= '/' . $staffs->page;
+			                    }
+			        		?>
+			        			<?php echo Html::link($division_link, '<span class="icon"></span> ' . strtoupper($div->slug), array(
+			        				'class' => (isset($division) && $division == $div->slug) ? 'list-group-item active' : 'list-group-item',
+			        				'badge' => $div->staff
+			        			)); ?>
+			        			<?php endforeach; ?>
+			             </div>
+					</div>
+				</div><!--/.panel panel-default -->
 
-                echo Html::link(isset($division) ? 'admin/staffs/division/' . $division : 'admin/staffs', '<span class="icon"></span> ' . __('global.all'), array(
-                    'class' => ($status == 'all') ? 'list-group-item active' : 'list-group-item'
-                )); ?>
+				<div class="panel panel-default">
 
-                <?php
-                foreach(array('active', 'inactive') as $type):
+					<div class="panel-heading">
+						<h4 class="panel-title">
+					        <a data-toggle="collapse" data-parent="#accordion" href="#collapseStatus" title="Filter by Status">
+					          Status <span class="pull-right status-toggle glyphicon glyphicon-plus"></span>
+					        </a>
+					    </h4>
+					</div><!--/.panel-heading -->
 
-                    $query = Query::table(Base::table('staffs'))->where('status', '=', $type);
+					<div id="collapseStatus" class="panel-collapse collapse in">
+						<div class="list-group">
 
-                    $status_link = 'admin/staffs/status/' . $type;
+			                <?php
 
-                    if (isset($division)) {
-                        $query = $query->where('division', '=', $division);
-                        $status_link = 'admin/staffs/division/' . $division . '/' .'status/' . $type;
-                    }
+			                echo Html::link(isset($division) ? 'admin/staffs/division/' . $division : 'admin/staffs', '<span class="icon"></span> ' . __('global.all'), array(
+			                    'class' => ($status == 'all') ? 'list-group-item active' : 'list-group-item'
+			                )); ?>
 
-                    if ($staffs->links() && $staffs->page != 1) {
-                        $status_link .= '/' . $staffs->page;
-                    }
+			                <?php
+			                foreach(array('active', 'inactive') as $type):
 
-                    $status_count = $query->count();
-                ?>
-                    <?php echo Html::link($status_link, '<span class="icon"></span> ' . __('global.' . $type), array(
-                        'class' => ($status == $type) ? 'list-group-item active' : 'list-group-item',
-                        'badge' => $status_count
-                    )); ?>
-                    <?php endforeach; ?>
-             </div>
+			                    $query = Query::table(Base::table('staffs'))->where('status', '=', $type);
+
+			                    $status_link = 'admin/staffs/status/' . $type;
+
+			                    if (isset($division)) {
+			                        $query = $query->where('division', '=', $division);
+			                        $status_link = 'admin/staffs/division/' . $division . '/' .'status/' . $type;
+			                    }
+
+			                    if ($staffs->links() && $staffs->page != 1) {
+			                        $status_link .= '/' . $staffs->page;
+			                    }
+
+			                    $status_count = $query->count();
+			                ?>
+			                    <?php echo Html::link($status_link, '<span class="icon"></span> ' . __('global.' . $type), array(
+			                        'class' => ($status == $type) ? 'list-group-item active' : 'list-group-item',
+			                        'badge' => $status_count
+			                    )); ?>
+			                    <?php endforeach; ?>
+			             </div>
+					</div>
+
+				</div><!--/.panel panel-default -->
+
+
+			</div><!--/.panel-group -->
+
+
+
+
 
 		</nav>
 

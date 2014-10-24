@@ -56,27 +56,31 @@ var SMP = {
         })
 
         /*
-        $('#collapseOne').on('hidden.bs.collapse', function (e) {
+        $('#collapseDivision').on('shown.bs.collapse', function (e) {
         	e.stopPropagation();
         	console.log('Event fired on #' + e.currentTarget.id);
 
         	//dont know why append dont work
-        	$('#collapseOne').on('hidden.bs.collapse', function(){
-		        $(".division-toggle").toggleClass("glyphicon glyphicon-plus")
-		    })
+        	$(".division-toggle").toggleClass("glyphicon-plus")
         })
         */
 
-        $('#collapseOne').on('shown.bs.collapse', function (){
-        		$(".division-toggle").removeClass("glyphicon-minus");
-		        $(".division-toggle").addClass("glyphicon-plus");
-		    })
+        $('#collapseDivision').on('shown.bs.collapse', function (){
+        		$(".division-toggle").removeClass("glyphicon-minus").addClass("glyphicon-plus");
+		    });
 
+		    $('#collapseDivision').on('hidden.bs.collapse', function(){
+		        $(".division-toggle").removeClass("glyphicon-plus").addClass("glyphicon-minus");
+		    });
 
-		    $('#collapseOne').on('hidden.bs.collapse', function(){
-		        $(".division-toggle").removeClass("glyphicon-plus");
-		        $(".division-toggle").addClass("glyphicon-minus");
-		    })
+		    $('#collapseStatus').on('shown.bs.collapse', function (){
+        		$(".status-toggle").removeClass("glyphicon-minus").addClass("glyphicon-plus");
+		    });
+
+		    $('#collapseStatus').on('hidden.bs.collapse', function(){
+		        $(".status-toggle").removeClass("glyphicon-plus").addClass("glyphicon-minus");
+		    });
+
 
     }
   },
