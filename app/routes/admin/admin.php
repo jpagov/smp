@@ -59,6 +59,8 @@ Route::post('admin/login', array('before' => 'csrf', 'main' => function() {
 		return Response::redirect('admin/login');
 	}
 
+	Staff::update(Auth::user()->id, array('last_visit' => Date::mysql('now')));
+
     if ($redirect = Session::get('redirect')) {
         Session::erase('redirect');
         return Response::redirect($redirect);
@@ -68,7 +70,7 @@ Route::post('admin/login', array('before' => 'csrf', 'main' => function() {
 
 	// check for updates
 	//Update::version();
-  Division::counter();
+  	Division::counter();
 
 	if(version_compare(Config::get('meta.update_version'), VERSION, '>')) {
 		return Response::redirect('admin/upgrade');

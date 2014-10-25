@@ -6,8 +6,11 @@ Route::collection(array('before' => 'auth,admin,csrf'), function() {
 		Admin reports
 	*/
 	Route::get('admin/reports', function() {
-		$vars['messages'] = Notify::read();
 
+		$vars['messages'] = Notify::read();
+		$vars['staffs'] = Staff::sort('view', 'desc')->take(5)->get(array('display_name', 'view'));
+		$vars['divisions'] = Division::sort('view', 'desc')->take(5)->get(array('title', 'view'));
+		$vars['categories'] = Category::sort('view', 'desc')->take(5)->get(array('title', 'view'));
 		$vars['status'] = 'all';
 
 		return View::create('reports/index', $vars)
