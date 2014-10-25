@@ -63,29 +63,7 @@ function category_view() {
 }
 
 function category_url() {
-
-	$url = 'division';
-
-	if ($hierarchy = Hierarchy::find(category_hierarchy())) {
-
-		if ($division = Division::find($hierarchy->division)) {
-			$url .= '/' . $division->slug;
-		}
-
-		if ($branch = Branch::find($hierarchy->branch)) {
-			$url .= '/' . $branch->slug;
-		}
-
-		if ($sector = Sector::find($hierarchy->sector)) {
-			$url .= '/' . $sector->slug;
-		}
-
-		if ($unit = Unit::find($hierarchy->unit)) {
-			$url .= '/' . $unit->slug;
-		}
-
-		return base_url($url);
-	}
+	return base_url('category/') . category_slug();
 }
 
 function category_count() {

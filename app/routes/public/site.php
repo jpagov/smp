@@ -416,6 +416,40 @@ Route::get('category', function() {
     return Response::redirect('categories');
 });
 
+Route::get('category/(:any)', function($slug) {
+
+	if (!$category = Category::slug($slug)) {
+		return Response::create(new Template('404'), 404);
+	}
+
+	Category::update($category->id, array('view' => $category->view +1));
+
+	$url = 'division';
+
+	if ($hierarchy = Hierarchy::find($category->hierarchy)) {
+
+		if ($division = Division::find($hierarchy->division)) {
+			$url .= '/' . $division->slug;
+		}
+
+		if ($branch = Branch::find($hierarchy->branch)) {
+			$url .= '/' . $branch->slug;
+		}
+
+		if ($sector = Sector::find($hierarchy->sector)) {
+			$url .= '/' . $sector->slug;
+		}
+
+		if ($unit = Unit::find($hierarchy->unit)) {
+			$url .= '/' . $unit->slug;
+		}
+
+	}
+
+    return Response::redirect($url);
+});
+
+
 Route::get('test', function() {
 
 	$page = new Page;
