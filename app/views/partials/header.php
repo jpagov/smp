@@ -37,6 +37,7 @@
     <?php
       $menu = array('staffs');
       $hierarchies = array('divisions', 'branchs', 'sectors', 'units');
+      $reports_mostview = array('staff', 'category', 'division');
       $admin = array('users', 'pages', 'fields', 'variables', 'metadata');
     ?>
 
@@ -56,6 +57,19 @@
               if($url == 'divisions' and $user->role != 'administrator') continue; ?>
               <li <?php if(strpos(Uri::current(), $url) !== false) echo 'class="active"'; ?>>
                 <a href="<?php echo Uri::to('admin/' . $url); ?>">
+                  <?php echo __('global.' . $url); ?>
+                </a>
+              </li>
+            <?php endforeach; ?>
+          </ul>
+        </li>
+
+        <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo __('reports.reports'); ?> <b class="caret"></b></a>
+          <ul class="dropdown-menu">
+          	<li <?php if(strpos(Uri::current(), '/reports') !== false) echo 'class="active"'; ?>><a href="<?php echo Uri::to('admin/reports'); ?>">Dashboard</a></li>
+            <?php foreach($reports_mostview as $url): ?>
+              <li <?php if(strpos(Uri::current(), $url) !== false) echo 'class="active"'; ?>>
+                <a href="<?php echo Uri::to('admin/reports/' . $url); ?>">
                   <?php echo __('global.' . $url); ?>
                 </a>
               </li>
@@ -89,7 +103,7 @@
   </div> <!-- //.container -->
 </div> <!-- //.navbar -->
 
-<div class="container">
+<div class="container-fluid">
   <div class="row">
     <div class="col-md-12">
       <div class="well admin-container">

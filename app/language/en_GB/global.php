@@ -25,7 +25,8 @@ return array(
 	'reset' => 'Reset',
 	'all' => 'All',
 
-  // menu
+  	// menu
+  	'category' => 'Category',
 	'division' => 'Division',
 	'divisions' => 'Divisions',
 	'branch' => 'Branch',

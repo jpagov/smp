@@ -108,7 +108,10 @@ Route::get(array('division/(:any)', 'division/(:any)/(:num)'), function($divisio
         return Response::create(new Template('404'), 404);
     }
 
+    // depcreated, use new Stats::log()
     Division::update($division->id, array('view' => $division->view +1));
+
+    Stats::log($division->id, 'division');
 
     $hierarchies = array();
     $hierarchies['division'] = $division;
@@ -214,7 +217,9 @@ Route::get('(:any)', function($uri) use($staffs_page) {
     // find if slug is staff
     if( $staff = Staff::slug(basename($uri)) ) {
 
+    	// depcreated, use new Stats::log()
         Staff::update($staff->id, array('view' => $staff->view +1));
+        Stats::log($staff->id, 'staff');
 
         Registry::set('page', $staffs_page);
         Registry::set('staff', $staff);
@@ -347,6 +352,13 @@ Route::get(array('search', 'search/(:any)', 'search/(:any)/(:num)'), function($t
     // revert double-dashes back to spaces
     $term = str_replace('--', ' ', $term);
 
+  	$search = Search::create(array(
+  		'search' => $term,
+  		'created' => Date::mysql('now')
+  	));
+
+  	Stats::log($search->id, 'search');
+
     if($offset > 0) {
         list($total, $staffs) = Staff::search($term, $offset, Config::meta('staffs_per_page'));
     } else {
@@ -422,7 +434,10 @@ Route::get('category/(:any)', function($slug) {
 		return Response::create(new Template('404'), 404);
 	}
 
+	// depcreated
 	Category::update($category->id, array('view' => $category->view +1));
+
+	Stats::log($category->id, 'category');
 
 	$url = 'division';
 

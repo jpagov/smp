@@ -161,3 +161,18 @@ function active($check) {
 function admin_search_term() {
 	return Registry::get('admin_search_term');
 }
+
+function admin_color($role) {
+
+    switch ($role) {
+
+        case ($role == 'administrator'):
+            return 'list-group-item-success';
+
+        case ($role == 'editor'):
+            return 'list-group-item-info';
+
+        default:
+            return;
+    }
+}

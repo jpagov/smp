@@ -26,7 +26,7 @@ function search_results() {
 }
 
 function search_term() {
-	return Registry::get('admin_search_term');
+	return Registry::get('search_term');
 }
 
 function has_search_pagination() {

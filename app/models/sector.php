@@ -18,15 +18,15 @@ class Sector extends Base {
 		return static::where('slug', 'like', $slug)->fetch();
 	}
 
-  public static function id($name) {
-    if (empty(trim($name))) return;
-    if ( !$sector = static::where('title', 'like', $name)->fetch()) {
-      $input = array('title' => $name, 'slug' => slug($name));
-      $sector = static::create($input);
-      return $sector->id;
-    }
-    return $sector->id;
-  }
+	public static function id($name) {
+		if (empty(trim($name))) return;
+		if ( !$sector = static::where('title', 'like', $name)->fetch()) {
+			$input = array('title' => $name, 'slug' => slug($name));
+			$sector = static::create($input);
+			return $sector->id;
+		}
+		return $sector->id;
+	}
 
 	public static function paginate($page = 1, $perpage = 10) {
 		$query = Query::table(static::table());
