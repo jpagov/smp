@@ -16,18 +16,18 @@ class Division extends Base {
 
 	public static function id($name) {
 		if (empty(trim($name))) return;
-			if ( !$division = static::where('title', 'like', $name)->fetch()) {
-				$input = array('title' => $name, 'slug' => slug($name));
-				$division = static::create($input);
-				return $division->id;
-			}
+		if ( !$division = static::where('title', 'like', $name)->fetch()) {
+			$input = array('title' => $name, 'slug' => slug($name));
+			$division = static::create($input);
+			return $division->id;
+		}
 		return $division->id;
 	}
 
-    public static function listing() {
+	public static function listing() {
 
-        return static::get(array('slug', 'title', 'staff'));
-    }
+		return static::get(array('slug', 'title', 'staff'));
+	}
 
 	public static function slug($slug) {
 		return static::where('slug', '=', $slug)->fetch();
@@ -43,11 +43,14 @@ class Division extends Base {
 		return new Paginator($results, $count, $page, $perpage, Uri::to('admin/divisions'));
 	}
 
-  public static function counter() {
-    foreach (static::get() as $division) {
-      $total = Staff::where('division', '=', $division->id)->count();
-      Division::update($division->id, array('staff' => $total));
-    }
-  }
+	public static function counter() {
+		foreach (static::get() as $division) {
+			$total = Staff::where('division', '=', $division->id)->count();
+			if ( $division->staff < $total ) {
+				Division::update($division->id, array('staff' => $total));
+			}
+
+		}
+	}
 
 }
