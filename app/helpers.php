@@ -6,6 +6,12 @@ function __($line) {
 	return Language::line($line, null, $args);
 }
 
+function _e($line, $default = null) {
+	$args = array_slice(func_get_args(), 1);
+
+	return Language::line($line, $default, $args);
+}
+
 function is_admin() {
 	return strpos(Uri::current(), 'admin') === 0;
 }

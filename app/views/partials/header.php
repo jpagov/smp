@@ -37,7 +37,7 @@
     <?php
       $menu = array('staffs');
       $hierarchies = array('divisions', 'branchs', 'sectors', 'units');
-      $reports_mostview = array('staff', 'category', 'division');
+      $reports_mostview = array('staff', 'category', 'division', 'search');
       $admin = array('users', 'pages', 'fields', 'variables', 'metadata');
     ?>
 

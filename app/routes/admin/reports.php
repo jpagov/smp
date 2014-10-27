@@ -74,7 +74,21 @@ Route::collection(array('before' => 'auth,admin,csrf'), function() {
 	});
 
 	Route::get('admin/reports/staff', function() {
-		print_r('admin/reports/staff'); exit();
+
+		$vars['messages'] = Notify::read();
+		$vars['trend'] = 'D';
+		$vars['divisions'] = Division::listing();
+		$vars['trends'] = array(
+			'H' => __('reports.hour'), // default
+        	'D' => __('reports.day'),
+        	'W' => __('reports.week'),
+        	'M' => __('reports.month'),
+        	'Y' => __('reports.year')
+        );
+
+		return View::create('reports/staff', $vars)
+			->partial('header', 'partials/header')
+			->partial('footer', 'partials/footer');
 	});
 
 	Route::get('admin/reports/category', function() {
@@ -85,16 +99,8 @@ Route::collection(array('before' => 'auth,admin,csrf'), function() {
 		print_r('admin/reports/division'); exit();
 	});
 
-	Route::get('admin/reports/branch', function() {
-		print_r('admin/reports/branch'); exit();
-	});
-
-	Route::get('admin/reports/sector', function() {
-		print_r('admin/reports/sector'); exit();
-	});
-
-	Route::get('admin/reports/unit', function() {
-		print_r('admin/reports/unit'); exit();
+	Route::get('admin/reports/search', function() {
+		print_r('admin/reports/search'); exit();
 	});
 
 });

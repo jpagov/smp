@@ -38,6 +38,7 @@ return array(
 	'users' => 'Users',
 	'setting' => 'Setting',
 	'hierarchies' => 'Hierarchies',
+	'search' => 'Search',
 
 	// pagination
 	'next' => 'Next',

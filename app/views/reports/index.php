@@ -7,12 +7,12 @@
 <div class="row">
 	<div class="col-sm-12">
 
-	<h2>Trending <small>1 <?php echo $trends[$trend]; ?></small> <?php echo Form::select('trend', $trends, $trend, array('class' => 'col-sm-4 input-sm pull-right', 'id' => 'trend',
+	<h2><?php echo __('reports.trending', $trends[$trend]); ?> <?php echo Form::select('trend', $trends, $trend, array('class' => 'col-sm-4 input-sm pull-right', 'id' => 'trend',
                         )); ?></h2>
 
     	<div class="row">
 
-			<div class="col-sm-3 most-view-staff">
+			<div class="col-sm-3 trending-staff">
 				<div class="list-group">
 					<h3><a href="<?php echo Uri::to('admin/reports/staff'); ?>">Staff</a></h3>
 					<?php if (count($staffs)) : ?>
@@ -26,7 +26,7 @@
 
 			</div><!--/.col-sm-3 -->
 
-			<div class="col-sm-3 most-view-division">
+			<div class="col-sm-3 trending-division">
 
 				<div class="list-group">
 					<h3><a href="<?php echo Uri::to('admin/reports/division'); ?>">Division</a></h3>
@@ -41,7 +41,7 @@
 
 			</div><!--/.col-sm-3 -->
 
-			<div class="col-sm-3 most-view-category">
+			<div class="col-sm-3 trending-category">
 
 				<div class="list-group">
 					<h3><a href="<?php echo Uri::to('admin/reports/category'); ?>">Category</a></h3>
@@ -56,7 +56,7 @@
 
 			</div><!--/.col-sm-3 -->
 
-			<div class="col-sm-3 most-view-search">
+			<div class="col-sm-3 trending-search">
 
 				<div class="list-group">
 					<h3><a href="<?php echo Uri::to('admin/reports/search'); ?>">Search Keyword</a></h3>
