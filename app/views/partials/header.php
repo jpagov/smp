@@ -44,7 +44,7 @@
       <ul class="nav navbar-nav">
 
         <?php foreach($menu as $url): ?>
-        <li <?php if(strpos(Uri::current(), $url) !== false) echo 'class="active"'; ?>>
+        <li <?php if(is_active('admin/' . $url)) echo 'class="active"'; ?>>
           <a href="<?php echo Uri::to('admin/' . $url); ?>"><?php echo __($url . '.' . $url); ?></a>
         </li>
         <?php endforeach; ?>
@@ -55,7 +55,7 @@
             <?php foreach($hierarchies as $url):
               // only admin have right to manage division
               if($url == 'divisions' and $user->role != 'administrator') continue; ?>
-              <li <?php if(strpos(Uri::current(), $url) !== false) echo 'class="active"'; ?>>
+              <li <?php if(is_active('admin/reports/' . $url)) echo 'class="active"'; ?>>
                 <a href="<?php echo Uri::to('admin/' . $url); ?>">
                   <?php echo __('global.' . $url); ?>
                 </a>
@@ -66,9 +66,9 @@
 
         <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo __('reports.reports'); ?> <b class="caret"></b></a>
           <ul class="dropdown-menu">
-          	<li <?php if(strpos(Uri::current(), '/reports') !== false) echo 'class="active"'; ?>><a href="<?php echo Uri::to('admin/reports'); ?>">Dashboard</a></li>
+          	<li <?php if(is_active('admin/reports')) echo 'class="active"'; ?>><a href="<?php echo Uri::to('admin/reports'); ?>">Dashboard</a></li>
             <?php foreach($reports_mostview as $url): ?>
-              <li <?php if(strpos(Uri::current(), $url) !== false) echo 'class="active"'; ?>>
+              <li <?php if(is_active('admin/reports/' . $url)) echo 'class="active"'; ?>>
                 <a href="<?php echo Uri::to('admin/reports/' . $url); ?>">
                   <?php echo __('global.' . $url); ?>
                 </a>
@@ -88,7 +88,7 @@
          <ul class="dropdown-menu">
 
             <?php foreach($admin as $url): ?>
-              <li <?php if(strpos(Uri::current(), $url) !== false) echo 'class="active"'; ?>>
+              <li <?php if(is_active('admin/setting/' . $url)) echo 'class="active"'; ?>>
                 <a href="<?php echo Uri::to('admin/setting/' . $url); ?>"><?php echo __('settings.' . $url); ?></a>
               </li>
            <?php endforeach; ?>

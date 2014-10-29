@@ -164,6 +164,12 @@ function active($check) {
 	return ($default == $check);
 }
 
+function is_active($menu) {
+	return (Uri::current() == $menu) ? true : false;
+	//return (Uri::current() == $menu) !== 0;
+	//return strpos(Uri::current(), 'admin') === 0;
+}
+
 function admin_search_term() {
 	return Registry::get('admin_search_term');
 }
