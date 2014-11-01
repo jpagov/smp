@@ -21,10 +21,10 @@
 						<div class="panel-heading"><?php echo _e('reports.summary', 'Summary'); ?></div>
 
 						<ul class="list-group">
-							<li class="list-group-item">Total visit <span class="badge">125K</span></li>
-							<li class="list-group-item">Total staff <span class="badge">555</span></li>
-							<li class="list-group-item">Active <span class="badge">553</span></li>
-							<li class="list-group-item">Inactive <span class="badge">2</span></li>
+							<li class="list-group-item">Total visit <span class="badge"><?php echo $total_visit; ?></span></li>
+							<li class="list-group-item">Total staff <span class="badge"><?php echo $total_staff; ?></span></li>
+							<li class="list-group-item">Active <span class="badge"><?php echo $staff_active; ?></span></li>
+							<li class="list-group-item">Inactive <span class="badge"><?php echo $staff_inactive; ?></span></li>
 
 						</ul>
 
@@ -37,11 +37,13 @@
 						<div class="panel-heading"><?php echo _e('reports.admin', 'Administrator'); ?></div>
 
 						<ul class="list-group">
-							<li class="list-group-item">Hariadi Hinta</li>
-							<li class="list-group-item">Helmee</li>
-							<li class="list-group-item">Mohd Kamaruzaman</li>
-							<li class="list-group-item">Porta ac consectetur ac</li>
-							<li class="list-group-item">Vestibulum at eros</li>
+						<?php if ($administrators->count) : ?>
+						<?php foreach($administrators->results as $admin): ?>
+							<li class="list-group-item"><?php echo $admin->name; ?></li>
+						<?php endforeach; ?>
+						<?php else: ?>
+						<p>No data</p>
+					<?php endif; ?>
 						</ul>
 
 					</div>

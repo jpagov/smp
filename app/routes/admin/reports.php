@@ -76,7 +76,29 @@ Route::collection(array('before' => 'auth,admin,csrf'), function() {
 	Route::get('admin/reports/staff', function() {
 
 		$vars['messages'] = Notify::read();
+		$vars['division'] = 'all';
+
+		$input = filter_var_array(Input::get(array('division')), array(
+		    'division' => FILTER_SANITIZE_SPECIAL_CHARS
+		));
+
+		$input = array_filter($input);
+
+		if ($input and isset($input['division'])) {
+			# code...
+		}
+		$vars['division'] = ($input and isset($input['division'])) ? $input['division'] : 'all';
+
 		$vars['trend'] = 'D';
+
+		$vars['total_visit'] = custom_number_format(Stats::where('type', '=', 'staff')->count());
+		$vars['total_staff'] = Staff::count();
+		$vars['staff_active'] = Staff::where('status', '=', 'active')->count();
+
+		//$vars['staff_inactive'] = Staff::where('status', '=', 'inactive')->count();
+		$vars['staff_inactive'] = (int) $vars['total_staff'] - (int) $vars['staff_active'];
+		$vars['administrators'] = Role::admin($vars['division']);
+
 		$vars['divisions'] = Division::listing();
 		$vars['trends'] = array(
 			'H' => __('reports.hour'), // default
