@@ -179,7 +179,7 @@ class Staff extends Base {
 
 		$staff = static::find($id);
 
-		$query = Query::table(static::table());
+		$query = Query::table(static::table())->where('status', '=', 'active');
 
 		if ($staff->grade > 48) {
 			$query = $query->where('division', '=', $staff->division)
@@ -203,7 +203,6 @@ class Staff extends Base {
 			->or_where('report_to', '=', $staff->id)
 			->where('grade', '=', $staff->grade);
 		}
-
 
 		$count = $query->count();
 
