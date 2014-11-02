@@ -109,7 +109,7 @@ Route::get(array('division/(:any)', 'division/(:any)/(:num)'), function($divisio
     }
 
     // depcreated, use new Stats::log()
-    Division::update($division->id, array('view' => $division->view +1));
+    // Division::update($division->id, array('view' => $division->view +1));
 
     Stats::log($division->id, 'division');
 
@@ -218,7 +218,7 @@ Route::get('(:any)', function($uri) use($staffs_page) {
     if( $staff = Staff::slug(basename($uri)) ) {
 
     	// depcreated, use new Stats::log()
-        Staff::update($staff->id, array('view' => $staff->view +1));
+        //Staff::update($staff->id, array('view' => $staff->view +1));
         Stats::log($staff->id, 'staff');
 
         Registry::set('page', $staffs_page);
@@ -435,7 +435,7 @@ Route::get('category/(:any)', function($slug) {
 	}
 
 	// depcreated
-	Category::update($category->id, array('view' => $category->view +1));
+	//Category::update($category->id, array('view' => $category->view +1));
 
 	Stats::log($category->id, 'category');
 

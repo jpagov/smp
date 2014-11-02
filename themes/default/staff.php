@@ -29,7 +29,7 @@
                 <span class="glyphicon glyphicon-star"></span>
                 <span class="glyphicon glyphicon-star-empty"></span>
             </div>
-            <p><small> Average 4.5 / 5</small> </p>
+            <p><small>Popularity: <a href="#" class="popularity" role="tooltip" data-toggle="tooltip" data-placement="top" title="Show the staff visit popularity"><?php echo staff_popularity_percent(); ?></a></small></p>
         </div>
 
         <div class="col-md-10 meta">

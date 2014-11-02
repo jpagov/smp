@@ -1,6 +1,6 @@
 <!-- Breadcrumb -->
 <ul class="breadcrumb">
-    <li><a href="#">Home</a></li>
+    <li><a href="<?php echo base_url(); ?>">Home</a></li>
     <?php if (is_staff()) : ?>
     <li><a href="<?php echo staff_division_url(); ?>"><?php echo staff_division_slug(); ?></a></li>
     <li class="active"><?php echo (staff_name()); ?></li>

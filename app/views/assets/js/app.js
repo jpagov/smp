@@ -53,7 +53,9 @@ var SMP = {
         $('.navbar-right .view').popover({
             trigger: 'hover',
             placement: 'auto bottom'
-        })
+        });
+
+        $('.popularity').tooltip();
 
         /*
         $('#collapseDivision').on('shown.bs.collapse', function (e) {

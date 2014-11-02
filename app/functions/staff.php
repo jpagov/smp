@@ -140,7 +140,7 @@ function staff_legacy_view() {
 function staff_view() {
 
 	$stats = Stats::where('trend', '=', staff_id())
-		->where('type', '=', 'staff')->count() == 0;
+		->where('type', '=', 'staff')->count();
 
 	if (staff_legacy_view()) {
 		$stats += staff_legacy_view();
@@ -199,6 +199,19 @@ function staff_custom_field($key, $default = '') {
 
 	return $default;
 }
+
+function staff_popularity() {
+    return Stats::popularity(staff_id());
+}
+
+function staff_popularity_percent() {
+    return staff_popularity()['popularity'];
+}
+
+function staff_popularity_total() {
+    return staff_popularity()['from'];
+}
+
 
 function customised() {
 	//if($itm = Registry::get('staff')) {

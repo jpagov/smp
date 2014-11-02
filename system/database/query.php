@@ -231,6 +231,17 @@ class Query extends Builder {
 	}
 
 	/**
+	 * Run a sum function on database query
+	 *
+	 * @return string
+	 */
+	public function sum($column = null) {
+		list($result, $statement) = $this->connection->ask($this->build_select_sum($column), $this->bind);
+
+		return $statement->fetchColumn();
+	}
+
+	/**
 	 * Add a where clause to the query
 	 *
 	 * @param string

@@ -66,6 +66,22 @@ class Stats extends Base {
 		return $statement->fetchAll(PDO::FETCH_OBJ);
 	}
 
+	public static function popularity($staff) {
+
+		$popularity = array();
+
+		$total_stats = static::where('type', '=', 'staff')->count();
+
+		$staffs_stats = static::where('type', '=', 'staff')->where('trend', '=', $staff)->count();
+
+		$popularity['popularity'] = sprintf("%.2f%%", ($staffs_stats/$total_stats) * 100);
+		$popularity['popularity'] = str_replace('.00', '', $popularity['popularity']);
+		$popularity['from'] = $total_stats;
+
+		return $popularity;
+	}
+
+
 
 
 }

@@ -99,25 +99,7 @@ Route::collection(array('before' => 'auth,admin,csrf'), function() {
 		$vars['staff_inactive'] = (int) $vars['total_staff'] - (int) $vars['staff_active'];
 		$vars['administrators'] = Role::admin($vars['division']);
 
-		$popularity = array();
-
-		$staffs_first = Stats::listing('staff', null, 1, 1);
-		$staffs_end = Stats::listing('staff', null, 1, 1, 'ASC');
-		$searchs_first = Stats::listing('search', null, 1, 1);
-		$searchs_end = Stats::listing('search', null, 1, 1, 'ASC');
-
-		$popularity['staff'] = array(
-			'first' => reset($staffs_first),
-			'end' => end($staffs_end),
-		);
-
-		$popularity['search'] = array(
-			'first' => reset($searchs_first),
-			'end' => end($searchs_end),
-		);
-
-		print_r($popularity); exit();
-		print_r(Stats::where('type', '=', 'staff')->group('trend')->count());
+		print_r(Stats::popularity(487)); exit();
 
 		$vars['divisions'] = Division::listing();
 		$vars['trends'] = array(
