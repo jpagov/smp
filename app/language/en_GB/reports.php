@@ -14,5 +14,6 @@ return array(
   'year' => 'Year',
 
   'trending' => 'Trending <small>1 %s</small>',
+  'no_keyword' => 'No keyword (empty)',
 
 );

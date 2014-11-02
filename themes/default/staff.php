@@ -21,7 +21,7 @@
     <div class="row">
 
         <div class="col-md-2 star-rating">
-            <p> <abbr title="<?php echo staff_view(); ?>"><?php echo custom_number_format(staff_view()); ?></abbr> <small> views </small></p>
+            <p> <abbr title="<?php echo number_format(staff_view()); ?>"><?php echo custom_number_format(staff_view()); ?></abbr> <small> views </small></p>
             <div class="stars">
                 <span class="glyphicon glyphicon-star"></span>
                 <span class="glyphicon glyphicon-star"></span>

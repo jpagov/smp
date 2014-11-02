@@ -62,7 +62,7 @@
 					<h3><a href="<?php echo Uri::to('admin/reports/search'); ?>">Search Keyword</a></h3>
 					<?php if (count($searchs)) : ?>
 					<?php foreach($searchs as $search): ?>
-					<li class="list-group-item"><span class="badge"><?php echo custom_number_format($search->stats); ?></span><?php echo $search->trend; ?></li>
+					<li class="list-group-item"><span class="badge"><?php echo custom_number_format($search->stats); ?></span><?php echo (!empty($search->trend)) ? $search->trend : __('reports.no_keyword'); ?></li>
 					<?php endforeach; ?>
 					<?php else: ?>
 					<p>No data</p>
@@ -127,7 +127,7 @@
 					<h3><a href="<?php echo Uri::to('admin/reports/search'); ?>">Search Keyword</a></h3>
 					<?php if (count($top_searchs)) : ?>
 					<?php foreach($top_searchs as $search): ?>
-					<li class="list-group-item"><span class="badge"><?php echo custom_number_format($search->stats); ?></span><?php echo $search->trend; ?></li>
+					<li class="list-group-item"><span class="badge"><?php echo custom_number_format($search->stats); ?></span><?php echo (!empty($search->trend)) ? $search->trend : __('reports.no_keyword'); ?></li>
 					<?php endforeach; ?>
 					<?php else: ?>
 					<p>No data</p>

@@ -19,7 +19,7 @@ class Stats extends Base {
 		return $stats;
 	}
 
-	public static function listing($type = 'staff', $date = null, $page = 1, $per_page = 10) {
+	public static function listing($type = 'staff', $date = null, $page = 1, $per_page = 10, $order = 'DESC') {
 
 		$sqldate = '';
 		$prepare = array();
@@ -56,7 +56,7 @@ class Stats extends Base {
 			LEFT JOIN ' . Base::table($table) . ' ON (' . Base::table($table . '.id') . ' = ' . Base::table('stats.trend') . ')
 			WHERE ' . Base::table('stats.type') . ' = ? ' . $sqldate . '
 			GROUP BY ' . Base::table($table . '.' . $field) . '
-			ORDER BY `stats` DESC, ' . Base::table('stats.created') . ' DESC
+			ORDER BY `stats` '. $order .', ' . Base::table('stats.created') . ' DESC
 			LIMIT ' . $per_page . ' OFFSET ' . (($page - 1) * $per_page) . '
 		';
 

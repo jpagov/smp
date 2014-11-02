@@ -133,8 +133,20 @@ function staff_status() {
 	return Registry::prop('staff', 'status');
 }
 
-function staff_view() {
+function staff_legacy_view() {
     return Registry::prop('staff', 'view');
+}
+
+function staff_view() {
+
+	$stats = Stats::where('trend', '=', staff_id())
+		->where('type', '=', 'staff')->count() == 0;
+
+	if (staff_legacy_view()) {
+		$stats += staff_legacy_view();
+	}
+
+    return $stats;
 }
 
 function staff_division() {
@@ -163,18 +175,6 @@ function staff_division_url() {
 
 function staff_total_comments() {
 	return Registry::prop('staff', 'total_comments');
-}
-
-function staff_author() {
-	return Registry::prop('staff', 'author_name');
-}
-
-function staff_author_id() {
-	return Registry::prop('staff', 'author_id');
-}
-
-function staff_author_bio() {
-	return Registry::prop('staff', 'author_bio');
 }
 
 function staff_report_to_id() {

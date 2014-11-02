@@ -25,6 +25,15 @@ class Role extends Base {
 		}
 
 		if($division) {
+
+			if (!is_numeric($division)) {
+				if ($divisions = Division::slug($division)) {
+					$division = $divisions->id;
+				} else {
+					$division = 0;
+				}
+			}
+
 			$query = $query->where(Base::table('roles.division'), '=', $division);
 		}
 
@@ -39,7 +48,7 @@ class Role extends Base {
 			->get(array(Base::table('roles.*'),
 				Base::table('staffs.display_name as name')));
 
-		return new Paginator($roles, $total, $page, $per_page, Uri::to('admin/users'));
+		return new Paginator($roles, $total, $page, $per_page, Uri::to('admin/reports'));
 
 	}
 
