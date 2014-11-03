@@ -37,4 +37,12 @@ return array(
 	'created' => 'Your new %s was created',
 	'deleted' => 'Your %s has been deleted',
 
+	// division
+	'street' => 'Street address',
+	'city' => 'City',
+	'state' => 'State',
+	'zip' => 'Zip code',
+	'telephone' => 'Telephone',
+	'fax' => 'Fax',
+
 );

@@ -62,6 +62,44 @@ function division_description() {
 	return Registry::prop('division', 'description');
 }
 
+function division_street() {
+	return Registry::prop('division', 'street');
+}
+
+function division_city() {
+	return Registry::prop('division', 'city');
+}
+
+function division_state() {
+	return Registry::prop('division', 'state');
+}
+
+function division_zip() {
+	return Registry::prop('division', 'zip');
+}
+
+function division_address() {
+
+	if (!$division_street = division_street()) {
+		return 0;
+	}
+
+	$address = division_street() . PHP_EOL
+			. division_zip() . ', '
+			. division_city() . ', '
+			. division_state();
+
+	return parse($address);
+}
+
+function division_telephone() {
+	return Registry::prop('division', 'telephone');
+}
+
+function division_fax() {
+	return Registry::prop('division', 'fax');
+}
+
 function division_url() {
 	return base_url('division/' . division_slug());
 }

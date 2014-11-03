@@ -1,7 +1,4 @@
-
-
-
-      </div> <!-- //.row -->
+	</div> <!-- //.row -->
       <footer class="footer">
               <small><p>&copy; <?php echo date('Y'); ?> <?php echo site_name(); ?>. All rights reserved.</p><p>
         <a href="#">Back to top</a>

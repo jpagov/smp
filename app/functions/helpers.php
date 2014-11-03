@@ -88,3 +88,7 @@ function is_staff() {
 function is_page() {
 	return Registry::get('page') !== null;
 }
+
+function is_division() {
+	return Registry::get('division') !== null;
+}

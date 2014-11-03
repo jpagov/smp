@@ -7,7 +7,7 @@
     <?php else: ?>
     <?php if (!is_managementpage()) : ?>
     <li><a href="<?php echo base_url('divisions'); ?>">Division</a></li>
-    <li class="active"><?php echo (staff_name()) ? staff_name() : division(); ?></li>
+    <li class="active"><?php echo (staff_name()) ? staff_name() : division_slug(); ?></li>
     <?php else: ?>
     <li class="active"><?php echo 'Top Management'; ?></li>
     <?php endif; ?>

@@ -149,7 +149,7 @@ function staff_view() {
     return $stats;
 }
 
-function staff_division() {
+function staff_division_title() {
 	if($division = Registry::prop('staff', 'division')) {
 		$divisions = Registry::get('all_divisions');
 

@@ -29,7 +29,7 @@ Route::collection(array('before' => 'auth,admin,csrf'), function() {
 	});
 
 	Route::post('admin/divisions/edit/(:num)', function($id) {
-		$input = Input::get(array('title', 'slug', 'description', 'order'));
+		$input = Input::get(array('title', 'slug', 'description', 'order', 'street', 'city', 'state', 'zip', 'telephone', 'fax'));
 
 		if(empty($input['slug'])) {
 			$input['slug'] = acronym($input['title']);
@@ -60,7 +60,7 @@ Route::collection(array('before' => 'auth,admin,csrf'), function() {
 
 		Division::update($id, $input);
 
-		Notify::success(__('hierarchy.updated'));
+		Notify::success(__('hierarchy.updated', $input['title']));
 
 		return Response::redirect('admin/divisions/edit/' . $id);
 	});
@@ -78,7 +78,7 @@ Route::collection(array('before' => 'auth,admin,csrf'), function() {
 	});
 
 	Route::post('admin/divisions/add', function() {
-		$input = Input::get(array('title', 'slug', 'description', 'order'));
+		$input = Input::get(array('title', 'slug', 'description', 'order', 'street', 'city', 'state', 'zip', 'telephone', 'fax'));
 
 		if(empty($input['slug'])) {
 			$input['slug'] = acronym($input['title']);

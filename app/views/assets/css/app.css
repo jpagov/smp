@@ -266,3 +266,5 @@ img.media-object { margin-right: 4px ;}
 .panel-group .list-group .list-group-item:last-child {
 	border-bottom: none;
 }
+
+.division-meta { font-size: 90%;}

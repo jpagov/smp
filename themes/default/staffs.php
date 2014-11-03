@@ -1,7 +1,7 @@
 <?php theme_include('header'); ?>
 <?php if (Uri::current() == '/') : theme_include('footer'); exit(); endif; ?>
 
-<section class="content col-lg-12">
+<section class="content col-md-12">
     <?php theme_include('breadcrumb'); ?>
 	<?php if(has_staffs()): ?>
 
@@ -36,6 +36,33 @@
 
 	<?php else: ?>
 		<p>Looks like you have some writing to do!</p>
+	<?php endif; ?>
+
+	<?php if(is_division() and division_address()): ?>
+	<div class="row division-meta">
+
+		<div class="col-md-4">
+		<?php if(division_address()): ?>
+			<h2 class="page-header">Address</h2>
+			<address><?php echo division_address(); ?></address>
+		<?php endif; ?>
+		</div>
+
+		<div class="col-md-4">
+		<?php if(division_telephone()): ?>
+			<h2 class="page-header">Telephone</h2>
+			<?php echo division_telephone(); ?>
+		<?php endif; ?>
+		</div>
+
+		<div class="col-md-4">
+		<?php if(division_fax()): ?>
+			<h2 class="page-header">Fax</h2>
+			<?php echo division_fax(); ?>
+		<?php endif; ?>
+		</div>
+
+	</div><br class="clearfix">
 	<?php endif; ?>
 
 </section>
