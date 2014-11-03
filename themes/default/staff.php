@@ -40,7 +40,7 @@
               <dt>Designation</dt>
               <dd><i class="glyphicon glyphicon-barcode"></i> <?php echo staff_position(); ?></dd>
               <dt>Email</dt>
-              <dd><i class="glyphicon glyphicon-comment"></i> <a class="email" itemprop="email" href="mailto:<?php echo staff_email_encode(); ?>"><?php echo staff_email_image(); ?></a></dd>
+              <dd><i class="glyphicon glyphicon-comment"></i> <a class="email" itemprop="email" href="mailto:<?php echo staff_email_encode(); ?>" id="staff-email-<?php echo staff_id(); ?>"><?php echo staff_email_image(); ?></a></dd>
               <dt>Office Phone</dt>
               <dd><i class="glyphicon glyphicon-earphone"></i> <?php echo staff_telephone_link(); ?>&#1730;</dd>
           </dl>
