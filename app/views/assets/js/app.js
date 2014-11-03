@@ -88,13 +88,8 @@ var SMP = {
 		    });
 
 		    $('#trend').change(function() {
-				  // set the window's location property to the value of the option the user has selected
-
-				  //console.log(location.pathname + '/?' + $(this).val());
+				  // set the window's location property to the value of the option the
 				  window.location = location.pathname + '?trend=' + $(this).val();
-
-				 //window.location = window.location.href.split('#')[0] + '/?' + $(this).val();
-				 //console.log(window.location.href.split('#')[0] + '/?' + $(this).val());
 				});
 
 
