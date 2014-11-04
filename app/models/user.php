@@ -15,7 +15,7 @@ class User extends Base {
 	}
 
   public static function paginate($page = 1, $perpage = 10) {
-    $query = Query::table(static::table());
+    $query = Query::table(static::table())->where('account', '=', '1');
 
     $count = $query->count();
 

@@ -203,7 +203,7 @@ Route::get(array(
 * Redirect by staff ID
 */
 Route::get('(:num)', function($id) use($staffs_page) {
-    if( ! $staff = Staff::id($id)) {
+    if( (! $staff = Staff::id($id)) or $staff->status == 'inactive') {
         return Response::create(new Template('404'), 404);
     }
 
@@ -218,8 +218,10 @@ Route::get('(:any)', function($uri) use($staffs_page) {
     // find if slug is staff
     if( $staff = Staff::slug(basename($uri)) ) {
 
-    	// depcreated, use new Stats::log()
-        //Staff::update($staff->id, array('view' => $staff->view +1));
+    	if ($staff->status == 'inactive') {
+    		return Response::create(new Template('404'), 404);
+    	}
+
         Stats::log($staff->id, 'staff');
 
         Registry::set('page', $staffs_page);
