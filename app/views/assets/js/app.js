@@ -92,11 +92,12 @@ var SMP = {
 				  window.location = location.pathname + '?trend=' + $(this).val();
 				});
 
-
     }
   },
   home: {
     init: function() {
+
+    	var path = '/' + window.location.pathname.split('/')[1] || '/';
 
       var staff = new Bloodhound({
         datumTokenizer: function(d) { return d.tokens; },
@@ -127,30 +128,72 @@ var SMP = {
         //$('#search').submit();
         //window.location.replace('/smp/' + data.slug);
         // similar behavior as clicking on a link
-        window.location.href = '/smp/' + data.slug;
+        window.location.href = path + '/' + data.slug;
       });
 
-        // hover cards
-        $('a[rel=popover]').popover({
-            html: true,
-            delay: { show: 100, hide: 1000 },
-            trigger: "hover focus",
-            content: function () {
+      // hover cards
+      $('a[rel=popover]').popover({
+          html: true,
+          delay: { show: 100, hide: 1000 },
+          trigger: "hover focus",
+          content: function () {
 
-                var hovercard = ['<div class="media block-update-card">',
-                    '<a class="pull-left" href="#">',
-                    '<img class="media-object img-responsive img-thumbnail" src="'+$(this).data('img') + '" width="90" height="90">',
-                    '</a>',
-                    '<div class="media-body update-card-body">',
-                    '<h4 class="media-heading">'+ $(this).attr('title') + '</h4>',
-                    '<p>'+ $(this).data('jobtitle') + '</p>',
-                    '<button class="btn btn-block">Details</button>',
-                    '</div>',
-                    '</div>'].join('');
+              var hovercard = ['<div class="media block-update-card">',
+                  '<a class="pull-left" href="#">',
+                  '<img class="media-object img-responsive img-thumbnail" src="'+$(this).data('img') + '" width="90" height="90">',
+                  '</a>',
+                  '<div class="media-body update-card-body">',
+                  '<h4 class="media-heading">'+ $(this).attr('title') + '</h4>',
+                  '<p>'+ $(this).data('jobtitle') + '</p>',
+                  '<button class="btn btn-block">Details</button>',
+                  '</div>',
+                  '</div>'].join('');
 
-                return hovercard;
-            }
-        });
+              return hovercard;
+          }
+      });
+
+      // ZeroClipboard
+
+	    ZeroClipboard.config({
+	      swfPath: path + '/app/views/assets/flash/ZeroClipboard.swf',
+	      hoverClass: 'btn-clipboard-hover',
+	      forceHandCursor: true,
+	    });
+
+	    var clip = new ZeroClipboard($(".email"));
+	    var zbridge = $('#global-zeroclipboard-html-bridge');
+
+	    clip.on("ready", function(e) {
+
+	    	// add tooltip when clip ready
+		    zbridge.data('placement', 'top').attr('title', 'Copy to clipboard').tooltip();
+
+		    // request email from ajax
+		    this.on("copy", function(e) {
+		      e.clipboardData.clearData();
+		      var email = (e.target.id).replace('staff-email-', '');
+					$.ajax({
+						url: path + "/api/email/" + email,
+						dataType: 'json',
+						async: false,
+						success: function(content) {
+							e.clipboardData.setData( "text/plain", content.email );
+						},
+					});
+		    });
+
+		    // send success message and refix back
+		    this.on("aftercopy", function(e) {
+		    	zbridge.data('placement', 'top')
+			    	.attr('title', 'Copied!')
+			      .tooltip('fixTitle')
+			      .tooltip('show')
+			      .attr('title', 'Copy to clipboard')
+			      .tooltip('fixTitle');
+		    });
+		  });
+
     },
 
   },

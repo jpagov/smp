@@ -21,7 +21,7 @@
                 <td><a class="hovercard" href="<?php echo staff_url(); ?>" title="<?php echo staff_name(); ?>" data-img="<?php echo staff_custom_field('avatar', 'http://localhost/smp/content/avatar/default-male.jpg'); ?>" data-salutation="<?php echo staff_salutation(); ?>" data-jobtitle="<?php echo staff_job_title(); ?>" rel="popover"><?php echo staff_name(); ?></a></td>
                 <td><?php echo staff_job_title(); ?></td>
                 <td><?php echo staff_position(); ?></td>
-                <td><?php echo staff_email_image(); ?></td>
+                <td><span class="email" data-email-id="<?php echo staff_id(); ?>" id="staff-email-<?php echo staff_id(); ?>"><?php echo staff_email_image(); ?></span></td>
                 <td><?php echo staff_telephone(); ?></td>
             </tr>
             <?php endwhile; ?>
