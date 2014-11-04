@@ -68,6 +68,10 @@ function body_class() {
 	return implode(' ', array_unique($classes));
 }
 
+function fix_name($name) {
+	return Registry::get('division') !== null;
+}
+
 // page type helpers
 function is_homepage() {
 	return Registry::prop('page', 'id') == Config::meta('home_page');

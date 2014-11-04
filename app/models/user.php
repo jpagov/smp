@@ -14,30 +14,71 @@ class User extends Base {
 		return $query->fetch();
 	}
 
-  public static function paginate($page = 1, $perpage = 10) {
-    $query = Query::table(static::table())->where('account', '=', '1');
+	public static function admin($staffs = array(), $page = 1, $perpage = 10, $params = array()) {
 
-    $count = $query->count();
+		$staffs = array_filter($staffs);
+		$params = array_filter($params);
 
-    $results = $query->take($perpage)->skip(($page - 1) * $perpage)->sort('grade', 'desc')->get(array(Staff::fields()));
+		$query = Query::table(static::table())->where_in('id', $staffs);
 
-    $division_roles = array();
+		$count = $query->count();
 
-    foreach ($results as $user) {
+		$results = $query->take($perpage)->skip(($page - 1) * $perpage)->sort('grade', 'desc')->get(array(Staff::fields()));
 
-      if ($staff_roles = Role::where('staff', '=', $user->id)->get(array('division'))) {
-        foreach ($staff_roles as $div) {
-          $division_roles[] = Division::find($div->division)->title;
-        }
-        $user->roles = $division_roles;
-        unset($division_roles);
-      } else {
-        $user->roles = array();
-      }
+		$division_roles = array();
 
-    }
+		foreach ($results as $user) {
 
-    return new Paginator($results, $count, $page, $perpage, Uri::to('staffs'));
-  }
+			if ($staff_roles = Role::where('staff', '=', $user->id)->get(array('division'))) {
+				foreach ($staff_roles as $div) {
+					$division_roles[] = Division::find($div->division)->title;
+				}
+				$user->roles = $division_roles;
+				unset($division_roles);
+			} else {
+				$user->roles = array();
+			}
+
+		}
+
+		return new Paginator($results, $count, $page, $perpage, Uri::to('admin/users'));
+	}
+
+	public static function paginate($filters = array(), $page = 1, $perpage = 10) {
+
+		$filters = array_filter($filters);
+
+		$query = Query::table(static::table())
+			->where('account', '=', '1')
+			->where('role', '!=', 'staff');
+
+		if (array_filter($filters)) {
+			foreach($filters as $key => $value) {
+				$query->where($key, '=', $value);
+			}
+		}
+
+		$count = $query->count();
+
+		$results = $query->take($perpage)->skip(($page - 1) * $perpage)->sort('grade', 'desc')->get(array(Staff::fields()));
+
+		$division_roles = array();
+
+		foreach ($results as $user) {
+
+			if ($staff_roles = Role::where('staff', '=', $user->id)->get(array('division'))) {
+				foreach ($staff_roles as $div) {
+					$division_roles[] = Division::find($div->division)->title;
+				}
+				$user->roles = $division_roles;
+				unset($division_roles);
+			} else {
+				$user->roles = array();
+			}
+
+		}
+
+		return new Paginator($results, $count, $page, $perpage, Uri::to('staffs'));
+	}
 
 }

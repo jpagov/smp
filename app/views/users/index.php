@@ -59,16 +59,15 @@
 			        		)); ?>
 
 			        		<?php
+
+			        		$page = ($users->page == 1) ? '' : $users->page . '/';
+
 			        		foreach($divisions as $div):
 
-			                    $division_link = 'admin/users/division/' . $div->slug;
+			                    $division_link = 'admin/users/' . $page . '?division=' . $div->slug;
 
 			                    if ($status != 'all') {
-			                        $division_link = 'admin/users/division/' . $div->slug . '/' .'status/' . $status;
-			                    }
-
-			                    if ($users->links() && $users->page != 1) {
-			                        $division_link .= '/' . $users->page;
+			                        $division_link = 'admin/users/?division=' . $div->slug . '&' .'status=' . $status;
 			                    }
 			        		?>
 			        			<?php echo Html::link($division_link, '<span class="icon"></span> ' . strtoupper($div->slug), array(
@@ -95,24 +94,23 @@
 
 			                <?php
 
-			                echo Html::link(isset($division) ? 'admin/users/division/' . $division : 'admin/users', '<span class="icon"></span> ' . __('global.all'), array(
+			                echo Html::link(isset($division) ? 'admin/users/?division=' . $division : 'admin/users', '<span class="icon"></span> ' . __('global.all'), array(
 			                    'class' => ($status == 'all') ? 'list-group-item active' : 'list-group-item'
 			                )); ?>
 
 			                <?php
+
+			                $page = ($users->page == 1) ? '' : $users->page . '/';
+
 			                foreach(array('active', 'inactive') as $type):
 
 			                    $query = User::where('account', '=', 1)->where('status', '=', $type);
 
-			                    $status_link = 'admin/users/status/' . $type;
+			                    $status_link = 'admin/users/'. $page .'?status=' . $type;
 
 			                    if (isset($division)) {
-			                        $query = $query->where('division', '=', $division);
-			                        $status_link = 'admin/users/division/' . $division . '/' .'status/' . $type;
-			                    }
 
-			                    if ($users->links() && $users->page != 1) {
-			                        $status_link .= '/' . $users->page;
+			                        $status_link = 'admin/users/'. $page .'?division=' . $division . '&' .'status=' . $type;
 			                    }
 
 			                    $status_count = $query->count();
