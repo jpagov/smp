@@ -170,6 +170,10 @@ function is_active($menu) {
 	//return strpos(Uri::current(), 'admin') === 0;
 }
 
+function is_class_active($str1, $str2, $addattr = false) {
+	return ($str1 == $str2) ? ($addattr) ? ' class="active"' : 'active' : '';
+}
+
 function admin_search_term() {
 	return Registry::get('admin_search_term');
 }

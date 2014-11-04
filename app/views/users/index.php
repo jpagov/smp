@@ -24,7 +24,7 @@
 					<?php foreach($users->results as $user): ?>
 					<tr class="status draft">
 						<td><?php echo $user->id; ?></td>
-						<td><a href="<?php echo Uri::to('admin/staffs/edit/' . $user->id . '#admin'); ?>" title=""><?php echo $user->display_name; ?></a></td>
+						<td><a href="<?php echo Uri::to('admin/staffs/edit/' . $user->id . '/?edit=admin'); ?>" title=""><?php echo $user->display_name; ?></a></td>
 						<td><?php echo __('staffs.' . $user->role); ?></td>
             <td><?php foreach($user->roles as $role): echo '<code>' . $role . '</code><br>'; endforeach; ?></td>
 						<td><abbr title="<?php echo Date::format($user->created); ?>"><?php echo __('global.' . $user->status); ?></abbr></td>

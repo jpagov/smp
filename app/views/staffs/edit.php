@@ -17,19 +17,19 @@
       <div class="tabs-top">
 
         <ul class="nav nav-tabs">
-          <li class="active"><a href="#profile" data-toggle="tab">Profile</a></li>
-          <li><a href="#positions" data-toggle="tab">Position</a></li>
+          <li<?php echo is_class_active($tab, 'profile', true); ?>><a href="#profile" data-toggle="tab">Profile</a></li>
+          <li<?php echo is_class_active($tab, 'positions', true); ?>><a href="#positions" data-toggle="tab">Position</a></li>
           <?php if($fields): ?>
-            <li><a href="#extend" data-toggle="tab">Extend</a></li>
+            <li<?php echo is_class_active($tab, 'extend', true); ?>><a href="#extend" data-toggle="tab">Extend</a></li>
           <?php endif; ?>
           <?php if(Auth::user()->role == 'administrator'): ?>
-            <li><a href="#admin" data-toggle="tab">Administration</a></li>
+            <li<?php echo is_class_active($tab, 'admin', true); ?>><a href="#admin" data-toggle="tab">Administration</a></li>
           <?php endif; ?>
         </ul>
 
         <div class="tab-content">
 
-          <div class="tab-pane active" id="profile">
+          <div class="tab-pane <?php echo is_class_active($tab, 'profile'); ?>" id="profile">
             <fieldset>
               <legend>Profile</legend>
 
@@ -148,7 +148,7 @@
               </fieldset>
             </div>
 
-            <div class="tab-pane" id="positions">
+            <div class="tab-pane <?php echo is_class_active($tab, 'positions'); ?>" id="positions">
               <fieldset>
                 <legend>Position</legend>
 
@@ -234,7 +234,7 @@
               </div>
 
               <?php if($fields): ?>
-                <div class="tab-pane" id="extend">
+                <div class="tab-pane <?php echo is_class_active($tab, 'extend'); ?>" id="extend">
 
                   <fieldset>
 
@@ -253,7 +253,7 @@
             <?php endif; ?>
 
             <?php if(Auth::user()->role == 'administrator'): ?>
-              <div class="tab-pane" id="admin">
+              <div class="tab-pane <?php echo is_class_active($tab, 'admin'); ?>" id="admin">
 
                 <div class="form-group">
                   <div class="col-sm-offset-2 col-sm-10">

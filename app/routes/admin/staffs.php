@@ -232,6 +232,20 @@ Route::collection(array('before' => 'auth,csrf'), function() {
         $vars['staff'] = Staff::find($id);
         $vars['fields'] = Extend::fields('staff', $id);
         $division_roles = array();
+        $vars['tab'] = 'profile'; //default tab to open
+
+        $input = array_filter(
+        	filter_var_array(
+        		Input::get(array('edit')),
+        		array(
+		    		'edit' => FILTER_SANITIZE_SPECIAL_CHARS
+		    		)
+        	)
+        );
+
+        if ($input) {
+        	$vars['tab'] = $input['edit'];
+        }
 
         if ($report = Staff::find($vars['staff']->report_to)) {
           $vars['staff']->report_to = $report->display_name;
