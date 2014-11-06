@@ -43,7 +43,7 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 		$vars['token'] = Csrf::token();
         $vars['staffs'] = $pagination;
         $vars['divisions'] = Division::listing();
-        $vars['status'] = 'all';
+        $vars['status'] = 'active';
         $vars['roles'] = array(
             'administrator' => __('global.administrator'),
             'editor' => __('global.editor'),
@@ -164,6 +164,11 @@ Route::collection(array('before' => 'auth,csrf'), function() {
         $vars['divisions'] = Division::listing();
         $vars['division'] = $slug;
         $vars['status'] = $status;
+        $vars['roles'] = array(
+            'administrator' => __('global.administrator'),
+            'editor' => __('global.editor'),
+            'staff' => __('global.staff')
+        );
 
         return View::create('staffs/index', $vars)
           ->partial('header', 'partials/header')
@@ -213,6 +218,11 @@ Route::collection(array('before' => 'auth,csrf'), function() {
         $vars['staffs'] = $pagination;
         $vars['status'] = $status;
         $vars['divisions'] = Division::listing();
+        $vars['roles'] = array(
+            'administrator' => __('global.administrator'),
+            'editor' => __('global.editor'),
+            'staff' => __('global.staff')
+        );
 
         return View::create('staffs/index', $vars)
           ->partial('header', 'partials/header')
