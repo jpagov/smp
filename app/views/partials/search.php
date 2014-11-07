@@ -1,4 +1,4 @@
-<form class="inline-form" role="search">
+<form class="form-inline" role="search">
 	<div class="input-group">
 	    <input type="text" class="form-control" placeholder="Search" name="term" id="term" value="<?php echo admin_search_term(); ?>">
 	    <div class="input-group-btn">

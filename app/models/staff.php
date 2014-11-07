@@ -120,7 +120,7 @@ class Staff extends Base {
 		return array($total, $staffs);
 	}
 
-	public static function search($term, $page = 1, $per_page = 10, $filter = null, $division = null, $branch = null, $sector = null, $unit = null) {
+	public static function search($term, $page = 1, $per_page = 10, $object = false, $filter = null, $division = null, $branch = null, $sector = null, $unit = null) {
 
 		$search = array('slug', 'email', 'telephone', 'description');
 
@@ -156,13 +156,13 @@ class Staff extends Base {
 			}
 		}
 
-		$total = $query->count();
+		$count = $query->count();
 
 		$staffs = $query->take($per_page)
 		->skip(--$page * $per_page)
 		->get(array(static::fields()));
 
-		return array($total, $staffs);
+		return ($object) ? new Paginator($staffs, $count, $page, $per_page, Uri::to('admin/staffs')) : array($count, $staffs);
 	}
 
 	public static function paginate($page = 1, $perpage = 10) {

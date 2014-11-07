@@ -19,11 +19,28 @@ var SMP = {
   common: {
     init: function(){
 
+    	// we assume all devices has touch screen and lets trigger all bootstrap
+    	// event with 'click', when we see mouse event then we change trigger to // hover
+    	//$( "body" ).one('mouseenter', function() {
+    	//	console.log("mouse enter");
+    	//}).one('mouseleave', function() {
+    	//	console.log("mouse leave");
+    	//});
+
+    	// to listen every time
+    	/*
+			$( "body" ).mouseenter(function() {
+
+				}).mouseleave(function() {
+
+			});
+			*/
+
     	var path = '/' + window.location.pathname.split('/')[1] || '/';
 
         $(document).keydown(function(e) {
             //console.log(e.keyCode);
-            if(e.keyCode == 72) {
+            if(e.keyCode == 72 && (window.location.pathname).indexOf("admin") < 0 ) {
                 $("#term").focus();
             }
             if(e.shiftKey && e.keyCode == 191) {
@@ -51,7 +68,7 @@ var SMP = {
 				});
 
         $('.navbar-right .view').popover({
-            trigger: 'hover',
+            trigger: 'hover click',
             placement: 'auto bottom'
         });
 
@@ -135,7 +152,7 @@ var SMP = {
       $('a[rel=popover]').popover({
           html: true,
           delay: { show: 100, hide: 1000 },
-          trigger: "hover focus",
+          trigger: "hover focus click",
           content: function () {
 
               var hovercard = ['<div class="media block-update-card">',

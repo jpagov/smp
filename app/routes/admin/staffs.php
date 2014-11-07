@@ -7,13 +7,14 @@ Route::collection(array('before' => 'auth,csrf'), function() {
     */
     Route::get(array('admin/staffs', 'admin/staffs/(:num)'), function($page = 1) {
 
-    	$input = filter_var_array(Input::get(array('term')), array(
+    	$input = array_filter(filter_var_array(Input::get(array('term')), array(
 		    'term' => FILTER_SANITIZE_SPECIAL_CHARS
-		));
+		)));
 
         $vars['messages'] = Notify::read();
+        $staffs = false;
 
-        if (array_filter($input)) {
+        if ($input) {
 
         	$validator = new Validator($input);
 
@@ -26,22 +27,20 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 		        return Response::redirect(Uri::current());
 		    }
 
-        	$query = Staff::where('display_name', 'like', '%' . $input['term'] . '%');
-        	Registry::set('admin_search_term', $input['term']);
+		    $term = $input['term'];
+
+			$staffs = Staff::search($term, $page, Config::meta('staffs_per_page'), true);
+
+        	Registry::set('admin_search_term', $term);
+
         } else {
-        	$query = Query::table(Base::table('staffs'));
+
+        	$staffs = Staff::paginate($page, Config::meta('staffs_per_page'));
+
         }
 
-		$count = $query->count();
-
-		$perpage = Config::meta('staffs_per_page');
-
-		$results = $query->take($perpage)->skip(($page - 1) * $perpage)->sort('grade', 'desc')->get(array(Staff::fields()));
-
-		$pagination =  new Paginator($results, $count, $page, $perpage, Uri::to('admin/staffs'));
-
 		$vars['token'] = Csrf::token();
-        $vars['staffs'] = $pagination;
+        $vars['staffs'] = $staffs;
         $vars['divisions'] = Division::listing();
         $vars['status'] = 'active';
         $vars['roles'] = array(

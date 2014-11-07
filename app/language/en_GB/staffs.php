@@ -101,4 +101,10 @@ return array(
 	'recovery_message' => 'You have requested to reset your password.' .
 	'To continue follow the link below.' . PHP_EOL . '%s',
 
+	// search filter
+	'search_filter' => 'Filter',
+	'search_filter_no_email' => 'No email address',
+	'search_filter_no_telephone' => 'No telephone number',
+
+
 	);
