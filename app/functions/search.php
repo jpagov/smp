@@ -33,6 +33,61 @@ function has_search_pagination() {
 	return Registry::get('total_staffs') > Config::meta('staffs_per_page');
 }
 
+function search_links($first = 'First', $next = 'Next', $prev = 'Prev', $last = 'Last') {
+
+	$per_page = Config::meta('staffs_per_page');
+	$page = Registry::get('page_offset');
+
+	$offset = ($page - 1) * $per_page;
+	$total = Registry::get('total_staffs');
+
+	$search_page = Registry::get('page');
+	$nexturl = (($page + 1) == 1) ? '' : '/' . ($page + 1);
+	$term = Registry::get('search_term');
+
+	$url = base_url($search_page->slug . $nexturl . '/?term=' . $term);
+
+	$html = '';
+
+	$pages = ceil($total / $per_page);
+	$range = 4;
+
+	if($pages > 1) {
+
+		if($page > 1) {
+			$local = $page - 1;
+
+			$html = '<li><a href="' . $url . '">' . $first . '</a></li>
+				<li><a href="' . $url . '/' . $local . '">' . $prev . '</a></li>';
+		}
+
+		for($i = $page - $range; $i < $page + $range; $i++) {
+			if($i < 0) continue;
+
+			$local = $i + 1;
+
+			if($local > $pages) break;
+
+			if($local == $page) {
+				$html .= '<li class="active"><span>' . $local . '<span class="sr-only">(current)</span></span></li>';
+			}
+			else {
+				$html .= '<li><a href="' . $url . '/' . $local . '">' . $local . '</a></li>';
+			}
+		}
+
+		if($page < $pages) {
+			$local = $page + 1;
+
+			$html .= '<li><a href="' . $url . '/' . $local . '">' . $next . '</a></li>
+				<li><a href="' . $url . '/' . $pages . '">' . $last . '</a></li>';
+		}
+
+	}
+
+	return $html;
+}
+
 function search_next($text = 'Next', $default = '') {
 	$per_page = Config::meta('staffs_per_page');
 	$page = Registry::get('page_offset');

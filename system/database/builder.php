@@ -102,7 +102,34 @@ abstract class Builder {
 		}
 
 		if(count($this->where)) {
+
+			// hack: wrap with `(` and `)` when use where or
+			$first = array_shift(array_values($this->where));
+			$last = end($this->where);
+
+			foreach($this->where as $k=>$v) {
+			    if (strpos($first, 'WHERE (') !== false) {
+
+			    	$hack = 'AND ';
+					$pos = strpos($v, $hack);
+
+					// match the first occurence. if found add `)` and break
+			    	if (strpos($v, $hack) !== false) {
+
+			    		// check if already have `) AND `
+			    		if (strpos($v, ') AND ') !== false) {
+			    			break;
+			    		}
+
+			        	$this->where[$k] = substr_replace($v, ') AND ', $pos, strlen($hack));
+			        	break;
+			        }
+			    }
+			}
+
 			$sql .= ' ' . implode(' ', $this->where);
+
+
 		}
 
 		if(count($this->groupby)) {

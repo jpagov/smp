@@ -61,12 +61,14 @@ Route::post('admin/login', array('before' => 'csrf', 'main' => function() {
 
 	Staff::update(Auth::user()->id, array('last_visit' => Date::mysql('now')));
 
-    if ($redirect = Session::get('redirect')) {
+	$redirect = 'admin/staffs';
+
+    if (Session::get('redirect')) {
+    	$redirect = Session::get('redirect');
         Session::erase('redirect');
-        return Response::redirect($redirect);
     }
 
-    $division = Division::find(Auth::user()->division)->slug;
+    $division = Division::find(Auth::user()->division)->id;
 
 	// check for updates
 	//Update::version();
@@ -76,7 +78,7 @@ Route::post('admin/login', array('before' => 'csrf', 'main' => function() {
 		return Response::redirect('admin/upgrade');
 	}
 
-	return Response::redirect(($division) ? 'admin/staffs/division/' . $division : 'admin/staffs');
+	return Response::redirect(($division) ? 'admin/staffs?division[]=' . $division : $redirect);
 }));
 
 /*
@@ -84,7 +86,7 @@ Route::post('admin/login', array('before' => 'csrf', 'main' => function() {
 */
 Route::get('admin/logout', function() {
 	Auth::logout();
-	Notify::notice(__('users.logout_notice'));
+	Notify::warning(__('users.logout_notice'));
 	return Response::redirect('admin/login');
 });
 

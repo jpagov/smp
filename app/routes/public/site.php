@@ -349,11 +349,13 @@ Route::get(array('search', 'search/(:any)', 'search/(:any)/(:num)'), function($t
     //$term = htmlspecialchars($term);
     $term = filter_var(trim($term), FILTER_SANITIZE_SPECIAL_CHARS);
 
+    //dd($term);
+
     Session::put($term, $term);
     //$term = Session::get($slug); //this was for POST only searches
 
     // revert double-dashes back to spaces
-    $term = str_replace('--', ' ', $term);
+    $term = str_replace('+', ' ', $term);
 
   	$search = Search::create(array(
   		'search' => $term,
@@ -406,7 +408,7 @@ Route::post('search', function() {
     $term = $input['term'];
 
     // replace spaces with double-dash to pass through url
-    $term = str_replace(' ', '--', $term);
+    $term = str_replace(' ', '+', $term);
 
     Session::put($term, $term);
 

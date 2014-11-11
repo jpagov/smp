@@ -120,43 +120,65 @@ class Staff extends Base {
 		return array($total, $staffs);
 	}
 
-	public static function search($term, $page = 1, $per_page = 10, $object = false, $filter = null, $division = null, $branch = null, $sector = null, $unit = null) {
+	public static function search($term, $page = 1, $per_page = 10, $object = false, $filter = array()) {
 
-		$search = array('slug', 'email', 'telephone', 'description');
+		$search = array('display_name', 'slug', 'email', 'telephone', 'description');
 
-		if ($filter) {
-			$search = array_merge($filter, $search);
-		}
-
+		$filter = array_filter($filter);
+		$status = 'active';
 
 		$query = Query::table(static::table());
 
-		if ($division) {
-			$query = $query->left_join(Base::table('divisions'), Base::table('divisions.id'), '=', Base::table('staffs.division'))->where(Base::table('staffs.division'), '=', $division);
-		}
-
-		if ($branch) {
-			$query = $query->left_join(Base::table('branchs'), Base::table('branchs.id'), '=', Base::table('staffs.branch'))->where(Base::table('staffs.branch'), '=', $branch);
-		}
-
-		if ($sector) {
-			$query = $query->left_join(Base::table('sectors'), Base::table('sectors.id'), '=', Base::table('staffs.sector'))->where(Base::table('staffs.sector'), '=', $sector);
-		}
-
-		if ($unit) {
-			$query = $query->left_join(Base::table('units'), Base::table('units.id'), '=', Base::table('staffs.unit'))->where(Base::table('staffs.unit'), '=', $unit);
-		}
-
-		$query = $query->where(Base::table('staffs.status'), '=', 'active')
-		->where(Base::table('staffs.display_name'), 'like', '%' . $term . '%');
-
-		if ($search) {
+		if ($term) {
 			foreach($search as $value) {
-				$query = $query->or_where(Base::table('staffs.' . $value), 'like', '%' . $term . '%');
+				$query->or_where(Base::table('staffs.' . $value), 'like', '%' . $term . '%');
 			}
 		}
 
+		if (isset($filter['division'])) {
+
+			//$query->left_join(Base::table('divisions'), Base::table('divisions.id'), '=', Base::table('staffs.division'));
+
+			if (is_array($filter['division'])) {
+
+				if (count($filter['division']) == 1) {
+					$query->where(Base::table('staffs.division'), '=', $filter['division'][0]);
+				} else {
+					foreach ($filter['division'] as $division) {
+						$query->where_in(Base::table('staffs.division'), $filter['division']);
+					}
+				}
+			}
+			unset($filter['division']);
+		}
+
+		if (isset($filter['branch'])) {
+			$query->where('branch', '=', $filter['branch']);
+			unset($filter['branch']);
+		}
+
+		if (isset($filter['sector'])) {
+			$query->where('sector', '=', $filter['sector']);
+			unset($filter['sector']);
+		}
+
+		if (isset($filter['unit'])) {
+			//$query->left_join(Base::table('units'), Base::table('units.id'), '=', Base::table('staffs.unit'))->where(Base::table('staffs.unit'), '=', $filter['unit']);
+			$query->where('unit', '=', $filter['unit']);
+			unset($filter['unit']);
+		}
+
+
+		if (isset($filter['status'])) {
+			$status = $filter['status'];
+			unset($filter['status']);
+		}
+
+		$query->where('status', '=', $status);
+
 		$count = $query->count();
+
+		$query->sort('grade', 'desc');
 
 		$staffs = $query->take($per_page)
 		->skip(--$page * $per_page)

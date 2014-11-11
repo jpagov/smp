@@ -1,10 +1,13 @@
 <?php theme_include('header'); ?>
 
+<h1 class="page-header">Search Results</h1>
+
 <?php echo search_form_notifications(); ?>
 
-<h1 class="wrap">You searched for &ldquo;<?php echo search_term(); ?>&rdquo;.</h1>
-
 <?php if(has_search_results()): ?>
+
+	<p class="lead"><strong class="text-danger"><?php echo total_search_results(); ?></strong> results were found for the search for &ldquo;<strong class="text-danger"><?php echo search_term(); ?></strong>&rdquo;</p>
+
 	<ul class="items">
 		<?php $i = 0; while(search_results()): $i++; ?>
 		<li style="background: hsl(215,28%,<?php echo round((($i / staffs_per_page()) * 20) + 20); ?>%);">
@@ -17,17 +20,18 @@
 		<?php endwhile; ?>
 	</ul>
 
-	<?php if(has_pagination()): ?>
-	<nav class="pagination">
-		<div class="wrap">
-			<?php echo search_prev(); ?>
-			<?php echo search_next(); ?>
-		</div>
-	</nav>
+	<?php if(has_search_pagination()): ?>
+		<?php if (search_links()) : ?>
+			<ul class="pagination">
+				<?php echo search_links(); ?>
+			</ul>
+	<?php endif; ?>
+
 	<?php endif; ?>
 
 <?php else: ?>
-	<p class="wrap"><?php echo __('site.search_noresult', search_term()); ?></p>
+	<p class="lead"><?php echo __('site.search_noresult', search_term()); ?></p>
 <?php endif; ?>
+
 
 <?php theme_include('footer'); ?>

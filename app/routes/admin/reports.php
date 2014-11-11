@@ -84,9 +84,6 @@ Route::collection(array('before' => 'auth,admin,csrf'), function() {
 
 		$input = array_filter($input);
 
-		if ($input and isset($input['division'])) {
-			# code...
-		}
 		$vars['division'] = ($input and isset($input['division'])) ? $input['division'] : 'all';
 
 		$vars['trend'] = 'D';

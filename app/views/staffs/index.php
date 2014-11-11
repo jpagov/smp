@@ -10,7 +10,8 @@
 
 	<div class="col col-lg-9">
 
-	<?php echo $search; ?>
+		<form class="form-inline" role="search">
+			<?php echo $search; ?>
 
 		<div class="table-responsive">
 			<table class="table table-hover">
@@ -20,149 +21,125 @@
 						<th><?php echo __('staffs.name'); ?></th>
 						<th><?php echo __('staffs.email'); ?></th>
 						<!--th><?php echo __('staffs.role'); ?></th-->
-            <th><?php echo __('staffs.telephone'); ?></th>
+						<th><?php echo __('staffs.telephone'); ?></th>
 						<th><?php echo __('staffs.status'); ?></th>
-						<?php if (Auth::admin()): ?><th><?php echo __('staffs.role'); ?></th><?php endif; ?>
+						<th><?php echo __('staffs.role'); ?></th>
 					</tr>
 				</thead>
 				<tbody>
 					<?php foreach($staffs->results as $staff): ?>
-					<tr class="status draft">
-						<td><?php echo $staff->id; ?></td>
-						<td><a href="<?php echo Uri::to('admin/staffs/edit/' . $staff->id); ?>" title=""><?php echo $staff->display_name; ?></a></td>
-						<td><?php echo $staff->email; ?></td>
-						<td><?php echo $staff->telephone; ?></td>
-						<td><abbr title="<?php echo Date::format($staff->created); ?>"><?php echo __('global.' . $staff->status); ?></abbr></td>
-						<?php if (Auth::admin()): ?><td>
-							<input name="staff-id-<?php echo $staff->id; ?>" type="hidden" value="<?php echo $staff->id; ?>">
-							<?php
-							$attr = array(
-								'class' => 'form-control input-sm',
-								'id' => 'role',
-							);
+						<tr class="status draft">
+							<td><?php echo $staff->id; ?></td>
+							<td><a href="<?php echo Uri::to('admin/staffs/edit/' . $staff->id); ?>" title=""><?php echo $staff->display_name; ?></a></td>
+							<td><?php echo $staff->email; ?></td>
+							<td><?php echo $staff->telephone; ?></td>
+							<td><abbr title="<?php echo Date::format($staff->created); ?>"><?php echo __('global.' . $staff->status); ?></abbr></td>
+							<td><?php echo ucfirst($staff->role); ?></td>
 
-							if (!$staff->account) {
-								$attr['disabled'] = 'disabled';
-							}
-							 ?>
-							<?php echo Form::select('role', $roles, Input::previous('role', $staff->role), $attr); ?></td><?php endif; ?>
-					</tr>
-					<?php endforeach; ?>
-				</tbody>
-			</table>
+							</tr>
+						<?php endforeach; ?>
+					</tbody>
+				</table>
 
-      <?php if ($staffs->links()) : ?>
-        <ul class="pagination">
-         <?php echo $staffs->links(); ?>
-       </ul>
-     <?php endif; ?>
+				<?php if ($staffs->links()) : ?>
+					<ul class="pagination">
+						<?php echo $staffs->links(); ?>
+					</ul>
+				<?php endif; ?>
 
+			</div>
 		</div>
-	</div>
 
-	<div class="col col-lg-3">
+		<div class="col col-lg-3">
 
-		<nav class="sidebar">
+			<nav class="sidebar">
 
-			<div class="panel-group" id="accordion">
-				<div class="panel panel-default">
+				<div class="panel-group" id="accordion">
 
-					<div class="panel-heading">
-						<h4 class="panel-title">
-					        <a data-toggle="collapse" data-parent="#accordion" href="#collapseDivision" title="Filter by Division">
-					          Division <span class="pull-right division-toggle glyphicon glyphicon-plus"></span>
-					        </a>
-					    </h4>
-					</div><!--/.panel-heading -->
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<h4 class="panel-title">
+									<a class="accordion-toggle" data-toggle="collapse" href="#collapseDivision">
+										Division
+									</a>
+									<button type="submit" class="btn btn-primary btn-xs">Submit</button>
+								</h4>
+							</div>
+							<div id="collapseDivision" class="panel-collapse collapse <?php if (count($divisions) > 3) echo 'in'; ?>">
 
-					<div id="collapseDivision" class="panel-collapse collapse <?php echo (count($divisions) > 3) ? '' : 'in'; ?>">
-						<div class="list-group">
+								<ul class="list-group checked-list-box">
 
-			        		<?php echo Html::link('admin/staffs', '<span class="icon"></span> ' . __('global.all'), array(
-			        			'class' => (!isset($division)) ? 'list-group-item active' : 'list-group-item'
-			        		)); ?>
+									<?php echo Html::link('admin/staffs', '<span class="icon"></span> ' . __('global.all'), array(
+										'class' => (!isset($division)) ? 'list-group-item active' : 'list-group-item'
+										)); ?>
 
-			        		<?php
-			        		foreach($divisions as $div):
+										<?php foreach($divisions as $div): ?>
 
-			                    $division_link = 'admin/staffs/division/' . $div->slug;
+											<li class="list-group-item<?php if (isset($division) && in_array($div->id, $division)) echo ' list-group-item-primary active'; ?>" style="cursor: pointer;">
 
-			                    if ($status != 'all') {
-			                        $division_link = 'admin/staffs/division/' . $div->slug . '/' .'status/' . $status;
-			                    }
+											<span class="state-icon glyphicon glyphicon-<?php echo (isset($division) && in_array($div->id, $division)) ? 'check' : 'unchecked'; ?>"></span>
 
-			                    if ($staffs->links() && $staffs->page != 1) {
-			                        $division_link .= '/' . $staffs->page;
-			                    }
-			        		?>
-			        			<?php echo Html::link($division_link, '<span class="icon"></span> ' . strtoupper($div->slug), array(
-			        				'class' => (isset($division) && $division == $div->slug) ? 'list-group-item active' : 'list-group-item',
-			        				'badge' => $div->staff
-			        			)); ?>
-			        			<?php endforeach; ?>
-			             </div>
+											<?php echo strtoupper($div->slug); ?>
+
+											<input class="hidden" type="checkbox" name="division[]" value="<?php echo $div->id; ?>"<?php if (isset($division) && in_array($div->id, $division)) echo ' checked'; ?>>
+
+											</li>
+										<?php endforeach; ?>
+									</ul>
+
+								</div>
+							</div><!--/.panel panel-default -->
+
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									<h4 class="panel-title">
+										<a class="accordion-toggle" data-toggle="collapse" href="#collapseStatus">
+											Status
+										</a>
+									</h4>
+								</div>
+								<div id="collapseStatus" class="panel-collapse collapse in">
+
+									<ul class="list-group checked-list-box">
+
+										<?php
+
+										echo Html::link('admin/staffs', '<span class="icon"></span> ' . __('global.all'), array(
+											'class' => ($status == 'all') ? 'list-group-item active' : 'list-group-item'
+											)); ?>
+
+											<?php foreach(array('active', 'inactive') as $type): ?>
+												<li class="list-group-item"<?php if ($status == $type) echo ' data-checked="true"'; ?>><?php echo __('global.' . $type); ?></li>
+											<?php endforeach; ?>
+										</ul>
+
+									</div>
+								</div>
+								<div class="panel panel-default">
+									<div class="panel-heading">
+										<h4 class="panel-title">
+											<a class="accordion-toggle" data-toggle="collapse" href="#collapseThree">
+												Collapsible Group Item #3
+											</a>
+										</h4>
+									</div>
+									<div id="collapseThree" class="panel-collapse collapse">
+										<div class="panel-body">
+											Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+										</div>
+									</div>
+								</div>
+							</div>
+
+
+
+
+
+						</nav>
+
 					</div>
-				</div><!--/.panel panel-default -->
 
-				<div class="panel panel-default">
+					</form>
+				</div>
 
-					<div class="panel-heading">
-						<h4 class="panel-title">
-					        <a data-toggle="collapse" data-parent="#accordion" href="#collapseStatus" title="Filter by Status">
-					          Status <span class="pull-right status-toggle glyphicon glyphicon-minus"></span>
-					        </a>
-					    </h4>
-					</div><!--/.panel-heading -->
-
-					<div id="collapseStatus" class="panel-collapse collapse in">
-						<div class="list-group">
-
-			                <?php
-
-			                echo Html::link(isset($division) ? 'admin/staffs/division/' . $division : 'admin/staffs', '<span class="icon"></span> ' . __('global.all'), array(
-			                    'class' => ($status == 'all') ? 'list-group-item active' : 'list-group-item'
-			                )); ?>
-
-			                <?php
-			                foreach(array('active', 'inactive') as $type):
-
-			                    $query = Query::table(Base::table('staffs'))->where('status', '=', $type);
-
-			                    $status_link = 'admin/staffs/status/' . $type;
-
-			                    if (isset($division)) {
-			                        $query = $query->where('division', '=', $division);
-			                        $status_link = 'admin/staffs/division/' . $division . '/' .'status/' . $type;
-			                    }
-
-			                    if ($staffs->links() && $staffs->page != 1) {
-			                        $status_link .= '/' . $staffs->page;
-			                    }
-
-			                    $status_count = $query->count();
-			                ?>
-			                    <?php echo Html::link($status_link, '<span class="icon"></span> ' . __('global.' . $type), array(
-			                        'class' => ($status == $type) ? 'list-group-item active' : 'list-group-item',
-			                        'badge' => $status_count
-			                    )); ?>
-			                    <?php endforeach; ?>
-			             </div>
-					</div>
-
-				</div><!--/.panel panel-default -->
-
-
-			</div><!--/.panel-group -->
-
-
-
-
-
-		</nav>
-
-	</div>
-
-
-	</div>
-
-<?php echo $footer; ?>
+				<?php echo $footer; ?>

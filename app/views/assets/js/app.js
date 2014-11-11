@@ -376,6 +376,49 @@ var SMP = {
         source: units.ttAdapter()
       });
 
+      $('.list-group.checked-list-box .list-group-item').each(function () {
+
+      	var $widget = $(this),
+      			$checkbox = $widget.find('input')
+      			color = ($widget.data('color') ? $widget.data('color') : "primary"),
+              style = ($widget.data('style') == "button" ? "btn-" : "list-group-item-"),
+              settings = {
+                  on: {
+                      icon: 'glyphicon glyphicon-check'
+                  },
+                  off: {
+                      icon: 'glyphicon glyphicon-unchecked'
+                  }
+              };
+
+      	$widget.on('click', function () {
+      			$checkbox.prop('checked', !$checkbox.is(':checked'));
+            $checkbox.triggerHandler('change');
+            updateDisplay();
+        });
+
+        // Actions
+        function updateDisplay() {
+            var isChecked = $checkbox.is(':checked');
+
+            // Set the button's state
+            $widget.data('state', (isChecked) ? "on" : "off");
+
+            // Set the button's icon
+            $widget.find('.state-icon')
+                .removeClass()
+                .addClass('state-icon ' + settings[$widget.data('state')].icon);
+
+            // Update the button's color
+            if (isChecked) {
+                $widget.addClass(style + color + ' active');
+            } else {
+                $widget.removeClass(style + color + ' active');
+            }
+        }
+
+      });
+
     },
 
     categories: function() {
