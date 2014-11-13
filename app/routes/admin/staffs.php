@@ -278,7 +278,7 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 		Extend::process('staff', $id, $input['email']);
 
 		if ($division = $input['division']) {
-
+			$hierarchy['staff'] = $id;
 			$hierarchy['division'] = $division;
 
 			// hierarchy

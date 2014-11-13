@@ -97,7 +97,9 @@ function staff_grade() {
 }
 
 function staff_description() {
-    return Registry::prop('staff', 'description', false);
+	$desc = trim(Registry::prop('staff', 'description', false));
+
+    return ($desc) ? $desc : __('site.no_desc');
 }
 
 
@@ -148,6 +150,26 @@ function staff_view() {
 
     return $stats;
 }
+
+function staff_hierarchy() {
+	if($hierarchy = Hierarchy::where('staff', '=', staff_id())->fetch()) {
+
+		$org = array();
+
+		foreach (array('division', 'branch', 'sector', 'unit') as $item) {
+			if ($hierarchy->$item) {
+				if ($h = $item::find($hierarchy->$item)) {
+					$org[] = '<span itemprop="department/'. $item .'">' . $h->title . '</span>';
+				}
+			}
+		}
+
+		return (!empty(array_filter($org))) ? implode(', ', $org) : __('site.no_hierarchy');
+
+	}
+	return false;
+}
+
 
 function staff_division_title() {
 	if($division = Registry::prop('staff', 'division')) {

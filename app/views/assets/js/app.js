@@ -41,7 +41,7 @@ var SMP = {
         $(document).keydown(function(e) {
             //console.log(e.keyCode);
             if(e.keyCode == 72 && (window.location.pathname).indexOf("admin") < 0 ) {
-                $("#term").focus();
+                $("#search-term").focus();
             }
             if(e.shiftKey && e.keyCode == 191) {
                 e.preventDefault();
@@ -108,6 +108,55 @@ var SMP = {
 				  // set the window's location property to the value of the option the
 				  window.location = location.pathname + '?trend=' + $(this).val();
 				});
+
+				$('.list-group.checked-list-box .list-group-item').each(function () {
+
+      	var $widget = $(this),
+      			$checkbox = $widget.find('input')
+      			color = ($widget.data('color') ? $widget.data('color') : "primary"),
+              style = ($widget.data('style') == "button" ? "btn-" : "list-group-item-"),
+              settings = {
+                  on: {
+                      icon: 'glyphicon glyphicon-check'
+                  },
+                  off: {
+                      icon: 'glyphicon glyphicon-unchecked'
+                  }
+              };
+
+      	$widget.on('click', function () {
+      			$checkbox.prop('checked', !$checkbox.is(':checked'));
+            $checkbox.triggerHandler('change');
+            updateDisplay();
+        });
+
+        // Actions
+        function updateDisplay() {
+            var isChecked = $checkbox.is(':checked');
+
+            // Set the button's state
+            $widget.data('state', (isChecked) ? "on" : "off");
+
+            // Set the button's icon
+            $widget.find('.state-icon')
+                .removeClass()
+                .addClass('state-icon ' + settings[$widget.data('state')].icon);
+
+            // Update the button's color
+            if (isChecked) {
+          		$checkbox.appendTo('form#search');
+              $widget.addClass(style + color + ' active');
+            } else {
+            	$('form#search input[value=' + $checkbox.val() +']').remove();
+              $widget.removeClass(style + color + ' active');
+            }
+        }
+
+        $('#submit-division').click(function(){
+		        $('form#search').submit();
+		    })
+
+      });
 
     }
   },
@@ -374,49 +423,6 @@ var SMP = {
         name: 'units',
         displayKey: 'name',
         source: units.ttAdapter()
-      });
-
-      $('.list-group.checked-list-box .list-group-item').each(function () {
-
-      	var $widget = $(this),
-      			$checkbox = $widget.find('input')
-      			color = ($widget.data('color') ? $widget.data('color') : "primary"),
-              style = ($widget.data('style') == "button" ? "btn-" : "list-group-item-"),
-              settings = {
-                  on: {
-                      icon: 'glyphicon glyphicon-check'
-                  },
-                  off: {
-                      icon: 'glyphicon glyphicon-unchecked'
-                  }
-              };
-
-      	$widget.on('click', function () {
-      			$checkbox.prop('checked', !$checkbox.is(':checked'));
-            $checkbox.triggerHandler('change');
-            updateDisplay();
-        });
-
-        // Actions
-        function updateDisplay() {
-            var isChecked = $checkbox.is(':checked');
-
-            // Set the button's state
-            $widget.data('state', (isChecked) ? "on" : "off");
-
-            // Set the button's icon
-            $widget.find('.state-icon')
-                .removeClass()
-                .addClass('state-icon ' + settings[$widget.data('state')].icon);
-
-            // Update the button's color
-            if (isChecked) {
-                $widget.addClass(style + color + ' active');
-            } else {
-                $widget.removeClass(style + color + ' active');
-            }
-        }
-
       });
 
     },

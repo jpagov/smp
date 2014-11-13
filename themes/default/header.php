@@ -58,11 +58,20 @@
             </ul>
           <?php endif; ?>
           <div class="col-md-6">
-          <form class="navbar-form" role="search" action="<?php echo search_url(); ?>" method="post" id="search">
+          <form class="navbar-form" role="search" action="<?php echo search_url(); ?>" id="search">
             <div class="input-group col-md-12">
-              <input type="text" class="form-control search-query typeahead" id="term" name="term" placeholder="To search, type and hit enter&hellip;" value="<?php echo search_term(); ?>">
+              <input type="text" class="form-control search-query typeahead" id="search-term" name="term" placeholder="To search, type and hit enter&hellip;" value="<?php echo search_term(); ?>">
               <button class="sr-only" type="submit">Submit</button>
             </div>
+
+            <?php foreach (search_divisions() as $division): ?>
+            	<input class="hidden" type="checkbox" name="division[]" value="<?php echo $division; ?>" checked="checked">
+            <?php endforeach; ?>
+
+            <?php foreach (search_in() as $field): ?>
+            	<input class="hidden" type="checkbox" name="in[]" value="<?php echo $field; ?>" checked="checked">
+            <?php endforeach; ?>
+
           </form>
           </div>
           <?php if(!staff_id()) : ?>

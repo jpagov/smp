@@ -120,9 +120,17 @@ class Staff extends Base {
 		return array($total, $staffs);
 	}
 
-	public static function search($term, $page = 1, $per_page = 10, $object = false, $filter = array()) {
+	public static function search($term, $page = 1, $per_page = 10, $object = false, $filter = array(), $field = array()) {
 
-		$search = array('display_name', 'slug', 'email', 'telephone', 'description');
+		// valid field to search
+		$valid = array('display_name', 'slug', 'email', 'telephone', 'description');
+
+		// default we search for name only
+		if (empty($field)) {
+			$field = array('display_name');
+		}
+
+		$search = array_intersect_assoc($valid, $field);
 
 		$filter = array_filter($filter);
 		$status = 'active';
@@ -141,7 +149,7 @@ class Staff extends Base {
 
 			if (is_array($filter['division'])) {
 
-				if (count($filter['division']) == 1) {
+				if (count($filter['division']) == 1 and !empty($filter['division'][0])) {
 					$query->where(Base::table('staffs.division'), '=', $filter['division'][0]);
 				} else {
 					foreach ($filter['division'] as $division) {
@@ -175,7 +183,7 @@ class Staff extends Base {
 		}
 
 		$query->where('status', '=', $status);
-
+		//dd($query);
 		$count = $query->count();
 
 		$query->sort('grade', 'desc');

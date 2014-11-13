@@ -96,3 +96,11 @@ function is_page() {
 function is_division() {
 	return Registry::get('division') !== null;
 }
+
+function is_search() {
+	return Registry::prop('page', 'id') === 0;
+}
+
+function truncate($text = '', $chars = 100) {
+	return strlen($text) > $chars ? substr($text, 0, $chars) . "..." : $text;
+}

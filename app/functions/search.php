@@ -42,10 +42,24 @@ function search_links($first = 'First', $next = 'Next', $prev = 'Prev', $last = 
 	$total = Registry::get('total_staffs');
 
 	$search_page = Registry::get('page');
-	$nexturl = (($page + 1) == 1) ? '' : '/' . ($page + 1);
-	$term = Registry::get('search_term');
 
-	$url = base_url($search_page->slug . $nexturl . '/?term=' . $term);
+	//$nexturl = (($page + 1) == 1) ? '' : '/' . ($page + 1);
+
+	$term = Registry::get('search_term');
+	$divisions = Registry::get('search_division');
+
+	$url = base_url($search_page->slug);
+	$params = '?term=' . $term;
+
+	$querystring = array();
+
+	if ($divisions and array_filter($divisions)) {
+		$querystring = array_map(function ($div) {
+			return 'division[]=' . $div;
+		}, $divisions);
+
+		$params .= '&' . implode('&', $querystring);
+	}
 
 	$html = '';
 
@@ -57,8 +71,13 @@ function search_links($first = 'First', $next = 'Next', $prev = 'Prev', $last = 
 		if($page > 1) {
 			$local = $page - 1;
 
-			$html = '<li><a href="' . $url . '">' . $first . '</a></li>
-				<li><a href="' . $url . '/' . $local . '">' . $prev . '</a></li>';
+			$html = '<li><a href="' . $url . $params .  '">' . $first . '</a></li>';
+				if ($local > 1) {
+					$html .= '<li><a href="' . $url . $params . '">' . $prev . '</a></li>';
+				} else {
+					$html .= '<li><a href="' . $url . '/' . $local . '/' . $params . '">' . $prev . '</a></li>';
+				}
+
 		}
 
 		for($i = $page - $range; $i < $page + $range; $i++) {
@@ -72,15 +91,20 @@ function search_links($first = 'First', $next = 'Next', $prev = 'Prev', $last = 
 				$html .= '<li class="active"><span>' . $local . '<span class="sr-only">(current)</span></span></li>';
 			}
 			else {
-				$html .= '<li><a href="' . $url . '/' . $local . '">' . $local . '</a></li>';
+				if ($local > 1) {
+					$html .= '<li><a href="' . $url . '/' . $local . '/' . $params . '">' . $local . '</a></li>';
+				} else {
+
+					$html .= '<li><a href="' . $url .  $params . '">' . $local . '</a></li>';
+				}
 			}
 		}
 
 		if($page < $pages) {
 			$local = $page + 1;
 
-			$html .= '<li><a href="' . $url . '/' . $local . '">' . $next . '</a></li>
-				<li><a href="' . $url . '/' . $pages . '">' . $last . '</a></li>';
+			$html .= '<li><a href="' . $url . '/' . $local . '/' . $params .'">' . $next . '</a></li>
+				<li><a href="' . $url . '/' . $pages . '/' . $params .'">' . $last . '</a></li>';
 		}
 
 	}
@@ -144,4 +168,20 @@ function search_form_input($extra = '') {
 
 function search_form_notifications() {
   return Notify::read();
+}
+
+function search_divisions_all() {
+	return Registry::get('divisions', false);
+}
+
+function search_divisions() {
+	return Registry::get('search_division', array());
+}
+
+function search_in_all() {
+	return Registry::get('search_in_all');
+}
+
+function search_in() {
+	return Registry::get('search_in', array('display_name'));
 }
