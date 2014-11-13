@@ -66,10 +66,14 @@
 					<a class="accordion-toggle" data-toggle="collapse" href="#collapseDivision">
 						Division
 					</a>
-					<button type="button" class="btn btn-primary btn-xs" id="submit-division">Submit</button>
+
 				</h4>
 			</div>
-			<div id="collapseDivision" class="panel-collapse collapse <?php if (count(search_divisions_all()) > 3) echo 'in'; ?>">
+			<div id="collapseDivision" class="panel-collapse collapse <?php if (count(search_divisions())) echo 'in'; ?>">
+
+				<div class="panel-body hidden" id="search-sidebar-division">
+			    	<button type="button" class="btn btn-success btn-xs submit-search-sidebar btn-division btn-block <?php if (count(search_divisions()) < 1) echo 'hidden'; ?>">Submit</button>
+			  	</div>
 
 				<ul class="list-group checked-list-box" id="check-list-box-division">
 
@@ -96,9 +100,14 @@
 					<a class="accordion-toggle" data-toggle="collapse" href="#collapseField">
 						Search for
 					</a>
+
 				</h4>
 			</div>
-			<div id="collapseField" class="panel-collapse collapse <?php if (count(search_in_all()) > 3) echo 'in'; ?>">
+			<div id="collapseField" class="panel-collapse collapse <?php if (count(search_in_all())) echo 'in'; ?>">
+
+				<div class="panel-body hidden" id="search-sidebar-field">
+			    	<button type="button" class="btn btn-success btn-xs submit-search-sidebar btn-field btn-block <?php if (count(search_in_all()) < 1) echo 'hidden'; ?>">Submit</button>
+			  	</div>
 
 				<ul class="list-group checked-list-box" id="check-list-box-field">
 

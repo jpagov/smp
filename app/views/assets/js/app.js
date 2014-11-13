@@ -85,23 +85,15 @@ var SMP = {
         */
 
         $('#collapseDivision').on('shown.bs.collapse', function (){
-        		$(".division-toggle")
-        			.removeClass("glyphicon-plus")
-        			.addClass("glyphicon-minus");
+        		$('.btn-division').removeClass('hidden');
 		    }).on('hidden.bs.collapse', function(){
-		        $(".division-toggle")
-		        	.removeClass("glyphicon-minus")
-		        	.addClass("glyphicon-plus");
+		        $('.btn-division').removeClass('hidden');
 		    });
 
-		    $('#collapseStatus').on('shown.bs.collapse', function (){
-        		$(".status-toggle")
-        			.removeClass("glyphicon-plus")
-        			.addClass("glyphicon-minus");
+		    $('#collapseField').on('shown.bs.collapse', function (){
+        		$('.btn-field').removeClass('hidden');
 		    }).on('hidden.bs.collapse', function(){
-		        $(".status-toggle")
-		        	.removeClass("glyphicon-minus")
-		        	.addClass("glyphicon-plus");
+		        $('.btn-field').addClass('hidden');
 		    });
 
 		    $('#trend').change(function() {
@@ -125,6 +117,8 @@ var SMP = {
               };
 
       	$widget.on('click', function () {
+      			$(this).parent().parent().find('.panel-body').removeClass('hidden');
+
       			$checkbox.prop('checked', !$checkbox.is(':checked'));
             $checkbox.triggerHandler('change');
             updateDisplay();
@@ -152,7 +146,7 @@ var SMP = {
             }
         }
 
-        $('#submit-division').click(function(){
+        $('.submit-search-sidebar').click(function(){
 		        $('form#search').submit();
 		    })
 

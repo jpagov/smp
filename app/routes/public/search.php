@@ -71,7 +71,7 @@ Route::get(array('search', 'search/(:num)'), function($offset = 1) {
 		Session::put($term, $term);
 		//$term = Session::get($slug); //this was for POST only searches
 
-		// revert double-dashes back to spaces
+		// revert plus back to spaces
 		$term = str_replace('+', ' ', $term);
 
 		$log = Search::create(array(
@@ -93,7 +93,9 @@ Route::get(array('search', 'search/(:num)'), function($offset = 1) {
 		Registry::set('page', $page);
 		Registry::set('page_offset', $offset);
 		Registry::set('search_term', $term);
-		Registry::set('search_in_all', array('display_name', 'slug', 'email', 'telephone', 'description'));
+		Registry::set('search_in_all', array(
+			'display_name', 'email', 'telephone', 'description', 'slug')
+		);
 		Registry::set('search_results', new Items($staffs));
 		Registry::set('total_staffs', $total);
 		Registry::set('divisions', $divisions);
