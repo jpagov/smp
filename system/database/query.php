@@ -249,8 +249,8 @@ class Query extends Builder {
 	 * @param string
 	 * @return object
 	 */
-	public function where($column, $operator, $value) {
-		$this->where[] = (count($this->where) ? 'AND ' : 'WHERE ') . $this->wrap($column) . ' ' . $operator . ' ?';
+	public function where($column, $operator, $value, $concat = false) {
+		$this->where[] = (count($this->where) ? 'AND ' : 'WHERE ') . (($concat) ? 'CONCAT(' : '') . $this->wrap($column) . (($concat) ? ')' : '') . ' ' . $operator . ' ?';
 		$this->bind[] = $value;
 
 		return $this;
@@ -265,7 +265,7 @@ class Query extends Builder {
 	 * @return object
 	 */
 	public function or_where($column, $operator, $value) {
-		$this->where[] = (count($this->where) ? 'OR ' : 'WHERE (') . $this->wrap($column) . ' ' . $operator . ' ?';
+		$this->where[] = (count($this->where) ? 'OR ' : 'WHERE ') . $this->wrap($column) . ' ' . $operator . ' ?';
 		$this->bind[] = $value;
 
 		return $this;
@@ -278,8 +278,8 @@ class Query extends Builder {
 	 * @param array
 	 * @return object
 	 */
-	public function where_in($column, $values) {
-		$this->where[] = (count($this->where) ? 'OR ' : 'WHERE (') .
+	public function where_in($column, $values, $operator = 'OR ') {
+		$this->where[] = (count($this->where) ? $operator : 'WHERE ') .
 			$this->wrap($column) . ' IN (' . $this->placeholders(count($values)) . ')';
 
 		$this->bind = array_merge($this->bind, $values);
