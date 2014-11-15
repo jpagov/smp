@@ -10,7 +10,7 @@
 
 	<?php if(has_search_results()): ?>
 
-		<p class="lead"><strong class="text-danger"><?php echo total_search_results(); ?></strong> results were found for the search for &ldquo;<strong class="text-danger"><?php echo search_term(); ?></strong>&rdquo;</p>
+		<p class="lead"><strong class="text-success"><?php echo total_search_results(); ?></strong> results were found for the search for &ldquo;<strong class="text-success"><?php echo search_info(); ?></strong>&rdquo;</p>
 
 		<div id="staff-search-result">
 			<?php $i = 0; while(search_results()): $i++; ?>
@@ -52,7 +52,7 @@
 	<?php endif; ?>
 
 <?php else: ?>
-	<p class="lead"><?php echo __('site.search_noresult', search_term()); ?></p>
+	<p class="lead"><?php echo __('site.search_noresult', search_info()); ?></p>
 <?php endif; ?>
 </section>
 

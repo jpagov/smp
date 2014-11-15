@@ -129,8 +129,7 @@ class Staff extends Base {
 		if (empty($field)) {
 			$field = array('display_name');
 		}
-
-		$search = array_intersect_assoc($valid, $field);
+		$search = array_intersect($valid, $field);
 
 		$filter = array_filter($filter);
 		$status = 'active';
@@ -138,9 +137,9 @@ class Staff extends Base {
 		$query = Query::table(static::table());
 
 		if ($term) {
-			foreach($search as $value) {
-				$query->or_where(Base::table('staffs.' . $value), 'like', '%' . $term . '%');
-			}
+			// word
+			//$query->where($search, 'REGEXP', '[[:<:]]' . $term . '[[:>:]]', true);
+			$query->where($search, 'REGEXP', $term, true);
 		}
 
 		if (isset($filter['division'])) {
@@ -150,11 +149,9 @@ class Staff extends Base {
 			if (is_array($filter['division'])) {
 
 				if (count($filter['division']) == 1 and !empty($filter['division'][0])) {
-					$query->where(Base::table('staffs.division'), '=', $filter['division'][0]);
+					$query->where('division', '=', $filter['division'][0]);
 				} else {
-					foreach ($filter['division'] as $division) {
-						$query->where_in(Base::table('staffs.division'), $filter['division']);
-					}
+					$query->where_in('division', $filter['division'], 'AND ');
 				}
 			}
 			unset($filter['division']);
@@ -183,7 +180,10 @@ class Staff extends Base {
 		}
 
 		$query->where('status', '=', $status);
+
+		//dd($query->get());
 		//dd($query);
+
 		$count = $query->count();
 
 		$query->sort('grade', 'desc');

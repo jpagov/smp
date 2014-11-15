@@ -222,16 +222,16 @@ function staff_custom_field($key, $default = '') {
 	return $default;
 }
 
-function staff_popularity() {
-    return Stats::popularity(staff_id());
+function staff_relevancy() {
+    return Stats::relevancy(staff_id());
 }
 
-function staff_popularity_percent() {
-    return staff_popularity()['popularity'];
+function staff_relevancy_percent() {
+    return staff_relevancy()['relevancy'];
 }
 
-function staff_popularity_total() {
-    return staff_popularity()['from'];
+function staff_relevancy_total() {
+    return staff_relevancy()['from'];
 }
 
 

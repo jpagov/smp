@@ -17,10 +17,17 @@ Route::get(array('search', 'search/(:num)'), function($offset = 1) {
 	$staffs = array();
 	$total = 0;
 
-
-	$input = array_map(function ($var) {
+	$term = array_map(function ($var) {
 		return (empty($var)) ? null : filter_var($var, FILTER_SANITIZE_SPECIAL_CHARS);
 	}, Input::get(array('term')));
+
+	$search = new Term($term['term']);
+
+	$input = $search->search();
+
+	unset($term);
+
+	$term['term'] = $search->term();
 
 	$searchin = array_filter(filter_var_array(Input::get(array('in')), array(
 			'in' => array(
@@ -33,6 +40,7 @@ Route::get(array('search', 'search/(:num)'), function($offset = 1) {
 
 	$searchin['in'] = (empty(array_filter($searchin['in']))) ? $field : $searchin['in'];
 
+	$searchin['in']  = array_unique(array_merge($searchin['in'], $search->get('in')));
 
 	$division = array_filter(filter_var_array(Input::get(array('division')), array(
 			'division' => array(
@@ -43,9 +51,24 @@ Route::get(array('search', 'search/(:num)'), function($offset = 1) {
 		)
 	);
 
-	$division['division'] = (empty(array_filter($division['division']))) ? null : $division['division'];
+	$division['division'] = array_map(function($var) {
+		$divid = null;
+		if ($div = Division::slug($var)) {
+			$divid = $div->id;
+		}
 
-	$search = array_merge($input, $division, $searchin);
+		return ctype_digit($var) ? $var : $divid;
+	}, $division['division']);
+
+	$division['division'] = (empty(array_filter($division['division']))) ? array() : $division['division'];
+
+	$division['division']  = array_unique(array_merge($division['division'], array_map(function($var) {
+		return ctype_digit($var) ? $var : Division::slug($var)->id;
+	}, $search->get('division'))));
+
+	unset($search);
+
+	$search = array_merge($term, $division, $searchin);
 
 	if ($search['in']) {
 		$field = $search['in'];
@@ -57,13 +80,10 @@ Route::get(array('search', 'search/(:num)'), function($offset = 1) {
 		Registry::set('search_division', $search['division']);
 	}
 
+	//dd($search);
+
 	if ($search['term']) {
-		# code...
 
-
-		// get search term
-		//$term = filter_var($term, FILTER_SANITIZE_STRING);
-		//$term = htmlspecialchars($term);
 		$term = $search['term'];
 
 		//dd($term);
@@ -75,7 +95,7 @@ Route::get(array('search', 'search/(:num)'), function($offset = 1) {
 		$term = str_replace('+', ' ', $term);
 
 		$log = Search::create(array(
-			'search' => $term,
+			'search' => $input,
 			'created' => Date::mysql('now')
 			));
 
@@ -92,7 +112,8 @@ Route::get(array('search', 'search/(:num)'), function($offset = 1) {
 		// search templating vars
 		Registry::set('page', $page);
 		Registry::set('page_offset', $offset);
-		Registry::set('search_term', $term);
+		Registry::set('search_term', $input);
+		Registry::set('search_info', $term);
 		Registry::set('search_in_all', array(
 			'display_name', 'email', 'telephone', 'description', 'slug')
 		);

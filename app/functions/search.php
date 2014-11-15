@@ -29,6 +29,10 @@ function search_term() {
 	return Registry::get('search_term');
 }
 
+function search_info() {
+	return Registry::get('search_info');
+}
+
 function has_search_pagination() {
 	return Registry::get('total_staffs') > Config::meta('staffs_per_page');
 }

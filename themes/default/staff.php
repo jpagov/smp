@@ -29,7 +29,7 @@
                 <span class="glyphicon glyphicon-star"></span>
                 <span class="glyphicon glyphicon-star-empty"></span>
             </div>
-            <p><small>Popularity: <a href="#" class="popularity" role="tooltip" data-toggle="tooltip" data-placement="top" title="Show the staff visit popularity"><?php echo staff_popularity_percent(); ?></a></small></p>
+            <p><small>Relevancy: <a href="#" class="relevancy" role="tooltip" data-toggle="tooltip" data-placement="top" title="Show the staff visit and search relevancy"><?php echo staff_relevancy_percent(); ?></a></small></p>
         </div>
 
         <div class="col-md-10 meta">

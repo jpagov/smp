@@ -72,7 +72,7 @@ var SMP = {
             placement: 'auto bottom'
         });
 
-        $('.popularity').tooltip();
+        $('.relevancy').tooltip();
 
         /*
         $('#collapseDivision').on('shown.bs.collapse', function (e) {
@@ -117,7 +117,10 @@ var SMP = {
               };
 
       	$widget.on('click', function () {
-      			$(this).parent().parent().find('.panel-body').removeClass('hidden');
+
+      			$(this).parent().parent().find('.panel-body').fadeIn("slow", function() {
+						 	 $(this).removeClass("hidden");
+						});
 
       			$checkbox.prop('checked', !$checkbox.is(':checked'));
             $checkbox.triggerHandler('change');
@@ -140,6 +143,7 @@ var SMP = {
             if (isChecked) {
           		$checkbox.appendTo('form#search');
               $widget.addClass(style + color + ' active');
+              //var division = $widget.text().trim();
             } else {
             	$('form#search input[value=' + $checkbox.val() +']').remove();
               $widget.removeClass(style + color + ' active');

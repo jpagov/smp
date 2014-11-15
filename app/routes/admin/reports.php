@@ -96,7 +96,7 @@ Route::collection(array('before' => 'auth,admin,csrf'), function() {
 		$vars['staff_inactive'] = (int) $vars['total_staff'] - (int) $vars['staff_active'];
 		$vars['administrators'] = Role::admin($vars['division']);
 
-		print_r(Stats::popularity(487)); exit();
+		//print_r(Stats::popularity(487)); exit();
 
 		$vars['divisions'] = Division::listing();
 		$vars['trends'] = array(
