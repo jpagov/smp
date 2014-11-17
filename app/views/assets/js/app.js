@@ -198,8 +198,8 @@ var SMP = {
       // hover cards
       $('a[rel=popover]').popover({
           html: true,
-          delay: { show: 100, hide: 1000 },
-          trigger: "hover focus click",
+          trigger: "manual",
+          animation: false,
           content: function () {
 
               var hovercard = ['<div class="media block-update-card">',
@@ -215,7 +215,26 @@ var SMP = {
 
               return hovercard;
           }
-      });
+      }).hover(function(e){
+				$(this).popover('show');
+			}).on("mouseleave", function () {
+          var _this = this;
+          setTimeout(function () {
+            if (!$(".popover:hover").length) {
+              $(_this).popover("hide");
+          	}
+          }, 100);
+      });;
+
+      $('body').on('click', function (e) {
+		    $('a[rel=popover]').each(function () {
+		        //the 'is' for buttons that trigger popups
+		        //the 'has' for icons within a button that triggers a popup
+		        if (!$(this).is(e.target) && $(this).has(e.target).length === 0 && $('.popover').has(e.target).length === 0) {
+		            $(this).popover('hide');
+		        }
+		    });
+			});
 
       // ZeroClipboard
 
