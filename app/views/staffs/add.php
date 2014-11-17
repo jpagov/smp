@@ -123,6 +123,14 @@
           <div class="tab-pane" id="positions">
             <fieldset>
               <legend>Position</legend>
+
+              <div class="form-group">
+                <label class="col-sm-2 control-label" for="report_to"><?php echo __('staffs.report_to'); ?></label>
+                <div class="col-sm-8 reportto-prefetch">
+                  <?php echo Form::text('report_to', Input::previous('report_to'), array('class' => 'form-control typeahead col-sm-12', 'id' => 'report_to')); ?>
+                </div>
+              </div>
+
               <div class="form-group">
                 <label class="col-sm-2 control-label" for="scheme"><?php echo __('staffs.scheme'); ?></label>
                 <div class="col-sm-4">

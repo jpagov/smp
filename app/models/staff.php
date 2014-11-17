@@ -45,7 +45,7 @@ class Staff extends Base {
 
 	public static function setid($name) {
 		if (empty(trim($name))) return;
-		if ( $staff = static::where('display_name', 'like', $name)->fetch()) {
+		if ( $staff = static::where('display_name', 'like', $name)->where('status', '=', 'active')->fetch()) {
 			return $staff->id;
 		}
 	}

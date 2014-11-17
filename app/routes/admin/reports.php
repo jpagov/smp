@@ -1,6 +1,6 @@
 <?php
 
-Route::collection(array('before' => 'auth,admin,csrf'), function() {
+Route::collection(array('before' => 'auth,csrf'), function() {
 
 	/*
 		Admin reports
@@ -54,7 +54,7 @@ Route::collection(array('before' => 'auth,admin,csrf'), function() {
 			->get(array('display_name', 'role', 'last_visit'));
 
 		$vars['adds'] = Staff::sort('created', 'desc')
-			->take(5)->get(array('email', 'telephone', 'display_name', 'role', 'created'));
+			->take(5)->get(array('id', 'email', 'telephone', 'display_name', 'role', 'created'));
 
 		$vars['updates'] = Staff::sort('updated', 'desc')
 			->take(5)->get(array('email', 'telephone', 'display_name', 'role', 'updated'));

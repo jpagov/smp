@@ -43,6 +43,7 @@ Route::collection(array('before' => 'auth'), function() {
 
     if (! $staffs = Staff::where('division', '=', $division_id)
     	->where('display_name', 'like', '%' . $name . '%')
+    	->where('status', '=', 'active')
     	->get()) {
       return Response::create(Json::encode(array('no result')), 200, array('content-type' => 'application/json'));
     }

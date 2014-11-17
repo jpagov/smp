@@ -320,8 +320,7 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 		$vars['fields'] = Extend::fields('staff');
 
 		foreach (array('Scheme', 'Division', 'Branch', 'Sector', 'Unit') as $hierarchy) {
-			$vars[strtolower($hierarchy) . 's'] = $hierarchy::dropdown();
-			array_unshift($vars[strtolower($hierarchy) . 's'], __('staffs.please_select'));
+			$vars[strtolower($hierarchy) . 's'] = array_unshift_assoc($hierarchy::dropdown(), 0, __('staffs.please_select'));
 		}
 
 		$vars['genders'] = array(
@@ -357,6 +356,7 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 			'telephone',
 			'fax',
 			'status',
+			'report_to',
 
 			'scheme',
 			'grade',
@@ -437,6 +437,10 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 		  'unit' => 0,
 		);
 
+		if ($reportTo = Input::get('report_to')) {
+		  $input['report_to'] = Staff::setid($reportTo);
+		}
+
 		if ($branch = Input::get('branch')) {
 		  $input['branch'] = Branch::id($branch);
 		  $hierarchy['branch'] = $input['branch'];
@@ -479,7 +483,7 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 		  }
 		}
 
-		Notify::success(__('staffs.created'));
+		Notify::success(__('staffs.created', Uri::to('admin/staffs/' . $staff->id)));
 
 		return Response::redirect('admin/staffs');
 	});

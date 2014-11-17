@@ -42,6 +42,7 @@ return array(
 	'display_name' => 'Display Name',
 	'real_name' => 'Real Name',
 	'real_name_explain' => '',
+	'fax' => 'Fax',
 
 	'slug' => 'Slug',
 	'slug_explain' => 'Slug uri to identify your staff, should only contain ascii characters',
@@ -87,7 +88,7 @@ return array(
 
 	// messages
 	'updated' => 'User profile updated.',
-	'created' => 'User profile created.',
+	'created' => 'User profile created. <a href="%s">View Profile</a>',
 	'deleted' => 'User profile deleted.',
 	'delete_error' => 'You cannot delete your own profile',
 	'login_error' => 'Username or password is wrong.',

@@ -337,6 +337,12 @@
           'class' => 'btn btn-warning btn-lg btn-block delete'
           )); ?>
 
+      <?php echo Html::link($staff->slug,
+        __('global.view'), array(
+          'class' => 'btn btn-success btn-lg btn-block',
+          'target' => '_blank'
+          )); ?>
+
         </div>
       </form>
     </div>

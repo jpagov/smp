@@ -17,7 +17,7 @@
 					<h3><a href="<?php echo Uri::to('admin/reports/staff'); ?>">Staff</a></h3>
 					<?php if (count($staffs)) : ?>
 					<?php foreach($staffs as $staff): ?>
-					<li class="list-group-item"><span class="badge"><?php echo custom_number_format($staff->stats); ?></span><?php echo $staff->trend; ?></li>
+					<li class="list-group-item"><span class="badge alert-success"><?php echo custom_number_format($staff->stats); ?></span><?php echo $staff->trend; ?></li>
 					<?php endforeach; ?>
 					<?php else: ?>
 					<p>No data</p>
@@ -32,7 +32,7 @@
 					<h3><a href="<?php echo Uri::to('admin/reports/division'); ?>">Division</a></h3>
 					<?php if (count($divisions)) : ?>
 					<?php foreach($divisions as $division): ?>
-					<li class="list-group-item"><span class="badge"><?php echo custom_number_format($division->stats); ?></span><?php echo $division->trend; ?></li>
+					<li class="list-group-item"><span class="badge alert-success"><?php echo custom_number_format($division->stats); ?></span><?php echo $division->trend; ?></li>
 					<?php endforeach; ?>
 					<?php else: ?>
 					<p>No data</p>
@@ -47,7 +47,7 @@
 					<h3><a href="<?php echo Uri::to('admin/reports/category'); ?>">Category</a></h3>
 					<?php if (count($categories)) : ?>
 					<?php foreach($categories as $category): ?>
-					<li class="list-group-item"><span class="badge"><?php echo custom_number_format($category->stats); ?></span><?php echo $category->trend; ?></li>
+					<li class="list-group-item"><span class="badge alert-success"><?php echo custom_number_format($category->stats); ?></span><?php echo $category->trend; ?></li>
 					<?php endforeach; ?>
 					<?php else: ?>
 					<p>No data</p>
@@ -62,7 +62,7 @@
 					<h3><a href="<?php echo Uri::to('admin/reports/search'); ?>">Search Keyword</a></h3>
 					<?php if (count($searchs)) : ?>
 					<?php foreach($searchs as $search): ?>
-					<li class="list-group-item"><span class="badge"><?php echo custom_number_format($search->stats); ?></span><?php echo (!empty($search->trend)) ? $search->trend : __('reports.no_keyword'); ?></li>
+					<li class="list-group-item"><span class="badge alert-success"><?php echo custom_number_format($search->stats); ?></span><?php echo (!empty($search->trend)) ? $search->trend : __('reports.no_keyword'); ?></li>
 					<?php endforeach; ?>
 					<?php else: ?>
 					<p>No data</p>
@@ -82,7 +82,7 @@
 					<h3><a href="<?php echo Uri::to('admin/reports/staff'); ?>">Staff</a></h3>
 					<?php if (count($top_staffs)) : ?>
 					<?php foreach($top_staffs as $staff): ?>
-					<li class="list-group-item"><span class="badge"><?php echo custom_number_format($staff->stats); ?></span><?php echo $staff->trend; ?></li>
+					<li class="list-group-item"><span class="badge alert-success"><?php echo custom_number_format($staff->stats); ?></span><?php echo $staff->trend; ?></li>
 					<?php endforeach; ?>
 					<?php else: ?>
 					<p>No data</p>
@@ -97,7 +97,7 @@
 					<h3><a href="<?php echo Uri::to('admin/reports/division'); ?>">Division</a></h3>
 					<?php if (count($top_divisions)) : ?>
 					<?php foreach($top_divisions as $division): ?>
-					<li class="list-group-item"><span class="badge"><?php echo custom_number_format($division->stats); ?></span><?php echo $division->trend; ?></li>
+					<li class="list-group-item"><span class="badge alert-success"><?php echo custom_number_format($division->stats); ?></span><?php echo $division->trend; ?></li>
 					<?php endforeach; ?>
 					<?php else: ?>
 					<p>No data</p>
@@ -112,7 +112,7 @@
 					<h3><a href="<?php echo Uri::to('admin/reports/category'); ?>">Category</a></h3>
 					<?php if (count($top_categories)) : ?>
 					<?php foreach($top_categories as $category): ?>
-					<li class="list-group-item"><span class="badge"><?php echo custom_number_format($category->stats); ?></span><?php echo $category->trend; ?></li>
+					<li class="list-group-item"><span class="badge alert-success"><?php echo custom_number_format($category->stats); ?></span><?php echo $category->trend; ?></li>
 					<?php endforeach; ?>
 					<?php else: ?>
 					<p>No data</p>
@@ -127,7 +127,7 @@
 					<h3><a href="<?php echo Uri::to('admin/reports/search'); ?>">Search Keyword</a></h3>
 					<?php if (count($top_searchs)) : ?>
 					<?php foreach($top_searchs as $search): ?>
-					<li class="list-group-item"><span class="badge"><?php echo custom_number_format($search->stats); ?></span><?php echo (!empty($search->trend)) ? $search->trend : __('reports.no_keyword'); ?></li>
+					<li class="list-group-item"><span class="badge alert-success"><?php echo custom_number_format($search->stats); ?></span><?php echo (!empty($search->trend)) ? $search->trend : __('reports.no_keyword'); ?></li>
 					<?php endforeach; ?>
 					<?php else: ?>
 					<p>No data</p>
@@ -163,7 +163,7 @@
 
 					<div class="list-group">
 					<?php foreach($adds as $add): ?>
-					<a href="#" class="list-group-item <?php echo admin_color($add->role); ?>">
+					<a href="<?php echo Uri::to('admin/staffs/edit/' . $add->id); ?>" class="list-group-item <?php echo admin_color($add->role); ?>">
 				        <h4 class="list-group-item-heading"><?php echo $add->display_name; ?></h4>
 				        <p class="list-group-item-text"><?php echo Date::format($add->created); ?> <code><?php echo $add->email; ?></code> <code><?php echo $add->telephone; ?></code></p>
 				    </a>

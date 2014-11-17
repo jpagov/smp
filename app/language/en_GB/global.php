@@ -24,6 +24,7 @@ return array(
 	'manage' => 'Manage',
 	'reset' => 'Reset',
 	'all' => 'All',
+	'view' => 'View',
 
   	// menu
   	'category' => 'Category',

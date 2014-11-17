@@ -12,7 +12,7 @@
         </div>
 
         <div class="col-xs-4 col-md-pull-8">
-            <figure><img src="<?php echo staff_custom_field('avatar', 'http://localhost/smp/content/avatar/default-male.jpg'); ?>" class="img-responsive img-thumbnail pull-left"></figure>
+            <figure><img src="<?php echo staff_avatar(staff_id(), staff_gender()); ?>" class="img-responsive img-thumbnail pull-left"></figure>
 
         </div>
 

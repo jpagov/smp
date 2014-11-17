@@ -78,4 +78,5 @@ function staff_avatar($id, $gender = 'M') {
     if($extend = Extend::field('staff', 'avatar', $id)) {
         return Extend::value($extend, $default);
     }
+    return $default;
 }
