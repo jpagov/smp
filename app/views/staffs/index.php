@@ -10,7 +10,7 @@
 
 	<div class="col col-lg-9">
 
-		<form class="form-inline" role="search">
+		<form class="form-horizontal" role="search">
 			<?php echo $search; ?>
 
 		<div class="table-responsive">

@@ -32,7 +32,7 @@
 						<li><i class="glyphicon glyphicon-barcode"></i> <span><?php echo staff_position(); ?></span></li>
 
 						<li><i class="glyphicon glyphicon-phone-alt"></i> <span><?php echo staff_telephone(); ?></span></li>
-						<li><i class="glyphicon glyphicon-envelope"></i> <a href="mailto:<?php echo staff_email_encode(); ?>"><span><?php echo staff_email(); ?></span></a></li>
+						<li><i class="glyphicon glyphicon-envelope"></i> <?php if (staff_has_email()) : ?><a href="mailto:<?php echo staff_email_encode(); ?>"><span><?php echo staff_email_image(); ?></span></a><?php else: ?><?php echo __('site.na'); ?> <?php endif; ?></li>
 					</ul>
 				</div>
 

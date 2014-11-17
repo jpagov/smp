@@ -27,8 +27,12 @@ function staff_gender() {
   return Registry::prop('staff', 'gender');
 }
 
+function staff_has_email() {
+	return !empty(staff_email());
+}
+
 function staff_email() {
-  return Registry::prop('staff', 'email', __('site.na'));
+  return Registry::prop('staff', 'email');
 }
 
 function staff_email_encode() {
@@ -41,7 +45,7 @@ function staff_email_image() {
 }
 
 function staff_telephone() {
-  return Registry::prop('staff', 'telephone', __('site.na'));
+  return Registry::prop('staff', 'telephone');
 }
 
 function staff_telephone_link() {

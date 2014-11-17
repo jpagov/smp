@@ -8,7 +8,6 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 
 	Route::get(array('admin/staffs', 'admin/staffs/(:num)'), function($page = 1) {
 
-
 		$input = Input::get(array(
 			'term',
 			'division',
@@ -69,7 +68,7 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 
 		return View::create('staffs/index', $vars)
 			->partial('header', 'partials/header')
-			->partial('search', 'partials/search')
+			->partial('search', 'partials/search', $vars)
 			->partial('footer', 'partials/footer');
 	});
 

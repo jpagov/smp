@@ -46,6 +46,7 @@
           <a class="navbar-brand" href="<?php echo base_url(); ?>"><?php if(!staff_id()) : ?><h1><?php endif; ?><?php echo site_name(); ?><?php if(!staff_id()) : ?></h1><?php endif; ?></a>
         </div><!-- //.navbar-header -->
         <div class="navbar-collapse collapse navbar-inverse-collapse">
+
           <?php if(has_menu_items()): ?>
             <ul class="nav navbar-nav">
               <?php while(menu_items()): ?>
@@ -57,23 +58,7 @@
               <?php endwhile; ?>
             </ul>
           <?php endif; ?>
-          <div class="col-md-6">
-          <form class="navbar-form" role="search" action="<?php echo search_url(); ?>" id="search">
-            <div class="input-group col-md-12">
-              <input type="text" class="form-control search-query typeahead" id="search-term" name="term" placeholder="To search, type and hit enter&hellip;" value="<?php echo search_term(); ?>">
-              <button class="sr-only" type="submit">Submit</button>
-            </div>
 
-            <?php foreach (search_divisions() as $division): ?>
-            	<input class="hidden" type="checkbox" name="division[]" value="<?php echo $division; ?>" checked="checked">
-            <?php endforeach; ?>
-
-            <?php foreach (search_in() as $field): ?>
-            	<input class="hidden" type="checkbox" name="in[]" value="<?php echo $field; ?>" checked="checked">
-            <?php endforeach; ?>
-
-          </form>
-          </div>
           <?php if(!staff_id()) : ?>
           <ul class="nav navbar-nav navbar-right">
 
@@ -91,6 +76,24 @@
 
           </ul>
         <?php endif; ?>
+
+        <div class="col-sm-6">
+          <form class="navbar-form" role="search" action="<?php echo search_url(); ?>" id="search">
+            <div class="input-group col-xs-12">
+              <input type="text" class="form-control search-query typeahead" id="search-term" name="term" placeholder="To search, type and hit enter&hellip;" value="<?php echo search_term(); ?>">
+              <button class="sr-only" type="submit">Submit</button>
+            </div>
+
+            <?php foreach (search_divisions() as $division): ?>
+            	<input class="hidden" type="checkbox" name="division[]" value="<?php echo $division; ?>" checked="checked">
+            <?php endforeach; ?>
+
+            <?php foreach (search_in() as $field): ?>
+            	<input class="hidden" type="checkbox" name="in[]" value="<?php echo $field; ?>" checked="checked">
+            <?php endforeach; ?>
+
+          </form>
+          </div>
 
         </div><!-- //.navbar-collapse -->
       </div><!-- //.container -->
