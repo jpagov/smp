@@ -14,6 +14,9 @@ class Registry {
 
 	public static function prop($object, $key, $default = null) {
 		if($obj = static::get($object)) {
+			if (empty($obj->{$key}) and $default) {
+				return $default;
+			}
 			return $obj->{$key};
 		}
 

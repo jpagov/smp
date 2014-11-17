@@ -21,5 +21,6 @@ return array(
   'email' => 'Email',
   'telephone' => 'Telephone',
   'no_desc' => '',
+  'na' => '<abbr title="Not available">N/A</abbr>',
 
 );
