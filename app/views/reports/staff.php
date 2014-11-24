@@ -7,7 +7,7 @@
 <div class="row">
 	<div class="col-sm-12">
 
-		<h2><?php echo _e('reports.staff_report', 'All Division'); ?></h2>
+		<h2><?php echo _e('reports.staff_report', $title, 'All Division'); ?></h2>
 
 		<div class="row">
 
@@ -52,14 +52,11 @@
 				<div class="col-sm-4">
 					<div class="panel panel-default">
 						<!-- Default panel contents -->
-						<div class="panel-heading"><?php echo _e('reports.summary', 'Summary'); ?></div>
+						<div class="panel-heading"><?php echo _e('reports.warning', 'Warning'); ?></div>
 
 						<ul class="list-group">
-							<li class="list-group-item"><span class="badge">14</span> Cras justo odio</li>
-							<li class="list-group-item">Dapibus ac facilisis in</li>
-							<li class="list-group-item">Morbi leo risus</li>
-							<li class="list-group-item">Porta ac consectetur ac</li>
-							<li class="list-group-item">Vestibulum at eros</li>
+							<li class="list-group-item"><span class="badge"><?php echo $staff_noemail->count; ?></span> <abbr title="Staff has no email">No email</abbr></li>
+							<li class="list-group-item"><span class="badge"><?php echo $staff_notel->count; ?></span> <abbr title="Staff has no telephone number">No telephone</abbr></li>
 						</ul>
 
 					</div>
@@ -69,17 +66,71 @@
 			</div><!--/.row -->
 
 
+			<div class="row">
+				<div class="col-md-6">
+					<div class="panel panel-default">
+						<!-- Default panel contents -->
+						<div class="panel-heading"><?php echo _e('reports.staff_noemail', 'No email address'); ?></div>
+
+						<ul class="list-group">
+						 <?php if($staff_noemail->count): foreach($staff_noemail->results as $noemail): ?>
+							<li class="list-group-item"><a href="<?php echo Uri::to('admin/staffs/edit/' . $noemail->id); ?>"><?php echo $noemail->display_name; ?></a></li>
+							<?php endforeach; else: ?>
+							<li class="list-group-item"><?php echo __('pages.nopages_desc'); ?></li>
+							<?php endif; ?>
+					    </ul>
+
+					    <?php if ($staff_noemail->links()) : ?>
+					    <div class="panel-footer">
+							<ul class="pager">
+								<li class="previous"><?php echo $staff_noemail->prev_link(true); ?></li>
+								<li class="next"><?php echo $staff_noemail->next_link(true); ?></li>
+							</ul>
+					    </div>
+					    <?php endif; ?>
+
+					</div>
+				</div>
+
+				<div class="col-md-6">
+					<div class="panel panel-default">
+						<!-- Default panel contents -->
+						<div class="panel-heading"><?php echo _e('reports.staff_noemail', 'No telephone number'); ?></div>
+
+						<ul class="list-group">
+						 <?php if($staff_notel->count): foreach($staff_notel->results as $notel): ?>
+							<li class="list-group-item"><a href="<?php echo Uri::to('admin/staffs/edit/' . $notel->id); ?>"><?php echo $notel->display_name; ?></a></li>
+							<?php endforeach; else: ?>
+							<li class="list-group-item"><?php echo __('pages.nopages_desc'); ?></li>
+							<?php endif; ?>
+					    </ul>
+
+					    <?php if ($staff_notel->links()) : ?>
+					    <div class="panel-footer">
+							<ul class="pager">
+								<li class="previous"><?php echo $staff_notel->prev_link(); ?></li>
+								<li class="next"><?php echo $staff_notel->next_link(); ?></li>
+							</ul>
+					    </div>
+					    <?php endif; ?>
+
+					</div>
+				</div>
+			</div>
+
+
 				<div class="panel panel-default">
 					<!-- Default panel contents -->
-					<div class="panel-heading"><?php echo _e('reports.summary', 'Summary'); ?></div>
+					<div class="panel-heading"><?php echo _e('reports.last_access', 'Latest updates'); ?></div>
 
-					<ul class="list-group">
-						<li class="list-group-item"><span class="badge">14</span> Cras justo odio</li>
-						<li class="list-group-item">Dapibus ac facilisis in</li>
-						<li class="list-group-item">Morbi leo risus</li>
-						<li class="list-group-item">Porta ac consectetur ac</li>
-						<li class="list-group-item">Vestibulum at eros</li>
-					</ul>
+					<div class="list-group">
+				    <?php foreach($updates as $update): ?>
+					<a href="#" class="list-group-item <?php echo admin_color($update->role); ?>">
+				        <h4 class="list-group-item-heading"><?php echo $update->display_name; ?></h4>
+				        <p class="list-group-item-text"><?php echo Date::format($update->updated); ?> <code><?php echo $update->email; ?></code> <code><?php echo $update->telephone; ?></code></p>
+				    </a>
+					<?php endforeach; ?>
+				    </div>
 
 				</div>
 

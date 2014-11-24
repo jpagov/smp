@@ -20,15 +20,32 @@ class Paginator {
 		$this->url = rtrim($url, '/');
 	}
 
-	public function next_link($text = null, $default = '') {
+	public function next_link($ajax = false, $text = null, $default = '') {
+
 		if(is_null($text)) $text = $this->next;
+
+		$qs = '';
+
+		if ($ajax and is_admin()) {
+
+			parse_str($_SERVER['QUERY_STRING']);
+
+			if (isset($type) or isset($division)) {
+				$type = filter_var($type, FILTER_SANITIZE_SPECIAL_CHARS);
+				$division = filter_var($division, FILTER_SANITIZE_SPECIAL_CHARS);
+
+				$qs .= '?' . http_build_query(array('type' => $type, 'division' => $division));
+			}
+		}
 
 		$pages = ceil($this->count / $this->perpage);
 
 		if($this->page < $pages) {
 			$page = $this->page + 1;
 
-			return '<li><a href="' . $this->url . '/' . $page . '">' . $text . '</a></li>';
+			$url = $this->url . '/' . $page;
+
+			return '<a href="' . $url . '">' . $text . ' <span aria-hidden="true">&rarr;</span></a>';
 		}
 
 		return $default;
@@ -40,7 +57,7 @@ class Paginator {
 		if($this->page > 1) {
 			$page = $this->page - 1;
 
-			return '<li><a href="' . $this->url . '/' . $page . '">' . $text . '</a></li>';
+			return '<a href="' . $this->url . '/' . $page . '"><span aria-hidden="true">&larr;</span>' . $text . '</a>';
 		}
 
 		return $default;

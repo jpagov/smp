@@ -15,6 +15,11 @@
 		<script src="<?php echo asset('app/views/assets/js/bootstrap.min.js'); ?>"></script>
 	    <script src="<?php echo asset('app/views/assets/js/typeahead.bundle.min.js'); ?>"></script>
 	    <script src="<?php echo asset('app/views/assets/js/bootstrap-markdown.js'); ?>"></script>
+
+	    <?php if (isset($javascript)) : ?><?php foreach ($javascript as $js) : ?>
+	    <script src="<?php echo asset('app/views/assets/js/' . $js); ?>"></script>
+	    <?php endforeach; ?><?php endif; ?>
+
 	    <script src="<?php echo asset('app/views/assets/js/app.js'); ?>"></script>
 		<?php if(Auth::user()): ?>
 		<script>

@@ -77,6 +77,7 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 
 		$vars['messages'] = Notify::read();
 		$vars['division'] = 'all';
+		$division = false;
 
 		$input = filter_var_array(Input::get(array('division')), array(
 		    'division' => FILTER_SANITIZE_SPECIAL_CHARS
@@ -84,17 +85,37 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 
 		$input = array_filter($input);
 
+		if ($input) {
+			if ($division = Division::slug($input['division'])) {
+				$division = $division->id;
+			}
+		}
+
 		$vars['division'] = ($input and isset($input['division'])) ? $input['division'] : 'all';
 
 		$vars['trend'] = 'D';
 
 		$vars['total_visit'] = custom_number_format(Stats::where('type', '=', 'staff')->count());
-		$vars['total_staff'] = Staff::count();
-		$vars['staff_active'] = Staff::where('status', '=', 'active')->count();
+
+		$vars['total_staff'] = ($division) ? Staff::where('division', '=', $division)->count() : Staff::count();
+
+		$vars['staff_active'] = ($division) ? Staff::where('division', '=', $division)->where('status', '=', 'active')->count() : Staff::where('status', '=', 'active')->count();
+
+		// List staff has no email address
+		$vars['staff_noemail'] = Report::hasno('email', $division);
+
+		// List staff has no email address
+		$vars['staff_notel'] = Report::hasno('telephone', $division);
+
+
+		$vars['updates'] = Staff::sort('updated', 'desc')
+			->take(5)->get(array('email', 'telephone', 'display_name', 'role', 'updated'));
 
 		//$vars['staff_inactive'] = Staff::where('status', '=', 'inactive')->count();
 		$vars['staff_inactive'] = (int) $vars['total_staff'] - (int) $vars['staff_active'];
 		$vars['administrators'] = Role::admin($vars['division']);
+
+		$vars['title'] = ($division) ? Division::slug($vars['division'])->title : 'All Division';
 
 		//print_r(Stats::popularity(487)); exit();
 
@@ -107,9 +128,11 @@ Route::collection(array('before' => 'auth,csrf'), function() {
         	'Y' => __('reports.year')
         );
 
+        $vars['javascript'] = array('mustache.js');
+
 		return View::create('reports/staff', $vars)
 			->partial('header', 'partials/header')
-			->partial('footer', 'partials/footer');
+			->partial('footer', 'partials/footer', $vars);
 	});
 
 	Route::get('admin/reports/category', function() {

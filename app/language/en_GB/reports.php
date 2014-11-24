@@ -6,6 +6,7 @@ return array(
   'reports' => 'Reports',
   'report_dashboard' => 'Report Dashboard',
   'staff_dashboard' => 'Staff Report Dashboard',
+  'staff_report' => '%s',
 
   'hour' => 'Hour',
   'day' => 'Day',

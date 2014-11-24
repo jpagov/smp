@@ -355,5 +355,6 @@ article.search-result > div > img {
 		height: 72px;
 }
 */
+.panel > .panel-footer > .pager { margin: 0 }
 
 
