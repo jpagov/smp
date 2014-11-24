@@ -1,7 +1,7 @@
 <?php theme_include('header'); ?>
 <?php if (Uri::current() == '/') : theme_include('footer'); exit(); endif; ?>
 
-<section class="content col-md-<?php echo (division_has_meta() ? '9' : '12'); ?>">
+<section class="content col-md-<?php  echo (show_division_meta() and division_has_meta()) ? '9' : '12'; ?>">
     <?php theme_include('breadcrumb'); ?>
 
 	<?php if(has_staffs()): ?>
@@ -49,7 +49,7 @@
 </section>
 
 
-<?php if(division_has_meta()): ?>
+<?php if(show_division_meta() and division_has_meta()): ?>
 <section class="col-sm-3">
 	<?php if(division_address()): ?>
 	<div class="panel panel-default">

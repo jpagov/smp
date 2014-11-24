@@ -55,6 +55,10 @@ function relative_time($date) {
 	}
 }
 
+function show_division_meta() {
+	return site_meta('show_division_meta', 0);
+}
+
 function twitter_account() {
 	return site_meta('twitter', 'hariadi');
 }

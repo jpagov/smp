@@ -4,7 +4,7 @@ return array(
 
 	'metadata' => 'Site Metadata',
 	'metadata_desc' => 'Manage your site data',
-
+	'language_settings' => 'Language',
 	'comment_settings' => 'Comments',
 	'theme_settings' => 'Appearance',
 
@@ -42,8 +42,15 @@ return array(
 	'comment_moderation_keys_explain' => 'Comma separated list of keywords to blacklist against.
 		Comments will automatically be set as spam.',
 
+	'default_language' => 'Current language',
+	'default_language_explain' => '',
+
 	'current_theme' => 'Current theme',
 	'current_theme_explain' => '',
+
+	'show_division_meta' => 'Show Division info',
+	'show_division_meta_explain' => 'This will show <code>address</code>, <code>telephone</code> and <code>fax</code> info on Division page.',
+
 
 	// messages
 	'updated' => 'Metadata updated',

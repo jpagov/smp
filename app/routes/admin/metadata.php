@@ -36,6 +36,7 @@ Route::collection(array('before' => 'auth,admin,csrf'), function() {
 			'management_page',
 			'staffs_per_page',
 			'category',
+			'show_division_meta',
 			'auto_published_comments',
 			'theme',
 			'comment_notifications',

@@ -88,6 +88,18 @@
                   </div>
                 </div>
 
+                <div class="form-group">
+                  <div class="col-sm-offset-3 col-sm-9">
+                    <div class="checkbox">
+                      <label><?php $checked = Input::previous('show_division_meta', $meta['show_division_meta']) ? ' checked' : ''; ?>
+                        <?php echo Form::checkbox('show_division_meta', 1, $checked, array(
+                        'id' => 'show_division_meta')); ?> <?php echo __('metadata.show_division_meta'); ?>
+                      </label>
+                    </div>
+                    <span class="help-block"><?php echo __('metadata.show_division_meta_explain'); ?></span>
+                  </div>
+                </div>
+
             </fieldset>
 
             <fieldset>
