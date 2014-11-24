@@ -97,6 +97,10 @@ function is_division() {
 	return Registry::get('division') !== null;
 }
 
+function division_has_meta() {
+	return (division_address() or division_telephone() or division_fax()) ? true : false;
+}
+
 function is_search() {
 	return Registry::prop('page', 'id') === 0;
 }

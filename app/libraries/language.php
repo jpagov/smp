@@ -4,8 +4,50 @@ class Language {
 
 	private static $lines = array();
 
+	/**
+	 * Try and detect the current lang
+	 *
+	 * @return string
+	 */
+	public static function detect() {
+
+		$language = filter_var(Input::get('lang'), FILTER_SANITIZE_URL);
+
+		$language = (is_readable($path = APP . 'language/' . $language . '/about.php')) ? $language : Config::app('language', 'en_GB');
+
+		Session::put('lang', $language);
+
+		return $language;
+
+	}
+
+	public static function all($listonly = false) {
+		$language = array();
+		$fi = new FilesystemIterator(APP . 'language', FilesystemIterator::SKIP_DOTS);
+
+		foreach($fi as $file) {
+
+			if($file->isDir()) {
+
+				$lang = $file->getFilename();
+
+				if ($listonly ) {
+					$language[] = $lang;
+				} else {
+					if($about = static::parse($lang)) {
+						$language[$lang] = $about;
+					}
+				}
+			}
+		}
+
+		ksort($language);
+
+		return $language;
+	}
+
 	private static function path($file) {
-		$language = Config::app('language', 'en_GB');
+		$language = static::detect();
 
 		return APP . 'language/' . $language . '/' . $file . '.php';
 	}
@@ -48,6 +90,48 @@ class Language {
 		}
 
 		return $text;
+	}
+
+	public static function parse($lang) {
+		$file = APP . 'language/' . $lang . '/about.txt';
+
+
+		if( ! is_readable($file)) {
+			return false;
+		}
+
+		// read file into a array
+		$contents = explode("\n", trim(file_get_contents($file)));
+		$about = array();
+
+		foreach(array('name', 'description', 'author', 'site', 'license') as $index => $key) {
+			// temp value
+			$about[$key] = '';
+
+			// find line if exists
+			if( ! isset($contents[$index])) {
+				continue;
+			}
+
+			$line = $contents[$index];
+
+			// skip if not separated by a colon character
+			if(strpos($line, ":") === false) {
+				continue;
+			}
+
+			$parts = explode(":", $line);
+
+			// remove the key part
+			array_shift($parts);
+
+			// in case there was a colon in our value part glue it back together
+			$value = implode('', $parts);
+
+			$about[$key] = trim($value);
+		}
+
+		return $about;
 	}
 
 }

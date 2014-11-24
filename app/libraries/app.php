@@ -3,6 +3,10 @@
 class App {
 
 	public static function setup() {
+
+		//setup language
+		static::language();
+
 		// check installation and show intro
 		static::installation();
 
@@ -26,6 +30,10 @@ class App {
 
 		// populate registry with globals
 		static::register();
+	}
+
+	public static function language() {
+		Language::detect();
 	}
 
 	public static function installation() {

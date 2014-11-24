@@ -51,4 +51,7 @@ App::setup();
 /**
  * Import defined routes
  */
-foreach(glob(APP . 'routes/' . ( is_admin() ? 'admin' : 'public' ) . '/*' . EXT) as $file) require $file;
+
+foreach (new FilesystemIterator(APP . 'routes/' . ( is_admin() ? 'admin' : 'public' ) . '/', FilesystemIterator::SKIP_DOTS) as $file) {
+	require $file->getPathname();
+}

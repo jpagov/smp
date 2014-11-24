@@ -4,8 +4,6 @@
 
 <?php echo search_form_notifications(); ?>
 
-
-
 <section class="col-sm-9 staffs-search-result">
 
 	<?php if(has_search_results()): ?>

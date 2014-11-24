@@ -107,5 +107,8 @@ return array(
 	'search_filter_no_email' => 'No email address',
 	'search_filter_no_telephone' => 'No telephone number',
 
+	//site
+	'address' => 'Address',
+
 
 	);
