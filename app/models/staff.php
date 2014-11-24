@@ -61,7 +61,10 @@ class Staff extends Base {
 
 	public static function listing($page = 1, $per_page = 10, $hierarchy = null, $top = null) {
 
-		$query = static::where(Base::table('staffs.status'), '=', 'active');
+		$query = static::where(Base::table('staffs.status'), '=', 'active')
+					   ->where(Base::table('staffs.email'), '<>', '')
+					   ->where(Base::table('staffs.telephone'), '<>', '');
+
 		$get = array(static::fields());
 
 		if ($top) {
