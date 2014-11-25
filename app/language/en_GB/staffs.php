@@ -21,6 +21,7 @@ return array(
 
   	// position
 	'report_to' => 'Reporting To',
+	'personal_assistant' => '<abbr title="Personal Assistant">PA</abbr>',
 	'scheme' => 'Scheme',
 	'grade' => 'Grade',
 	'job_title' => 'Job Title',

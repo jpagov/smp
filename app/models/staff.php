@@ -214,28 +214,8 @@ class Staff extends Base {
 
 		$query = Query::table(static::table())->where('status', '=', 'active');
 
-		if ($staff->grade > 48) {
-			$query = $query->where('division', '=', $staff->division)
-			->where('branch', '=', $staff->branch)
-			->where('sector', '=', $staff->sector)
-			->where('unit', '=', $staff->unit)
-			->where('grade', '=', $staff->grade)
-			->where('id', '<>', $staff->id)
+		$query->where('position', 'like', '%' . substr($staff->position, 0, -1) . '%')
 			->or_where('report_to', '=', $staff->id);
-		} elseif ($staff->grade < 41) {
-			$query = $query->where('division', '=', $staff->division)
-			->where('sector', '=', $staff->sector)
-			->where('unit', '=', $staff->unit)
-			->where('grade', '=', $staff->grade)
-			->where('id', '<>', $staff->id)
-			->or_where('report_to', '=', $staff->id);
-		} else {
-			$query = $query->where('division', '=', $staff->division)
-			->where('grade', '=', $staff->grade)
-			->where('id', '<>', $staff->id)
-			->or_where('report_to', '=', $staff->id)
-			->where('grade', '=', $staff->grade);
-		}
 
 		$count = $query->count();
 

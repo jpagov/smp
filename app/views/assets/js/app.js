@@ -337,7 +337,7 @@ var SMP = {
         remote: {
           url: endpoint + 'queries/%QUERY.json',
           replace: function () {
-          	var query = $('#report_to').val();
+          	var query = $(':focus').val();
           	if ($('#division').val() == 0) {
           		return endpoint + 'queries' + '/' + query + '.json';
           	} else {
@@ -352,7 +352,7 @@ var SMP = {
 
       staffs.initialize();
 
-      $('.reportto-prefetch .typeahead').typeahead(null, {
+      $('.reportto-prefetch .typeahead, .pa-prefetch .typeahead').typeahead(null, {
         name: 'staffs',
         displayKey: 'name',
         source: staffs.ttAdapter()

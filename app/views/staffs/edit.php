@@ -160,6 +160,13 @@
                   </div>
 
                 <div class="form-group">
+                  <label class="col-sm-2 control-label" for="personal_assistant"><?php echo __('staffs.personal_assistant'); ?></label>
+                  <div class="col-sm-8 pa-prefetch">
+                    <?php echo Form::text('personal_assistant', Input::previous('personal_assistant', $staff->personal_assistant), array('class' => 'form-control typeahead col-sm-12', 'id' => 'personal_assistant')); ?>
+                  </div>
+                </div>
+
+                <div class="form-group">
                   <label class="col-sm-2 control-label" for="scheme"><?php echo __('staffs.scheme'); ?></label>
                   <div class="col-sm-4">
                     <?php echo Form::select('scheme', $schemes, Input::previous('scheme', $staff->scheme), array('class' => 'form-control', 'id' => 'scheme',

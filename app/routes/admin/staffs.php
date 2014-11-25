@@ -100,6 +100,10 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 		  $vars['staff']->report_to = $report->display_name;
 		}
 
+		if ($pa = Staff::find($vars['staff']->personal_assistant)) {
+		  $vars['staff']->personal_assistant = $pa->display_name;
+		}
+
 		if ($branch = Branch::find($vars['staff']->branch)) {
 		  $vars['staff']->branch = $branch->title;
 		}
@@ -253,6 +257,10 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 
 		if ($reportTo = Input::get('report_to')) {
 		  $input['report_to'] = Staff::setid($reportTo);
+		}
+
+		if ($pa = Input::get('personal_assistant')) {
+		  $input['personal_assistant'] = Staff::setid($pa);
 		}
 
 		if ($branch = Input::get('branch')) {
