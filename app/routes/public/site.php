@@ -137,7 +137,7 @@ Route::get(array('division/(:any)', 'division/(:any)/(:num)'), function($divisio
     Registry::set('division_slug', $division_slug);
     Registry::set('division', $division);
 
-    return new Template('staffs-dev');
+    return new Template('staffs');
 });
 
 Route::get(array(

@@ -42,7 +42,7 @@ function menu_relative_url() {
 }
 
 function menu_name() {
-	return Registry::prop('menu_item', 'name');
+	return _e(Registry::prop('menu_item', 'name'));
 }
 
 function menu_title() {

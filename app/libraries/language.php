@@ -11,17 +11,31 @@ class Language {
 	 */
 	public static function detect() {
 
-		$language = filter_var(Input::get('lang'), FILTER_SANITIZE_URL);
+		$language = Config::app('language');
 
-		$language = (is_readable($path = APP . 'language/' . $language . '/about.php')) ? $language : Config::app('language', 'en_GB');
+		// make sure we have cookie lang, if not lets start again
+		if ($cookie = Cookie::read('lang')) {
+			$language = $cookie;
+		}
 
-		Session::put('lang', $language);
+		// set the new lang from user input
+		if (!empty($_SERVER['QUERY_STRING'])) {
+			parse_str($_SERVER['QUERY_STRING']);
+
+			if (isset($lang) and in_array($lang, static::all(true))) {
+				$language = filter_var($lang, FILTER_SANITIZE_URL);
+			}
+		}
+
+		$language = filter_var($language, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+		Cookie::write('lang', $language, Config::session('lifetime'));
 
 		return $language;
 
 	}
 
-	public static function all($listonly = false) {
+	public static function all($listonly = false, $object = false) {
 		$language = array();
 		$fi = new FilesystemIterator(APP . 'language', FilesystemIterator::SKIP_DOTS);
 
@@ -32,7 +46,14 @@ class Language {
 				$lang = $file->getFilename();
 
 				if ($listonly ) {
-					$language[] = $lang;
+					if ($object) {
+						if($about = static::parse($lang)) {
+							$language[] = $about;
+						}
+					} else {
+						$language[] = $lang;
+					}
+
 				} else {
 					if($about = static::parse($lang)) {
 						$language[$lang] = $about;
@@ -104,7 +125,7 @@ class Language {
 		$contents = explode("\n", trim(file_get_contents($file)));
 		$about = array();
 
-		foreach(array('name', 'description', 'author', 'site', 'license') as $index => $key) {
+		foreach(array('id', 'name', 'author', 'site', 'license') as $index => $key) {
 			// temp value
 			$about[$key] = '';
 

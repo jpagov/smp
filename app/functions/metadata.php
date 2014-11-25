@@ -4,7 +4,7 @@
  * Theme functions for meta
  */
 function site_name() {
-	return Config::meta('sitename');
+	return _e(Config::meta('sitename'));
 }
 
 function site_description() {

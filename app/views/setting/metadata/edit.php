@@ -5,7 +5,7 @@
 <h1 class="page-header"><?php echo __('metadata.metadata'); ?></h1>
 
 <?php echo $messages; ?>
-
+<?php Session::get('lang'); ?>
 <div class="row">
 
     <form  class="form-horizontal" method="post" action="<?php echo Uri::to('admin/setting/metadata'); ?>" novalidate>

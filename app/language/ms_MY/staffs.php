@@ -2,15 +2,15 @@
 
 return array(
 
-	'staff' => 'Staff',
-	'staffs' => 'Staff',
+	'staff' => 'Pegawai',
+	'staffs' => 'Pegawai',
 
-	'create_staff' => 'Create a new staff',
-	'add_staff' => 'Add a new staff',
-	'editing_staff' => 'Editing %s&rsquo;s Profile',
-	'remembered' => 'I know my password',
-	'forgotten_password' => 'Forgotten your password?',
-	'enable_account' => 'Enable account',
+	'create_staff' => 'Wujud Pegawai baru',
+	'add_staff' => 'Tambah Pegawai baru',
+	'editing_staff' => 'Mengemaskini Profil %',
+	'remembered' => 'Saya tahu katalaluan',
+	'forgotten_password' => 'Lupa katalaluan?',
+	'enable_account' => 'Aktifkan akauan',
 
 	// roles
 	'administrator' => 'Admin',
@@ -20,26 +20,26 @@ return array(
 	'staff_explain' => '',
 
   	// position
-	'report_to' => 'Reporting To',
-	'scheme' => 'Scheme',
-	'grade' => 'Grade',
-	'job_title' => 'Job Title',
-	'position' => 'Position',
-	'description' => 'Description',
-	'division' => 'Division',
-	'branch' => 'Branch',
-	'sector' => 'Sector',
+	'report_to' => 'Penyelia',
+	'scheme' => 'Skim',
+	'grade' => 'Gred',
+	'job_title' => 'Tugas',
+	'position' => 'Jawatan',
+	'description' => 'Tugas',
+	'division' => 'Bahagian',
+	'branch' => 'Cawangan',
+	'sector' => 'Sektor',
 	'unit' => 'Unit',
 
 
 	// form fields
-	'salutation' => 'Salutation',
-	'name' => 'Name',
-	'first_name' => 'First Name',
-	'last_name' => 'Last Name',
-	'telephone' => 'Telephone',
+	'salutation' => 'Gelaran',
+	'name' => 'Nama',
+	'first_name' => 'Nama pertama',
+	'last_name' => 'Nama akhir',
+	'telephone' => 'Telefon',
 	'gender' => 'Gender',
-	'display_name' => 'Display Name',
+	'display_name' => 'Paparan Nama',
 	'real_name' => 'Real Name',
 	'real_name_explain' => '',
 	'fax' => 'Fax',
@@ -53,8 +53,8 @@ return array(
 	'avatar' => 'Avatar',
 	'avatar_explain' => 'Click on image to upload file',
 
-	'male' => 'Male',
-	'female' => 'Female',
+	'male' => 'Lelaki',
+	'female' => 'Perempuan',
 
 	'bio' => 'Biography',
 	'bio_explain' => '',
@@ -62,38 +62,38 @@ return array(
 	'status' => 'Status',
 	'status_explain' => '',
 
-	'role' => 'Role',
+	'role' => 'Peranan',
 	'role_explain' => '',
 
 	'account_explain' => 'Enable account login for this user.',
 
 	'telephone_missing' => 'Please enter a telphone number',
 
-	'username' => 'Username',
+	'username' => 'Katanama',
 	'username_explain' => '',
 	'username_missing' => 'Please enter a username, must be at least %s characters',
 
-	'password' => 'Password',
+	'password' => 'Katalaluan',
 	'password_explain' => '',
 	'password_too_short' => 'Password must be at least %s characters',
 
-	'new_password' => 'New Password',
+	'new_password' => 'Katalaluan Baru',
 
-	'email' => 'Email',
+	'email' => 'Emel',
 	'email_explain' => '',
 	'email_missing' => 'Please enter a valid email address',
 	'email_not_found' => 'Profile not found.',
 
-	'please_select' => '- Please select -',
+	'please_select' => '- Sila pilih -',
 
 	// messages
-	'updated' => 'User profile updated.',
-	'created' => 'User profile created. <a href="%s">View Profile</a>',
-	'deleted' => 'User profile deleted.',
-	'delete_error' => 'You cannot delete your own profile',
-	'login_error' => 'Username or password is wrong.',
-	'logout_notice' => 'You are now logged out.',
-	'recovery_sent' => 'We have sent you an email to confirm your password change.',
+	'updated' => 'Profile telah dikemaskini.',
+	'created' => 'Profile telah diwujudkan. <a href="%s">Lihat profile</a>',
+	'deleted' => 'Profil telah dihapus.',
+	'delete_error' => 'Anda tdak dibenarkan menghapus profil sendiri.',
+	'login_error' => 'Katanama atau Katalaluan salah.',
+	'logout_notice' => 'Anda telah mendaftar keluar.',
+	'recovery_sent' => 'Pihak kami telah menghantar emel pengesahan untuk menukar katalaluan.',
 	'recovery_expired' => 'Password recovery token has expired, please try again.',
 	'password_reset' => 'Your new password has been set. Go and login now!',
 

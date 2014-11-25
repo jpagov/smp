@@ -10,6 +10,7 @@ Route::collection(array('before' => 'auth,admin,csrf'), function() {
 		$vars['token'] = Csrf::token();
 
 		$vars['meta'] = Config::get('meta');
+
 		$vars['pages'] = Page::dropdown();
         $themes = array();
 
