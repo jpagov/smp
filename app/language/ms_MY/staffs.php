@@ -21,6 +21,7 @@ return array(
 
   	// position
 	'report_to' => 'Penyelia',
+	'personal_assistant' => '<abbr title="Pembantu Khas">PA</abbr>',
 	'scheme' => 'Skim',
 	'grade' => 'Gred',
 	'job_title' => 'Tugas',

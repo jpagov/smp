@@ -39,6 +39,9 @@ return array(
 
 	// breadcrumb
 	'division' => 'Division',
+	'branch' => 'Branch',
+	'sector' => 'Sector',
+	'unit' => 'Unit',
 
 	'back_to_top' => 'Back to top',
 	'copyright' => '&copy; ' . date('Y') . ' %s',

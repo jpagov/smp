@@ -39,6 +39,9 @@ return array(
 
   // breadcrumb
 	'division' => 'Bahagian',
+	'branch' => 'Cawangan',
+	'sector' => 'Sektor',
+	'unit' => 'Unit',
 
 	'back_to_top' => 'Kembali ke atas',
 	'copyright' => '&copy; ' . date('Y') . ' %s',
