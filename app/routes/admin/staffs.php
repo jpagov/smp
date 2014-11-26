@@ -136,8 +136,6 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 		*/
 		foreach (array('Scheme', 'Division', 'Branch', 'Sector', 'Unit') as $hierarchy) {
 		  $vars[strtolower($hierarchy) . 's'] = $hierarchy::dropdown();
-		  //array_unshift($vars[strtolower($hierarchy) . 's'], __('staffs.please_select'));
-
 		  $vars[strtolower($hierarchy) . 's'] = array_unshift_assoc($vars[strtolower($hierarchy) . 's'], '0', __('staffs.please_select'));
 		}
 
@@ -182,7 +180,6 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 			'position',
 			'description',
 			'division',
-
 			'account'
 		));
 
@@ -255,27 +252,19 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 		  'unit' => 0,
 		);
 
-		if ($reportTo = Input::get('report_to')) {
-		  $input['report_to'] = Staff::setid($reportTo);
-		}
+		$input['report_to'] = ($reportTo = Input::get('report_to')) ? Staff::setid($reportTo) : 0;
 
-		if ($pa = Input::get('personal_assistant')) {
-		  $input['personal_assistant'] = Staff::setid($pa);
-		}
+		$input['personal_assistant'] = ($pa = Input::get('personal_assistant')) ? Staff::setid($pa) : 0;
 
-		if ($branch = Input::get('branch')) {
-		  $input['branch'] = Branch::id($branch);
-		  $hierarchy['branch'] = $input['branch'];
-		}
+		foreach (array('branch', 'sector', 'unit') as $org) {
 
-		if ($sector = Input::get('sector')) {
-		  $input['sector'] = Sector::id($sector);
-		  $hierarchy['sector'] = $input['sector'];
-		}
+			if ($orgid = Input::get($org)) {
+				$input[$org] = $org::id($orgid);
+				$hierarchy[$org] = $input[$org];
+			} else {
+				$input[$org] = $hierarchy[$org] = 0;
+			}
 
-		if ($unit = Input::get('unit')) {
-		  $input['unit'] = Unit::id($unit);
-		  $hierarchy['unit'] = $input['unit'];
 		}
 
 		$input['updated'] = Date::mysql('now');

@@ -155,7 +155,7 @@ function staff_view() {
     return $stats;
 }
 
-function staff_hierarchy() {
+function staff_hierarchy($array = false) {
 	if($hierarchy = Hierarchy::where('staff', '=', staff_id())->fetch()) {
 
 		$org = array();
@@ -163,15 +163,48 @@ function staff_hierarchy() {
 		foreach (array('division', 'branch', 'sector', 'unit') as $item) {
 			if ($hierarchy->$item) {
 				if ($h = $item::find($hierarchy->$item)) {
-					$org[] = '<span itemprop="department/'. $item .'">' . $h->title . '</span>';
+
+					if ($array) {
+						$org[$item] = array(
+								'id' => $h->id,
+								'title' => $h->title,
+								'slug' => $h->slug,
+								'url' => staff_hierarchy_url($item),
+							);
+					} else {
+						$org[] = $h->title;
+					}
 				}
 			}
+		}
+
+		if ($array) {
+			return $org;
 		}
 
 		return (!empty(array_filter($org))) ? implode(', ', $org) : __('site.no_hierarchy');
 
 	}
 	return false;
+}
+
+function staff_hierarchy_url($type = 'division') {
+
+	$url = array();
+
+	if($hierarchy = Hierarchy::where('staff', '=', staff_id())->fetch()) {
+		foreach (array('division', 'branch', 'sector', 'unit') as $org) {
+			if ($hierarchy->$org) {
+				if ($h = $org::find($hierarchy->$org)) {
+					$url[$org] = $h->slug;
+				}
+			}
+		}
+	}
+
+	//$str = substr($str, 0, strpos($str, $prefix)+strlen($prefix));
+
+	return implode('/', array_splice($url, 0, array_search($type,array_keys($url))+1));
 }
 
 

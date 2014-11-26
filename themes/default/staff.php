@@ -42,8 +42,18 @@
               <dt><?php echo _e('site.email'); ?></dt>
               <dd><i class="glyphicon glyphicon-comment"></i> <a class="email" itemprop="email" href="mailto:<?php echo staff_email_encode(); ?>" id="staff-email-<?php echo staff_id(); ?>"><?php echo staff_email_image(); ?></a></dd>
               <dt><?php echo _e('site.telephone'); ?></dt>
-              <dd><i class="glyphicon glyphicon-earphone"></i> <?php echo staff_telephone_link(); ?>&#1730;</dd>
+              <dd><i class="glyphicon glyphicon-earphone"></i> <?php echo staff_telephone_link(); ?></dd>
           </dl>
+
+          <?php if ($organization = staff_hierarchy(true)) : ?>
+          <dl class="dl-horizontal">
+          		<?php foreach($organization as $key => $org): ?>
+              <dt><?php echo _e('site.' . $key); ?></dt>
+              <dd><a href="<?php echo base_url('division/' . $org['url']); ?>"><?php echo $org['title']; ?></a></dd>
+              <?php endforeach; ?>
+          </dl>
+        	<?php endif; ?>
+
       </div>
   </div>
 
