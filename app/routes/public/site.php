@@ -119,6 +119,20 @@ Route::get(array('division/(:any)', 'division/(:any)/(:num)'), function($divisio
     // get public listings
     list($total, $staffs) = Staff::listing($offset, $per_page = Config::meta('staffs_per_page'), $hierarchies);
 
+    $breadcrumbs = array('division' => $division->id);
+
+    if($hierarchy = Hierarchy::search($breadcrumbs)) {
+    	$breadcrumb = breadcrumb_hierarchy($hierarchy->id);
+
+    	$bc = array();
+    	foreach ($breadcrumb as $key => $value) {
+    		if (in_array($key, array_keys($breadcrumbs))) {
+    			$bc[$key] = $value;
+    		}
+    	}
+    	Registry::set('breadcrumb', $bc);
+    }
+
     // get the last page
     $max_page = ($total > $per_page) ? ceil($total / $per_page) : 1;
 
@@ -151,10 +165,10 @@ Route::get(array(
     $unit_slug = '',
     $offset = 1) use($staffs_page) {
 
-    $hierarchies = array();
+    $hierarchies = $breadcrumbs = array();
 
     if( ! $division = Division::slug($division_slug )) {
-    return Response::create(new Template('404'), 404);
+    	return Response::create(new Template('404'), 404);
     }
 
     if (isset($division)) $hierarchies['division'] = $division;
@@ -178,6 +192,23 @@ Route::get(array(
 
     // get public listings
     list($total, $staffs) = Staff::listing($offset, $per_page = Config::meta('staffs_per_page'), $hierarchies);
+
+    // setup breadcrumb
+    foreach ($hierarchies as $key => $value) {
+    	$breadcrumbs[$key] = $value->id;
+    }
+
+    if($hierarchy = Hierarchy::search($breadcrumbs)) {
+    	$breadcrumb = breadcrumb_hierarchy($hierarchy->id);
+
+    	$bc = array();
+    	foreach ($breadcrumb as $key => $value) {
+    		if (in_array($key, array_keys($breadcrumbs))) {
+    			$bc[$key] = $value;
+    		}
+    	}
+    	Registry::set('breadcrumb', $bc);
+    }
 
     // get the last page
     $max_page = ($total > $per_page) ? ceil($total / $per_page) : 1;
@@ -221,6 +252,10 @@ Route::get('(:any)', function($uri) use($staffs_page) {
     	if ($staff->status == 'inactive') {
     		return Response::create(new Template('404'), 404);
     	}
+
+	    if($breadcrumbs = staff_hierarchy($staff->id, true)) {
+	    	Registry::set('breadcrumb', $breadcrumbs);
+	    }
 
         Stats::log($staff->id, 'staff');
 

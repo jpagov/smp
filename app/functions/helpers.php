@@ -98,7 +98,7 @@ function is_page() {
 }
 
 function is_division() {
-	return Registry::get('division') !== null;
+	return Registry::get('division') or  Registry::get('staff_division') !== null;
 }
 
 function division_has_meta() {

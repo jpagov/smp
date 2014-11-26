@@ -45,7 +45,7 @@
               <dd><i class="glyphicon glyphicon-earphone"></i> <?php echo staff_telephone_link(); ?></dd>
           </dl>
 
-          <?php if ($organization = staff_hierarchy(true)) : ?>
+          <?php if ($organization = staff_hierarchy(staff_id(), true)) : ?>
           <dl class="dl-horizontal">
           		<?php foreach($organization as $key => $org): ?>
               <dt><?php echo _e('site.' . $key); ?></dt>

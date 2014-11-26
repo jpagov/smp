@@ -155,8 +155,11 @@ function staff_view() {
     return $stats;
 }
 
-function staff_hierarchy($array = false) {
-	if($hierarchy = Hierarchy::where('staff', '=', staff_id())->fetch()) {
+function staff_hierarchy($id = null, $array = false) {
+
+	$id = ($id) ?: staff_id();
+
+	if($hierarchy = Hierarchy::where('staff', '=', $id)->fetch()) {
 
 		$org = array();
 
@@ -166,11 +169,11 @@ function staff_hierarchy($array = false) {
 
 					if ($array) {
 						$org[$item] = array(
-								'id' => $h->id,
-								'title' => $h->title,
-								'slug' => $h->slug,
-								'url' => staff_hierarchy_url($item),
-							);
+							'id' => $h->id,
+							'title' => $h->title,
+							'slug' => $h->slug,
+							'url' => staff_hierarchy_url($id, $item),
+						);
 					} else {
 						$org[] = $h->title;
 					}
@@ -188,11 +191,13 @@ function staff_hierarchy($array = false) {
 	return false;
 }
 
-function staff_hierarchy_url($type = 'division') {
+function staff_hierarchy_url($id = null, $type = 'division') {
+
+	$id = ($id) ?: staff_id();
 
 	$url = array();
 
-	if($hierarchy = Hierarchy::where('staff', '=', staff_id())->fetch()) {
+	if($hierarchy = Hierarchy::where('staff', '=', $id)->fetch()) {
 		foreach (array('division', 'branch', 'sector', 'unit') as $org) {
 			if ($hierarchy->$org) {
 				if ($h = $org::find($hierarchy->$org)) {
