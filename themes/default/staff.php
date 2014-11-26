@@ -69,6 +69,24 @@
 
     <?php endif; ?>
 
+    <?php if (staff_pa_id()) : $pas = staff_pa(); ?>
+
+        <h2 class="modal-header"><?php echo _e('site.personal_assistant'); ?></h2>
+
+        <?php foreach($pas->results as $pa): ?>
+
+        <div class="list-group">
+            <a href="<?php echo Config::app('url') . '/' . $pa->slug; ?>" class="list-group-item clearfix">
+                <img width="50" height="50" class="media-object img-circle pull-left" src="<?php echo staff_avatar($pa->id); ?>" alt="...">
+                <h4 class="list-group-item-heading"><?php echo $pa->display_name; ?></h4>
+                <p class="list-group-item-text"><?php echo $pa->position; ?></p>
+            </a>
+        </div>
+
+    <?php endforeach; ?>
+
+    <?php endif; ?>
+
 
       <h2 class="modal-header">Related</h2>
       <div class="list-group">

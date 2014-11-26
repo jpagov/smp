@@ -22,5 +22,6 @@ return array(
   'telephone' => 'Telephone',
   'no_desc' => '',
   'na' => '<abbr title="Not available">N/A</abbr>',
+  'personal_assistant' => 'Personal Assistant',
 
 );

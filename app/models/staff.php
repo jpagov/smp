@@ -15,6 +15,7 @@ class Staff extends Base {
 		'gender',
 		'job_title',
 		'report_to',
+		'personal_assistant',
 		'position',
 		'description',
 		'scheme',
