@@ -51,25 +51,23 @@
 
 <section class="col-xs-12 col-md-4 sidebar">
 
-    <?php if (staff_report_to_id()) : $boss = staff_report_to(); ?>
+	    <?php if (show_direct_report() and staff_report_to_id()) : $boss = staff_report_to(); ?>
 
-        <h2 class="modal-header"><?php echo _e('site.direct_report'); ?></h2>
+	        <h2 class="modal-header"><?php echo _e('site.direct_report'); ?></h2>
 
-        <?php foreach($boss->results as $bos): ?>
+	        <?php foreach($boss->results as $bos): ?>
+	        <div class="list-group">
+	            <a href="<?php echo Config::app('url') . '/' . $bos->slug; ?>" class="list-group-item clearfix">
+	                <img width="50" height="50" class="media-object img-circle pull-left" src="<?php echo staff_avatar($bos->id); ?>" alt="...">
+	                <h4 class="list-group-item-heading"><?php echo $bos->display_name; ?></h4>
+	                <p class="list-group-item-text"><?php echo $bos->position; ?></p>
+	            </a>
+	        </div>
 
-        <div class="list-group">
-            <a href="<?php echo Config::app('url') . '/' . $bos->slug; ?>" class="list-group-item clearfix">
-                <img width="50" height="50" class="media-object img-circle pull-left" src="<?php echo staff_avatar($bos->id); ?>" alt="...">
-                <h4 class="list-group-item-heading"><?php echo $bos->display_name; ?></h4>
-                <p class="list-group-item-text"><?php echo $bos->position; ?></p>
-            </a>
-        </div>
+	    	<?php endforeach; ?>
+	  	<?php endif; ?>
 
-    <?php endforeach; ?>
-
-    <?php endif; ?>
-
-    <?php if (staff_pa_id()) : $pas = staff_pa(); ?>
+    <?php if (show_personal_assistant() and staff_pa_id()) : $pas = staff_pa(); ?>
 
         <h2 class="modal-header"><?php echo _e('site.personal_assistant'); ?></h2>
 
@@ -84,7 +82,6 @@
         </div>
 
     <?php endforeach; ?>
-
     <?php endif; ?>
 
 

@@ -103,6 +103,35 @@
             </fieldset>
 
             <fieldset>
+                <legend><?php echo __('metadata.staff_settings'); ?></legend>
+
+                <div class="form-group">
+                  <div class="col-sm-offset-3 col-sm-9">
+                    <div class="checkbox">
+                      <label><?php $checked = Input::previous('show_direct_report', $meta['show_direct_report']) ? ' checked' : ''; ?>
+                        <?php echo Form::checkbox('show_direct_report', 1, $checked, array(
+                        'id' => 'show_direct_report')); ?> <?php echo __('metadata.show_direct_report'); ?>
+                      </label>
+                    </div>
+                    <span class="help-block"><?php echo __('metadata.show_direct_report_explain'); ?></span>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <div class="col-sm-offset-3 col-sm-9">
+                    <div class="checkbox">
+                      <label><?php $checked = Input::previous('show_personal_assistant', $meta['show_personal_assistant']) ? ' checked' : ''; ?>
+                        <?php echo Form::checkbox('show_personal_assistant', 1, $checked, array(
+                        'id' => 'show_personal_assistant')); ?> <?php echo __('metadata.show_personal_assistant'); ?>
+                      </label>
+                    </div>
+                    <span class="help-block"><?php echo __('metadata.show_personal_assistant_explain'); ?></span>
+                  </div>
+                </div>
+
+            </fieldset>
+
+            <fieldset>
                 <legend><?php echo __('metadata.comment_settings'); ?></legend>
 
                 <div class="form-group">

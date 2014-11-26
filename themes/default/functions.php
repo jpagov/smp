@@ -56,7 +56,15 @@ function relative_time($date) {
 }
 
 function show_division_meta() {
-	return site_meta('show_division_meta', 0);
+	return setting('show_division_meta');
+}
+
+function show_direct_report() {
+	return setting('show_direct_report');
+}
+
+function show_personal_assistant() {
+	return setting('show_personal_assistant');
 }
 
 function twitter_account() {

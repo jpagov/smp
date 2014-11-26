@@ -9,7 +9,7 @@ function __($line) {
 function _e($line, $default = null) {
 	$args = array_slice(func_get_args(), 1);
 
-	return Language::line($line, $default, $args);
+	return e(Language::line($line, $default, $args));
 }
 
 function is_admin() {

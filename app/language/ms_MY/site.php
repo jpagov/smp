@@ -22,6 +22,7 @@ return array(
   'telephone' => 'Telefon',
   'no_desc' => '',
   'na' => '<abbr title="Not available">N/A</abbr>',
+  'personal_assistant' => 'Pembantu Khas',
 
   // site
   'toggle_navigation' => 'Toggle Navigasi',

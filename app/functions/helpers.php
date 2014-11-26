@@ -3,6 +3,10 @@
 /**
  * Theme helpers functions
  */
+function setting($key, $default = 0) {
+	return Config::meta($key, $default);
+}
+
 function full_url($url = '') {
 	return Uri::full($url);
 }
