@@ -21,7 +21,7 @@
     <div class="row">
 
         <div class="col-md-2 star-rating">
-            <p> <abbr title="<?php echo number_format(staff_view()); ?>"><?php echo custom_number_format(staff_view()); ?></abbr> <small> views </small></p>
+            <p> <abbr title="<?php echo _e('site.profile_hit', number_format(staff_view())); ?>"><small><?php echo custom_number_format(staff_view()); ?></small></abbr></p>
             <div class="stars">
                 <span class="glyphicon glyphicon-star"></span>
                 <span class="glyphicon glyphicon-star"></span>
@@ -35,13 +35,13 @@
         <div class="col-md-10 meta">
             <dl class="dl-horizontal">
 
-              <dt>Position</dt>
+              <dt><?php echo _e('site.position'); ?></dt>
               <dd><i class="glyphicon glyphicon-pushpin"></i> <span itemprop="jobTitle"><?php echo staff_job_title(); ?></span></dd>
-              <dt>Designation</dt>
+              <dt><?php echo _e('site.designation'); ?></dt>
               <dd><i class="glyphicon glyphicon-barcode"></i> <?php echo staff_position(); ?></dd>
-              <dt>Email</dt>
+              <dt><?php echo _e('site.email'); ?></dt>
               <dd><i class="glyphicon glyphicon-comment"></i> <a class="email" itemprop="email" href="mailto:<?php echo staff_email_encode(); ?>" id="staff-email-<?php echo staff_id(); ?>"><?php echo staff_email_image(); ?></a></dd>
-              <dt>Office Phone</dt>
+              <dt><?php echo _e('site.telephone'); ?></dt>
               <dd><i class="glyphicon glyphicon-earphone"></i> <?php echo staff_telephone_link(); ?>&#1730;</dd>
           </dl>
       </div>
@@ -53,7 +53,7 @@
 
     <?php if (staff_report_to_id()) : $boss = staff_report_to(); ?>
 
-        <h2 class="modal-header">Direct Reports</h2>
+        <h2 class="modal-header"><?php echo _e('site.direct_report'); ?></h2>
 
         <?php foreach($boss->results as $bos): ?>
 
@@ -88,7 +88,7 @@
     <?php endif; ?>
 
 
-      <h2 class="modal-header">Related</h2>
+      <h2 class="modal-header"><?php echo _e('site.staff_related'); ?></h2>
       <div class="list-group">
 
         <?php $related = Staff::related(staff_id()); ?>

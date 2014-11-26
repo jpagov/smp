@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="">
   <meta name="author" content="">
-  <title><?php echo __('global.manage'); ?> <?php echo Config::meta('sitename'); ?></title>
+  <title><?php echo __('global.manage'); ?> <?php echo _e(Config::meta('sitename')); ?></title>
 
   <link href="<?php echo asset('app/views/assets/css/bootstrap.min.css'); ?>" rel="stylesheet">
   <link rel="stylesheet" href="<?php echo asset('app/views/assets/css/app.css'); ?>">
@@ -28,7 +28,7 @@
       <span class="icon-bar"></span>
       <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="<?php echo Uri::to('admin/staffs'); ?>"><?php echo Config::meta('sitename'); ?></a>
+      <a class="navbar-brand" href="<?php echo Uri::to('admin/staffs'); ?>"><?php echo _e(Config::meta('sitename')); ?></a>
     </div>
 
     <?php $user = Auth::user(); if($user): ?>

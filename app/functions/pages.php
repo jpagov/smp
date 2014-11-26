@@ -26,12 +26,12 @@ function page_title($default = '') {
 		return $title;
 	}
 
-  if($title = Registry::prop('staff_division', 'title')) {
-    return $title;
-  }
+	if($title = Registry::prop('staff_division', 'title')) {
+		return $title;
+	}
 
 	if($title = Registry::prop('page', 'title')) {
-		return $title;
+		return _e($title);
 	}
 
 	return $default;

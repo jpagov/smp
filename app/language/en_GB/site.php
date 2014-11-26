@@ -24,4 +24,22 @@ return array(
   'na' => '<abbr title="Not available">N/A</abbr>',
   'personal_assistant' => 'Personal Assistant',
 
+  // site
+  'toggle_navigation' => 'Toggle Navigation',
+  'title' => 'Staff Directory',
+  'description' => 'Public Service Department Of Malaysia',
+  'view_by_category' => 'View by Category',
+  'view_by_division' => 'View by Division',
+  'submit' => 'Submit',
+  'search_placeholder' => 'To search, type and hit enter&hellip;',
+  'user_guide' => 'User Guide',
+  'profile_hit' => 'This profile has been visited %s times',
+  'staff_related' => 'Related',
+	'direct_report' => 'Supervisor',
+
+	// breadcrumb
+	'division' => 'Division',
+
+	'back_to_top' => 'Back to top',
+	'copyright' => '&copy; ' . date('Y') . ' %s',
 );

@@ -1,5 +1,5 @@
-Language name: en_GB
-Description:   en_GB
+ID: en_GB
+Language name: English
 Author name:   Hariadi Hinta
 Author site:   https://sistem.jpa.gov.my
 License:       MIT

@@ -1,0 +1,5 @@
+ID: ms_MY
+Language name: Malay
+Author name:   Hariadi Hinta
+Author site:   https://sistem.jpa.gov.my/smp
+License:       MIT

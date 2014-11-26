@@ -8,10 +8,10 @@
     <li class="active"><?php echo (staff_name()); ?></li>
     <?php else: ?>
     <?php if (!is_managementpage()) : ?>
-    <li><a href="<?php echo base_url('divisions'); ?>">Division</a></li>
+    <li><a href="<?php echo base_url('divisions'); ?>"><?php echo _e('site.division'); ?></a></li>
     <li class="active"><?php echo (staff_name()) ? staff_name() : division_slug(); ?></li>
     <?php else: ?>
-    <li class="active"><?php echo 'Top Management'; ?></li>
+    <li class="active"><?php echo _e('site.top_management'); ?></li>
     <?php endif; ?>
     <?php endif; ?>
 </ul>
