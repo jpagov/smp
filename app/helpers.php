@@ -43,21 +43,6 @@ function slug($str, $separator = '-') {
   return strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', $separator, $str)));
 }
 
-function acronym($str) {
-
-	if (empty($str)) {
-		return;
-	}
-
-	$words = explode(' ', $str);
-	$acronym = '';
-
-	foreach ($words as $w) {
-	  $acronym .= $w[0];
-	}
-	return trim(strtolower($acronym));
-}
-
 function parse($str, $markdown = true) {
 	// process tags
 	$pattern = '/[\{\{]{1}([a-z]+)[\}\}]{1}/i';

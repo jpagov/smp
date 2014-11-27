@@ -14,10 +14,14 @@
 
     $active = (((total_breadcrumb() - 1) === array_search($key, array_keys(breadcrumbs())))) ? true : false; ?>
 
-	<li<?php if ($active) echo ' class="active"'; ?>>
-	<?php if (!$active) : ?><a href="<?php echo base_url('division/' . $org['url']); ?>" title="<?php echo $org['title']; ?>"><?php endif; ?>
+    <?php if (is_staff()) : ?>
+    <li><a href="<?php echo base_url('division/' . $org['url']); ?>" title="<?php echo $org['title']; ?>"><?php echo acronym($org['slug']); ?></a></li>
 
-		<?php echo $org['slug']; ?><?php if (!$active) : ?></a><?php endif; ?></li>
+		<?php else : ?>
+
+	<li<?php if ($active) echo ' class="active"'; ?>><?php if (!$active) : ?><a href="<?php echo base_url('division/' . $org['url']); ?>" title="<?php echo $org['title']; ?>"><?php endif; ?><?php echo acronym($org['slug']); ?><?php if (!$active) : ?></a><?php endif; ?></li>
+
+	<?php endif; ?>
 
 	<?php endforeach; ?>
 

@@ -112,3 +112,11 @@ function is_search() {
 function truncate($text = '', $chars = 100) {
 	return strlen($text) > $chars ? substr($text, 0, $chars) . "..." : $text;
 }
+
+function acronym($text = '') {
+	$text = str_replace('-', ' ', $text);
+	if (str_word_count($text) < 2) return $text;
+	return preg_replace('~\b(\w)|.~', '$1', $text);
+}
+
+

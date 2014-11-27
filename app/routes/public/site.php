@@ -108,9 +108,6 @@ Route::get(array('division/(:any)', 'division/(:any)/(:num)'), function($divisio
         return Response::create(new Template('404'), 404);
     }
 
-    // depcreated, use new Stats::log()
-    // Division::update($division->id, array('view' => $division->view +1));
-
     Stats::log($division->id, 'division');
 
     $hierarchies = array();
@@ -155,9 +152,12 @@ Route::get(array('division/(:any)', 'division/(:any)/(:num)'), function($divisio
 });
 
 Route::get(array(
-    'division/(:any)/(:any)/(:any)', 'division/(:any)/(:any)/(:any)/(:num)',
-    'division/(:any)/(:any)', 'division/(:any)/(:any)/(:num)',
-    'division/(:any)/(:any)/(:any)/(:any)', 'division/(:any)/(:any)/(:any)/(:any)/(:num)'),
+    'division/(:any)/(:any)/(:any)',
+    'division/(:any)/(:any)/(:any)/(:num)',
+    'division/(:any)/(:any)',
+    'division/(:any)/(:any)/(:num)',
+    'division/(:any)/(:any)/(:any)/(:any)',
+    'division/(:any)/(:any)/(:any)/(:any)/(:num)'),
     function(
     $division_slug = '',
     $branch_slug = '',
@@ -197,6 +197,8 @@ Route::get(array(
     foreach ($hierarchies as $key => $value) {
     	$breadcrumbs[$key] = $value->id;
     }
+
+    dd($hierarchies);
 
     if($hierarchy = Hierarchy::search($breadcrumbs)) {
     	$breadcrumb = breadcrumb_hierarchy($hierarchy->id);

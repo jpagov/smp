@@ -207,6 +207,8 @@ function staff_hierarchy_url($id = null, $type = 'division') {
 		}
 	}
 
+
+
 	//$str = substr($str, 0, strpos($str, $prefix)+strlen($prefix));
 
 	return implode('/', array_splice($url, 0, array_search($type,array_keys($url))+1));
