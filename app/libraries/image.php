@@ -246,7 +246,7 @@ class Image {
 			imagepng($this->dst_image, $file, 9);
 		}
 		elseif($type == 'jpeg' or $type == 'jpg') {
-			imagejpeg($this->dst_image, $file, 75);
+			imagejpeg($this->dst_image, $file, 100);
 		}
 		elseif($type == 'gif') {
 			imagegif($this->dst_image, $file);

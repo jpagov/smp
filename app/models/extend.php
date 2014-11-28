@@ -41,7 +41,22 @@ class Extend extends Base {
 			case 'image':
 			case 'file':
 				if( ! empty($extend->value->filename)) {
-          $value = asset('content/' . ($extend->key == 'avatar' ? 'avatar' : '') . '/' . $extend->value->filename);
+
+					$file = asset('content/' . $extend->value->filename);
+
+					if ($extend->key == 'avatar') {
+
+						$storage = PATH . 'content' . DS . 'avatar' . DS . $extend->value->filename;
+
+						$file = asset('content/avatar/' . $extend->value->filename);
+
+						if (file_exists($storage)) {
+							$value = $file;
+						}
+					} else {
+						$value = $file;
+					}
+
 				}
 				break;
 		}
@@ -138,9 +153,13 @@ class Extend extends Base {
 
 	public static function upload($file, $avatar = null) {
 		$storage = PATH . 'content' . DS;
+		$original = '';
 
         if ($avatar) {
           $storage .= 'avatar' . DS;
+          $original .= $storage . 'original' . DS;
+
+          if(!is_dir($original)) mkdir($original);
         }
 
 		if(!is_dir($storage)) mkdir($storage);
@@ -150,7 +169,8 @@ class Extend extends Base {
 		// Added rtrim to remove file extension before adding again
 
         if ($avatar) {
-          $filename = hash('md5', $avatar) . '.' . $ext;
+          //$filename = hash('md5', $avatar) . '.' . $ext;
+          $filename = rtrim($file['name'], '.' . $ext) . '.' . $ext;
         } else {
           $filename = slug(rtrim($file['name'], '.' . $ext)) . '.' . $ext;
         }
@@ -158,6 +178,13 @@ class Extend extends Base {
 		$filepath = $storage . $filename;
 
 		if(move_uploaded_file($file['tmp_name'], $filepath)) {
+			if ($avatar) {
+				$copy = $original . $filename;
+				if (!copy($filepath, $copy)) {
+					return $filepath;
+				}
+			}
+
 			return $filepath;
 		}
 

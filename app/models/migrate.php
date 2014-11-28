@@ -5,7 +5,7 @@ class Migrate extends Base {
 	public static $table = 'migrate';
 
     public static function paginate($page = 1, $perpage = 100) {
-        $query = Query::table(static::table());
+        $query = Query::table(static::table())->where('nama', '!=', '')->where('nama', '!=', '');
 
         $count = $query->count();
 

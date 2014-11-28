@@ -19,7 +19,7 @@ class Encode {
         $filename = hash('md5', $email) . '.png';
 
         $filepath = $storage . $filename;
-        $uri = base_url($emaildir . '/' . $filename);
+        $uri = Uri::to($emaildir . '/' . $filename);
 
 
         if (!file_exists($filepath)) {

@@ -8,18 +8,18 @@ Route::collection(array('before' => 'auth'), function() {
     Admin JSON API
     */
     Route::get(array('admin/import', 'admin/import/(:num)'), function($page = 1) {
-    //Route::get('admin/import', function() {
 
-        // count existing table, if more than 10 rows then migrate will abort
-        if (Staff::count() > 10) {
-            echo 'ABORT - You already have uptodate table. To re-migrate, clean your table and run again.';
-            exit();
-        }
+        /* ############################################################
+           WARNING: THIS WILL DELETE YOUR EXISTING DATA. BACKUP FIRST.
+           ############################################################ */
 
         $loop = round(Migrate::count()/100);
 
         $migrates = Migrate::paginate($page, 100);
         foreach ($migrates->results as $staff) {
+
+        	if ($staff->id == 487) continue;
+        	//dd($staff);
 
             $s = new Siapa($staff->nama);
             $s->setMiddle('b.');
@@ -48,13 +48,73 @@ Route::collection(array('before' => 'auth'), function() {
                 'status' => (filter_var($staff->status, FILTER_VALIDATE_BOOLEAN)) ? 'active' : 'inactive',
                 'role' => 'staff',
                 'view' => $staff->kaunter,
+                'sort' => $staff->urutan,
                 'created' => Date::mysql('now'),
                 );
 
             $input = array_filter($input);
 
+            $name = strtolower(trim($staff->nama));
 
-            $staff = Staff::create($input);
+            if (!$exist = Staff::where('id', '=', $staff->id)->fetch(array('id'))) {
+
+            	if (strpos($name, 'kosong') === false) {
+
+            		Staff::create($input);
+
+            	}
+
+            } else {
+
+            	if (strpos($name, 'kosong') !== false) {
+
+            		Staff::where('id', '=', $exist->id)->delete();
+					Hierarchy::where('staff', '=', $exist->id)->delete();
+					Role::where('staff', '=', $exist->id)->delete();
+
+					// and delete they avatar too
+					$path = PATH . 'content' . DS . 'avatar' . DS;
+					$image = $path . preg_replace( "/^([^@]+)(@.*)$/", "$1", $staff->emel) . '.jpg';
+
+					$removed = $path . 'removed/' . preg_replace( "/^([^@]+)(@.*)$/", "$1", $staff->emel) . '.jpg';
+
+					if (file_exists($image)) {
+						rename($image, $removed);
+					}
+					continue;
+
+            	} else {
+
+					Staff::update($exist->id, $input);
+
+            	}
+
+            }
+
+            // we upload avatar manually, just update the staff meta in db
+            if (isset($staff->emel) and !empty($staff->emel) and isset($input['slug'])) {
+
+            	$meta = array(
+            		'staff' => $staff->id,
+            		'extend' => 1,
+            		'data' => Json::encode(array(
+		            	'name' => $input['slug'],
+		            	'filename' => preg_replace( "/^([^@]+)(@.*)$/", "$1", $staff->emel) . '.jpg'
+		            )),
+            	);
+
+		        if (!$meta_exist = Meta::where('staff', '=', $staff->id)->where('extend', '=', 1)->fetch(array('id'))) {
+
+		    		Meta::create($meta);
+
+		    	} else {
+
+		    		Meta::update($meta_exist->id, $meta);
+
+		    	}
+
+            }
+
 
             $hierarchy = array(
                 'staff' => $staff->id
@@ -80,13 +140,15 @@ Route::collection(array('before' => 'auth'), function() {
 
             if (!$hierarchy_update = Hierarchy::search($hierarchsm)) {
             	Hierarchy::create($hierarchy);
+            } else {
+            	Hierarchy::update($hierarchy_update->id, $hierarchy);
             }
 
             Division::counter();
 
-            // TODo: Create image from email
-            Encode::email2image($staff->emel);
-
+            if (isset($staff->emel) and !empty($staff->emel)) {
+            	Encode::email2image($staff->emel);
+            }
         }
 
 
