@@ -80,3 +80,16 @@ function unit_countx() {
 		->where('unit', '=', unit_id())
 		->where('status', '=', 'active')->count();
 }
+
+function unit_division_slug() {
+	return Registry::get('division_slug');
+}
+
+function unit_branch_slug() {
+	return Registry::get('branch_slug');
+}
+
+function unit_sector_slug() {
+	return Registry::get('sector_slug');
+}
+

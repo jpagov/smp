@@ -52,6 +52,9 @@ return array(
 	'show_division_meta' => 'Show Division info',
 	'show_division_meta_explain' => 'This will show <code>address</code>, <code>telephone</code> and <code>fax</code> info on Division page.',
 
+	'show_division_meta' => 'Show Division info',
+	'show_division_meta_explain' => 'This will show <code>address</code>, <code>telephone</code> and <code>fax</code> info on Division page.',
+
 	'show_direct_report' => 'Show Direct Report',
 	'show_direct_report_explain' => 'This will show Direct Report in Staff profile.',
 

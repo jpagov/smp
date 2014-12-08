@@ -115,7 +115,7 @@ function truncate($text = '', $chars = 100) {
 
 function acronym($text = '') {
 	$text = str_replace('-', ' ', $text);
-	if (str_word_count($text) < 2) return $text;
+	if (str_word_count($text) < 3) return $text;
 	return preg_replace('~\b(\w)|.~', '$1', $text);
 }
 

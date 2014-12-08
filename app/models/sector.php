@@ -38,4 +38,28 @@ class Sector extends Base {
 		return new Paginator($results, $count, $page, $perpage, Uri::to('admin/sectors'));
 	}
 
+	public static function listing($branch = null, $page = 1, $perpage = 10) {
+		$query = Query::table(static::table());
+
+		if ($branch) {
+
+			$query = $query->left_join(
+					Base::table('hierarchies'),
+					Base::table('hierarchies.sector'), '=', Base::table('sectors.id'));
+
+			$query = $query->where(Base::table('hierarchies.branch'), '=', $branch);
+		}
+
+		$query->group('sector');
+
+		$total = $query->count();
+
+		$sectors = $query->take($perpage)
+				->skip(--$page * $perpage)
+				->get(array(Base::table('sectors.*')));
+
+		return array($total, $sectors);
+
+	}
+
 }

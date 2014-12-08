@@ -1,7 +1,7 @@
 <?php theme_include('header'); ?>
 <?php if (Uri::current() == '/') : theme_include('footer'); exit(); endif; ?>
 
-<section class="content col-md-<?php  echo ( (show_division_meta() && division_has_meta()) || total_branchs() || total_sectors() || total_units() ) ? '9' : '12'; ?>">
+<section class="content col-md-<?php  echo ( (show_division_meta() && division_has_meta()) || total_branchs() ) ? '9' : '12'; ?>">
     <?php theme_include('breadcrumb'); ?>
 
 	<?php if(has_staffs()): ?>
@@ -49,7 +49,7 @@
 </section>
 
 
-<?php if( show_division_meta() || total_branchs() || total_sectors() ) : ?>
+<?php if( show_division_meta() || total_branchs() ) : ?>
 <section class="col-sm-3">
 
 	<?php if(total_branchs()): ?>

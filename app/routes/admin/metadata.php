@@ -38,6 +38,7 @@ Route::collection(array('before' => 'auth,admin,csrf'), function() {
 			'staffs_per_page',
 			'category',
 			'show_division_meta',
+			'show_hierarchy',
 			'show_direct_report',
 			'show_personal_assistant',
 			'auto_published_comments',

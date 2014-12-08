@@ -6,37 +6,43 @@
 
     <div class="row">
 
-        <div class="col-xs-8 col-md-push-4">
+        <div class="col-xs-9 col-md-push-3">
             <h1><em><?php echo staff_salutation(); ?></em> <?php echo staff_first_name(); ?> <?php echo staff_last_name(); ?></h1>
-            <p class="lead"><span itemprop="jobTitle"><?php echo staff_description(); ?></span></p>
+            <p class="lead"><?php echo staff_job_title(); ?></p>
+
+            <p class="well well-sm bg-warning"><?php echo staff_description(); ?></p>
         </div>
 
-        <div class="col-xs-4 col-md-pull-8">
-            <figure><img src="<?php echo staff_avatar(staff_id(), staff_gender()); ?>" class="img-responsive img-thumbnail pull-left"></figure>
+        <div class="col-xs-3 col-md-pull-9">
+            <img src="<?php echo staff_avatar(staff_id(), staff_gender()); ?>" class="img-responsive img-thumbnail pull-left">
+             <div class="star-rating">
+		            <p> <abbr title="<?php echo _e('site.profile_hit', number_format(staff_view())); ?>"><small><?php echo custom_number_format(staff_view()); ?></small></abbr></p>
 
+		            <?php if (staff_rating()) : ?>
+
+		            <div class="stars">
+		            <?php for ($i=0; $i < 5; $i++) :  ?>
+		            		<?php if (staff_rating() > $i) : ?>
+		                <span class="glyphicon glyphicon-star"></span>
+		             	 <?php else: ?>
+		                <span class="glyphicon glyphicon-star-empty"></span>
+		                <?php endif; ?>
+
+		              	<?php endfor; ?>
+		            </div>
+		            <?php endif; ?>
+
+		            <p><small>Relevancy: <a href="#" class="relevancy" role="tooltip" data-toggle="tooltip" data-placement="top" title="Show the staff visit and search relevancy"><?php echo staff_relevancy_percent(); ?></a></small></p>
+		        </div>
         </div>
 
     </div>
 
     <div class="row">
 
-        <div class="col-md-2 star-rating">
-            <p> <abbr title="<?php echo _e('site.profile_hit', number_format(staff_view())); ?>"><small><?php echo custom_number_format(staff_view()); ?></small></abbr></p>
-            <div class="stars">
-                <span class="glyphicon glyphicon-star"></span>
-                <span class="glyphicon glyphicon-star"></span>
-                <span class="glyphicon glyphicon-star"></span>
-                <span class="glyphicon glyphicon-star"></span>
-                <span class="glyphicon glyphicon-star-empty"></span>
-            </div>
-            <p><small>Relevancy: <a href="#" class="relevancy" role="tooltip" data-toggle="tooltip" data-placement="top" title="Show the staff visit and search relevancy"><?php echo staff_relevancy_percent(); ?></a></small></p>
-        </div>
-
-        <div class="col-md-10 meta">
+        <div class="col-md-12 col-md-offset-2 meta">
             <dl class="dl-horizontal">
 
-              <dt><?php echo _e('site.position'); ?></dt>
-              <dd><i class="glyphicon glyphicon-pushpin"></i> <span itemprop="jobTitle"><?php echo staff_job_title(); ?></span></dd>
               <dt><?php echo _e('site.designation'); ?></dt>
               <dd><i class="glyphicon glyphicon-barcode"></i> <?php echo staff_position(); ?></dd>
               <dt><?php echo _e('site.email'); ?></dt>

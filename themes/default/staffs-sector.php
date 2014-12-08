@@ -1,7 +1,7 @@
 <?php theme_include('header'); ?>
 <?php if (Uri::current() == '/') : theme_include('footer'); exit(); endif; ?>
 
-<section class="content col-md-<?php  echo ( (show_division_meta() && division_has_meta()) || total_branchs() || total_sectors() || total_units() ) ? '9' : '12'; ?>">
+<section class="content col-md-<?php  echo ( (show_division_meta() && division_has_meta()) || total_units() ) ? '9' : '12'; ?>">
     <?php theme_include('breadcrumb'); ?>
 
 	<?php if(has_staffs()): ?>
@@ -49,17 +49,17 @@
 </section>
 
 
-<?php if( show_division_meta() || total_branchs() || total_sectors() ) : ?>
+<?php if( show_division_meta() || total_units() ) : ?>
 <section class="col-sm-3">
 
-	<?php if(total_branchs()): ?>
+	<?php if(total_units()): ?>
 	<div class="panel panel-default">
 		<!-- Default panel contents -->
-		<div class="panel-heading"><?php echo _e('staffs.branch'); ?></div>
+		<div class="panel-heading"><?php echo _e('staffs.unit'); ?></div>
 
 			<ul class="list-group">
-				<?php while(branchs()): ?>
-				<li class="list-group-item"><a href="<?php echo base_url('division/' . division_slug() .  '/' . branch_slug()); ?>"><?php echo branch_title(); ?></a></li>
+				<?php while(units()): ?>
+				<li class="list-group-item"><a href="<?php echo base_url('division/' . unit_division_slug() .  '/' . unit_branch_slug() . '/' . unit_sector_slug() . '/' . unit_slug()); ?>"><?php echo unit_title(); ?></a></li>
 				<?php endwhile; ?>
 			</ul>
 
