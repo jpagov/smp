@@ -279,8 +279,9 @@ function staff_custom_field($key, $default = '') {
 	return $default;
 }
 
-function staff_relevancy() {
-    return Stats::relevancy(staff_id());
+function staff_relevancy($staff = null) {
+	$staff = $staff ?: staff_id();
+    return Stats::relevancy($staff);
 }
 
 function staff_relevancy_percent() {
@@ -291,6 +292,12 @@ function staff_relevancy_total() {
     return staff_relevancy()['from'];
 }
 
+function staff_rating($staff = null) {
+    //return round(staff_relevancy_percent() / 20);
+
+    $staff = $staff ?: staff_id();
+    return Staff::rating($staff);
+}
 
 function customised() {
 	//if($itm = Registry::get('staff')) {

@@ -56,9 +56,9 @@
                       <img src="<?php echo avatar($avatar); ?>" class="img-responsive img-thumbnail pull-left"></label>
                       <input class="sr-only" id="extend_avatar" name="extend[avatar]" type="file">
                       <?php if ( $remove) : ?>
-
+                      <p>
                       <label>Remove Avatar:</label>
-                      <input type="checkbox" name="extend_remove[avatar]" value="1">
+                      <input type="checkbox" name="extend_remove[avatar]" value="1"></p>
                     <?php endif; ?>
                     <span class="help-block"><?php echo __('staffs.avatar_explain'); ?></span>
                     </div>

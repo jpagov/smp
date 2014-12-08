@@ -100,6 +100,18 @@
                   </div>
                 </div>
 
+                <div class="form-group">
+                  <div class="col-sm-offset-3 col-sm-9">
+                    <div class="checkbox">
+                      <label><?php $checked = Input::previous('show_hierarchy', $meta['show_hierarchy']) ? ' checked' : ''; ?>
+                        <?php echo Form::checkbox('show_hierarchy', 1, $checked, array(
+                        'id' => 'show_hierarchy')); ?> <?php echo __('metadata.show_hierarchy'); ?>
+                      </label>
+                    </div>
+                    <span class="help-block"><?php echo __('metadata.show_hierarchy_explain'); ?></span>
+                  </div>
+                </div>
+
             </fieldset>
 
             <fieldset>

@@ -4,7 +4,7 @@ class Staff extends Base {
 
 	public static $table = 'staffs';
 
-  // default get all field excerpt username and password
+  // default get all field excerpt username && password
 	public static function fields($field = array(
 		'id',
 		'slug',
@@ -72,7 +72,7 @@ class Staff extends Base {
 			$query = $query->where(Base::table('staffs.management'), '=', '1');
 		} else {
 
-			if( isset($hierarchy['division']) and $division = $hierarchy['division']) {
+			if( isset($hierarchy['division']) && $division = $hierarchy['division']) {
 
 				$query = $query->left_join(
 					Base::table('divisions'),
@@ -82,7 +82,7 @@ class Staff extends Base {
 				array_push($get, Base::table('divisions.slug as division_slug'), Base::table('divisions.title as division_title'));
 			}
 
-			if( isset($hierarchy['branch']) and $branch = $hierarchy['branch']) {
+			if( isset($hierarchy['branch']) && $branch = $hierarchy['branch']) {
 
 				$query = $query->left_join(
 					Base::table('branchs'),
@@ -92,7 +92,7 @@ class Staff extends Base {
 				array_push($get, Base::table('branchs.slug as branch_slug'), Base::table('branchs.title as branch_title'));
 			}
 
-			if( isset($hierarchy['sector']) and $sector = $hierarchy['sector']) {
+			if( isset($hierarchy['sector']) && $sector = $hierarchy['sector']) {
 
 				$query = $query->left_join(
 					Base::table('sectors'),
@@ -102,7 +102,7 @@ class Staff extends Base {
 				array_push($get, Base::table('sectors.slug as sector_slug'), Base::table('sectors.title as sector_title'));
 			}
 
-			if( isset($hierarchy['unit']) and $unit = $hierarchy['unit']) {
+			if( isset($hierarchy['unit']) && $unit = $hierarchy['unit']) {
 
 				$query = $query->left_join(
 					Base::table('units'),
@@ -152,7 +152,7 @@ class Staff extends Base {
 
 			if (is_array($filter['division'])) {
 
-				if (count($filter['division']) == 1 and !empty($filter['division'][0])) {
+				if (count($filter['division']) == 1 && !empty($filter['division'][0])) {
 					$query->where('division', '=', $filter['division'][0]);
 				} else {
 					$query->where_in('division', $filter['division'], 'AND ');
@@ -216,13 +216,55 @@ class Staff extends Base {
 		$query = Query::table(static::table())->where('status', '=', 'active');
 
 		$query->where('position', 'like', '%' . substr($staff->position, 0, -1) . '%')
-			->or_where('report_to', '=', $staff->id);
+			//->or_where('report_to', '=', $staff->id);
+
+			->where('id', '!=', $staff->id);
 
 		$count = $query->count();
 
 		$results = $query->take($perpage)->skip(($page - 1) * $perpage)->sort('grade', 'desc')->get(array(static::fields()));
 
 		return new Paginator($results, $count, $page, $perpage, Uri::to('staffs'));
+	}
+
+	public static function rating($id) {
+
+		$rates = Config::app('rating');
+
+		$staff = static::find($id);
+
+		$view = (int) $staff->view;
+
+		$rating = 1; // default rating
+
+		switch ($view) {
+			case in_array($view, range(1,4999)):
+				# code...
+				break;
+
+			case in_array($view, range(5000,19999)):
+				$rating = 2;
+				break;
+
+			case in_array($view, range(20000,49999)):
+				$rating = 3;
+				break;
+
+			case in_array($view, range(50000,79999)):
+				$rating = 4;
+				break;
+
+			case ($view > 80000):
+				$rating = 5;
+				break;
+
+			default:
+				$rating = 1;
+				break;
+		}
+
+
+		return $rating;
 	}
 
 }

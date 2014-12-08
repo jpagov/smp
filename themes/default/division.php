@@ -49,7 +49,7 @@
 </section>
 
 
-<?php if( show_division_meta() || total_branchs() || total_sectors() ) : ?>
+<?php if( show_division_meta() || total_branchs() ) : ?>
 <section class="col-sm-3">
 
 	<?php if(total_branchs()): ?>

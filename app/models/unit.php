@@ -38,4 +38,28 @@ class Unit extends Base {
 		return new Paginator($results, $count, $page, $perpage, Uri::to('admin/units'));
 	}
 
+	public static function listing($sector = null, $page = 1, $perpage = 10) {
+		$query = Query::table(static::table());
+
+		if ($sector) {
+
+			$query = $query->left_join(
+					Base::table('hierarchies'),
+					Base::table('hierarchies.unit'), '=', Base::table('units.id'));
+
+			$query = $query->where(Base::table('hierarchies.sector'), '=', $sector);
+		}
+
+		$query->group('unit');
+
+		$count = $query->count();
+
+		$units = $query->take($perpage)
+				->skip(--$page * $perpage)
+				->get(array(Base::table('units.*')));
+
+		return array($count, $units);
+
+	}
+
 }

@@ -52,7 +52,7 @@ Route::get($routes, function($offset = 1) use($staffs_page) {
     $max_page = ($total > $per_page) ? ceil($total / $per_page) : 1;
 
     // stop users browsing to non existing ranges
-    if(($offset > $max_page) or ($offset < 1)) {
+    if(($offset > $max_page) || ($offset < 1)) {
         return Response::create(new Template('404'), 404);
     }
 
@@ -87,7 +87,7 @@ Route::get(array('top-management', 'top-management/(:num)'), function($offset = 
     $max_page = ($total > $per_page) ? ceil($total / $per_page) : 1;
 
     // stop users browsing to non existing ranges
-    if(($offset > $max_page) or ($offset < 1)) {
+    if(($offset > $max_page) || ($offset < 1)) {
         return Response::create(new Template('404'), 404);
     }
 
@@ -108,6 +108,8 @@ Route::get(array('division/(:any)', 'division/(:any)/(:num)'), function($divisio
         return Response::create(new Template('404'), 404);
     }
 
+    Staff::update($division->id, array('view' => $division->view +1));
+
     Stats::log($division->id, 'division');
 
     $hierarchies = array();
@@ -115,6 +117,11 @@ Route::get(array('division/(:any)', 'division/(:any)/(:num)'), function($divisio
 
     // get public listings
     list($total, $staffs) = Staff::listing($offset, $per_page = Config::meta('staffs_per_page'), $hierarchies);
+
+    // get branch under this division
+    list($count, $branchs) = Branch::listing($division->id, $offset, $per_page = Config::meta('staffs_per_page'));
+
+    //dd($branchs);
 
     $breadcrumbs = array('division' => $division->id);
 
@@ -134,13 +141,15 @@ Route::get(array('division/(:any)', 'division/(:any)/(:num)'), function($divisio
     $max_page = ($total > $per_page) ? ceil($total / $per_page) : 1;
 
     // stop users browsing to non existing ranges
-    if(($offset > $max_page) or ($offset < 1)) {
+    if(($offset > $max_page) || ($offset < 1)) {
         return Response::create(new Template('404'), 404);
     }
 
     $staffs = new Items($staffs);
+    $branchs = new Items($branchs);
 
     Registry::set('staffs', $staffs);
+    Registry::set('branchs', $branchs);
     Registry::set('total_staffs', $total);
     Registry::set('page', $staffs_page);
     Registry::set('page_offset', $offset);
@@ -151,18 +160,22 @@ Route::get(array('division/(:any)', 'division/(:any)/(:num)'), function($divisio
     return new Template('staffs');
 });
 
+/* TODO: separate route
+ * 1. division/branch, division/branch/num
+ * 2. division/branch/sector, division/branch/sector/num
+ * 3. division/branch/sector/unit, division/branch/unit/num
+ */
+
+/**
+* View staffs by hierarchies division / branch
+*/
+
 Route::get(array(
-    'division/(:any)/(:any)/(:any)',
-    'division/(:any)/(:any)/(:any)/(:num)',
     'division/(:any)/(:any)',
-    'division/(:any)/(:any)/(:num)',
-    'division/(:any)/(:any)/(:any)/(:any)',
-    'division/(:any)/(:any)/(:any)/(:any)/(:num)'),
+    'division/(:any)/(:any)/(:num)'),
     function(
     $division_slug = '',
     $branch_slug = '',
-    $sector_slug = '',
-    $unit_slug = '',
     $offset = 1) use($staffs_page) {
 
     $hierarchies = $breadcrumbs = array();
@@ -173,32 +186,22 @@ Route::get(array(
 
     if (isset($division)) $hierarchies['division'] = $division;
 
-    if( !empty($branch_slug) and ! $branch = Branch::slug($branch_slug )) {
+    if( !empty($branch_slug) && ! $branch = Branch::slug($branch_slug )) {
         return Response::create(new Template('404'), 404);
     }
 
     if (isset($branch)) $hierarchies['branch'] = $branch;
 
-    if( !empty($sector_slug) and ! $sector = Sector::slug($sector_slug )) {
-        return Response::create(new Template('404'), 404);
-    }
-
-    if (isset($sector)) $hierarchies['sector'] = $sector;
-
-    if( !empty($unit_slug) and ! $unit = Unit::slug($unit_slug )) {
-        return Response::create(new Template('404'), 404);
-    }
-    if (isset($unit)) $hierarchies['unit'] = $unit;
-
     // get public listings
     list($total, $staffs) = Staff::listing($offset, $per_page = Config::meta('staffs_per_page'), $hierarchies);
+
+    // get branch under this branch
+    list($count, $sectors) = Sector::listing($branch->id, $offset, $per_page = Config::meta('staffs_per_page'));
 
     // setup breadcrumb
     foreach ($hierarchies as $key => $value) {
     	$breadcrumbs[$key] = $value->id;
     }
-
-    dd($hierarchies);
 
     if($hierarchy = Hierarchy::search($breadcrumbs)) {
     	$breadcrumb = breadcrumb_hierarchy($hierarchy->id);
@@ -216,7 +219,166 @@ Route::get(array(
     $max_page = ($total > $per_page) ? ceil($total / $per_page) : 1;
 
     // stop users browsing to non existing ranges
-    if(($offset > $max_page) or ($offset < 1)) {
+    if(($offset > $max_page) || ($offset < 1)) {
+        return Response::create(new Template('404'), 404);
+    }
+
+    $staffs = new Items($staffs);
+    $sectors = new Items($sectors);
+
+    Registry::set('staffs', $staffs);
+    Registry::set('sectors', $sectors);
+    Registry::set('total_staffs', $total);
+    Registry::set('page', $staffs_page);
+    Registry::set('page_offset', $offset);
+    Registry::set('branch_slug', $branch->slug);
+    Registry::set('staff_division', $division);
+    Registry::set('division_slug', $division_slug);
+
+    return new Template('staffs-branch');
+});
+
+/**
+* View staffs by hierarchies division / branch
+*/
+
+Route::get(array(
+    'division/(:any)/(:any)/(:any)',
+    'division/(:any)/(:any)/(:any)/(:num)'),
+    function(
+    $division_slug = '',
+    $branch_slug = '',
+    $sector_slug = '',
+    $offset = 1) use($staffs_page) {
+
+    $hierarchies = $breadcrumbs = array();
+
+    if( ! $division = Division::slug($division_slug )) {
+    	return Response::create(new Template('404'), 404);
+    }
+
+    if (isset($division)) $hierarchies['division'] = $division;
+
+    if( !empty($branch_slug) && ! $branch = Branch::slug($branch_slug )) {
+        return Response::create(new Template('404'), 404);
+    }
+
+    if (isset($branch)) $hierarchies['branch'] = $branch;
+
+    if( !empty($sector_slug) && ! $sector = Sector::slug($sector_slug )) {
+        return Response::create(new Template('404'), 404);
+    }
+
+    if (isset($sector)) $hierarchies['sector'] = $sector;
+
+    // get public listings
+    list($total, $staffs) = Staff::listing($offset, $per_page = Config::meta('staffs_per_page'), $hierarchies);
+
+    // get branch under this branch
+    list($count, $units) = Unit::listing($sector->id, $offset, $per_page = Config::meta('staffs_per_page'));
+
+    // setup breadcrumb
+    foreach ($hierarchies as $key => $value) {
+    	$breadcrumbs[$key] = $value->id;
+    }
+
+    if($hierarchy = Hierarchy::search($breadcrumbs)) {
+    	$breadcrumb = breadcrumb_hierarchy($hierarchy->id);
+
+    	$bc = array();
+    	foreach ($breadcrumb as $key => $value) {
+    		if (in_array($key, array_keys($breadcrumbs))) {
+    			$bc[$key] = $value;
+    		}
+    	}
+    	Registry::set('breadcrumb', $bc);
+    }
+
+    // get the last page
+    $max_page = ($total > $per_page) ? ceil($total / $per_page) : 1;
+
+    // stop users browsing to non existing ranges
+    if(($offset > $max_page) || ($offset < 1)) {
+        return Response::create(new Template('404'), 404);
+    }
+
+    $staffs = new Items($staffs);
+    $units = new Items($units);
+
+    Registry::set('staffs', $staffs);
+    Registry::set('units', $units);
+    Registry::set('total_staffs', $total);
+    Registry::set('page', $staffs_page);
+    Registry::set('page_offset', $offset);
+    Registry::set('branch_slug', $branch->slug);
+    Registry::set('sector_slug', $sector->slug);
+    Registry::set('staff_division', $division);
+    Registry::set('division_slug', $division_slug);
+
+    return new Template('staffs-sector');
+});
+
+/**
+* View staffs by hierarchies division / branch
+*/
+
+Route::get(array(
+    'division/(:any)/(:any)/(:any)/(:any)',
+    'division/(:any)/(:any)/(:any)/(:any)/(:num)'),
+    function(
+    $division_slug = '',
+    $branch_slug = '',
+    $sector_slug = '',
+    $unit_slug = '',
+    $offset = 1) use($staffs_page) {
+
+    $hierarchies = $breadcrumbs = array();
+
+    if( ! $division = Division::slug($division_slug )) {
+    	return Response::create(new Template('404'), 404);
+    }
+    if (isset($division)) $hierarchies['division'] = $division;
+
+    if( !empty($branch_slug) && ! $branch = Branch::slug($branch_slug )) {
+        return Response::create(new Template('404'), 404);
+    }
+    if (isset($branch)) $hierarchies['branch'] = $branch;
+
+    if( !empty($sector_slug) && ! $sector = Sector::slug($sector_slug )) {
+        return Response::create(new Template('404'), 404);
+    }
+    if (isset($sector)) $hierarchies['sector'] = $sector;
+
+    if( !empty($unit_slug) && ! $unit = Unit::slug($unit_slug )) {
+        return Response::create(new Template('404'), 404);
+    }
+    if (isset($unit)) $hierarchies['unit'] = $unit;
+
+    // get public listings
+    list($total, $staffs) = Staff::listing($offset, $per_page = Config::meta('staffs_per_page'), $hierarchies);
+
+    // setup breadcrumb
+    foreach ($hierarchies as $key => $value) {
+    	$breadcrumbs[$key] = $value->id;
+    }
+
+    if($hierarchy = Hierarchy::search($breadcrumbs)) {
+    	$breadcrumb = breadcrumb_hierarchy($hierarchy->id);
+
+    	$bc = array();
+    	foreach ($breadcrumb as $key => $value) {
+    		if (in_array($key, array_keys($breadcrumbs))) {
+    			$bc[$key] = $value;
+    		}
+    	}
+    	Registry::set('breadcrumb', $bc);
+    }
+
+    // get the last page
+    $max_page = ($total > $per_page) ? ceil($total / $per_page) : 1;
+
+    // stop users browsing to non existing ranges
+    if(($offset > $max_page) || ($offset < 1)) {
         return Response::create(new Template('404'), 404);
     }
 
@@ -226,17 +388,18 @@ Route::get(array(
     Registry::set('total_staffs', $total);
     Registry::set('page', $staffs_page);
     Registry::set('page_offset', $offset);
+    Registry::set('branch_slug', $branch->slug);
     Registry::set('staff_division', $division);
     Registry::set('division_slug', $division_slug);
 
-    return new Template('staffs');
+    return new Template('staffs-unit');
 });
 
 /**
 * Redirect by staff ID
 */
 Route::get('(:num)', function($id) use($staffs_page) {
-    if( (! $staff = Staff::id($id)) or $staff->status == 'inactive') {
+    if( (! $staff = Staff::id($id)) || $staff->status == 'inactive') {
         return Response::create(new Template('404'), 404);
     }
 
@@ -258,6 +421,8 @@ Route::get('(:any)', function($uri) use($staffs_page) {
 	    if($breadcrumbs = staff_hierarchy($staff->id, true)) {
 	    	Registry::set('breadcrumb', $breadcrumbs);
 	    }
+
+	    Staff::update($staff->id, array('view' => $staff->view +1));
 
         Stats::log($staff->id, 'staff');
 
@@ -286,7 +451,7 @@ Route::get('(:any)', function($uri) use($staffs_page) {
 * Post a comment
 */
 Route::post('(:any)', function($slug) use($staffs_page) {
-    if( ! $staff = Staff::slug($slug) or ! $staff->comments) {
+    if( ! $staff = Staff::slug($slug) || ! $staff->comments) {
         return Response::create(new Template('404'), 404);
     }
 
@@ -329,7 +494,7 @@ Route::post('(:any)', function($slug) use($staffs_page) {
     Notify::success(__('comments.created'));
 
     // dont notify if we have marked as spam
-    if( ! $spam and Config::meta('comment_notifications')) {
+    if( ! $spam && Config::meta('comment_notifications')) {
         $comment->notify();
     }
 
@@ -395,8 +560,7 @@ Route::get('category/(:any)', function($slug) {
 		return Response::create(new Template('404'), 404);
 	}
 
-	// depcreated
-	//Category::update($category->id, array('view' => $category->view +1));
+	Category::update($category->id, array('view' => $category->view +1));
 
 	Stats::log($category->id, 'category');
 
