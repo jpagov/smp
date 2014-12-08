@@ -54,7 +54,7 @@
           <ul class="dropdown-menu">
             <?php foreach($hierarchies as $url):
               // only admin have right to manage division
-              if($url == 'divisions' and $user->role != 'administrator') continue; ?>
+              if($url == 'divisions' && $user->role != 'administrator') continue; ?>
               <li <?php if(is_active('admin/reports/' . $url)) echo 'class="active"'; ?>>
                 <a href="<?php echo Uri::to('admin/' . $url); ?>">
                   <?php echo __('global.' . $url); ?>

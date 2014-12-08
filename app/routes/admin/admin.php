@@ -9,7 +9,7 @@ Route::action('auth', function() {
 });
 
 Route::action('guest', function() {
-	if(Auth::user()) return Response::redirect('admin/posts');
+	if(Auth::user()) return Response::redirect('admin/staffs');
 });
 
 Route::action('admin', function() {
@@ -68,7 +68,9 @@ Route::post('admin/login', array('before' => 'csrf', 'main' => function() {
         Session::erase('redirect');
     }
 
-    $division = Division::find(Auth::user()->division)->id;
+    if (!$division = Division::find(Auth::user()->division)) {
+    	return Response::redirect('admin/staffs/edit/' . Auth::user()->id);
+    }
 
 	// check for updates
 	//Update::version();

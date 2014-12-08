@@ -162,6 +162,15 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 
 	Route::post('admin/staffs/edit/(:num)', function($id) {
 
+		$user = Auth::user();
+
+		if ($user->role == 'staff' && $user->id != $id) {
+
+			Notify::warning(__('staffs.noroleedit'));
+
+			return Response::redirect('admin/staffs/edit/' . $user->id);
+		}
+
 		$input = Input::get(array(
 			'salutation',
 			'first_name',
@@ -287,7 +296,7 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 		}
 
 		// division roles
-		if($inputroles = Input::get('roles')) {
+		if($inputroles = Input::get('roles') ?: 0) {
 
 			$roles = array();
 			Role::where('staff', '=', $id)->delete();
@@ -299,6 +308,10 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 			}
 		}
 
+		if (!$inputroles) {
+			Role::where('staff', '=', $id)->delete();
+		}
+
 		Notify::success(__('staffs.updated'));
 
 		return Response::redirect('admin/staffs/edit/' . $id);
@@ -308,6 +321,16 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 		Add staff
 	*/
 	Route::get('admin/staffs/add', function() {
+
+		$user = Auth::user();
+
+		if ($user->role == 'staff') {
+
+			Notify::warning(__('staffs.noroleadd'));
+
+			return Response::redirect('admin/staffs/edit/' . $user->id);
+		}
+
 		$vars['messages'] = Notify::read();
 		$vars['token'] = Csrf::token();
 
@@ -478,7 +501,7 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 		  }
 		}
 
-		Notify::success(__('staffs.created', Uri::to('admin/staffs/' . $staff->id)));
+		Notify::success(__('staffs.created', Uri::to('admin/staffs/edit/' . $staff->id)));
 
 		return Response::redirect('admin/staffs');
 	});

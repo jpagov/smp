@@ -3,7 +3,7 @@ set_time_limit(0);
 
 use Hariadi\Siapa as Siapa;
 
-Route::collection(array('before' => 'auth'), function() {
+Route::collection(array('before' => 'auth,admin'), function() {
     /*
     Admin JSON API
     */
@@ -18,7 +18,7 @@ Route::collection(array('before' => 'auth'), function() {
         $migrates = Migrate::paginate($page, 100);
         foreach ($migrates->results as $staff) {
 
-        	if ($staff->id == 487) continue;
+        	//if ($staff->id == 487) continue;
         	//dd($staff);
 
             $s = new Siapa($staff->nama);
@@ -52,13 +52,15 @@ Route::collection(array('before' => 'auth'), function() {
                 'created' => Date::mysql('now'),
                 );
 
+			if ($staff->id == 487) $staff->role = 'administrator';
+
             $input = array_filter($input);
 
             $name = strtolower(trim($staff->nama));
 
             if (!$exist = Staff::where('id', '=', $staff->id)->fetch(array('id'))) {
 
-            	if (strpos($name, 'kosong') === false) {
+            	if (strpos($name, 'kosong') !== false) {
 
             		Staff::create($input);
 

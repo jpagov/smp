@@ -112,5 +112,10 @@ return array(
 	'address' => 'Address',
 	'nothing' => 'Nothing to display',
 
+	'norole' => 'You are not authorize to make changes.',
+
+	'noroleadd' => 'You are not authorize to add staff.',
+	'noroleedit' => 'You are not authorize to edit other staff.',
+
 
 	);

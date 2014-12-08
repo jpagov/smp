@@ -112,5 +112,8 @@ return array(
 	'address' => 'Address',
 	'nothing' => 'Nothing to display',
 
+	'noroleadd' => 'Anda tiada kebenaran untuk menambah pegawai.',
+	'noroleedit' => 'Anda tiada kebenaran untuk membuat perubahan pegawai lain.',
+
 
 	);

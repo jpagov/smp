@@ -16,7 +16,7 @@ return array(
 	'update' => 'Kemaskini',
 	'edit' => 'Sunting',
 	'editing' => 'Penyuntingan',
-	'create' => 'Cipt',
+	'create' => 'Simpan',
 	'created' => 'Dicipta',
 	'submit' => 'Hantar',
 	'close' => 'Tutup',

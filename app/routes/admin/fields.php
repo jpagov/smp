@@ -1,6 +1,6 @@
 <?php
 
-Route::collection(array('before' => 'auth,admin,csrf'), function() {
+Route::collection(array('before' => 'auth,csrf,admin,editor'), function() {
 
 	/*
 		List Fields
