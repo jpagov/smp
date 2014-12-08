@@ -227,4 +227,44 @@ class Staff extends Base {
 		return new Paginator($results, $count, $page, $perpage, Uri::to('staffs'));
 	}
 
+	public static function rating($id) {
+
+		$rates = Config::app('rating');
+
+		$staff = static::find($id);
+
+		$view = (int) $staff->view;
+
+		$rating = 1; // default rating
+
+		switch ($view) {
+			case in_array($view, range(1,4999)):
+				# code...
+				break;
+
+			case in_array($view, range(5000,19999)):
+				$rating = 2;
+				break;
+
+			case in_array($view, range(20000,49999)):
+				$rating = 3;
+				break;
+
+			case in_array($view, range(50000,79999)):
+				$rating = 4;
+				break;
+
+			case ($view > 80000):
+				$rating = 5;
+				break;
+
+			default:
+				$rating = 1;
+				break;
+		}
+
+
+		return $rating;
+	}
+
 }

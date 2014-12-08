@@ -292,8 +292,11 @@ function staff_relevancy_total() {
     return staff_relevancy()['from'];
 }
 
-function staff_rating() {
-    return round(staff_relevancy_percent() / 20);
+function staff_rating($staff = null) {
+    //return round(staff_relevancy_percent() / 20);
+
+    $staff = $staff ?: staff_id();
+    return Staff::rating($staff);
 }
 
 function customised() {

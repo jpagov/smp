@@ -108,6 +108,8 @@ Route::get(array('division/(:any)', 'division/(:any)/(:num)'), function($divisio
         return Response::create(new Template('404'), 404);
     }
 
+    Staff::update($division->id, array('view' => $division->view +1));
+
     Stats::log($division->id, 'division');
 
     $hierarchies = array();
@@ -420,6 +422,8 @@ Route::get('(:any)', function($uri) use($staffs_page) {
 	    	Registry::set('breadcrumb', $breadcrumbs);
 	    }
 
+	    Staff::update($staff->id, array('view' => $staff->view +1));
+
         Stats::log($staff->id, 'staff');
 
         Registry::set('page', $staffs_page);
@@ -556,8 +560,7 @@ Route::get('category/(:any)', function($slug) {
 		return Response::create(new Template('404'), 404);
 	}
 
-	// depcreated
-	//Category::update($category->id, array('view' => $category->view +1));
+	Category::update($category->id, array('view' => $category->view +1));
 
 	Stats::log($category->id, 'category');
 

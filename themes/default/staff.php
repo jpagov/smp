@@ -10,7 +10,7 @@
             <h1><em><?php echo staff_salutation(); ?></em> <?php echo staff_first_name(); ?> <?php echo staff_last_name(); ?></h1>
             <p class="lead"><?php echo staff_job_title(); ?></p>
 
-            <p class="well well-sm bg-warning"><?php echo staff_description(); ?></p>
+            <?php if (staff_description()) : ?><p class="well well-sm bg-warning"><?php echo staff_description(); ?></p><?php endif; ?>
         </div>
 
         <div class="col-xs-3 col-md-pull-9">
