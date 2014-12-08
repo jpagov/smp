@@ -117,7 +117,7 @@ Route::get(array('division/(:any)', 'division/(:any)/(:num)'), function($divisio
     list($total, $staffs) = Staff::listing($offset, $per_page = Config::meta('staffs_per_page'), $hierarchies);
 
     // get branch under this division
-    list($total, $branchs) = Branch::listing($division->id, $offset, $per_page = Config::meta('staffs_per_page'));
+    list($count, $branchs) = Branch::listing($division->id, $offset, $per_page = Config::meta('staffs_per_page'));
 
     //dd($branchs);
 
@@ -194,7 +194,7 @@ Route::get(array(
     list($total, $staffs) = Staff::listing($offset, $per_page = Config::meta('staffs_per_page'), $hierarchies);
 
     // get branch under this branch
-    list($total, $sectors) = Sector::listing($branch->id, $offset, $per_page = Config::meta('staffs_per_page'));
+    list($count, $sectors) = Sector::listing($branch->id, $offset, $per_page = Config::meta('staffs_per_page'));
 
     // setup breadcrumb
     foreach ($hierarchies as $key => $value) {
@@ -273,7 +273,7 @@ Route::get(array(
     list($total, $staffs) = Staff::listing($offset, $per_page = Config::meta('staffs_per_page'), $hierarchies);
 
     // get branch under this branch
-    list($total, $units) = Unit::listing($sector->id, $offset, $per_page = Config::meta('staffs_per_page'));
+    list($count, $units) = Unit::listing($sector->id, $offset, $per_page = Config::meta('staffs_per_page'));
 
     // setup breadcrumb
     foreach ($hierarchies as $key => $value) {

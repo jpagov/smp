@@ -52,13 +52,13 @@ class Unit extends Base {
 
 		$query->group('unit');
 
-		$total = $query->count();
+		$count = $query->count();
 
 		$units = $query->take($perpage)
 				->skip(--$page * $perpage)
 				->get(array(Base::table('units.*')));
 
-		return array($total, $units);
+		return array($count, $units);
 
 	}
 

@@ -52,13 +52,13 @@ class Sector extends Base {
 
 		$query->group('sector');
 
-		$total = $query->count();
+		$count = $query->count();
 
 		$sectors = $query->take($perpage)
 				->skip(--$page * $perpage)
 				->get(array(Base::table('sectors.*')));
 
-		return array($total, $sectors);
+		return array($count, $sectors);
 
 	}
 

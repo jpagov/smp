@@ -62,13 +62,13 @@ class Branch extends Base {
 
 		$query->group('branch');
 
-		$total = $query->count();
+		$count = $query->count();
 
 		$branchs = $query->take($perpage)
 				->skip(--$page * $perpage)
 				->get(array(Base::table('branchs.*')));
 
-		return array($total, $branchs);
+		return array($count, $branchs);
 
 	}
 
