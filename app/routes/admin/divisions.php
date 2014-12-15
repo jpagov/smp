@@ -1,6 +1,6 @@
 <?php
 
-Route::collection(array('before' => 'auth,csrf,admin,editor'), function() {
+Route::collection(array('before' => 'auth,csrf,admin'), function() {
 
 	/*
 		List Divisions

@@ -45,4 +45,28 @@ return array(
 
 	'back_to_top' => 'Kembali ke atas',
 	'copyright' => '&copy; ' . date('Y') . ' %s',
+
+	// pkppa
+	'pkppa' => 'Pejabat Ketua Pengarah Perkhidmatan Awam',
+	'paskom' => 'Pasukan Komunikasi',
+	'audit' => 'Unit Audit Dalam',
+	'integriti' => 'Unit Integriti',
+	'law' => 'Penasihat Undang-undang',
+	'intan' => 'INTAN',
+	'bppd' => 'Bahagian Penyelidikan, Perancangan dan Dasar',
+
+	// pkppap
+	'pkppap' => 'Pejabat Timbalan Ketua Pengarah Perkhidmatan Awam (Pembangunan)',
+	'bk' => 'Bahagian Perkhidmatan',
+	'bpo' => 'Bahagian Pembangunan Organisasi',
+	'bmi' => 'Bahagian Pembangunan Modal Insan',
+	'bs' => 'Bahagian Saraan',
+	'btsa' => 'Bahagian Transformasi Sektor Awam',
+
+	// pkppao
+	'pkppao' => 'Pejabat Timbalan Ketua Pengarah Perkhidmatan Awam (Operasi)',
+	'bp' => 'Bahagian Pasca Perkhidmatan',
+	'bkp' => 'Bahagian Khidmat Pengurusan',
+	'bps' => 'Bahagian Pengurusan Psikologi',
+	'bpm' => 'Bahagian Pengurusan Maklumat',
 );

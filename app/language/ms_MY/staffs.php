@@ -31,6 +31,7 @@ return array(
 	'branch' => 'Cawangan',
 	'sector' => 'Sektor',
 	'unit' => 'Unit',
+	'info' => 'Info',
 
 
 	// form fields

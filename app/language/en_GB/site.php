@@ -45,4 +45,28 @@ return array(
 
 	'back_to_top' => 'Back to top',
 	'copyright' => '&copy; ' . date('Y') . ' %s',
+
+	// front
+	'pkppa' => 'Office of Director-General of Public Service Department',
+	'paskom' => 'Communication Team',
+	'audit' => 'Internal Audit Unit',
+	'integriti' => 'Integrity Unit',
+	'law' => 'Legal Advisor',
+	'intan' => 'INTAN',
+	'bppd' => 'Research, Planning and Policy Division',
+
+	// pkppap
+	'pkppap' => 'Office of Deputy Director-General of Public Service Department (Development)',
+	'bk' => 'Service Division',
+	'bpo' => 'Organisational Developmet Division',
+	'bmi' => 'Human Capital Development Division',
+	'bs' => 'Remuneration Division',
+	'btsa' => 'Public Service Transformation Division',
+
+	// pkppao
+	'pkppao' => 'Pejabat Timbalan Ketua Pengarah Perkhidmatan Awam (Operasi)',
+	'bp' => 'Post-Service Division',
+	'bkp' => 'Service Management Division',
+	'bps' => 'Psychological Management Division',
+	'bpm' => 'Information Management Division',
 );

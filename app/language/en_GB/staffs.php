@@ -31,6 +31,7 @@ return array(
 	'branch' => 'Branch',
 	'sector' => 'Sector',
 	'unit' => 'Unit',
+	'info' => 'Info',
 
 
 	// form fields

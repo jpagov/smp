@@ -1,22 +1,140 @@
+
     <div class="col-md-12 divisions">
-    	<div class="col-md-4 col-md-offset-4 well text-center">
-    		<a href="<?php echo base_url('top-management'); ?>"><h3><?php echo __('site.top_management'); ?></h3></a>
-    		<p><em><?php echo __('site.top_management'); ?></em></p>
-    	</div>
-    </div>
 
-    <h2 class="text-center "><?php echo __('site.divisions'); ?></h2>
-    <div class="container-fluid">
     	<div class="row">
-    		<?php while(divisions()): ?>
 
-    			<div class="col-sm-6 col-md-4 col-lg-4 divisions">
-    				<div class="well text-center">
-    					<a href="<?php echo division_url(); ?>" class="alert-link"><h3><?php echo strtoupper(division_slug()); ?></h3></a>
-    					<p><?php echo division_title(); ?><em><?php echo division_title_en(); ?></em></p>
-    				</div>
-    			</div>
+	    	<div class="col-md-6 col-md-offset-3">
 
-    		<?php endwhile; ?>
-    	</div> </div>
+	    		<a class="org-list bg-primary" href="<?php echo base_url('division/pkppa'); ?>">
+	    			<img class="img-responsive" src="/smp/content/avatar/zabidi.jpg" alt="Tan Sri Mohamad Zabidi Zainal">
+	    			<h2 class="title"><?php echo __('site.pkppa'); ?></h2>
+	    		</a>
 
+	    	</div>
+
+	    	<div class="col-xs-6 col-sm-4">
+	    		<div class="org org-danger text-center pkkpa-child">
+					<a href="#" class="org-link"><p><span class="visible-xs-block">PASKOM</span> <span class="hidden-xs"><?php echo __('site.paskom'); ?></span></p></a>
+				</div>
+	    	</div>
+
+	    	<div class="col-xs-6 col-sm-4">
+	    		<div class="org org-danger text-center pkkpa-child">
+					<a href="#" class="org-link"><p><?php echo __('site.audit'); ?></p></a>
+				</div>
+	    	</div>
+
+	    	<div class="col-xs-6 col-sm-4">
+	    		<div class="org org-danger text-center pkkpa-child">
+					<a href="#" class="org-link"><p><?php echo __('site.integriti'); ?></p></a>
+				</div>
+	    	</div>
+
+	    	<div class="col-xs-6 col-sm-4">
+	    		<div class="org org-danger text-center pkkpa-child">
+					<a href="#" class="org-link"><p><?php echo __('site.law'); ?></p></a>
+				</div>
+	    	</div>
+
+	    	<div class="col-xs-6 col-sm-4">
+	    		<div class="org org-danger text-center pkkpa-child">
+					<a href="#" class="org-link"><p><?php echo __('site.intan'); ?></p></a>
+				</div>
+	    	</div>
+
+	    	<div class="col-xs-6 col-sm-4">
+	    		<div class="org org-danger text-center pkkpa-child">
+					<a href="#" class="org-link"><p><span class="visible-xs-block">BPPD</span> <span class="hidden-xs"><?php echo __('site.bppd'); ?></p></a>
+				</div>
+	    	</div>
+
+		</div>
+
+		<div class="row">
+
+			<div class="col-md-6 pkppap">
+
+				<div class="col-md-12">
+		    		<a class="org-list bg-primary" href="<?php echo base_url('division/pkppa'); ?>">
+		    			<img class="img-responsive" src="/smp/content/avatar/zarah.jpg" alt="Dr. Sharifah Zarah Syed Ahmad">
+		    			<h2 class="title"><?php echo __('site.pkppap'); ?></h2>
+		    		</a>
+		    	</div>
+
+		    	<div class="row">
+
+			    	<div class="col-xs-6">
+			    		<div class="org org-info text-center pkkpa-child">
+							<a href="#" class="org-link"><p><span class="visible-xs-block">BK</span> <span class="hidden-xs"><?php echo __('site.bk'); ?></span></p></a>
+						</div>
+			    	</div>
+
+			    	<div class="col-xs-6">
+			    		<div class="org org-info text-center pkkpa-child">
+							<a href="#" class="org-link"><p><span class="visible-xs-block">BPO</span> <span class="hidden-xs"><?php echo __('site.bpo'); ?></span></p></a>
+						</div>
+			    	</div>
+
+			    	<div class="col-xs-6">
+			    		<div class="org org-info text-center pkkpa-child">
+							<a href="#" class="org-link"><p><span class="visible-xs-block">BMI</span> <span class="hidden-xs"><?php echo __('site.bmi'); ?></span></p></a>
+						</div>
+			    	</div>
+
+			    	<div class="col-xs-6">
+			    		<div class="org org-info text-center pkkpa-child">
+							<a href="#" class="org-link"><p><span class="visible-xs-block">BS</span> <span class="hidden-xs"><?php echo __('site.bs'); ?></span></p></a>
+						</div>
+			    	</div>
+
+			    	<div class="col-xs-6">
+			    		<div class="org org-info text-center pkkpa-child">
+							<a href="#" class="org-link"><p><span class="visible-xs-block">BTSA</span> <span class="hidden-xs"><?php echo __('site.btsa'); ?></span></p></a>
+						</div>
+			    	</div>
+
+				</div>
+	    	</div>
+
+	    	<div class="col-md-6 pkppao">
+
+				<div class="col-md-12">
+		    		<a class="org-list bg-primary" href="<?php echo base_url('division/pkppa'); ?>">
+		    			<img class="img-responsive" src="/smp/content/avatar/zainalrahim.jpg" alt="Dato' Seri Zainal Rahim Bin Seman">
+		    			<h2 class="title"><?php echo __('site.pkppap'); ?></h2>
+		    		</a>
+		    	</div>
+
+		    	<div class="row">
+
+			    	<div class="col-xs-6">
+			    		<div class="org org-success text-center pkkpa-child">
+							<a href="#" class="org-link"><p><span class="visible-xs-block">BP</span> <span class="hidden-xs"><?php echo __('site.bp'); ?></span></p></a>
+						</div>
+			    	</div>
+
+			    	<div class="col-xs-6">
+			    		<div class="org org-success text-center">
+							<a href="#" class="org-link"><p><span class="visible-xs-block">BKP</span> <span class="hidden-xs"><?php echo __('site.bkp'); ?></span></p></a>
+						</div>
+			    	</div>
+
+			    	<div class="col-xs-6">
+			    		<div class="org org-success text-center pkkpa-child">
+							<a href="#" class="org-link"><p><span class="visible-xs-block">BPS</span> <span class="hidden-xs"><?php echo __('site.bps'); ?></span></p></a>
+						</div>
+			    	</div>
+
+			    	<div class="col-xs-6">
+			    		<div class="org org-success text-center pkkpa-child">
+							<a href="#" class="org-link"><p><span class="visible-xs-block">BPM</span> <span class="hidden-xs"><?php echo __('site.bpm'); ?></span></p></a>
+						</div>
+			    	</div>
+
+				</div>
+	    	</div>
+
+		</div>
+
+
+    </div>

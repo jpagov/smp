@@ -1,6 +1,6 @@
 <?php
 
-Route::collection(array('before' => 'auth,csrf,admin,editor'), function() {
+Route::collection(array('before' => 'auth,csrf'), function() {
 
 	/*
 	Branchs Admin JSON API
