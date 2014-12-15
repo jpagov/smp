@@ -23,12 +23,16 @@
   <div class="container">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-inverse-collapse">
-      <span class="sr-only">Toggle navigation</span>
+      <span class="sr-only"><?php echo _e('site.toggle_navigation'); ?></span>
       <span class="icon-bar"></span>
       <span class="icon-bar"></span>
       <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="<?php echo Uri::to('admin/staffs'); ?>"><?php echo _e(Config::meta('sitename')); ?></a>
+      <a class="navbar-brand" href="<?php echo Uri::to('admin/staffs'); ?>">
+
+       <img height="28" alt="Jata Negara" src="<?php echo asset('app/views/assets/img/jpa-101pxx119px.png'); ?>">
+
+       <span class="sr-only"><?php echo _e(Config::meta('sitename')); ?></span></a>
     </div>
 
     <?php $user = Auth::user(); if($user): ?>
