@@ -79,12 +79,14 @@
       </ul>
 
       <ul class="nav navbar-nav navbar-right">
-       <li><a href="<?php echo Uri::to('admin/logout'); ?>"><span class="glyphicon glyphicon-off"></span> <?php echo __('global.logout'); ?></a></li>
+       <li><a class="alert-warning" href="<?php echo Uri::to('admin/logout'); ?>"><span class="glyphicon glyphicon-off"></span> <?php echo __('global.logout'); ?></a></li>
        <li><a href="<?php echo Uri::to('/'); ?>"><span class="glyphicon glyphicon-globe"></span> <?php echo __('global.view_directory'); ?></a></li>
+
+       <li><a href="<?php echo Uri::to('admin/profile'); ?>"><span class="glyphicon glyphicon-user"></span> <?php echo __('users.profile'); ?></a></li>
 
        <?php if($user->role == 'administrator'): ?>
        <li class="dropdown">
-         <a href="<?php echo Uri::to('admin/setting'); ?>" class="dropdown-toggle" data-toggle="dropdown"><?php echo __('settings.setting'); ?> <b class="caret"></b></a>
+         <a href="<?php echo Uri::to('admin/setting'); ?>" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-cog"></span> <?php echo __('settings.setting'); ?> <b class="caret"></b></a>
          <ul class="dropdown-menu">
 
             <?php foreach($admin as $url): ?>

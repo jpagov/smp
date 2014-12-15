@@ -8,6 +8,7 @@ return array(
 	'create_staff' => 'Wujud Pegawai baru',
 	'add_staff' => 'Tambah Pegawai baru',
 	'editing_staff' => 'Mengemaskini Profil %',
+	'editing' => 'Kemaskini Profil',
 	'remembered' => 'Saya tahu katalaluan',
 	'forgotten_password' => 'Lupa katalaluan?',
 	'enable_account' => 'Aktifkan akauan',

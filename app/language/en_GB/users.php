@@ -65,4 +65,7 @@ return array(
 	'recovery_message' => 'You have requested to reset your password.' .
 		'To continue follow the link below.' . PHP_EOL . '%s',
 
+	// profile
+	'profile' => 'Profile',
+
 );

@@ -8,6 +8,7 @@ return array(
 	'create_staff' => 'Create a new staff',
 	'add_staff' => 'Add a new staff',
 	'editing_staff' => 'Editing %s&rsquo;s Profile',
+	'editing' => 'Edit Profil',
 	'remembered' => 'I know my password',
 	'forgotten_password' => 'Forgotten your password?',
 	'enable_account' => 'Enable account',
