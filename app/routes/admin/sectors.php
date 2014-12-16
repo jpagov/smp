@@ -60,7 +60,6 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 
 		return View::create('sectors/edit', $vars)
 			->partial('header', 'partials/header')
-			->partial('search', 'partials/search', $vars)
 			->partial('footer', 'partials/footer');
 	});
 
