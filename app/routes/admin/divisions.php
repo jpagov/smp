@@ -6,12 +6,47 @@ Route::collection(array('before' => 'auth,csrf,admin'), function() {
 		List Divisions
 	*/
 	Route::get(array('admin/divisions', 'admin/divisions/(:num)'), function($page = 1) {
+
 		$vars['messages'] = Notify::read();
-		$vars['divisions'] = Division::paginate($page, Config::get('meta.staffs_per_page'));
+		$search = false;
+
+		$input = Input::get(array(
+			'term'
+		));
+
+		if (empty($input['term'])) {
+			$input['term'] = null;
+		}
+
+		if ($input['term']) {
+			$validator = new Validator($input);
+
+			$validator->check('term')->is_max(2, __('site.search_missing', 2));
+
+			if($errors = $validator->errors()) {
+				Input::flash();
+				Notify::warning($errors);
+				return Response::redirect(Uri::current());
+			}
+
+			Registry::set('admin_search_term', $input['term']);
+			$search = true;
+		}
+
+		if ($search) {
+			$divisions = Division::search($input['term'], $page, Config::meta('staffs_per_page'));
+		} else {
+			$divisions = Division::paginate($page, Config::meta('staffs_per_page'));
+		}
+
+
+		$vars['divisions'] = $divisions;
+
 		$vars['hierarchies'] = Config::app('hierarchy');
 
 		return View::create('divisions/index', $vars)
 			->partial('header', 'partials/header')
+			->partial('search', 'partials/search', $vars)
 			->partial('footer', 'partials/footer');
 	});
 

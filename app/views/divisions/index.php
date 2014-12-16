@@ -8,6 +8,10 @@
 
 <div class="row">
 	<div class="col-lg-9">
+
+		<form class="form-horizontal" role="search">
+			<?php echo $search; ?>
+
 		<?php //print_r($divisions); ?>
 		<div class="table-responsive">
 			<table class="table table-hover">
@@ -44,6 +48,9 @@
    <?php endif; ?>
 
  </div>
+
+ </form>
+
 </div>
 <div class="col col-lg-3">
   <nav class="list-division sidebar">
