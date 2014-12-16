@@ -27,30 +27,56 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 	*/
 	Route::get(array('admin/branchs', 'admin/branchs/(:num)'), function($page = 1) {
 
-		$input = filter_var_array(Input::get(array('division')), array(
-		    'division' => FILTER_SANITIZE_SPECIAL_CHARS
+		$vars['messages'] = Notify::read();
+		$search = false;
+
+		$input = filter_var_array(Input::get(array('division', 'term')), array(
+		    'division' => FILTER_SANITIZE_SPECIAL_CHARS,
+		    'term' => FILTER_SANITIZE_SPECIAL_CHARS,
 		));
 
 		$input = array_filter($input);
 
-		$vars['messages'] = Notify::read();
+		if (empty($input['term'])) {
+			$input['term'] = null;
+		}
 
-		$vars['branchs'] = (array_filter($input)) ?
-			Branch::division($input['division'], $page, Config::get('meta.staffs_per_page')) :
-			Branch::paginate($page, Config::get('meta.staffs_per_page'));
+		if ($input['term']) {
+			$validator = new Validator($input);
 
+			$validator->check('term')->is_max(2, __('site.search_missing', 2));
 
+			if($errors = $validator->errors()) {
+				Input::flash();
+				Notify::warning($errors);
+				return Response::redirect(Uri::current());
+			}
+
+			Registry::set('admin_search_term', $input['term']);
+			$search = true;
+		}
+
+		if ($search) {
+			$branchs = Branch::search($input['term'], $page, Config::meta('staffs_per_page'));
+		} else {
+			$branchs = (isset($input['division'])) ?
+				Branch::division($input['division'], $page, Config::get('meta.staffs_per_page')) :
+				Branch::paginate($page, Config::meta('staffs_per_page'));
+		}
+
+		$vars['branchs'] = $branchs;
 		$vars['hierarchies'] = Config::app('hierarchy');
 		$vars['divisions'] = Division::listing();
 		$vars['status'] = 'all';
 
-		if ($input) {
+		if ($input && isset($input['division'])) {
 			$vars['division'] = $input['division'];
 			Session::put('redirect', Uri::current());
 		}
 
 		return View::create('branchs/index', $vars)
 			->partial('header', 'partials/header')
+			->partial('search', 'partials/search', $vars)
 			->partial('footer', 'partials/footer');
 	});
 

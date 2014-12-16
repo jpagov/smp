@@ -18,17 +18,17 @@ class Branch extends Base {
 		return static::where('slug', 'like', $slug)->fetch();
 	}
 
-  public static function id($name) {
-    if (empty(trim($name))) return;
-    if ( !$branch = static::where('title', 'like', $name)->fetch()) {
-      $input = array('title' => $name, 'slug' => slug($name));
-      $branch = static::create($input);
-      return $branch->id;
-    }
-    return $branch->id;
-  }
-
-  public static function search($params = array()) {
+	public static function id($name) {
+		if (empty(trim($name))) return;
+		if ( !$branch = static::where('title', 'like', $name)->fetch()) {
+			$input = array('title' => $name, 'slug' => slug($name));
+			$branch = static::create($input);
+			return $branch->id;
+		}
+		return $branch->id;
+	}
+	/*
+	public static function search($params = array()) {
     $query = Query::table(static::table());
 
     foreach($params as $key => $value) {
@@ -36,7 +36,26 @@ class Branch extends Base {
     }
 
     return $query->fetch();
-  }
+}*/
+
+	public static function search($term, $page = 1, $per_page = 10) {
+
+		$query = Query::table(static::table());
+
+		if ($term) {
+			$query->where('title', 'like', '%' . $term . '%')
+			->or_where('slug', '=', $term);
+		}
+
+		$count = $query->count();
+
+		$divisions = $query->take($per_page)
+		->skip(--$page * $per_page)
+		->get();
+
+		return new Paginator($divisions, $count, $page, $per_page, Uri::to('admin/branchs'));
+	}
+
 
 	public static function paginate($page = 1, $perpage = 10) {
 		$query = Query::table(static::table());
@@ -54,8 +73,8 @@ class Branch extends Base {
 		if ($division) {
 
 			$query = $query->left_join(
-					Base::table('hierarchies'),
-					Base::table('hierarchies.branch'), '=', Base::table('branchs.id'));
+				Base::table('hierarchies'),
+				Base::table('hierarchies.branch'), '=', Base::table('branchs.id'));
 
 			$query = $query->where(Base::table('hierarchies.division'), '=', $division);
 		}
@@ -65,8 +84,8 @@ class Branch extends Base {
 		$count = $query->count();
 
 		$branchs = $query->take($perpage)
-				->skip(--$page * $perpage)
-				->get(array(Base::table('branchs.*')));
+		->skip(--$page * $perpage)
+		->get(array(Base::table('branchs.*')));
 
 		return array($count, $branchs);
 
