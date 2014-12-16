@@ -7,11 +7,46 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 	*/
 	Route::get(array('admin/sectors', 'admin/sectors/(:num)'), function($page = 1) {
 		$vars['messages'] = Notify::read();
-		$vars['sectors'] = Sector::paginate($page, Config::get('meta.staffs_per_page'));
+		$search = false;
+
+		$input = filter_var_array(Input::get(array('term')), array(
+		    'term' => FILTER_SANITIZE_SPECIAL_CHARS,
+		));
+
+		$input = array_filter($input);
+
+		if (empty($input['term'])) {
+			$input['term'] = null;
+		}
+
+		if ($input['term']) {
+			$validator = new Validator($input);
+
+			$validator->check('term')->is_max(2, __('site.search_missing', 2));
+
+			if($errors = $validator->errors()) {
+				Input::flash();
+				Notify::warning($errors);
+				return Response::redirect(Uri::current());
+			}
+
+			Registry::set('admin_search_term', $input['term']);
+			$search = true;
+		}
+
+		if ($search) {
+			$sectors = Sector::search($input['term'], $page, Config::meta('staffs_per_page'));
+		} else {
+			$sectors = Sector::paginate($page, Config::meta('staffs_per_page'));
+
+		}
+
+		$vars['sectors'] = $sectors;
 		$vars['hierarchies'] = Config::app('hierarchy');
 
 		return View::create('sectors/index', $vars)
 			->partial('header', 'partials/header')
+			->partial('search', 'partials/search', $vars)
 			->partial('footer', 'partials/footer');
 	});
 
@@ -25,6 +60,7 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 
 		return View::create('sectors/edit', $vars)
 			->partial('header', 'partials/header')
+			->partial('search', 'partials/search', $vars)
 			->partial('footer', 'partials/footer');
 	});
 
