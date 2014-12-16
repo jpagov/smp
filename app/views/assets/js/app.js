@@ -45,9 +45,14 @@ var SMP = {
             }
             if(e.shiftKey && e.keyCode == 191) {
                 e.preventDefault();
-                $('#helper-modal').load('/smp/help/keys',function(){
-                    $(this).modal();
-                }).modal('show');
+                //$('#helper-modal').load('/smp/help/keys', function(){
+                //    $(this).modal();
+                //}).modal('toggle');
+
+
+                $('.modal').load('/smp/help/keys',function(result){
+							    $('#helper-modal').modal('toggle');
+								});
             }
         });
 

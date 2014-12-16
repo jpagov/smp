@@ -1,7 +1,8 @@
-<div class="modal-dialog">
+<div class="modal-dialog modal-lg">
     <div class="modal-content">
         <div class="modal-header">
-            <h4 class="modal-title"><?php echo __('site.keyboard_shortcuts', 'Keyboard Shortcuts'); ?></h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h4 class="modal-title" id="helpModalLabel"><?php echo __('site.keyboard_shortcuts', 'Keyboard Shortcuts'); ?></h4>
         </div>
         <div class="modal-body">
             <h5>Site wide shortcuts</h5>

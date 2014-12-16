@@ -69,4 +69,7 @@ return array(
 	'bkp' => 'Service Management Division',
 	'bps' => 'Psychological Management Division',
 	'bpm' => 'Information Management Division',
+
+	'error_404' => 'Unfortunately, the page <code>%s</code> could not be found.',
+	'error_404_option' => 'Press your browser back button (or press <kbd>backspace</kbd> button) to return to the previous Web page.',
 );

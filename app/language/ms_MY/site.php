@@ -69,4 +69,7 @@ return array(
 	'bkp' => 'Bahagian Khidmat Pengurusan',
 	'bps' => 'Bahagian Pengurusan Psikologi',
 	'bpm' => 'Bahagian Pengurusan Maklumat',
+
+	'error_404' => 'Malangnya, halaman <code>%s</code> tidak wujud.',
+	'error_404_option' => 'Sila tekan butang <em><kbd>backspace</kbd></em> untuk kembali.',
 );
