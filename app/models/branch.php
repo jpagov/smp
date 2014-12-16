@@ -49,11 +49,11 @@ class Branch extends Base {
 
 		$count = $query->count();
 
-		$divisions = $query->take($per_page)
+		$branchs = $query->take($per_page)
 		->skip(--$page * $per_page)
 		->get();
 
-		return new Paginator($divisions, $count, $page, $per_page, Uri::to('admin/branchs'));
+		return new Paginator($branchs, $count, $page, $per_page, Uri::to('admin/branchs'));
 	}
 
 

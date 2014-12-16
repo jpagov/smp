@@ -73,11 +73,11 @@ class Sector extends Base {
 
 		$count = $query->count();
 
-		$divisions = $query->take($per_page)
+		$sectors = $query->take($per_page)
 		->skip(--$page * $per_page)
 		->get();
 
-		return new Paginator($divisions, $count, $page, $per_page, Uri::to('admin/sectors'));
+		return new Paginator($sectors, $count, $page, $per_page, Uri::to('admin/sectors'));
 	}
 
 }

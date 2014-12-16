@@ -62,4 +62,22 @@ class Unit extends Base {
 
 	}
 
+	public static function search($term, $page = 1, $per_page = 10) {
+
+		$query = Query::table(static::table());
+
+		if ($term) {
+			$query->where('title', 'like', '%' . $term . '%')
+			->or_where('slug', '=', $term);
+		}
+
+		$count = $query->count();
+
+		$units = $query->take($per_page)
+		->skip(--$page * $per_page)
+		->get();
+
+		return new Paginator($units, $count, $page, $per_page, Uri::to('admin/units'));
+	}
+
 }
