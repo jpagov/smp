@@ -8,7 +8,7 @@
 
 	<?php if(has_search_results()): ?>
 
-		<p class="lead"><strong class="text-success"><?php echo total_search_results(); ?></strong> results were found for the search for &ldquo;<strong class="text-success"><?php echo search_info(); ?></strong>&rdquo;</p>
+		<p class="lead"><strong class="text-success"><?php echo total_search_results(); ?></strong> <?php echo __('site.search_results_title'); ?> &ldquo;<strong class="text-success"><?php echo search_info(); ?></strong>&rdquo;</p>
 
 		<div id="staff-search-result">
 			<?php $i = 0; while(search_results()): $i++; ?>
@@ -62,7 +62,7 @@
 			<div class="panel-heading">
 				<h4 class="panel-title">
 					<a class="accordion-toggle" data-toggle="collapse" href="#collapseDivision">
-						Division
+						<?php echo __('site.division'); ?>
 					</a>
 
 				</h4>
@@ -96,7 +96,7 @@
 			<div class="panel-heading">
 				<h4 class="panel-title">
 					<a class="accordion-toggle" data-toggle="collapse" href="#collapseField">
-						Search for
+						<?php echo __('site.search_filter'); ?>
 					</a>
 
 				</h4>
