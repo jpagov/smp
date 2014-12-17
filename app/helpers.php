@@ -229,3 +229,31 @@ function staff_hierarchy_url_admin($id = null, $type = 'division') {
 
 	return implode('/', array_splice($url, 0, array_search($type,array_keys($url))+1));
 }
+
+function search_parse($term) {
+
+	$term = htmlspecialchars($term);
+	$valids = array('division', 'branch', 'sector', 'unit');
+	$result = array();
+
+	preg_match_all("/([^,= ]+):([^,= ]+)/", $term, $matchs);
+
+	foreach ($matchs[0] as $found) {
+		$term = str_replace($found, '', $term);
+	}
+	$result = array_combine($matchs[1], $matchs[2]);
+	$result['term'] = trim($term);
+
+	return $result;
+
+}
+
+function array_combine_key($keys, $values) {
+	$result = array();
+	foreach ($keys as $i => $k) {
+		$result[$k][] = $values[$i];
+	}
+	array_walk($result, create_function('&$v', '$v = (count($v) == 1)? array_pop($v): $v;'));
+	return $result;
+}
+

@@ -148,32 +148,108 @@ class Staff extends Base {
 
 		if (isset($filter['division'])) {
 
-			//$query->left_join(Base::table('divisions'), Base::table('divisions.id'), '=', Base::table('staffs.division'));
+			$division = $filter['division'];
 
-			if (is_array($filter['division'])) {
+			if (is_array($division)) {
 
-				if (count($filter['division']) == 1 && !empty($filter['division'][0])) {
-					$query->where('division', '=', $filter['division'][0]);
+				//modify array and convert to their id respectively
+				$division = array_map(function($var) {
+					if (!ctype_digit($var)) {
+
+						if ($item = Division::slug($var)) {
+							$var = $item->id;
+						}
+
+					}
+					return $var;
+				}, $filter['division']);
+
+				if (count($division) == 1 && !empty($division[0])) {
+					$query->where('division', '=', $division[0]);
 				} else {
-					$query->where_in('division', $filter['division'], 'AND ');
+					$query->where_in('division', $division, 'AND ');
 				}
 			}
 			unset($filter['division']);
 		}
 
 		if (isset($filter['branch'])) {
-			$query->where('branch', '=', $filter['branch']);
+
+			$branch = $filter['branch'];
+
+			if (is_array($branch)) {
+
+				$branch = array_map(function($var) {
+					if (!ctype_digit($var)) {
+
+						if ($item = Branch::slug($var)) {
+							$var = $item->id;
+						}
+
+					}
+					return $var;
+				}, $filter['branch']);
+
+				if (count($branch) == 1 && !empty($branch[0])) {
+					$query->where('branch', '=', $branch[0]);
+				} else {
+					$query->where_in('branch', $branch, 'AND ');
+				}
+
+			}
 			unset($filter['branch']);
 		}
 
 		if (isset($filter['sector'])) {
-			$query->where('sector', '=', $filter['sector']);
+
+			$sector = $filter['sector'];
+
+			if (is_array($sector)) {
+
+				$sector = array_map(function($var) {
+					if (!ctype_digit($var)) {
+
+						if ($item = Sector::slug($var)) {
+							$var = $item->id;
+						}
+					}
+					return $var;
+				}, $filter['sector']);
+
+				if (count($sector) == 1 && !empty($sector[0])) {
+					$query->where('sector', '=', $sector[0]);
+				} else {
+					$query->where_in('sector', $sector, 'AND ');
+				}
+
+			}
 			unset($filter['sector']);
 		}
 
 		if (isset($filter['unit'])) {
-			//$query->left_join(Base::table('units'), Base::table('units.id'), '=', Base::table('staffs.unit'))->where(Base::table('staffs.unit'), '=', $filter['unit']);
-			$query->where('unit', '=', $filter['unit']);
+
+			$unit = $filter['unit'];
+
+			if (is_array($unit)) {
+
+				$unit = array_map(function($var) {
+					if (!ctype_digit($var)) {
+
+						if ($item = Unit::slug($var)) {
+							$var = $item->id;
+						}
+
+					}
+					return $var;
+				}, $filter['unit']);
+
+				if (count($unit) == 1 && !empty($unit[0])) {
+					$query->where('unit', '=', $unit[0]);
+				} else {
+					$query->where_in('unit', $unit, 'AND ');
+				}
+
+			}
 			unset($filter['unit']);
 		}
 

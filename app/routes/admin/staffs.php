@@ -38,11 +38,34 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 			$search = true;
 		}
 
+		//dd($input['term']);
+		$cari = new Cari($input['term']);
+		$input = array_merge($input, $cari->result());
+
+		//dd($input);
+		if (isset($cari->term)) {
+			# code...
+		}
+		//$input = array_merge($input, $term);
+		//dd($input);
 		if ($input['division']) {
-			$filter['division'] = $input['division'];
-			$vars['division'] = $input['division'];
+			$vars['division'] = $filter['division'] = $input['division'];
 			$search = true;
 		}
+
+		if ($input['division']) {
+			$vars['division'] = $filter['division'] = $input['division'];
+			$search = true;
+		}
+
+		foreach (array('division', 'branch', 'sector', 'unit') as $org) {
+			if (array_key_exists($org, $input)) {
+				$vars[$org] = $filter[$org] = $input[$org];
+				$search = true;
+			}
+		}
+
+		//dd($input, $filter);
 
 		if ($input['status']) {
 			$filter['status'] = $input['status'];
