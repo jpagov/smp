@@ -7,7 +7,7 @@ class Division extends Base {
 	public static function dropdown() {
 		$items = array();
 
-		foreach(static::get() as $item) {
+		foreach(static::sort('order', 'asc')->get() as $item) {
 			$items[$item->id] = $item->title;
 		}
 
@@ -38,7 +38,7 @@ class Division extends Base {
 
 		$count = $query->count();
 
-		$results = $query->take($perpage)->skip(($page - 1) * $perpage)->sort('id')->get();
+		$results = $query->take($perpage)->skip(($page - 1) * $perpage)->sort('order', 'asc')->get();
 
 		return new Paginator($results, $count, $page, $perpage, Uri::to('admin/divisions'));
 	}

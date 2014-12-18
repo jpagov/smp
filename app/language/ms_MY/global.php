@@ -91,6 +91,8 @@ return array(
 	'profile_memory_usage' => 'Total memory usage',
 
 	// messages
-	'confirm_delete' => 'Adakah anda pasti untuk menghapus? Sekiranya anda tidak pasti, sila setkan Status = inactive'
+	'confirm_delete' => 'Adakah anda pasti untuk menghapus? Sekiranya anda tidak pasti, sila setkan Status = inactive',
+
+	'no_data' => 'Tiada maklumat',
 
 	);

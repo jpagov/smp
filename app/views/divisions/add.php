@@ -46,6 +46,14 @@
                   </div>
                 </div>
 
+				<div class="form-group">
+					<label class="col-sm-3 control-label" for="parent"><?php echo __('hierarchy.parent'); ?></label>
+					<div class="col-sm-6">
+					<?php echo Form::select('parent', $parents, Input::previous('parent'), array('class' => 'form-control', 'id' => 'parent',
+					)); ?>
+					</div>
+				</div>
+
                 <div class="form-group">
                   <label class="col-lg-3 control-label" for="order"><?php echo __('hierarchy.order'); ?></label>
                   <div class="col-lg-2">

@@ -6,6 +6,10 @@ function __($line) {
 	return Language::line($line, null, $args);
 }
 
+function uri($url = '') {
+    return Uri::to($url);
+}
+
 function _e($line, $default = null) {
 	$args = array_slice(func_get_args(), 1);
 

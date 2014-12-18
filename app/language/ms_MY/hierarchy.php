@@ -31,6 +31,7 @@ return array(
 
 	'staff' => 'Staff',
 	'type' => 'Type',
+	'parent' => 'Parent',
 
 	// messages
 	'updated' => 'Your %s has been updated',

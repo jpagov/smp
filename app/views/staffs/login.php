@@ -1,6 +1,6 @@
 <?php echo $header; ?>
 
-<div class="text-center"><a href="/">
+<div class="text-center"><a href="<?php echo uri(); ?>">
 	<img src="<?php echo asset('app/views/assets/img/jata-jpa.png'); ?>" alt="<?php echo Config::meta('sitename'); ?>"></a>
 </div>
 

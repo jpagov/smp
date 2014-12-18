@@ -48,6 +48,14 @@
 				</div>
 
 				<div class="form-group">
+					<label class="col-sm-3 control-label" for="parent"><?php echo __('hierarchy.parent'); ?></label>
+					<div class="col-sm-6">
+					<?php echo Form::select('parent', $parents, Input::previous('parent', $division->parent), array('class' => 'form-control', 'id' => 'parent',
+					)); ?>
+					</div>
+				</div>
+
+				<div class="form-group">
 		          <label class="col-lg-3 control-label" for="order"><?php echo __('hierarchy.order'); ?></label>
 		          <div class="col-lg-2">
 		            <?php echo Form::text('order', Input::previous('order', $division->order), array(
@@ -143,35 +151,47 @@
 			<div class="panel-heading">Cawangan</div>
 
 			<!-- List group -->
+			<?php if ($branchs) : ?>
 			<ul class="list-group">
 			<?php foreach ($branchs as $branch): ?>
 			<li class="list-group-item"><a href="<?php echo Uri::to('admin/branchs/edit/' . $branch->id); ?>"><?php echo $branch->title; ?></a></li>
 			<?php endforeach; ?>
 			</ul>
+			<?php else : ?>
+				<div class="panel-body"><p class="text-center"><?php echo __('global.no_data') ?></p></div>
+			<?php endif; ?>
 		</div>
 
 		<div class="panel panel-default">
 			<!-- Default panel contents -->
 			<div class="panel-heading">Sector</div>
 
+			<?php if ($sectors) : ?>
 			<!-- List group -->
 			<ul class="list-group">
 			<?php foreach ($sectors as $sector): ?>
 			<li class="list-group-item"><a href="<?php echo Uri::to('admin/sectors/edit/' . $sector->id); ?>"><?php echo $sector->title; ?></a></li>
 			<?php endforeach; ?>
 			</ul>
+			<?php else : ?>
+				<div class="panel-body"><p class="text-center"><?php echo __('global.no_data') ?></p></div>
+			<?php endif; ?>
 		</div>
 
 		<div class="panel panel-default">
 			<!-- Default panel contents -->
 			<div class="panel-heading">Unit</div>
 
+			<?php if ($units) : ?>
 			<!-- List group -->
 			<ul class="list-group">
 			<?php foreach ($units as $unit): ?>
 			<li class="list-group-item"><a href="<?php echo Uri::to('admin/units/edit/' . $unit->id); ?>"><?php echo $unit->title; ?></a></li>
 			<?php endforeach; ?>
 			</ul>
+			<?php else : ?>
+				<div class="panel-body"><p class="text-center"><?php echo __('global.no_data') ?></p></div>
+			<?php endif; ?>
 		</div>
 
 

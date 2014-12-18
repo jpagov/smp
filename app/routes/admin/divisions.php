@@ -58,6 +58,7 @@ Route::collection(array('before' => 'auth,csrf,admin'), function() {
 		$vars['token'] = Csrf::token();
 		$vars['division'] = Division::find($id);
 
+		$vars['parents'] = array_unshift_assoc(Division::dropdown(), '0', __('staffs.please_select'));
 		$vars['branchs'] = Hierarchy::branch($id);
 		$vars['sectors'] = Hierarchy::sector($id);
 		$vars['units'] = Hierarchy::unit($id);
@@ -68,13 +69,21 @@ Route::collection(array('before' => 'auth,csrf,admin'), function() {
 	});
 
 	Route::post('admin/divisions/edit/(:num)', function($id) {
-		$input = Input::get(array('title', 'slug', 'description', 'order', 'street', 'city', 'state', 'zip', 'telephone', 'fax'));
+		$input = Input::get(array('title', 'slug', 'description', 'order', 'street', 'city', 'state', 'zip', 'telephone', 'fax', 'parent'));
 
 		if(empty($input['slug'])) {
 			$input['slug'] = slug($input['title']);
 		}
 
 		$input['slug'] = slug($input['slug']);
+
+		if(empty($input['order'])) {
+			$input['order'] = 0;
+		}
+
+		if(empty($input['parent'])) {
+			$input['parent'] = 0;
+		}
 
 		$validator = new Validator($input);
 
@@ -111,13 +120,15 @@ Route::collection(array('before' => 'auth,csrf,admin'), function() {
 		$vars['messages'] = Notify::read();
 		$vars['token'] = Csrf::token();
 
+		$vars['parents'] = array_unshift_assoc(Division::dropdown(), '0', __('staffs.please_select'));
+
 		return View::create('divisions/add', $vars)
 			->partial('header', 'partials/header')
 			->partial('footer', 'partials/footer');
 	});
 
 	Route::post('admin/divisions/add', function() {
-		$input = Input::get(array('title', 'slug', 'description', 'order', 'street', 'city', 'state', 'zip', 'telephone', 'fax'));
+		$input = Input::get(array('title', 'slug', 'description', 'order', 'street', 'city', 'state', 'zip', 'telephone', 'fax', 'parent'));
 
 		if(empty($input['slug'])) {
 			$input['slug'] = slug($input['title']);
@@ -129,10 +140,14 @@ Route::collection(array('before' => 'auth,csrf,admin'), function() {
 			$input['order'] = 0;
 		}
 
+		if(empty($input['parent'])) {
+			$input['parent'] = 0;
+		}
+
 		$validator = new Validator($input);
 
 		$validator->check('title')
-			->is_max(3, __('division.title_missing'));
+			->is_max(3, __('hierarchy.title_missing'));
 
     $validator->add('duplicate', function($str) {
       return Division::where('slug', '=', $str)->count() == 0;
@@ -152,7 +167,7 @@ Route::collection(array('before' => 'auth,csrf,admin'), function() {
 
 		Division::create($input);
 
-		Notify::success(__('division.created'));
+		Notify::success(__('hierarchy.created', 'division'));
 
 		return Response::redirect('admin/divisions');
 	});
