@@ -154,14 +154,9 @@ class Staff extends Base {
 
 				//modify array and convert to their id respectively
 				$division = array_map(function($var) {
-					if (!ctype_digit($var)) {
 
-						if ($item = Division::slug($var)) {
-							$var = $item->id;
-						}
+					return ( !ctype_digit($var) && ($item = Division::slug($var))) ? $item->id : null;
 
-					}
-					return $var;
 				}, $filter['division']);
 
 				if (count($division) == 1 && !empty($division[0])) {
@@ -180,14 +175,9 @@ class Staff extends Base {
 			if (is_array($branch)) {
 
 				$branch = array_map(function($var) {
-					if (!ctype_digit($var)) {
 
-						if ($item = Branch::slug($var)) {
-							$var = $item->id;
-						}
+					return ( !ctype_digit($var) && ($item = Branch::slug($var))) ? $item->id : null;
 
-					}
-					return $var;
 				}, $filter['branch']);
 
 				if (count($branch) == 1 && !empty($branch[0])) {
@@ -207,13 +197,9 @@ class Staff extends Base {
 			if (is_array($sector)) {
 
 				$sector = array_map(function($var) {
-					if (!ctype_digit($var)) {
 
-						if ($item = Sector::slug($var)) {
-							$var = $item->id;
-						}
-					}
-					return $var;
+					return ( !ctype_digit($var) && ($item = Sector::slug($var))) ? $item->id : null;
+
 				}, $filter['sector']);
 
 				if (count($sector) == 1 && !empty($sector[0])) {
@@ -233,14 +219,10 @@ class Staff extends Base {
 			if (is_array($unit)) {
 
 				$unit = array_map(function($var) {
-					if (!ctype_digit($var)) {
 
-						if ($item = Unit::slug($var)) {
-							$var = $item->id;
-						}
+					return ( !ctype_digit($var) && ($item = Unit::slug($var))) ? $item->id : null;
 
-					}
-					return $var;
+
 				}, $filter['unit']);
 
 				if (count($unit) == 1 && !empty($unit[0])) {

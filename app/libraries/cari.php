@@ -32,8 +32,12 @@ class Cari {
 		return $this->result;
 	}
 
-	public function getTerm() {
+	public function term() {
 		return $this->term;
+	}
+
+	public function input() {
+		return $this->search;
 	}
 
 	private function combine($keys, $values) {
