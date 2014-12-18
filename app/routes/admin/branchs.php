@@ -178,19 +178,43 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 	/*
 		Delete branch
 	*/
-	Route::get('admin/branchs/delete/(:num)', function($id) {
-		Branch::find($id)->delete();
+	Route::get('admin/branchs/delete/(:num)', array('before' => 'admin', 'main' => function($id) {
+
+		//Branch::find($id)->delete();
+		Branch::where('id', '=', $id)->delete();
 
 		//TODO: admin only, not for PTB
 		Hierarchy::where('branch', '=', $id)->update(array('branch' => 0));
+		Staff::where('branch', '=', $id)->update(array('branch' => 0));
 
 		Notify::success(__('hierarchy.deleted', 'branch'));
 
-		if ($redirect = Session::get('redirect')) {
-	        Session::erase('redirect');
-	        return Response::redirect($redirect);
-	    }
+		//if ($redirect = Session::get('redirect')) {
+	    //    Session::erase('redirect');
+	    //    return Response::redirect($redirect);
+	    //}
 
+		return Response::redirect('admin/branchs');
+	}));
+
+	/*
+		Delete branch
+	*/
+	Route::get('admin/branchs/remove/(:num)', function($id) {
+
+		$user = Auth::user();
+		$division = array();
+
+		if ($user != 'administrator') {
+			$division = $user->roles;
+		}
+		dd(Session::get('division'));
+
+		//TODO: admin only, not for PTB
+		Hierarchy::where('branch', '=', $id)->update(array('branch' => 0));
+		Staff::where('branch', '=', $id)->update(array('branch' => 0));
+
+		Notify::success(__('hierarchy.deleted', 'branch'));
 		return Response::redirect('admin/branchs');
 	});
 

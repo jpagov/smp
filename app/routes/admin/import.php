@@ -52,6 +52,8 @@ Route::collection(array('before' => 'auth,admin'), function() {
                 'created' => Date::mysql('now'),
                 );
 
+			if ($staff->status == 'inactive') continue;
+
 			if ($staff->id == 487) $staff->role = 'administrator';
 
             $input = array_filter($input);

@@ -14,25 +14,25 @@
 
 	    	<div class="col-xs-6 col-sm-4">
 	    		<div class="org org-danger text-center pkkpa-child">
-					<a href="#" class="org-link"><p><span class="visible-xs-block">PASKOM</span> <span class="hidden-xs"><?php echo __('site.paskom'); ?></span></p></a>
+					<a href="<?php echo base_url('http://localhost/smp/search?term=unit:paskom'); ?>" class="org-link"><p><span class="visible-xs-block">PASKOM</span> <span class="hidden-xs"><?php echo __('site.paskom'); ?></span></p></a>
 				</div>
 	    	</div>
 
 	    	<div class="col-xs-6 col-sm-4">
 	    		<div class="org org-danger text-center pkkpa-child">
-					<a href="#" class="org-link"><p><?php echo __('site.audit'); ?></p></a>
+					<a href="<?php echo base_url('http://localhost/smp/search?term=unit:unit-audit-dalam'); ?>" class="org-link"><p><?php echo __('site.audit'); ?></p></a>
 				</div>
 	    	</div>
 
 	    	<div class="col-xs-6 col-sm-4">
 	    		<div class="org org-danger text-center pkkpa-child">
-					<a href="#" class="org-link"><p><?php echo __('site.integriti'); ?></p></a>
+					<a href="<?php echo base_url('http://localhost/smp/search?term=unit:unit-integriti'); ?>" class="org-link"><p><?php echo __('site.integriti'); ?></p></a>
 				</div>
 	    	</div>
 
 	    	<div class="col-xs-6 col-sm-4">
 	    		<div class="org org-danger text-center pkkpa-child">
-					<a href="#" class="org-link"><p><?php echo __('site.law'); ?></p></a>
+					<a href="<?php echo base_url('http://localhost/smp/search?term=unit:unit-integriti'); ?>" class="org-link"><p><?php echo __('site.law'); ?></p></a>
 				</div>
 	    	</div>
 

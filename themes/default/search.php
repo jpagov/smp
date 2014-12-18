@@ -53,7 +53,7 @@
 	<p class="lead"><?php echo __('site.search_noresult', search_info()); ?></p>
 <?php endif; ?>
 </section>
-
+<?php if(has_search_results()): ?>
 <section class="col-sm-3">
 	<nav class="sidebar">
 
@@ -127,5 +127,5 @@
 
 	</nav>
 </section>
-
+<?php endif; ?>
 <?php theme_include('footer'); ?>

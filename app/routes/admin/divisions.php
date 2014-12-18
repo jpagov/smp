@@ -58,6 +58,10 @@ Route::collection(array('before' => 'auth,csrf,admin'), function() {
 		$vars['token'] = Csrf::token();
 		$vars['division'] = Division::find($id);
 
+		$vars['branchs'] = Hierarchy::branch($id);
+		$vars['sectors'] = Hierarchy::sector($id);
+		$vars['units'] = Hierarchy::unit($id);
+
 		return View::create('divisions/edit', $vars)
 			->partial('header', 'partials/header')
 			->partial('footer', 'partials/footer');
@@ -67,7 +71,7 @@ Route::collection(array('before' => 'auth,csrf,admin'), function() {
 		$input = Input::get(array('title', 'slug', 'description', 'order', 'street', 'city', 'state', 'zip', 'telephone', 'fax'));
 
 		if(empty($input['slug'])) {
-			$input['slug'] = acronym($input['title']);
+			$input['slug'] = slug($input['title']);
 		}
 
 		$input['slug'] = slug($input['slug']);
@@ -116,7 +120,7 @@ Route::collection(array('before' => 'auth,csrf,admin'), function() {
 		$input = Input::get(array('title', 'slug', 'description', 'order', 'street', 'city', 'state', 'zip', 'telephone', 'fax'));
 
 		if(empty($input['slug'])) {
-			$input['slug'] = acronym($input['title']);
+			$input['slug'] = slug($input['title']);
 		}
 
 		$input['slug'] = slug($input['slug']);

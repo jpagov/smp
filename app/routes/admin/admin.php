@@ -51,6 +51,7 @@ Route::get('admin/login', function() {
 });
 
 Route::post('admin/login', array('before' => 'csrf', 'main' => function() {
+
 	$attempt = Auth::attempt(Input::get('user'), Input::get('pass'));
 
 	if( ! $attempt) {
@@ -59,7 +60,9 @@ Route::post('admin/login', array('before' => 'csrf', 'main' => function() {
 		return Response::redirect('admin/login');
 	}
 
-	Staff::update(Auth::user()->id, array('last_visit' => Date::mysql('now')));
+	$admin = Auth::user();
+
+	Staff::update($admin->id, array('last_visit' => Date::mysql('now')));
 
 	$redirect = 'admin/staffs';
 
@@ -68,9 +71,19 @@ Route::post('admin/login', array('before' => 'csrf', 'main' => function() {
         Session::erase('redirect');
     }
 
-    if (!$division = Division::find(Auth::user()->division)) {
-    	return Response::redirect('admin/staffs/edit/' . Auth::user()->id);
-    }
+    $division = (array_filter($admin->roles)) ? $admin->roles[0] : ($admin->division) ?: '';
+
+
+
+   	if ($div = Division::find($division)) {
+   		$division = $div->slug;
+   	}
+
+   	Session::put('division', $division);
+
+   	if ($admin->role == 'staff') {
+   		return Response::redirect('admin/staffs/edit/' . $admin->id);
+   	}
 
 	// check for updates
 	//Update::version();
@@ -88,6 +101,7 @@ Route::post('admin/login', array('before' => 'csrf', 'main' => function() {
 */
 Route::get('admin/logout', function() {
 	Auth::logout();
+	Session::erase('division');
 	Notify::warning(__('users.logout_notice'));
 	return Response::redirect('admin/login');
 });

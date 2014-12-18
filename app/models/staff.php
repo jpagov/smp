@@ -241,7 +241,9 @@ class Staff extends Base {
 			unset($filter['status']);
 		}
 
-		$query->where('status', '=', $status);
+		if ($status != 'all') {
+			$query->where('status', '=', $status);
+		}
 
 		//dd($query->get());
 		//dd($query);

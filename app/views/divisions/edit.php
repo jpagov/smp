@@ -137,18 +137,43 @@
 	</div>
 
 	<div class="col-lg-3">
+
 		<div class="panel panel-default">
-	      <div class="panel-heading">Need help?</div>
-	      <div class="panel-body">
-	      	<p>You can add custom text to telephone and fax field. Example:</p>
-	      	<ul>
-	      		<li>Phone or fax number only</li>
-	      		<li>Multiple number</li>
-	      	</ul>
-	      	<p>Note: You can use markdown format</p>
-	      </div>
-	  </div>
-	</div>
+			<!-- Default panel contents -->
+			<div class="panel-heading">Cawangan</div>
+
+			<!-- List group -->
+			<ul class="list-group">
+			<?php foreach ($branchs as $branch): ?>
+			<li class="list-group-item"><a href="<?php echo Uri::to('admin/branchs/edit/' . $branch->id); ?>"><?php echo $branch->title; ?></a></li>
+			<?php endforeach; ?>
+			</ul>
+		</div>
+
+		<div class="panel panel-default">
+			<!-- Default panel contents -->
+			<div class="panel-heading">Sector</div>
+
+			<!-- List group -->
+			<ul class="list-group">
+			<?php foreach ($sectors as $sector): ?>
+			<li class="list-group-item"><a href="<?php echo Uri::to('admin/sectors/edit/' . $sector->id); ?>"><?php echo $sector->title; ?></a></li>
+			<?php endforeach; ?>
+			</ul>
+		</div>
+
+		<div class="panel panel-default">
+			<!-- Default panel contents -->
+			<div class="panel-heading">Unit</div>
+
+			<!-- List group -->
+			<ul class="list-group">
+			<?php foreach ($units as $unit): ?>
+			<li class="list-group-item"><a href="<?php echo Uri::to('admin/units/edit/' . $unit->id); ?>"><?php echo $unit->title; ?></a></li>
+			<?php endforeach; ?>
+			</ul>
+		</div>
+
 
 </div>
 

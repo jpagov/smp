@@ -74,13 +74,10 @@ Route::get(array('search', 'search/(:num)'), function($offset = 1) {
 
 	$term['term'] = $cari->term();
 
-	$input['in'] = (empty(array_filter($input['in']))) ? $field : $input['in'];
-
-
-	//unset($search);
-
 	// register to session
-	if ($input['in']) {
+	if (array_key_exists('in', $input)) {
+		$input['in'] = (empty(array_filter($input['in']))) ? $field : $input['in'];
+
 		$field = $input['in'];
 		Registry::set('search_in', $input['in']);
 	}
@@ -93,7 +90,7 @@ Route::get(array('search', 'search/(:num)'), function($offset = 1) {
 	}
 
 
-	if (isset($input['term'])) {
+	if (!empty(array_filter($input)) && isset($input['term'])) {
 
 		$term = $input['term'];
 
@@ -139,7 +136,7 @@ Route::get(array('search', 'search/(:num)'), function($offset = 1) {
 
 	Registry::set('page', $page);
 
-	return new Template('search-landing');
+	return new Template('search');
 
 });
 

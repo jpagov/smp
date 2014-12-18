@@ -18,19 +18,21 @@ class Hierarchy extends Base {
 
     $query = static::left_join(Base::table($hierarchy), Base::table('hierarchies.' . substr($hierarchy, 0, -1)), '=', Base::table($hierarchy . '.id'));
 
+    $query->where(Base::table('hierarchies.' . substr($hierarchy, 0, -1)), '!=', 0);
+
     if ($division) {
-      $query = $query->where(Base::table('hierarchies.division'), '=', $division);
+      $query->where(Base::table('hierarchies.division'), '=', $division);
     }
 
     if ($branch) {
-      $query = $query->where(Base::table('hierarchies.branch'), '=', $branch);
+      $query->where(Base::table('hierarchies.branch'), '=', $branch);
     }
 
     if ($sector) {
-      $query = $query->where(Base::table('hierarchies.sector'), '=', $sector);
+      $query->where(Base::table('hierarchies.sector'), '=', $sector);
     }
 
-    $query = $query->group(Base::table($hierarchy . '.title'));
+    $query->group(Base::table($hierarchy . '.title'));
 
     return $query->get(array(Base::table($hierarchy . '.id'), Base::table($hierarchy . '.title')));
   }

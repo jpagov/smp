@@ -15,9 +15,15 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 			'missing',
 		));
 
+
+
 		$filter = array();
 		$search = false;
 		$staffs = false;
+
+		if (!$input['status']) {
+			$input['status'] = 'all';
+		}
 
 		if (empty($input['term'])) {
 			$input['term'] = null;
