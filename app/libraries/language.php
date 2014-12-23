@@ -14,7 +14,9 @@ class Language {
 		$language = Config::app('language');
 
 		// make sure we have cookie lang, if not lets start again
-		if ($cookie = Cookie::read('lang')) {
+		if (!$cookie = Cookie::read(Config::app('prefix') . '_lang')) {
+			Cookie::write(Config::app('prefix') . '_lang', $language, Config::session('lifetime'));
+		} else {
 			$language = $cookie;
 		}
 
@@ -25,11 +27,11 @@ class Language {
 			if (isset($lang) and in_array($lang, static::all(true))) {
 				$language = filter_var($lang, FILTER_SANITIZE_URL);
 			}
+
+			$language = filter_var($language, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+			Cookie::write(Config::app('prefix') . '_lang', $language, Config::session('lifetime'));
 		}
-
-		$language = filter_var($language, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-
-		Cookie::write('lang', $language, Config::session('lifetime'));
 
 		return $language;
 

@@ -13,4 +13,5 @@ return array(
 		'sector' => 3,
 		'unit' => 4
 	),
+	'prefix' => 'smp',
 );

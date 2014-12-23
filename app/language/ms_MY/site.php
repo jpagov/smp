@@ -77,4 +77,14 @@ return array(
 	'search_results_title' => 'keputusan carian ditemui bagi kata kunci',
 	'search_for' => 'Carian bagi',
 	'search_filter' => 'Tapis carian',
+
+	// Rating
+	'rating_success' => 'Penilaian anda telah disimpan. Terima kasih atas maklum balas anda!',
+	'rating_warning' => 'Terima kasih, bagaimanapun anda telah memberikan penilaian kepada pegawai tersebut sebelum ini.',
+
+	// notification
+	'success' => 'Berjaya',
+	'notice' => 'Notis',
+	'error' => 'Ralat',
+	'info' => 'Info',
 );

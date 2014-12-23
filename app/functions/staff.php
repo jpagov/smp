@@ -239,10 +239,6 @@ function staff_division_url() {
 	}
 }
 
-function staff_total_comments() {
-	return Registry::prop('staff', 'total_comments');
-}
-
 function staff_report_to_id() {
     return Registry::prop('staff', 'report_to');
 }
@@ -292,11 +288,21 @@ function staff_relevancy_total() {
     return staff_relevancy()['from'];
 }
 
-function staff_rating($staff = null) {
-    //return round(staff_relevancy_percent() / 20);
+//function staff_rating($staff = null) {
+    ////return round(staff_relevancy_percent() / 20);
 
-    $staff = $staff ?: staff_id();
-    return Staff::rating($staff);
+//    $staff = $staff ?: staff_id();
+//   return Staff::rating($staff);
+//}
+
+function staff_total_ratings() {
+	return Registry::prop('staff', 'total_ratings');
+}
+
+function staff_rating() {
+    ////return round(staff_relevancy_percent() / 20);
+
+
 }
 
 function customised() {

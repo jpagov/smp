@@ -253,8 +253,6 @@ form.navbar-form:before {
 	}
 }
 
-
-
 ul.list-unstyled > li:nth-child(4n+1) {
     display: block;
     margin-left: 0px;
@@ -495,4 +493,153 @@ article.search-result > div > img {
 }
 .org-danger .org-link {
   color: #843534;
+}
+
+
+/* RATING */
+.cancel-on-png, .cancel-off-png, .star-on-png, .star-off-png, .star-half-png {
+  font-size: 2em;
+}
+
+@font-face {
+  font-family: "raty";
+  font-style: normal;
+  font-weight: normal;
+  src: url("../fonts/raty.eot");
+  src: url("../fonts/raty.eot?#iefix") format("embedded-opentype");
+  src: url("../fonts/raty.svg#raty") format("svg");
+  src: url("../fonts/raty.ttf") format("truetype");
+  src: url("../fonts/raty.woff") format("woff");
+}
+
+.cancel-on-png, .cancel-off-png, .star-on-png, .star-off-png, .star-half-png {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  font-family: "raty";
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  line-height: 1;
+  speak: none;
+  text-transform: none;
+}
+
+.cancel-on-png:before {
+  content: "\e600";
+}
+
+.cancel-off-png:before {
+  content: "\e601";
+}
+
+.star-on-png:before {
+  content: "\f005";
+}
+
+.star-off-png:before {
+  content: "\f006";
+}
+
+.star-half-png:before {
+  content: "\f123";
+}
+
+.rating-inner {
+  padding: 1em;
+  background-color: white;
+  overflow: hidden;
+  position: relative;
+}
+
+.rating {
+  float: left;
+  width: 45%;
+  margin-right: 5%;
+  text-align: center;
+}
+
+.rating-num {
+  color: #333333;
+  font-size: 72px;
+  font-weight: 100;
+  line-height: 1em;
+}
+
+.rating-stars {
+  font-size: 20px;
+  color: #E3E3E3;
+  margin-bottom: .5em;
+}
+.rating-stars .active {
+  color: #737373;
+}
+
+.rating-users {
+  font-size: 14px;
+}
+
+.histo {
+  float: left;
+  width: 50%;
+  font-size: 13px;
+}
+
+.histo-star {
+  float: left;
+  padding: 3px;
+}
+
+.histo-star > img {
+	padding-right: 3px;
+}
+
+.histo-rate {
+  width: 100%;
+  display: block;
+  clear: both;
+}
+
+.bar-block {
+  margin-left: 3px;
+  color: #999;
+  display: block;
+  float: left;
+  width: 75%;
+  position: relative;
+}
+
+.text-black { color: black; }
+
+.bar {
+  padding: 4px;
+  display: block;
+}
+
+.bar:hover {
+	color: black;
+}
+
+#bar-five {
+  width: 0;
+  background-color: #9FC05A;
+}
+
+#bar-four {
+  width: 0;
+  background-color: #ADD633;
+}
+
+#bar-three {
+  width: 0;
+  background-color: #FFD834;
+}
+
+#bar-two {
+  width: 0;
+  background-color: #FFB234;
+}
+
+#bar-one {
+  width: 0;
+  background-color: #FF8B5A;
 }

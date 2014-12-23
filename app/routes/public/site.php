@@ -447,59 +447,6 @@ Route::get('(:any)', function($uri) use($staffs_page) {
 
 });
 
-/**
-* Post a comment
-*/
-Route::post('(:any)', function($slug) use($staffs_page) {
-    if( ! $staff = Staff::slug($slug) || ! $staff->comments) {
-        return Response::create(new Template('404'), 404);
-    }
-
-    $input = filter_var_array(Input::get(array('name', 'email', 'text')), array(
-    'name' => FILTER_SANITIZE_STRING,
-    'email' => FILTER_SANITIZE_EMAIL,
-    'text' => FILTER_SANITIZE_SPECIAL_CHARS
-    ));
-
-    $validator = new Validator($input);
-
-    $validator->check('email')
-    ->is_email(__('comments.email_missing'));
-
-    $validator->check('text')
-    ->is_max(3, __('comments.text_missing'));
-
-    if($errors = $validator->errors()) {
-        Input::flash();
-
-        Notify::error($errors);
-
-        return Response::redirect($staffs_page->slug . '/' . $slug . '#comment');
-    }
-
-    $input['staff'] = Staff::slug($slug)->id;
-    $input['date'] = Date::mysql('now');
-    $input['status'] = Config::meta('auto_published_comments') ? 'approved' : 'pending';
-
-    // remove bad tags
-    $input['text'] = strip_tags($input['text'], '<a>,<b>,<blockquote>,<code>,<em>,<i>,<p>,<pre>');
-
-    // check if the comment is possibly spam
-    if($spam = Comment::spam($input)) {
-        $input['status'] = 'spam';
-    }
-
-    $comment = Comment::create($input);
-
-    Notify::success(__('comments.created'));
-
-    // dont notify if we have marked as spam
-    if( ! $spam && Config::meta('comment_notifications')) {
-        $comment->notify();
-    }
-
-    return Response::redirect($staffs_page->slug . '/' . $slug . '#comment');
-});
 
 /**
 * Rss feed

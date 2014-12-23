@@ -77,4 +77,14 @@ return array(
 	'search_results_title' => 'results were found for the keyword',
 	'search_for' => 'Search for',
 	'search_filter' => 'Search Filter',
+
+	// Rating
+	'rating_success' => 'Your rating has been posted. Thanks for your feedback!',
+	'rating_warning' => 'Thanks! but you already give the feedback for that staff!',
+
+	// notification
+	'success' => 'Success',
+	'notice' => 'Notice',
+	'error' => 'Error',
+	'info' => 'Info',
 );
