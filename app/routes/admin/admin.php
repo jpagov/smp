@@ -25,6 +25,10 @@ Route::action('csrf', function() {
 		if( ! Csrf::check(Input::get('token'))) {
 			Notify::warning(array('Invalid token'));
 
+			if ($url = Input::get('url')) {
+				return Response::redirect(filter_var($url, FILTER_SANITIZE_URL));
+			}
+
 			return Response::redirect('admin/login');
 		}
 	}
@@ -150,12 +154,12 @@ Route::post('admin/amnesia', array('before' => 'csrf', 'main' => function() {
 	$subject = __('users.recovery_subject');
 	$msg = __('users.recovery_message', $uri);
 
-  $mail = new Email($user->email, $subject, $msg, 2);
+	$mail = new Email($user->email, $subject, $msg, 2);
 
-  if(!$mail->send()) {
-    Notify::warning(__('users.msg_not_send', $mail->ErrorInfo));
-    return Response::redirect('admin/login');
-  }
+	if(!$mail->send()) {
+		Notify::warning(__('users.msg_not_send', $mail->ErrorInfo));
+		return Response::redirect('admin/login');
+	}
 
 	Notify::success(__('users.recovery_sent'));
 

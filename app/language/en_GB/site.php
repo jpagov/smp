@@ -87,4 +87,19 @@ return array(
 	'notice' => 'Notice',
 	'error' => 'Error',
 	'info' => 'Info',
+
+	// contact form
+	'new_message_to' => 'New message to <b>%s</b>',
+	'contact_name' => 'Your name',
+	'contact_name_explain' => '<i class="text-muted">(Optional)</i> Officer can reference your name',
+	'contact_email' => 'Your email',
+	'contact_email_explain' => '<i class="text-muted">(Optional)</i> Officer can use this email to contact you back',
+	'contact_message' => 'Message',
+	'message_created' => 'Thanks, your message has been saved.',
+	'contact_note' => 'Please note this facility is available only as a response one way and it is up to the officer whether to respond or not. For more information please visit <a href="/maklumbalas/">Feedback System</a>',
+
+	'iamnotrobot' => 'I am not robot',
+	'iamnotrobot_explain' => 'Prove that you not robot.',
+	'recaptcha_warning' => 'Please prove you are not robot.',
+
 );

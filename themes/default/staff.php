@@ -3,6 +3,7 @@
 <section class="col-xs-12 col-md-8 staff well" id="staff-<?php echo staff_id(); ?>">
 		<?php theme_include('breadcrumb'); ?>
 
+		<?php $notify = (Notify::read()) ?: ''; echo $notify; ?>
 
 		<div class="row">
 
@@ -53,7 +54,7 @@
 							<dt><?php echo _e('site.designation'); ?></dt>
 							<dd><i class="glyphicon glyphicon-barcode"></i> <?php echo staff_position(); ?></dd>
 							<dt><?php echo _e('site.email'); ?></dt>
-							<dd><i class="glyphicon glyphicon-comment"></i> <a class="email" itemprop="email" href="mailto:<?php echo staff_email_encode(); ?>" id="staff-email-<?php echo staff_id(); ?>"><?php echo staff_email_image(); ?></a></dd>
+							<dd><i class="glyphicon glyphicon-comment"></i> <a href="mailto:<?php echo staff_email_encode(); ?>" id="staff-message" data-toggle="modal" data-target="#messageModal" data-staff="<?php echo staff_name(); ?>" data-staff-id="<?php echo staff_id(); ?>"><?php echo staff_email_image(); ?></a></dd>
 							<dt><?php echo _e('site.telephone'); ?></dt>
 							<dd><i class="glyphicon glyphicon-earphone"></i> <?php echo staff_telephone_link(); ?></dd>
 					</dl>
@@ -73,6 +74,10 @@
 </section>
 
 <section class="col-xs-12 col-md-4 sidebar">
+
+	<div class="well well-sm">
+		<button id="message-button" type="button" class="btn btn-primary btn-lg btn-block"><?php echo _e('site.contact_message'); ?></button>
+	</div>
 
 	<?php if(ratings_open()): ?>
 	<div class="well">
@@ -159,6 +164,53 @@
 		</div>
 
 </section>
+<div class="modal fade" id="messageModal" tabindex="-1" role="dialog" aria-labelledby="messageModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+    <form id="contact-staff" method="post">
+    	<input name="staff" type="hidden" value="<?php echo staff_id(); ?>">
+    	<input name="token" type="hidden" value="<?php echo Csrf::token(); ?>">
+    	<input name="url" type="hidden" value="<?php echo full_url(Uri::current()); ?>">
+    	<input name="type" type="hidden" value="message">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="messageModalLabel"><?php echo __('site.new_message_to', staff_name()); ?></h4>
+      </div>
+      <div class="modal-body">
+      <p class="bg-warning"><small class="text-warning"><i><?php echo __('site.contact_note'); ?></i></small></p>
+      <?php echo $notify; ?>
+        <form>
+        	<input type="hidden" id="recipient-id">
+          <div class="form-group">
+            <label for="from-name" class="control-label"><?php echo _e('site.contact_name'); ?></label>
+            <input name="contact[name]" type="text" class="form-control" id="from-name">
+            <span class="help-block"><?php echo __('site.contact_name_explain'); ?></span>
+          </div>
+          <div class="form-group">
+            <label for="from-email" class="control-label"><?php echo _e('site.contact_email'); ?></label>
+            <input name="contact[email]" type="email" class="form-control" id="from-email">
+            <span class="help-block"><?php echo __('site.contact_email_explain'); ?></span>
+          </div>
+          <div class="form-group">
+            <label for="message-text" class="control-label"><?php echo _e('site.contact_message'); ?></label>
+            <textarea name="contact[message]" class="form-control" id="message-text"></textarea>
+          </div>
+
+          <?php if (!Session::get('recaptcha')) : ?>
+          <div class="form-group">
+          	<div class="g-recaptcha" data-sitekey="6Lekyf8SAAAAACxfU-BGeFKFqTkjBcNCFHx3lpmo"></div>
+          </div>
+          <?php endif; ?>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button id="btn-message-send" type="submit" class="btn btn-primary">Send message</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
 
 <?php if(comments_open()): ?>
 		<section class="comments">
@@ -206,5 +258,7 @@
 
 </section>
 <?php endif; ?>
+
+
 
 <?php theme_include('footer'); ?>

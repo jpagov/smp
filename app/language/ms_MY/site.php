@@ -87,4 +87,18 @@ return array(
 	'notice' => 'Notis',
 	'error' => 'Ralat',
 	'info' => 'Info',
+
+	// contact form
+	'new_message_to' => 'Mesej baru kepada <b>%s</b>',
+	'contact_name' => 'Nama anda',
+	'contact_name_explain' => '<i class="text-muted">(pilihan)</i> Memudahkan pegawai untuk merujuk kepada nama anda kelak',
+	'contact_email' => 'Your email',
+	'contact_email_explain' => '<i class="text-muted">(Optional)</i> Memudahkan pegawai untuk merujuk kepada nama mengguna emel ini',
+	'contact_message' => 'Mesej',
+	'message_created' => 'Terima kasih, mesej anda telah disimpan',
+	'contact_note' => 'Sila ambil maklum kemudahan ini disediakan hanya sebagai maklum balas sehala dan terpulang kepada pegawai tersebut sama ada ingin membalas atau tidak. Maklumat lanjut sila layari <a href="/maklumbalas/">Sistem Maklumb Balas</a>',
+
+	'iamnotrobot' => 'Saya bukan robot',
+	'iamnotrobot_explain' => 'Buktikan yang anda bukan robot.',
+	'recaptcha_warning' => 'Sila buktikan yang anda bukan robot.',
 );

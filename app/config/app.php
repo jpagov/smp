@@ -14,4 +14,7 @@ return array(
 		'unit' => 4
 	),
 	'prefix' => 'smp',
+	'recaptcha' => true,
+	'recaptcha_key' => '6Lekyf8SAAAAACxfU-BGeFKFqTkjBcNCFHx3lpmo',
+	'recaptcha_secret' => '6Lekyf8SAAAAAFfyKBn-eP1YNk3ANgU9ywE0aoqV',
 );

@@ -1,5 +1,19 @@
 <?php
 
+Route::action('csrf', function() {
+	if(Request::method() == 'POST') {
+		if( ! Csrf::check(Input::get('token'))) {
+			Notify::warning(array('Invalid token'));
+
+			if ($url = Input::get('url')) {
+				return Response::redirect(filter_var($url, FILTER_SANITIZE_URL));
+			}
+
+			return Response::create(new Template('404'), 404);
+		}
+	}
+});
+
 /**
 * Important pages
 */
@@ -37,6 +51,7 @@ $routes = array($staffs_page->slug, $staffs_page->slug . '(:num)');
 *    array_unshift($routes, '/');
 *}
 */
+
 
 Route::get($routes, function($offset = 1) use($staffs_page) {
 
@@ -409,7 +424,13 @@ Route::get('(:num)', function($id) use($staffs_page) {
 /**
 * View staff
 */
-Route::get('(:any)', function($uri) use($staffs_page) {
+
+
+/**
+ * View pages
+ */
+
+Route::get('(:all)', function($uri) use($staffs_page) {
 
     // find if slug is staff
     if( $staff = Staff::slug(basename($uri)) ) {
@@ -536,6 +557,23 @@ Route::get('category/(:any)', function($slug) {
     return Response::redirect($url);
 });
 
+Route::get('avatar/(:any)', function($id) {
+
+	if( (! $staff = Staff::id($id)) || $staff->status == 'inactive') {
+        return Response::create(new Template('404'), 404);
+    }
+
+    $storage = PATH . 'content' . DS . 'avatar' . DS;
+
+    $default = ($staff->gender == 'M') ? 'default-male.jpg' : 'default-female.jpg';
+
+    $avatar = $storage . DS . preg_replace( "/^([^@]+)(@.*)$/", "$1", $staff->email) . '.jpg';
+
+	//return (file_exists($avatar)) ? $avatar : $storage . DS . $default;
+
+	//return Response::create($json, 200, array('content-type' => 'application/json'));
+});
+
 
 Route::get('test', function() {
 
@@ -549,4 +587,9 @@ Route::get('test', function() {
     return new Template('test');
 });
 
-
+/*
+ * 404 not found
+ */
+Route::not_found(function() {
+	return Response::create(new Template('404'), 404);
+});

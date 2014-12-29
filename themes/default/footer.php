@@ -16,5 +16,13 @@
     <script src="<?php echo asset('app/views/assets/js/jquery.raty.js'); ?>"></script>
     <script src="<?php echo asset('app/views/assets/js/jquery.toaster.js'); ?>"></script>
     <script src="<?php echo asset('app/views/assets/js/app.js'); ?>"></script>
+    <?php if ($modalism = Session::get('modal')) : Session::erase('modal');  ?>
+    <script type="text/javascript">
+			$(window).load(function(){
+				$('#<?php echo $modalism; ?>').modal('show');
+			});
+		</script>
+		<?php endif; ?>
+		<?php if (is_staff() and !Session::get('recaptcha')) : ?><script src='https://www.google.com/recaptcha/api.js'></script><?php endif; ?>
   </body>
 </html>

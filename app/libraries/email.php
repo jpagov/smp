@@ -2,7 +2,7 @@
 
 class Email extends PHPMailer {
 
-    public function __construct($email, $subject, $msg, $debug = 0. $html = false) {
+    public function __construct($email, $subject, $msg, $debug = 0, $html = false) {
         parent::__construct();
 
         if ($debug) {
@@ -32,7 +32,7 @@ class Email extends PHPMailer {
             $this->addAddress($email);
         }
 
-        $mail->isHTML($html);
+        $this->isHTML($html);
 
         $this->Subject = $subject;
         $this->Body = $this->AltBody = $msg;

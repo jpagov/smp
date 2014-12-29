@@ -268,6 +268,13 @@ function staff_pa() {
 function staff_custom_field($key, $default = '') {
 	$id = Registry::prop('staff', 'id');
 
+	if (empty($default)) {
+		if ($gender = Registry::prop('staff', 'gender')) {
+			$default = ($gender == 'M') ? 'default-male.jpg' : 'default-female.jpg';
+		}
+
+	}
+
 	if($extend = Extend::field('staff', $key, $id)) {
 		return Extend::value($extend, $default);
 	}

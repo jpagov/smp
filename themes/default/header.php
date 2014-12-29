@@ -66,7 +66,7 @@
           <?php endif; ?>
 
 
-          <?php if(!staff_id()) : ?>
+
           <ul class="nav navbar-nav navbar-right">
 
           	<?php if(total_languages()): ?>
@@ -95,7 +95,7 @@
             </li>
 
           </ul>
-        <?php endif; ?>
+
 
         <div class="col-sm-6">
           <form class="navbar-form" role="search" action="<?php echo search_url(); ?>" id="search">

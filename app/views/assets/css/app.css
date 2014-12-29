@@ -643,3 +643,7 @@ article.search-result > div > img {
   width: 0;
   background-color: #FF8B5A;
 }
+
+.modal-body > p.bg-warning {
+	padding: 6px;
+}
