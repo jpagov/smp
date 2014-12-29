@@ -97,6 +97,7 @@ return array(
 	'contact_message' => 'Mesej',
 	'message_created' => 'Terima kasih, mesej anda telah disimpan',
 	'contact_note' => 'Sila ambil maklum kemudahan ini disediakan hanya sebagai maklum balas sehala dan terpulang kepada pegawai tersebut sama ada ingin membalas atau tidak. Maklumat lanjut sila layari <a href="/maklumbalas/">Sistem Maklumb Balas</a>',
+	'message_missing' => 'Sila masukkan mesej anda, hendaklah sama atau melebihi %s karakter',
 
 	'iamnotrobot' => 'Saya bukan robot',
 	'iamnotrobot_explain' => 'Buktikan yang anda bukan robot.',

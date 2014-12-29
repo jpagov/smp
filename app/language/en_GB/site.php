@@ -98,6 +98,8 @@ return array(
 	'message_created' => 'Thanks, your message has been saved.',
 	'contact_note' => 'Please note this facility is available only as a response one way and it is up to the officer whether to respond or not. For more information please visit <a href="/maklumbalas/">Feedback System</a>',
 
+	'message_missing' => 'Please enter a message, must be at least %s characters',
+
 	'iamnotrobot' => 'I am not robot',
 	'iamnotrobot_explain' => 'Prove that you not robot.',
 	'recaptcha_warning' => 'Please prove you are not robot.',

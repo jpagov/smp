@@ -53,23 +53,30 @@ Route::post('(:any)', array('before' => 'csrf', 'main' => function() {
 
 				} else {
 					Input::flash();
-					Notify::warning('site.recaptcha_warning');
+					Notify::warning(__('site.recaptcha_warning'));
 					Session::put('modal', 'messageModal');
 
 					return Response::redirect($url);
 				}
 			}
 
-			$validator = new Validator(array('email' => $message['email']));
+			$validator = new Validator(
+				array(
+					///'email' => $message['email'],
+					'message' => $message['message']
+					)
+				);
 
-			$validator->check('email')
-			->is_email(__('users.email_missing'));
+			//$validator->check('email')->is_email(__('users.email_missing'));
+
+			$validator->check('message')
+				->is_max(5, __('site.message_missing', 5));
 
 			if($errors = $validator->errors()) {
 				Input::flash();
-
 				Notify::warning($errors);
 
+				Session::put('errors', array_keys($errors));
 				Session::put('modal', 'messageModal');
 
 				return Response::redirect($url);

@@ -3,7 +3,10 @@
 <section class="col-xs-12 col-md-8 staff well" id="staff-<?php echo staff_id(); ?>">
 		<?php theme_include('breadcrumb'); ?>
 
-		<?php $notify = (Notify::read()) ?: ''; echo $notify; ?>
+		<?php
+		$notify = (Notify::read()) ?: ''; echo $notify;
+		$errors = (Session::get('errors')) ?: array(); Session::erase('errors');
+		?>
 
 		<div class="row">
 
@@ -183,17 +186,30 @@
         	<input type="hidden" id="recipient-id">
           <div class="form-group">
             <label for="from-name" class="control-label"><?php echo _e('site.contact_name'); ?></label>
-            <input name="contact[name]" type="text" class="form-control" id="from-name">
+
+            <?php echo Form::text('contact[name]', Input::previous('contact[name]'), array('class' => 'form-control', 'id' => 'from-name',
+                    )); ?>
+
             <span class="help-block"><?php echo __('site.contact_name_explain'); ?></span>
           </div>
           <div class="form-group">
             <label for="from-email" class="control-label"><?php echo _e('site.contact_email'); ?></label>
-            <input name="contact[email]" type="email" class="form-control" id="from-email">
+
+            <?php echo Form::text('contact[email]', Input::previous('contact[email]'), array('class' => 'form-control ', 'id' => 'from-email',
+                    )); ?>
+
             <span class="help-block"><?php echo __('site.contact_email_explain'); ?></span>
           </div>
-          <div class="form-group">
+
+          <div class="form-group<?php if ( in_array('message', $errors)) echo ' has-error'; ?>">
             <label for="message-text" class="control-label"><?php echo _e('site.contact_message'); ?></label>
-            <textarea name="contact[message]" class="form-control" id="message-text"></textarea>
+
+				<?php echo Form::textarea('contact[message]', Input::previous('contact[message]'), array(
+					'rows' => 3,
+					'class' => 'form-control',
+					'id' => 'message-text'
+				)); ?>
+
           </div>
 
           <?php if (!Session::get('recaptcha')) : ?>
