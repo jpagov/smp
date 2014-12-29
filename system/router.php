@@ -57,6 +57,13 @@ class Router {
 	public static $actions = array();
 
 	/**
+	 * Actions to call on not matched routes
+	 *
+	 * @var array|closure
+	 */
+	public static $not_found;
+
+	/**
 	 * Create a new instance of the Router class for chaining
 	 *
 	 * @return object
@@ -136,9 +143,11 @@ class Router {
 			}
 		}
 
-		if(isset(static::$routes['ERROR']['404'])) {
-			return new Route(static::$routes['ERROR']['404']);
-		}
+		if(is_array(static::$not_found)) return new Route(static::$not_found);
+
+		//if(isset(static::$routes['ERROR']['404'])) {
+		//	return new Route(static::$routes['ERROR']['404']);
+		//}
 
 		throw new ErrorException('No routes matched');
 	}
