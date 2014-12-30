@@ -20,7 +20,7 @@ Route::get(array('search', 'search/(:num)'), function($offset = 1) {
 		'bahagian' => 'division',
 		'cawangan' => 'branch',
 		'sektor' => 'sector',
-		'unit' => 'unit',
+		//'unit' => 'unit',
 	);
 
 	$term = array_map(function ($var) {
@@ -90,6 +90,7 @@ Route::get(array('search', 'search/(:num)'), function($offset = 1) {
 
 	// rename key aliases
 	foreach ($aliases as $key => $value) {
+		if ($key == $value) continue;
 		if (array_key_exists($key, $input)) {
 			$input[$value] = $input[$key];
 			unset($input[$key]);
