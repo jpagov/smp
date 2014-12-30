@@ -2,6 +2,7 @@
 
 return array(
   	// notification
+  	'search' => 'Carian',
 	'search_missing' => 'Sila masukkan kata kunci carian, sekurang-kurangnya %s karakter',
 
 	'search_noresult' => 'Maaf, tiada keputusan ditemui bagi kata kunci &ldquo;<strong class="text-danger">%s</strong>&rdquo;. Anda pasti telah menaip kata kunci yang betul?',
@@ -36,6 +37,7 @@ return array(
 	'profile_hit' => 'Profile ini telah dilihat sebanyak %s kali',
 	'staff_related' => 'Berkaitan',
 	'direct_report' => 'Penyelia',
+	'search_results' => 'Carian',
 
   	// breadcrumb
 	'division' => 'Bahagian',
@@ -92,7 +94,7 @@ return array(
 	'new_message_to' => 'Mesej baru kepada <b>%s</b>',
 	'contact_name' => 'Nama anda',
 	'contact_name_explain' => '<i class="text-muted">(pilihan)</i> Memudahkan pegawai untuk merujuk kepada nama anda kelak',
-	'contact_email' => 'Your email',
+	'contact_email' => 'Emel anda',
 	'contact_email_explain' => '<i class="text-muted">(Optional)</i> Memudahkan pegawai untuk merujuk kepada nama mengguna emel ini',
 	'contact_message' => 'Mesej',
 	'message_created' => 'Terima kasih, mesej anda telah disimpan',

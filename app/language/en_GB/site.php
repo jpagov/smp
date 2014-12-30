@@ -2,6 +2,7 @@
 
 return array(
   	// notification
+  	'search' => 'Search',
 	'search_missing' => 'Please enter a keyword search, must be at least %s characters',
 
 	'search_noresult' => 'Unfortunately, there\'s no results for &ldquo;<strong class="text-danger">%s</strong>&rdquo;. Did you spell everything correctly?',
@@ -36,6 +37,7 @@ return array(
 	'profile_hit' => 'This profile has been visited %s times',
 	'staff_related' => 'Related',
 	'direct_report' => 'Supervisor',
+	'search_results' => 'Search result',
 
 	// breadcrumb
 	'division' => 'Division',

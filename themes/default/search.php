@@ -1,6 +1,6 @@
 <?php theme_include('header'); ?>
 
-<h2 class="page-header">Search Results</h2>
+<h2 class="page-header"><?php echo __('site.search_results'); ?></h2>
 
 <?php echo search_form_notifications(); ?>
 

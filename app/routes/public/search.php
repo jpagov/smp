@@ -8,7 +8,7 @@ Route::get(array('search', 'search/(:num)'), function($offset = 1) {
 	// mock search page
 	$page = new Page;
 	$page->id = 0;
-	$page->title = 'Search';
+	$page->title = __('site.search');
 	$page->slug = 'search';
 
 	$field = array('display_name');
@@ -16,6 +16,12 @@ Route::get(array('search', 'search/(:num)'), function($offset = 1) {
 	$filter = array();
 	$staffs = array();
 	$total = 0;
+	$aliases = array(
+		'bahagian' => 'division',
+		'cawangan' => 'branch',
+		'sektor' => 'sector',
+		'unit' => 'unit',
+	);
 
 	$term = array_map(function ($var) {
 		return (empty($var)) ? null : filter_var($var, FILTER_SANITIZE_SPECIAL_CHARS);
@@ -82,13 +88,20 @@ Route::get(array('search', 'search/(:num)'), function($offset = 1) {
 		Registry::set('search_in', $input['in']);
 	}
 
+	// rename key aliases
+	foreach ($aliases as $key => $value) {
+		if (array_key_exists($key, $input)) {
+			$input[$value] = $input[$key];
+			unset($input[$key]);
+		}
+	}
+
 	foreach (array('division', 'branch', 'sector', 'unit') as $item) {
 		if (array_key_exists($item, $input)) {
 			$filter[$item] = $input[$item];
 			Registry::set('search_' . $item, $input[$item]);
 		}
 	}
-
 
 	if (!empty(array_filter($input)) && isset($input['term'])) {
 
