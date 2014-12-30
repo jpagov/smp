@@ -56,6 +56,11 @@ class Staff extends Base {
 		return static::get('slug', $slug);
 	}
 
+	public static function email($email) {
+		return static::where('email', 'REGEXP', $email, true)
+			->fetch(array(static::fields()));
+	}
+
 	private static function get($row, $val) {
 		return static::where($row, '=', $val)
 		->fetch(array(static::fields()));

@@ -18,7 +18,7 @@
 				</div>
 
 				<div class="col-xs-3 col-md-pull-9">
-						<img src="<?php echo staff_avatar(staff_id(), staff_gender()); ?>" class="img-responsive img-thumbnail">
+						<img src="<?php echo asset('content/avatar/' . staff_custom_field('avatar')); ?>" class="img-responsive img-thumbnail">
 
 
 
@@ -125,7 +125,7 @@
 					<?php foreach($boss->results as $bos): ?>
 					<div class="list-group">
 							<a href="<?php echo Config::app('url') . '/' . $bos->slug; ?>" class="list-group-item clearfix">
-									<img width="50" height="50" class="media-object img-circle pull-left" src="<?php echo staff_avatar($bos->id); ?>" alt="...">
+									<img width="50" height="50" class="media-object img-circle pull-left" src="<?php echo asset('content/avatar/' . staff_avatar($bos->id, $bos->gender)); ?>" alt="<?php echo $bos->display_name; ?>">
 									<h4 class="list-group-item-heading"><?php echo $bos->display_name; ?></h4>
 									<p class="list-group-item-text"><?php echo $bos->position; ?></p>
 							</a>
@@ -142,7 +142,7 @@
 
 				<div class="list-group">
 						<a href="<?php echo Config::app('url') . '/' . $pa->slug; ?>" class="list-group-item clearfix">
-								<img width="50" height="50" class="media-object img-circle pull-left" src="<?php echo staff_avatar($pa->id); ?>" alt="...">
+								<img width="50" height="50" class="media-object img-circle pull-left" src="<?php echo asset('content/avatar/' . staff_avatar($pa->id, $pa->gender)); ?>" alt="<?php echo $pa->display_name; ?>">
 								<h4 class="list-group-item-heading"><?php echo $pa->display_name; ?></h4>
 								<p class="list-group-item-text"><?php echo $pa->position; ?></p>
 						</a>
@@ -159,7 +159,7 @@
 
 				<?php foreach($related->results as $relate): ?>
 				<a href="<?php echo Config::app('url') . '/' . $relate->slug; ?>" class="list-group-item clearfix">
-						<img width="50" height="50" class="media-object img-circle pull-left" src="<?php echo staff_avatar($relate->id); ?>" alt="...">
+						<img width="50" height="50" class="media-object img-circle pull-left" src="<?php echo asset('content/avatar/' . staff_avatar($relate->id, $relate->gender)); ?>" alt="<?php echo $relate->display_name; ?>">
 						<h4 class="list-group-item-heading"><?php echo $relate->display_name; ?></h4>
 						<p class="list-group-item-text"><?php echo $relate->position; ?></p>
 				</a>

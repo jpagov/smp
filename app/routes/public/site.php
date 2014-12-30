@@ -117,6 +117,23 @@ Route::get('category/(:any)', function($slug) {
     return Response::redirect($url);
 });
 
+Route::get('content/avatar/(:any).jpg', function($email) {
+
+	if( (! $staff = Staff::email($email)) || $staff->status == 'inactive') {
+        return Response::redirect('content/avatar/default-male.jpg');
+    }
+
+    $storage = PATH . 'content' . DS . 'avatar' . DS;
+
+    $default = ($staff->gender == 'M') ? 'default-male.jpg' : 'default-female.jpg';
+
+    $avatar = preg_replace( "/^([^@]+)(@.*)$/", "$1", $staff->email) . '.jpg';
+
+    $redirect = (file_exists($storage . $avatar) ? $avatar : $default);
+
+    return Response::redirect('content/avatar/' . $redirect);
+});
+
 /**
 * View staffs by hierarchies
 */
@@ -558,25 +575,6 @@ Route::get('category', function() {
     return Response::redirect('categories');
 });
 
-
-Route::get('avatar/(:any)', function($id) {
-
-	if( (! $staff = Staff::id($id)) || $staff->status == 'inactive') {
-        return Response::create(new Template('404'), 404);
-    }
-
-    $storage = PATH . 'content' . DS . 'avatar' . DS;
-
-    $default = ($staff->gender == 'M') ? 'default-male.jpg' : 'default-female.jpg';
-
-    $avatar = $storage . DS . preg_replace( "/^([^@]+)(@.*)$/", "$1", $staff->email) . '.jpg';
-
-	//return (file_exists($avatar)) ? $avatar : $storage . DS . $default;
-
-	//return Response::create($json, 200, array('content-type' => 'application/json'));
-});
-
-
 Route::get('test', function() {
 
 	$page = new Page;
@@ -585,8 +583,8 @@ Route::get('test', function() {
     $page->slug = 'test';
 
     Registry::set('page', $page);
-
-    return new Template('test');
+    Csrf::reset();
+    return mt_rand(0, 100);
 });
 
 /*

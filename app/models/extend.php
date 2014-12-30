@@ -48,7 +48,7 @@ class Extend extends Base {
 
 						$storage = PATH . 'content' . DS . 'avatar' . DS . $extend->value->filename;
 
-						$file = asset('content/avatar/' . $extend->value->filename);
+						$file = $extend->value->filename;
 
 						if (file_exists($storage)) {
 							$value = $file;

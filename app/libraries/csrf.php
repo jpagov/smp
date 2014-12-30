@@ -28,4 +28,17 @@ class Csrf {
 		return $token;
 	}
 
+	public static function reset() {
+		$tokens = Session::get('csrf_tokens', array());
+
+		end($tokens);
+		$key = key($tokens);
+		Session::erase('csrf_tokens');
+		$token[] = $tokens[$key];
+		Session::put('csrf_tokens', $token);
+
+
+		return $token;
+	}
+
 }

@@ -12,7 +12,7 @@
 		<article class="search-result row">
 
 			<div class="col-xs-12 col-sm-2">
-				<img src="<?php echo staff_custom_field('avatar', 'http://localhost/smp/content/avatar/default-male.jpg'); ?>" class="img-responsive img-thumbnail" alt="<?php echo staff_name(); ?>">
+				<img src="<?php echo asset('content/avatar/' . staff_custom_field('avatar')); ?>" class="img-responsive img-thumbnail" alt="<?php echo staff_name(); ?>">
 			</div>
 
 			<div class="col-sm-6 excerpet">

@@ -3,7 +3,7 @@
 * Post a comment
 */
 Route::post('(:any)', array('before' => 'csrf', 'main' => function() {
-	dd($_POST);
+
 	$input = filter_var_array(Input::get(array('type', 'score', 'staff')), array(
 		'type' => FILTER_SANITIZE_SPECIAL_CHARS,
 		'score' => array(

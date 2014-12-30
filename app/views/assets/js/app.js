@@ -177,7 +177,7 @@
 					},
 					queryTokenizer: Bloodhound.tokenizers.whitespace,
 					prefetch: {
-						url: '/smp/api',
+						url: path + '/api?code=6f05ad622a3d32a5a81aee5d73a5826adb8cbf63',
 						ttl: 0
 					}
 				});
@@ -190,7 +190,7 @@
 					templates: {
 						suggestion: Handlebars.compile([
 							'<p class="staff-name">',
-							'<img src="/smp/content/avatar/{{avatar}}" class="img-responsive staff-search pull-left" height="50" width="50">',
+							'<img src="' + path + '/content/avatar/{{avatar}}" class="img-responsive staff-search pull-left" height="50" width="50">',
 							'<strong>{{display_name}}</strong>',
 							'<small><span class="glyphicon glyphicon-briefcase"></span> {{position}}</small>',
 							'<small><span class="glyphicon glyphicon-envelope"></span> {{email}}</small>',

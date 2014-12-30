@@ -11,7 +11,7 @@ Route::get(array('search', 'search/(:num)'), function($offset = 1) {
 	$page->title = __('site.search');
 	$page->slug = 'search';
 
-	$field = array('display_name');
+	$field = array('display_name', 'slug');
 	$term = '';
 	$filter = array();
 	$staffs = array();
@@ -82,7 +82,10 @@ Route::get(array('search', 'search/(:num)'), function($offset = 1) {
 
 	// register to session
 	if (array_key_exists('in', $input)) {
+
+
 		$input['in'] = (empty(array_filter($input['in']))) ? $field : $input['in'];
+		$input['in'] = array_merge($input['in'], $field);
 
 		$field = $input['in'];
 		Registry::set('search_in', $input['in']);
@@ -110,7 +113,7 @@ Route::get(array('search', 'search/(:num)'), function($offset = 1) {
 
 		//dd($term);
 
-		Session::put($term, $term);
+		//Session::put($term, $term);
 		//$term = Session::get($slug); //this was for POST only searches
 
 		// revert plus back to spaces
