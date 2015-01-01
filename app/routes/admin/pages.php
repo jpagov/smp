@@ -88,16 +88,15 @@ Route::collection(array('before' => 'auth,admin,csrf'), function() {
 			return Staff::where('slug', '=', $str)->where('id', '<>', $id)->count() == 0;
 		});
 
-    $validator->add('page_duplicate', function($str) use($id) {
-      return Page::where('slug', '=', $str)->where('id', '<>', $id)->count() == 0;
-    });
+	    $validator->add('page_duplicate', function($str) use($id) {
+	      return Page::where('slug', '=', $str)->where('id', '<>', $id)->count() == 0;
+	    });
 
 		$validator->check('title')
 			->is_max(3, __('pages.title_missing'));
 
 		$validator->check('slug')
-      ->is_page_duplicate(__('pages.slug_duplicate'))
-			->is_staff_duplicate(__('pages.slug_duplicate'))
+      		->is_page_duplicate(__('pages.slug_duplicate'))
 			->not_regex('#^[0-9_-]+$#', __('pages.slug_invalid'));
 
 		if($input['redirect']) {

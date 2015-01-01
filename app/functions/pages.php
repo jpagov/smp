@@ -54,3 +54,23 @@ function page_custom_field($key, $default = '') {
 
 	return $default;
 }
+
+function page_rating() {
+
+	if(!$average = rating_average()) {
+		return;
+	}
+
+	$num = round($average);
+	$star = '';
+
+	for ( $star_counter = 1; $star_counter <= 5; $star_counter++ ) {
+		if ( $star_counter <= $num ) {
+			$star .= '★';
+		} else {
+			$star .= '☆';
+		}
+	}
+	return $star;
+	return $star . ' (' . $average . ')';
+}

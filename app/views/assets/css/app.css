@@ -647,3 +647,6 @@ article.search-result > div > img {
 .modal-body > p.bg-warning {
 	padding: 6px;
 }
+
+h1 > a.permalink { visibility: hidden; }
+h1:hover > a.permalink { visibility: visible }

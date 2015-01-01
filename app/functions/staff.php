@@ -103,7 +103,7 @@ function staff_grade() {
 function staff_description() {
 	$desc = trim(Registry::prop('staff', 'description', false));
 
-    return ($desc) ? $desc : __('site.no_desc');
+    return ($desc) ?: __('site.no_desc');
 }
 
 
