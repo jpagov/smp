@@ -11,36 +11,17 @@
 		<div class="row">
 
 				<div class="col-xs-9 col-md-push-3">
-						<h1><em><?php echo staff_salutation(); ?></em> <?php echo staff_first_name(); ?> <?php echo staff_last_name(); ?></h1>
-						<p class="lead"><?php echo staff_job_title(); ?></p>
+						<h1 itemprop="name"><em itemprop="honorificPrefix"><?php echo staff_salutation(); ?></em> <span itemprop="givenName"><?php echo staff_first_name(); ?></span> <span itemprop="familyName"><?php echo staff_last_name(); ?></span> <a class="permalink" aria-hidden="true" href="<?php echo base_url(staff_slug()); ?>" title="Permalink to this staff profile page" itemprop="url"><small class="glyphicon glyphicon-link"></small></a></h1>
+						<p class="lead" itemprop="jobTitle"><?php echo staff_job_title(); ?></p>
 
-						<?php if (staff_description()) : ?><p class="well well-sm bg-warning"><?php echo staff_description(); ?></p><?php endif; ?>
+						<?php if (staff_description()) : ?><p class="well well-sm bg-warning" itemprop="description"><?php echo staff_description(); ?></p><?php endif; ?>
 				</div>
 
-				<div class="col-xs-3 col-md-pull-9">
-						<img src="<?php echo asset('content/avatar/' . staff_custom_field('avatar')); ?>" class="img-responsive img-thumbnail">
-
-
+				<div class="col-xs-3 col-md-pull-9 staff-avatar">
+						<img src="<?php echo asset('content/avatar/' . staff_custom_field('avatar')); ?>" class="img-responsive img-thumbnail" itemprop="image">
 
 						 <div class="star-rating">
-								<p> <abbr title="<?php echo _e('site.profile_hit', number_format(staff_view())); ?>"><small><?php echo custom_number_format(staff_view()); ?></small></abbr></p>
-<!--
-								<?php if (staff_rating()) : ?>
-
-								<div class="stars">
-								<?php for ($i=0; $i < 5; $i++) :  ?>
-										<?php if (staff_rating() > $i) : ?>
-										<span class="glyphicon glyphicon-star"></span>
-									 <?php else: ?>
-										<span class="glyphicon glyphicon-star-empty"></span>
-										<?php endif; ?>
-
-										<?php endfor; ?>
-								</div>
-								<?php endif; ?>
-
-								<p><small>Relevancy: <a href="#" class="relevancy" role="tooltip" data-toggle="tooltip" data-placement="top" title="Show the staff visit and search relevancy"><?php echo staff_relevancy_percent(); ?></a></small></p>
-		-->
+								<p> <abbr title="<?php echo _e('site.profile_hit', number_format(staff_view())); ?>" itemprop="interactionCount" content="UserPageVisits:<?php echo number_format(staff_view()); ?>"><small><?php echo custom_number_format(staff_view()); ?></small></abbr></p>
 						</div>
 
 
@@ -57,7 +38,7 @@
 							<dt><?php echo _e('site.designation'); ?></dt>
 							<dd><i class="glyphicon glyphicon-barcode"></i> <?php echo staff_position(); ?></dd>
 							<dt><?php echo _e('site.email'); ?></dt>
-							<dd><i class="glyphicon glyphicon-comment"></i> <a href="mailto:<?php echo staff_email_encode(); ?>" id="staff-message" data-toggle="modal" data-target="#messageModal" data-staff="<?php echo staff_name(); ?>" data-staff-id="<?php echo staff_id(); ?>"><?php echo staff_email_image(); ?></a></dd>
+							<dd><i class="glyphicon glyphicon-comment"></i> <a itemprop="email" href="mailto:<?php echo staff_email_encode(); ?>" id="staff-message" data-toggle="modal" data-target="#messageModal" data-staff="<?php echo staff_name(); ?>" data-staff-id="<?php echo staff_id(); ?>"><?php echo staff_email_image(); ?></a></dd>
 							<dt><?php echo _e('site.telephone'); ?></dt>
 							<dd><i class="glyphicon glyphicon-earphone"></i> <?php echo staff_telephone_link(); ?></dd>
 					</dl>
@@ -87,11 +68,11 @@
 
 		<div class="rating-inner">
 
-			<div class="rating">
-				<span class="rating-num"><?php echo rating_average(); ?></span>
+			<div class="rating" itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
+				<span class="rating-num" itemprop="ratingValue"><?php echo rating_average(); ?></span>
 				<div id="star-rating" data-score="<?php echo rating_average(); ?>" data-staff="<?php echo staff_id(); ?>"></div>
 				<div class="rating-users">
-					<i class="glyphicon glyphicon-user"></i> <span id="rating-count"><?php echo total_ratings(); ?></span> total
+					<i class="glyphicon glyphicon-user"></i> <span id="rating-count" itemprop="reviewCount"><?php echo total_ratings(); ?></span> total
 				</div>
 			</div>
 

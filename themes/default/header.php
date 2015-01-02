@@ -4,9 +4,8 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title><?php echo page_title('Page can’t be found'); ?> - <?php echo site_name(); ?></title>
-
-  <meta name="description" content="<?php echo site_description(); ?>">
+  <title><?php if (base_url() == current_url()) : echo site_name(); else : echo page_title('Page can’t be found'); ?> - <?php echo site_name(); ?><?php endif; ?> ☎</title>
+  <meta name="description" content="<?php echo _e(site_description()); ?>">
   <link href="<?php echo asset('app/views/assets/css/bootstrap.min.css'); ?>" rel="stylesheet">
   <link rel="stylesheet" href="<?php echo asset('app/views/assets/css/app.css'); ?>">
 
@@ -15,9 +14,9 @@
   <meta property="og:title" content="<?php echo page_title('Page can’t be found'); ?>">
   <meta property="og:type" content="website">
   <meta property="og:url" content="<?php echo e(current_url()); ?>">
-  <meta property="og:image" content="<?php echo theme_url('img/og_image.gif'); ?>">
+  <meta property="og:image" content="<?php echo theme_url('app/views/assets/img/jpa-101pxx119px.png'); ?>">
   <meta property="og:site_name" content="<?php echo site_name(); ?>">
-  <meta property="og:description" content="<?php echo site_description(); ?>">
+  <meta property="og:description" content="<?php echo _e(site_description()); ?>">
 
   <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!--[if lt IE 9]>
@@ -33,7 +32,7 @@
       <script><?php echo staff_js(); ?></script>
     <?php endif; ?>
   </head>
-  <body class="<?php echo trim(body_class()); ?>">
+  <body class="<?php echo trim(body_class()); ?>" itemscope itemtype="http://schema.org/GovernmentOrganization">
     <div class="navbar navbar-inverse" role="navigation">
       <div class="container">
         <div class="navbar-header">
@@ -45,9 +44,9 @@
           </button>
           <a class="navbar-brand" href="<?php echo base_url(); ?>">
 
-          <img height="28" alt="Jata Negara" src="<?php echo asset('app/views/assets/img/jpa-101pxx119px.png'); ?>">
+          <img itemprop="logo" height="28" alt="Jata Negara" src="<?php echo asset('app/views/assets/img/jpa-101pxx119px.png'); ?>">
 
-          <?php if(!staff_id()) : ?><h1><?php endif; ?><span class="sr-only"><?php echo site_name(); ?></span><?php if(!staff_id()) : ?></h1><?php endif; ?>
+          <?php if(!staff_id()) : ?><h1><?php endif; ?><span class="sr-only" itemprop="name"><?php echo site_name(); ?></span><?php if(!staff_id()) : ?></h1><?php endif; ?>
 
           </a>
         </div><!-- //.navbar-header -->
@@ -71,7 +70,7 @@
 
           	<?php if(total_languages()): ?>
           		<li class="dropdown">
-          			<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><img alt="<?php echo language_name(); ?>" src="<?php echo language_flag(language_current_id()); ?>"> <span class="sr-only"><?php echo language_current_id(); ?></span> <span class="caret"></span></a>
+          			<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><img alt="<?php echo language_name(); ?>" src="<?php echo language_flag(language_current_id()); ?>"> <span class="sr-only" itemprop="inLanguage"><?php echo language_name(); ?></span> <span class="caret"></span></a>
 
           			<ul class="dropdown-menu" role="menu">
 			            <?php while(languages()): ?>
@@ -97,9 +96,11 @@
           </ul>
 
 
-        <div class="col-sm-6">
-          <form class="navbar-form" role="search" action="<?php echo search_url(); ?>" id="search">
+        <div class="col-sm-6" itemscope itemtype="http://schema.org/WebSite">
+        <meta itemprop="url" content="<?php echo full_url(); ?>"/>
+          <form class="navbar-form" role="search" action="<?php echo search_url(); ?>" id="search" itemprop="potentialAction" itemscope itemtype="http://schema.org/SearchAction">
             <div class="input-group col-xs-12">
+            <meta itemprop="target" content="<?php echo full_url(); ?>search/term={query}"/>
               <input type="text" class="form-control search-query typeahead" id="search-term" name="term" placeholder="<?php echo _e('site.search_placeholder'); ?>" value="<?php echo search_term(); ?>">
               <button class="sr-only" type="submit"><?php echo _e('site.submit'); ?></button>
             </div>
@@ -120,7 +121,7 @@
     </div><!-- //.navbar -->
 
     <div class="container">
-      <div class="row">
+      <div class="row"<?php if (is_staff()) echo ' itemscope itemtype="http://schema.org/Person"'; ?>>
 
         <?php if (Uri::current() == '/') : ?>
     		<?php theme_include(is_category() ? 'categories' : 'divisions'); ?>

@@ -29,6 +29,7 @@ return array(
 	'toggle_navigation' => 'Toggle Navigasi',
 	'title' => 'Direktori Pegawai',
 	'description' => '⓿❸-❽⓿⓿⓿-❽⓿⓿⓿ Staff Direktori Jabatan Perkhidmatan Awam Malaysia',
+	'footer' => 'Jabatan Perkhidmatan Awam Malaysia',
 	'home_description' => 'Hubungi kami mengenai Pencen, Ganjaran, Kemudahan Perubatan, Biasiswa / Pinjaman, Dasar-dasar, Kemajuan Kerjaya, Gaji / Elaun, Perkhidmatan Psikologi / Kaunseling/Rundingcara',
 	'view_by_category' => 'Paparan mengikut kategori',
 	'view_by_division' => 'Paparan mengikut bahagian',

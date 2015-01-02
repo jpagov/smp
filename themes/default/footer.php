@@ -1,6 +1,6 @@
 	</div> <!-- //.row -->
       <footer class="footer">
-              <small><p><?php echo _e('site.copyright', _e('site.description')); ?></p><p>
+              <small><p><?php echo _e('site.copyright', _e('site.footer')); ?></p><p>
         <a href="#"><?php echo _e('site.back_to_top'); ?></a>
       </p></small>
           </footer>
@@ -24,5 +24,6 @@
 		</script>
 		<?php endif; ?>
 		<?php if (is_staff() and !Session::get('recaptcha')) : ?><script src='https://www.google.com/recaptcha/api.js'></script><?php endif; ?>
+		<?php if (is_homepage()) : ?><?php theme_include('schema'); ?><?php endif; ?>
   </body>
 </html>
