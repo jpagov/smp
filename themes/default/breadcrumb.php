@@ -21,7 +21,7 @@
 
 		<?php else : ?>
 
-	<li<?php if ($active) { echo ' class="active"'; } else {  echo 'itemscope itemtype="http://data-vocabulary.org/Breadcrumb"'; }; ?>><?php if (!$active) : ?><a href="<?php echo base_url('division/' . $org['url']); ?>" title="<?php echo $org['title']; ?>" itemprop="url"><?php endif; ?><?php echo $title; ?><?php if (!$active) : ?></a><?php endif; ?></li>
+	<li<?php if ($active) { echo ' class="active"'; } else {  echo ' itemscope itemtype="http://data-vocabulary.org/Breadcrumb"'; }; ?>><?php if (!$active) : ?><a href="<?php echo base_url('division/' . $org['url']); ?>" title="<?php echo $org['title']; ?>" itemprop="url"><?php endif; ?><?php echo $title; ?><?php if (!$active) : ?></a><?php endif; ?></li>
 
 	<?php endif; ?>
 

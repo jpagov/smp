@@ -14,6 +14,14 @@ class Scheme extends Base {
 		return $items;
 	}
 
+	public static function id($name) {
+		if (empty(trim($name))) return;
+		if ( !$scheme = static::slug(strtolower($name))) {
+			return;
+		}
+		return $scheme->id;
+	}
+
 	public static function slug($slug) {
 		return static::where('slug', 'like', $slug)->fetch();
 	}
