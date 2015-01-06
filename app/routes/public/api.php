@@ -30,28 +30,27 @@ Route::get(array('api', 'api/(:any)'), function($slug = '') {
 
 	$query = isset($input['query']) ? $input['query'] : 0;
 
-	$division = (isset($input['division']) && !empty($input['division'])) ? Division::slug($input['division'])->id : 0;
+	$division = 0;
+
+	if ($input['division'] && $div = Division::slug($input['division'])) {
+		$division = $div->id;
+	}
 
 	$fields = array('id', 'display_name', 'position', 'email', 'telephone', 'slug', 'gender');
 
 	//TODO: make this configurable via admin under setting->user
 	$staffs = Staff::where('status', '=', 'active')
+		->where('display_name', 'like', '%' . $query . '%')
 		->where('grade', '>=', '22')
-		->where('view', '>', '20000')
 		->sort(Base::table('staffs.grade'), 'desc');
 
-	if ($query) {
-		$staffs->where('display_name', 'like', '%' . $query . '%');
-	}
 
 	if ($division) {
 		$staffs->where('division', '=', $division);
 	}
 
 	if ((int) $staffs->count() === 0) {
-		return Response::create(Json::encode(array('message' => 'No data')), 200, array(
-			'content-type' => 'application/json; charset=utf-8'
-		));
+		return;
 	}
 
 	$staffs = $staffs->get(Staff::fields($fields));

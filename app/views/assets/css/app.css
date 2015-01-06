@@ -140,6 +140,11 @@ form.navbar-form:before {
 .sector-prefetch > .twitter-typeahead> .tt-hint,
 .unit-prefetch > .twitter-typeahead > .tt-hint { visibility: hidden; }
 
+#search .empty-message {
+	padding: 5px 10px;
+	text-align: center;
+}
+
 .categories .alert a,
 .categories .alert .alert-link,
 .divisions .alert a,

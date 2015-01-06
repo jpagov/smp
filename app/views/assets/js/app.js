@@ -176,17 +176,30 @@
 					endpoint += '/' + window.location.pathname.split('/')[3];
 				}
 
+				//$(":focus").keyup(function(e) {
+				//	$('#search .typeahead').typeahead('destroy');
+				//	staffs.initialize(true);
+				//});
+
 				var staff = new Bloodhound({
 					datumTokenizer: function(d) {
+
 						return d.tokens;
 					},
 					queryTokenizer: Bloodhound.tokenizers.whitespace,
 					remote: {
-						url: endpoint,
+						url: endpoint + '/?query=%QUERY',
 						replace: function() {
 							var query = $(':focus').val();
 							return endpoint + '/?query=' + query;
-						}
+						},
+						filter: function (list) {
+							if(list instanceof Array){
+								return list;
+							} else {
+								return [list];
+							}
+						},
 					}
 				});
 
@@ -205,12 +218,14 @@
 							'<small><span class="glyphicon glyphicon-envelope"></span> {{email}}</small>',
 							'<small><span class="glyphicon glyphicon-phone-alt"></span> {{telephone}}</small>',
 							'</p>'
-						].join(''))
+						].join('')),
+						empty: [
+							'<div class="empty-message">',
+							'N/A',
+							'</div>'
+						].join('\n'),
 					}
 				}).on('typeahead:selected', function(e, data) {
-					//$('#search').submit();
-					//window.location.replace('/smp/' + data.slug);
-					// similar behavior as clicking on a link
 					window.location.href = path + '/' + data.slug;
 				});
 
