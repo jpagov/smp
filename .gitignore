@@ -5,35 +5,38 @@ Thumbs.db
 *.log
 *.gz
 
+archive
+node_modules
+
 # env
-/app/config/dev
+app/config/dev
 
 # generated config
-/app/config/app.php
-/app/config/db.php
-/app/config/mail.php
-/app/config/session.php
+app/config/app.php
+app/config/db.php
+app/config/mail.php
+app/config/session.php
 
 # user mod_rewrite
-/.htaccess
+.htaccess
 
 # debug and custom themes
-/themes/*
-!/themes/default
+themes/*
+!themes/default
 
 # uploaded content
-/content/*
-!/content/index.php
+content/*
+!content/index.php
 
 # plugins
-/plugins/*
+plugins/*
 
 # phpunit tests
-/tests
+tests
 
 # composer
-/composer.lock
-/vendor
+composer.lock
+vendor
 
 # We all love Sublime Text and its awesome plugins, don't we?
 sftp-config.json
