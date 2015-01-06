@@ -109,4 +109,23 @@ return array(
 	'iamnotrobot_explain' => 'Prove that you not robot.',
 	'recaptcha_warning' => 'Please prove you are not robot.',
 
+	// Categories
+	'allowance' => 'Allowance',
+	'training' => 'Training / Sponsorship / Education Loan',
+	'leave' => 'Leave / Medical',
+	'services' => 'Services',
+	'promotion' => 'Promotion and Performance',
+	'assignation' => 'Assignation / Transfer Officer',
+	'pension' => 'Pensions and Retirement',
+	'hrmis' => 'HRMIS',
+	'organizational' => 'Organizational Development (Personnel and Services Scheme)',
+	'website' => 'Website',
+	'examination' => 'Examination',
+	'discipline' => 'Discipline and Integrity',
+	'recognition' => 'Recognition of Qualifications',
+	'counseling' => 'Counseling and motivation',
+	'intan_training' => 'INTAN Training Management',
+	'idea_hatch' => 'Idea Hatch',
+	'other' => 'Other Services',
+
 );

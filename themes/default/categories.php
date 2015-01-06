@@ -13,7 +13,7 @@
 
 			<div class="col-sm-6 col-md-4 col-lg-4 categories">
 				<div class="well text-center">
-					<a href="<?php echo category_url(); ?>" class="alert-link"><h3><?php echo category_title(); ?></h3></a>
+					<a href="<?php echo category_url(); ?>" class="alert-link"><h3><?php echo _e(category_title()); ?></h3></a>
 					<p><?php echo category_description(); ?><em><?php echo category_title_en(); ?></em></p>
 
 				</div>

@@ -55,9 +55,16 @@
 
 		<div class="col-md-6 pkppap">
 
-			<div class="col-md-12">
+			<!--div class="col-md-12">
 				<a class="org-list bg-primary" href="<?php echo base_url('division/pkppap'); ?>">
 					<img class="img-responsive" src="/smp/content/avatar/zarah.jpg" alt="Dr. Sharifah Zarah Syed Ahmad">
+					<h2 class="title"><?php echo __('site.pkppap'); ?></h2>
+				</a>
+			</div-->
+
+			<div class="col-md-12">
+				<a class="org-list bg-primary" href="<?php echo base_url('division/pkppap'); ?>">
+					<img class="img-responsive" src="/smp/content/avatar/default-male.jpg" alt="Kosong">
 					<h2 class="title"><?php echo __('site.pkppap'); ?></h2>
 				</a>
 			</div>

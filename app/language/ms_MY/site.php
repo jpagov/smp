@@ -106,4 +106,23 @@ return array(
 	'iamnotrobot' => 'Saya bukan robot',
 	'iamnotrobot_explain' => 'Buktikan yang anda bukan robot.',
 	'recaptcha_warning' => 'Sila buktikan yang anda bukan robot.',
+
+	// Categories
+	'allowance' => 'Elaun',
+	'training' => 'Latihan / Penajaan / Pinjaman Pelajaran',
+	'leave' => 'Kemudahan Cuti / Perubatan',
+	'services' => 'Dasar Perkhidmatan',
+	'promotion' => 'Kenaikan Pangkat dan Prestasi',
+	'assignation' => 'Penempatan/ Pertukaran Peg. Gunasama',
+	'pension' => 'Pencen dan Persaraan',
+	'hrmis' => 'HRMIS',
+	'organizational' => 'Pembangunan Organisasi (Perjawatan dan Skim Perkhidmatan) 	',
+	'website' => 'Laman Web',
+	'examination' => 'Peperiksaan',
+	'discipline' => 'Tatatertib dan Keutuhan',
+	'recognition' => 'Pengiktirafan Kelayakan',
+	'counseling' => 'Kaunseling dan motivasi',
+	'intan' => 'Urusan Latihan Di INTAN',
+	'idea_hatch' => 'Idea Hatch',
+	'other' => 'Lain-lain Perkhidmatan',
 );
