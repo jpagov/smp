@@ -1,10 +1,7 @@
 					</div> <!-- //.well -->
-						<?php if(Auth::user()): ?>
-						<footer class="wrap bottom">
-							<small><?php echo __('global.powered_by_app', VERSION); ?>.</small>
-							<em><?php echo __('global.site_slogan'); ?></em>
-						</footer>
-						<?php endif; ?>
+					<footer class="footer">
+				         <small><p><?php echo _e('site.copyright', _e('site.footer')); ?></p><p><a href="#"><?php echo _e('site.back_to_top'); ?></a></p></small>
+					</footer>
 
 				</div> <!-- //.col-lg-12 -->
 			</div> <!-- //.row -->

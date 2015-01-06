@@ -1,9 +1,7 @@
 	</div> <!-- //.row -->
       <footer class="footer">
-              <small><p><?php echo _e('site.copyright', _e('site.footer')); ?></p><p>
-        <a href="#"><?php echo _e('site.back_to_top'); ?></a>
-      </p></small>
-          </footer>
+         <small><p><?php echo _e('site.copyright', _e('site.footer')); ?></p><p><a href="#"><?php echo _e('site.back_to_top'); ?></a></p></small>
+      </footer>
     </div> <!-- //.container -->
 
     <div id="helper-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="helpModalLabel" aria-hidden="true"></div>
