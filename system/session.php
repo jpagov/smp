@@ -79,6 +79,9 @@ class Session {
 		static::instance()->write();
 	}
 
+	public static function id() {
+		return static::instance()->id;
+	}
 	/**
 	 * Magic method to call a method on the session driver
 	 *

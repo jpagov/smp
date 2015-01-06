@@ -24,6 +24,17 @@ class Auth {
 		return false;
 	}
 
+	public static function check() {
+		$id = Session::id();
+		$table = Base::table('sessions');
+
+		if( Query::table($table)->where('id', '=', $id)->count()) {
+			return true;
+		}
+
+		return false;
+	}
+
 	public static function me($id) {
 		return $id == Session::get(static::$session);
 	}

@@ -170,17 +170,26 @@
 			init: function() {
 
 				var path = '/' + window.location.pathname.split('/')[1] || '/';
+				var endpoint = path + '/api';
+
+				if (window.location.pathname.split('/')[3]) {
+					endpoint += '/' + window.location.pathname.split('/')[3];
+				}
 
 				var staff = new Bloodhound({
 					datumTokenizer: function(d) {
 						return d.tokens;
 					},
 					queryTokenizer: Bloodhound.tokenizers.whitespace,
-					prefetch: {
-						url: path + '/api?code=6f05ad622a3d32a5a81aee5d73a5826adb8cbf63',
-						ttl: 0
+					remote: {
+						url: endpoint,
+						replace: function() {
+							var query = $(':focus').val();
+							return endpoint + '/?query=' + query;
+						}
 					}
 				});
+
 				staff.initialize();
 
 				$('#search .typeahead').typeahead(null, {
