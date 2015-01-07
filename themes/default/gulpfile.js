@@ -64,24 +64,6 @@ gulp.task('minify', function() {
     .pipe(gulp.dest(dirs.assets + '/js/main.min.js'))
 });
 
-/*
-gulp.task('version', function () {
-    // by default, gulp would pick `assets/css` as the base,
-    // so we need to set it explicitly:
-    return gulp.src([
-        dirs.assets + '/js/main.js'
-    ], {base: 'assets'})
-        .pipe(gulp.dest(dirs.assets))
-        .pipe(plugins.rev())
-        .pipe(gulp.dest(dirs.assets))
-
-        // Add rev-manifest.json as a new src to prevent rev'ing rev-manifest.json
-        .pipe(gulp.src(dirs.assets + '/rev-manifest.json', {base: 'assets'}))
-        .pipe(plugins.rev.manifest())
-        .pipe(gulp.dest(dirs.assets));
-});
-*/
-
 gulp.task('version', function () {
     return gulp.src(dirs.assets + '/js/main.min.js')
         .pipe(plugins.rev())
@@ -113,7 +95,7 @@ gulp.task('bundle', function () {
 
 gulp.task('build', function (done) {
 	runSequence(
-		['clean', 'concat', 'minify', 'version'],
+		['clean', 'bundle'],
 		'copy',
 	done);
 });

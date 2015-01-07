@@ -40,10 +40,10 @@
                 $(document).keydown(function (e) {
                     //console.log(e.keyCode);
 
-                    if ($(":input").is(":focus")) return; //Will fail if already focused.
+                    if ($(':input').is(':focus')) return; //Will fail if already focused.
 
-                    if (e.keyCode == 72 && (window.location.pathname).indexOf("admin") < 0) {
-                        $("#search-term").focus();
+                    if (e.keyCode == 72 && (window.location.pathname).indexOf('admin') < 0) {
+                        $('#search-term').focus();
                     }
                     if (e.shiftKey && e.keyCode == 191) {
                         e.preventDefault();
@@ -55,12 +55,12 @@
                     }
                 });
 
-                $("select#role").change(function () {
+                $('select#role').change(function () {
 
                     // Possibly show an ajax loading image $("#ajax_loading").show();
                     $.ajax({
-                            type: "POST",
-                            url: path + "/admin/staffs/role",
+                            type: 'POST',
+                            url: path + '/admin/staffs/role',
                             data: {
                                 token: $('input[name=token]').val(),
                                 id: $('input[name=staff-id]').val(),
@@ -68,7 +68,7 @@
                             }
                         })
                         .done(function (msg) {
-                            $(".alert").remove();
+                            $('.alert').remove();
                             $('.page-header').after('<div class="alert alert-success alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>Success!</div>');
                         });
 
@@ -258,7 +258,7 @@
                 var clip = new ZeroClipboard($(".email"));
                 var zbridge = $('#global-zeroclipboard-html-bridge');
 
-                clip.on("ready", function (e) {
+                clip.on('ready', function (e) {
 
                     // add tooltip when clip ready
                     zbridge.data('placement', 'top').attr('title', 'Copy to clipboard').tooltip();
@@ -268,17 +268,17 @@
                         e.clipboardData.clearData();
                         var email = (e.target.id).replace('staff-email-', '');
                         $.ajax({
-                            url: path + "/api/email/" + email,
+                            url: path + '/api/email/' + email,
                             dataType: 'json',
                             async: false,
                             success: function (content) {
-                                e.clipboardData.setData("text/plain", content.email);
+                                e.clipboardData.setData('text/plain', content.email);
                             },
                         });
                     });
 
                     // send success message and refix back
-                    this.on("aftercopy", function (e) {
+                    this.on('aftercopy', function (e) {
                         zbridge.data('placement', 'top')
                             .attr('title', 'Copied!')
                             .tooltip('fixTitle')
@@ -413,7 +413,7 @@
 
                 //console.log('Admin::Staff');
 
-                $("#salutation, #first_name, #last_name").keyup(function (e) {
+                $('#salutation, #first_name, #last_name').keyup(function (e) {
                     var input = $('#salutation').val() + ' ' + $('#first_name').val() + ' ' + $('#last_name').val();
                     console.log(input);
                     $('#display_name').prop('value', input);
@@ -582,15 +582,14 @@
             },
 
             setting: function () {
-                console.log('Setting');
 
-                $("#field").on("change", function (e) {
+                $('#field').on('change', function (e) {
                     var value = $(this).val(),
                         all = $(".attributes_type, .attributes_width, .attributes_height");
                     if (value == 'image') {
                         all.removeClass('hide');
                     } else if (value == 'file') {
-                        $(".attributes_width, .attributes_height").addClass('hide');
+                        $('.attributes_width, .attributes_height').addClass('hide');
                         $('.attributes_type').removeClass('hide');
                     } else {
                         all.addClass('hide');
@@ -600,8 +599,7 @@
 
             users: function () {
                 SMP.admin.staffs();
-                //console.log('Admin::Users');
-            },
+            }
         }
     };
 

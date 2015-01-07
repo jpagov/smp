@@ -12,6 +12,7 @@
     "nonew": true,
     "undef": true,
     "unused": true,
+    "quotmark": false,
 
     // - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
