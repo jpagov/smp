@@ -60,8 +60,6 @@
             </ul>
           <?php endif; ?>
 
-
-
           <ul class="nav navbar-nav navbar-right">
 
           	<?php if(total_languages()): ?>
@@ -86,6 +84,12 @@
             <li<?php if(active('divisions')) echo ' class="active"'; ?>>
 
             	<a class="view btn-lg" data-container="body" data-content="<?php echo _e('site.view_by_division'); ?>" href="<?php echo base_url('divisions'); ?>"><span class="glyphicon glyphicon-th-large"></span>&nbsp; <span class="hidden-lg hidden-md"><?php echo _e('site.view_by_division'); ?></span></a>
+
+            </li>
+
+            <li>
+
+            	<a class="view btn-lg" data-container="body" data-content="<?php echo _e('site.sign_in_explain'); ?>" href="<?php echo base_url('admin'); ?>"><span class="glyphicon glyphicon-log-in"></span>&nbsp; <span class="hidden-lg hidden-md"><?php echo _e('site.administrator'); ?></span></a>
 
             </li>
 

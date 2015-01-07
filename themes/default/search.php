@@ -4,24 +4,24 @@
 
 <?php echo search_form_notifications(); ?>
 
-<section class="col-sm-9 staffs-search-result">
+<section class="col-sm-9 staffs-search-result" itemtype="http://schema.org/ItemList">
 
 	<?php if(has_search_results()): ?>
 
-		<p class="lead"><strong class="text-success"><?php echo total_search_results(); ?></strong> <?php echo __('site.search_results_title'); ?> &ldquo;<strong class="text-success"><?php echo search_info(); ?></strong>&rdquo;</p>
+		<p class="lead"><strong class="text-success" itemprop="numberOfItems"><?php echo total_search_results(); ?></strong> <?php echo __('site.search_results_title'); ?> &ldquo;<strong class="text-success"><?php echo search_info(); ?></strong>&rdquo;</p>
 
 		<div id="staff-search-result">
 			<?php $i = 0; while(search_results()): $i++; ?>
 
-			<article class="search-result row">
+			<article class="search-result row" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/Person">
 
 				<div class="col-xs-12 col-sm-2">
-					<img src="<?php echo asset('content/avatar/' . staff_custom_field('avatar')); ?>" class="img-responsive img-thumbnail" alt="<?php echo staff_name(); ?>">
+					<img src="<?php echo asset('content/avatar/' . staff_custom_field('avatar')); ?>" class="img-responsive img-thumbnail" alt="<?php echo staff_name(); ?>" itemprop="image" >
 				</div>
 
 				<div class="col-sm-6 excerpet">
-					<h3><a href="<?php echo staff_url(); ?>" title=""><?php echo staff_name(); ?></a></h3>
-					<p><code><?php echo staff_job_title(); ?></code></p>
+					<h3><a href="<?php echo staff_url(); ?>" title=""><span itemprop="name"><?php echo staff_name(); ?></span></a></h3>
+					<p><code itemprop="jobTitle"><?php echo staff_job_title(); ?></code></p>
 					<p class="text-muted"><?php echo truncate(staff_description()); ?></p>
 				</div>
 
@@ -29,7 +29,7 @@
 					<ul class="list-unstyled">
 						<li><i class="glyphicon glyphicon-barcode"></i> <span><?php echo staff_position(); ?></span></li>
 
-						<li><i class="glyphicon glyphicon-phone-alt"></i> <span><?php echo staff_telephone(); ?></span></li>
+						<li><i class="glyphicon glyphicon-phone-alt"></i> <span itemprop="telephone"><?php echo staff_telephone(); ?></span></li>
 						<li><i class="glyphicon glyphicon-envelope"></i> <?php if (staff_has_email()) : ?><a href="mailto:<?php echo staff_email_encode(); ?>"><span><?php echo staff_email_image(); ?></span></a><?php else: ?><?php echo __('site.na'); ?> <?php endif; ?></li>
 					</ul>
 				</div>

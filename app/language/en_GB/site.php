@@ -1,6 +1,11 @@
 <?php
 
 return array(
+
+	//admin
+	'administrator' => 'Administrator',
+	'sign_in_explain' => 'Admin sign in',
+
   	// notification
   	'search' => 'Search',
 	'search_missing' => 'Please enter a keyword search, must be at least %s characters',

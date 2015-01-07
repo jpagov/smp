@@ -1,6 +1,10 @@
 <?php
 
 return array(
+	//admin
+	'administrator' => 'Pentadbir',
+	'sign_in_explain' => 'Daftar masuk pentadbir',
+
   	// notification
   	'search' => 'Carian',
 	'search_missing' => 'Sila masukkan kata kunci carian, sekurang-kurangnya %s karakter',
