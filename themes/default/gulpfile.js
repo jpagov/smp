@@ -75,25 +75,34 @@ gulp.task('bundle:js', function () {
 	])
 	.pipe(plugins.concat('main.js'))
 	.pipe(plugins.uglify()) // minify files
-	.pipe(plugins.rev())
-	.pipe(gulp.dest(dirs.assets + '/js/'))
-	.pipe(plugins.rev.manifest('manifest.json', {merge: true}))
-	.pipe(gulp.dest(dirs.assets)); // This task need to run forst to create manifest.json
+	.pipe(plugins.rename('main.min.js'))
+	.pipe(gulp.dest(dirs.assets + '/js/'));
 });
 
 gulp.task('bundle:css', function () {
 	return gulp.src([
-		dirs.src + '/css/bootstrap.css',
-		dirs.src + '/css/app.css'
-	])
-	.pipe(plugins.concat('app.css'))
-	.pipe(plugins.minifyCss({keepSpecialComments: 0}))
-	.pipe(plugins.header(banner, { pkg : pkg, build: build } ))
-	.pipe(plugins.rev())
-	.pipe(gulp.dest(dirs.assets + '/css/'))
-	.pipe(plugins.rev.manifest('manifest.json', {merge: true}))
-	.pipe(gulp.dest(''));
-	//.pipe(gulp.dest(dirs.assets));
+			dirs.src + '/css/bootstrap.css',
+			dirs.src + '/css/app.css'
+		])
+		.pipe(plugins.concat('app.css'))
+		.pipe(plugins.minifyCss({keepSpecialComments: 0}))
+		.pipe(plugins.header(banner, { pkg : pkg, build: build } ))
+		.pipe(plugins.rename('app.min.css'))
+		.pipe(gulp.dest(dirs.assets + '/css/'));
+});
+
+gulp.task('rev', function () {
+    // by default, gulp would pick `assets/css` as the base,
+    // so we need to set it explicitly:
+    return gulp.src([
+    		'assets/css/app.min.css',
+    		'assets/js/main.min.js'
+    	], {base: 'assets'})
+        .pipe(gulp.dest(dirs.assets))  // copy original assets to build dir
+        .pipe(plugins.rev())
+        .pipe(gulp.dest(dirs.assets))  // write rev'd assets to build dir
+        .pipe(plugins.rev.manifest())
+        .pipe(gulp.dest(dirs.assets)); // write manifest to build dir
 });
 
 gulp.task('uncss', function() {

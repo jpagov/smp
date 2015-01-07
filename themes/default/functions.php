@@ -92,11 +92,11 @@ function staff_avatar($id, $gender = 'M') {
 	return $default;
 }
 
-function revision($filename, $type = 'css') {
+function revision($filename) {
 
 	$base = PATH . 'themes' . DS . Config::meta('theme') . DS;
 
-	$manifest_path = $base . 'assets/manifest.json';
+	$manifest_path = $base . 'assets/rev-manifest.json';
 
 	if (file_exists($manifest_path)) {
 		$manifest = Json::decode(file_get_contents($manifest_path), true);
@@ -105,7 +105,7 @@ function revision($filename, $type = 'css') {
 	}
 
 	if (array_key_exists($filename, $manifest)) {
-		return theme_asset($manifest[$filename], $type);
+		return theme_asset($manifest[$filename]);
 	}
 
   	return theme_asset($filename);

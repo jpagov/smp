@@ -7,7 +7,7 @@
     <div id="helper-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="helpModalLabel" aria-hidden="true"></div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-    <script src="<?php echo revision('main.js', 'js'); ?>"></script>
+    <script src="<?php echo revision('js/main.min.js'); ?>"></script>
     <?php if ($modalism = Session::get('modal')) : Session::erase('modal');  ?>
     <script type="text/javascript">
 			$(window).load(function(){

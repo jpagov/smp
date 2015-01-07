@@ -22,8 +22,8 @@ function theme_url($file = '') {
 	return asset($base . ltrim($file, '/'));
 }
 
-function theme_asset($file = '', $type = 'css') {
-	return theme_url('assets/' . $type . '/' .ltrim($file, '/'));
+function theme_asset($file = '') {
+	return theme_url('assets/' . ltrim($file, '/'));
 }
 
 function theme_include($file) {
