@@ -5,7 +5,7 @@ return array(
 	'index' => '',
 	'timezone' => 'Asia/Kuala_Lumpur',
 	'key' => 'fWTnkLBqVm1Iwhk5Ht2iD4sruwzq7MlJ',
-	'language' => 'en_GB',
+	'language' => 'ms_MY',
 	'encoding' => 'UTF-8',
 	'hierarchy' => array(
 		'division' => 1,
