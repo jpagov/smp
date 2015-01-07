@@ -108,5 +108,5 @@ function revision($filename, $type = 'css') {
 		return theme_asset($manifest[$filename], $type);
 	}
 
-  	return $manifest;
+  	return theme_asset($filename);
 }

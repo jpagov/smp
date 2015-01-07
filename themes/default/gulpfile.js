@@ -9,12 +9,26 @@ var runSequence = require('run-sequence');    // Temporary solution until gulp 4
 var pkg = require('./package.json');
 var dirs = pkg['jpagov-configs'].directories;
 
+var today = new Date();
+var build = today.getFullYear()
+			+ ('0' + (today.getMonth()+1)).slice(-2)
+            + ('0' + today.getDate()).slice(-2);
+
 var banner = '/*! Sistem Direktori Pegawai v' + pkg.version +
 					' | ' + pkg.license.type + ' License' +
 					' | ' + pkg.homepage + ' */\n\n';
 
+var banner = ['/**',
+  ' * <%= pkg.description %> - <%= build %>',
+  ' * @version v<%= pkg.version %>',
+  ' * @link <%= pkg.homepage %>',
+  ' * @license <%= pkg.license.type %> <%= pkg.license.url %>',
+  ' */',
+  ''].join('\n');
+
 gulp.task('clean', function (done) {
 	require('del')([
+		dirs.assets + '/*.json',
 		dirs.assets + '/js/*.js',
 		dirs.assets + '/css/*.css'
 	], done);
@@ -23,6 +37,11 @@ gulp.task('clean', function (done) {
 gulp.task('copy', [
 	'copy:js',
 	'copy:css'
+]);
+
+gulp.task('bundle', [
+	'bundle:js',
+	'bundle:css'
 ]);
 
 gulp.task('copy:js', function () {
@@ -44,8 +63,8 @@ gulp.task('lint:js', function () {
 		.pipe(plugins.jshint.reporter('fail'));
 });
 
-gulp.task('bundle', function () {
-    return gulp.src([
+gulp.task('bundle:js', function () {
+	return gulp.src([
 		dirs.src + '/js/ZeroClipboard.min.js',
 		dirs.src + '/js/handlebars.js',
 		dirs.src + '/js/bootstrap.min.js',
@@ -54,12 +73,27 @@ gulp.task('bundle', function () {
 		dirs.src + '/js/jquery.toaster.js',
 		dirs.src + '/js/app.js'
 	])
-    .pipe(plugins.concat('main.js'))
-    .pipe(plugins.uglify()) // minify files
-    .pipe(plugins.rev())
-    .pipe(gulp.dest(dirs.assets + '/js/'))
-    .pipe(plugins.rev.manifest({path: 'manifest.json'}))
-    .pipe(gulp.dest(dirs.assets));
+	.pipe(plugins.concat('main.js'))
+	.pipe(plugins.uglify()) // minify files
+	.pipe(plugins.rev())
+	.pipe(gulp.dest(dirs.assets + '/js/'))
+	.pipe(plugins.rev.manifest('manifest.json', {merge: true}))
+	.pipe(gulp.dest(dirs.assets)); // This task need to run forst to create manifest.json
+});
+
+gulp.task('bundle:css', function () {
+	return gulp.src([
+		dirs.src + '/css/bootstrap.css',
+		dirs.src + '/css/app.css'
+	])
+	.pipe(plugins.concat('app.css'))
+	.pipe(plugins.minifyCss({keepSpecialComments: 0}))
+	.pipe(plugins.header(banner, { pkg : pkg, build: build } ))
+	.pipe(plugins.rev())
+	.pipe(gulp.dest(dirs.assets + '/css/'))
+	.pipe(plugins.rev.manifest('manifest.json', {merge: true}))
+	.pipe(gulp.dest(''));
+	//.pipe(gulp.dest(dirs.assets));
 });
 
 gulp.task('uncss', function() {

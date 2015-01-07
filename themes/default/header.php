@@ -6,18 +6,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title><?php if (base_url() == current_url()) : echo site_name(); else : echo page_title('Page can’t be found'); ?> - <?php echo site_name(); ?><?php endif; ?> ☎</title>
   <meta name="description" content="<?php echo _e(site_description()); ?>">
-  <link href="<?php echo asset('app/views/assets/css/bootstrap.min.css'); ?>" rel="stylesheet">
-  <link rel="stylesheet" href="<?php echo asset('app/views/assets/css/app.css'); ?>">
-
+  <link rel="stylesheet" href="<?php echo revision('app.css', 'css'); ?>">
   <link rel="alternate" type="application/rss+xml" title="RSS" href="<?php echo rss_url(); ?>">
-
   <meta property="og:title" content="<?php echo page_title('Page can’t be found'); ?>">
   <meta property="og:type" content="website">
   <meta property="og:url" content="<?php echo e(current_url()); ?>">
   <meta property="og:image" content="<?php echo theme_url('app/views/assets/img/jpa-101pxx119px.png'); ?>">
   <meta property="og:site_name" content="<?php echo site_name(); ?>">
   <meta property="og:description" content="<?php echo _e(site_description()); ?>">
-
   <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
