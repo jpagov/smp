@@ -27,7 +27,7 @@
       "test": "test"
     }
   },
-  "homepage": "https://sistem.jpa.gov.my/smp",
+  "homepage": "https://github.com/jpagov/smp",
   "license": {
     "type": "MIT",
     "url": "https://github.com/jpagov/smp/blob/master/LICENSE.md"
