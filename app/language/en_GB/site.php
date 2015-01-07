@@ -69,7 +69,7 @@ return array(
 	'btsa' => 'Public Service Transformation Division',
 
 	// pkppao
-	'pkppao' => 'Pejabat Timbalan Ketua Pengarah Perkhidmatan Awam (Operasi)',
+	'pkppao' => 'Office of Deputy Director-General of Public Service Department (Operation)',
 	'bp' => 'Post-Service Division',
 	'bkp' => 'Service Management Division',
 	'bps' => 'Psychological Management Division',

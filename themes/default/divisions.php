@@ -110,7 +110,7 @@
 			<div class="col-md-12">
 				<a class="org-list bg-primary" href="<?php echo base_url('division/pkppao'); ?>">
 					<img class="img-responsive" src="/smp/content/avatar/zainalrahim.jpg" alt="Dato' Seri Zainal Rahim Bin Seman">
-					<h2 class="title"><?php echo __('site.pkppap'); ?></h2>
+					<h2 class="title"><?php echo __('site.pkppao'); ?></h2>
 				</a>
 			</div>
 
