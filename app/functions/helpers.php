@@ -22,6 +22,10 @@ function theme_url($file = '') {
 	return asset($base . ltrim($file, '/'));
 }
 
+function theme_asset($file = '', $type = 'css') {
+	return theme_url('assets/' . $type . '/' .ltrim($file, '/'));
+}
+
 function theme_include($file) {
 	$theme_folder = Config::meta('theme');
 	$base = PATH . 'themes' . DS . $theme_folder . DS;

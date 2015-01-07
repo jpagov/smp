@@ -2,7 +2,6 @@
 <div class="col-md-12 divisions">
 
 	<div class="row">
-
 		<div class="col-md-6 col-md-offset-3">
 
 			<a class="org-list bg-primary" href="<?php echo base_url('division/pkppa'); ?>">

@@ -22,17 +22,17 @@ gulp.task('clean', function (done) {
 
 gulp.task('copy', [
 	'copy:js',
+	'copy:css'
 ]);
 
 gulp.task('copy:js', function () {
-	return gulp.src(dirs.src + '/js/main.js')
-			   .pipe(gulp.dest(dirs.assets + '/js/main.js'));
+	return gulp.src(dirs.src + '/js/*.js')
+			   .pipe(gulp.dest(dirs.assets + '/js/'));
 });
 
 gulp.task('copy:css', function () {
 	return gulp.src([
-			dirs.src + '/css/bootstrap.min.css',
-			dirs.src + '/css/app.css'
+			dirs.src + '/css/*.css'
 		]).pipe(gulp.dest(dirs.assets + '/css/'));
 });
 
@@ -42,32 +42,6 @@ gulp.task('lint:js', function () {
 		.pipe(plugins.jshint())
 		.pipe(plugins.jshint.reporter('jshint-stylish'))
 		.pipe(plugins.jshint.reporter('fail'));
-});
-
-gulp.task('concat', function () {
-	return gulp.src([
-		dirs.src + '/js/ZeroClipboard.min.js',
-		dirs.src + '/js/handlebars.js',
-		dirs.src + '/js/bootstrap.min.js',
-		dirs.src + '/js/typeahead.bundle.min.js',
-		dirs.src + '/js/jquery.raty.js',
-		dirs.src + '/js/jquery.toaster.js',
-		dirs.src + '/js/app.js'
-	])
-	.pipe(plugins.concat('main.js'))  // concat and name it "concat.js"
-	.pipe(gulp.dest(dirs.assets + '/js/'));
-});
-
-gulp.task('minify', function() {
-  gulp.src(dirs.assets + '/js/main.js')
-    .pipe(plugins.uglify())
-    .pipe(gulp.dest(dirs.assets + '/js/main.min.js'))
-});
-
-gulp.task('version', function () {
-    return gulp.src(dirs.assets + '/js/main.min.js')
-        .pipe(plugins.rev())
-        .pipe(gulp.dest(dirs.assets));
 });
 
 gulp.task('bundle', function () {
@@ -86,6 +60,17 @@ gulp.task('bundle', function () {
     .pipe(gulp.dest(dirs.assets + '/js/'))
     .pipe(plugins.rev.manifest({path: 'manifest.json'}))
     .pipe(gulp.dest(dirs.assets));
+});
+
+gulp.task('uncss', function() {
+	return gulp.src(dirs.assets + '/css/app.css')
+		.pipe(plugins.uncss({
+			html: [
+				'https://sistem.jpa.gov/smp',
+				'https://sistem.jpa.gov/smp/hariadi-hinta'
+			]
+		}))
+		.pipe(gulp.dest('./out'));
 });
 
 

@@ -80,14 +80,33 @@ function total_articles() {
 }
 
 function total_staff() {
-  return Staff::where(Base::table('staffs.status'), '=', 'active')->count();
+	return Staff::where(Base::table('staffs.status'), '=', 'active')->count();
 }
 
 function staff_avatar($id, $gender = 'M') {
-    $default =  ($gender == 'M') ? 'default-male.jpg' : 'default-female.jpg';
+	$default =  ($gender == 'M') ? 'default-male.jpg' : 'default-female.jpg';
 
-    if($extend = Extend::field('staff', 'avatar', $id)) {
-        return Extend::value($extend, $default);
-    }
-    return $default;
+	if($extend = Extend::field('staff', 'avatar', $id)) {
+		return Extend::value($extend, $default);
+	}
+	return $default;
+}
+
+function revision($filename, $type = 'css') {
+
+	$base = PATH . 'themes' . DS . Config::meta('theme') . DS;
+
+	$manifest_path = $base . 'assets/manifest.json';
+
+	if (file_exists($manifest_path)) {
+		$manifest = Json::decode(file_get_contents($manifest_path), true);
+	} else {
+		$manifest = [];
+	}
+
+	if (array_key_exists($filename, $manifest)) {
+		return theme_asset($manifest[$filename], $type);
+	}
+
+  	return $manifest;
 }

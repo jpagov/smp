@@ -11,39 +11,20 @@
  * ======================================================================== */
 (function($) {
 
-	// Use this variable to set up the common and page specific functions. If you
-	// rename this variable, you will also need to rename the namespace below.
-	var SMP = {
+		var SMP = {
 		// All pages
 		common: {
 			init: function() {
-
-				// we assume all devices has touch screen and lets trigger all bootstrap
-				// event with 'click', when we see mouse event then we change trigger to // hover
-				//$( "body" ).one('mouseenter', function() {
-				//  console.log("mouse enter");
-				//}).one('mouseleave', function() {
-				//  console.log("mouse leave");
-				//});
-
-				// to listen every time
-				/*
-			$( "body" ).mouseenter(function() {
-
-				}).mouseleave(function() {
-
-			});
-*/
 
 				var path = '/' + window.location.pathname.split('/')[1] || '/';
 
 				$(document).keydown(function(e) {
 					//console.log(e.keyCode);
 
-					if($(":input").is(":focus")) return; //Will fail if already focused.
+					if($(':input').is(':focus')) return; //Will fail if already focused.
 
-					if (e.keyCode == 72 && (window.location.pathname).indexOf("admin") < 0) {
-						$("#search-term").focus();
+					if (e.keyCode == 72 && (window.location.pathname).indexOf('admin') < 0) {
+						$('#search-term').focus();
 					}
 					if (e.shiftKey && e.keyCode == 191) {
 						e.preventDefault();
@@ -55,12 +36,12 @@
 					}
 				});
 
-				$("select#role").change(function() {
+				$('select#role').change(function() {
 
 					// Possibly show an ajax loading image $("#ajax_loading").show();
 					$.ajax({
-							type: "POST",
-							url: path + "/admin/staffs/role",
+							type: 'POST',
+							url: path + '/admin/staffs/role',
 							data: {
 								token: $('input[name=token]').val(),
 								id: $('input[name=staff-id]').val(),
@@ -68,7 +49,7 @@
 							}
 						})
 						.done(function(msg) {
-							$(".alert").remove();
+							$('.alert').remove();
 							$('.page-header').after('<div class="alert alert-success alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>Success!</div>');
 						});
 
@@ -81,16 +62,6 @@
 				});
 
 				$('.relevancy').tooltip();
-
-				/*
-				$('#collapseDivision').on('shown.bs.collapse', function (e) {
-					e.stopPropagation();
-					console.log('Event fired on #' + e.currentTarget.id);
-
-					//dont know why append dont work
-					$(".division-toggle").toggleClass("glyphicon-plus")
-				})
-*/
 
 				$('#collapseDivision').on('shown.bs.collapse', function() {
 					$('.btn-division').removeClass('hidden');
@@ -113,8 +84,8 @@
 
 					var $widget = $(this),
 						$checkbox = $widget.find('input')
-					color = ($widget.data('color') ? $widget.data('color') : "primary"),
-						style = ($widget.data('style') == "button" ? "btn-" : "list-group-item-"),
+					color = ($widget.data('color') ? $widget.data('color') : 'primary'),
+						style = ($widget.data('style') == 'button' ? 'btn-' : 'list-group-item-'),
 						settings = {
 							on: {
 								icon: 'glyphicon glyphicon-check'
@@ -126,8 +97,8 @@
 
 					$widget.on('click', function() {
 
-						$(this).parent().parent().find('.panel-body').fadeIn("slow", function() {
-							$(this).removeClass("hidden");
+						$(this).parent().parent().find('.panel-body').fadeIn('slow', function() {
+							$(this).removeClass('hidden');
 						});
 
 						$checkbox.prop('checked', !$checkbox.is(':checked'));
@@ -140,7 +111,7 @@
 						var isChecked = $checkbox.is(':checked');
 
 						// Set the button's state
-						$widget.data('state', (isChecked) ? "on" : "off");
+						$widget.data('state', (isChecked) ? 'on' : 'off');
 
 						// Set the button's icon
 						$widget.find('.state-icon')
@@ -176,10 +147,12 @@
 					endpoint += '/' + window.location.pathname.split('/')[3];
 				}
 
-				//$(":focus").keyup(function(e) {
-				//	$('#search .typeahead').typeahead('destroy');
-				//	staffs.initialize(true);
-				//});
+				/*
+				$(":focus").keyup(function(e) {
+					$('#search .typeahead').typeahead('destroy');
+					staffs.initialize(true);
+				});
+				*/
 
 				var staff = new Bloodhound({
 					datumTokenizer: function(d) {
@@ -232,7 +205,7 @@
 				// hover cards
 				$('a[rel=popover]').popover({
 					html: true,
-					trigger: "manual",
+					trigger: 'manual',
 					animation: false,
 					content: function() {
 
@@ -252,11 +225,11 @@
 					}
 				}).hover(function(e) {
 					$(this).popover('show');
-				}).on("mouseleave", function() {
+				}).on('mouseleave', function() {
 					var _this = this;
 					setTimeout(function() {
-						if (!$(".popover:hover").length) {
-							$(_this).popover("hide");
+						if (!$('.popover:hover').length) {
+							$(_this).popover('hide');
 						}
 					}, 100);
 				});;
@@ -279,30 +252,30 @@
 					forceHandCursor: true,
 				});
 
-				var clip = new ZeroClipboard($(".email"));
+				var clip = new ZeroClipboard($('.email'));
 				var zbridge = $('#global-zeroclipboard-html-bridge');
 
-				clip.on("ready", function(e) {
+				clip.on('ready', function(e) {
 
 					// add tooltip when clip ready
 					zbridge.data('placement', 'top').attr('title', 'Copy to clipboard').tooltip();
 
 					// request email from ajax
-					this.on("copy", function(e) {
+					this.on('copy', function(e) {
 						e.clipboardData.clearData();
 						var email = (e.target.id).replace('staff-email-', '');
 						$.ajax({
-							url: path + "/api/email/" + email,
+							url: path + '/api/email/' + email,
 							dataType: 'json',
 							async: false,
 							success: function(content) {
-								e.clipboardData.setData("text/plain", content.email);
+								e.clipboardData.setData('text/plain', content.email);
 							},
 						});
 					});
 
 					// send success message and refix back
-					this.on("aftercopy", function(e) {
+					this.on('aftercopy', function(e) {
 						zbridge.data('placement', 'top')
 							.attr('title', 'Copied!')
 							.tooltip('fixTitle')
@@ -393,9 +366,8 @@
 										}
 									});
 								}
-
 							});
-					},
+					}
 				});
 
 				$('#message-button').on('click', function() {
@@ -404,7 +376,6 @@
 
 
 				$('#messageModal').on('show.bs.modal', function(event) {
-					console.log('Modal Message');
 					//var button = $(event.relatedTarget) // Button that triggered the modal
 					//var recipient = button.data('staff');
 					//var staffid = button.data('contact-title');
@@ -415,17 +386,13 @@
 					//modal.find('.modal-body input#recipient-id').val(staffid);
 					//modal.find('.modal-body input#recipient-name').val(recipient);
 				});
-
-
-
-			},
-
+			}
 		},
 
 		top_management: {
 			init: function() {
 				SMP.home.init();
-			},
+			}
 		},
 		// Home page
 		admin: {
@@ -435,16 +402,14 @@
 
 			staffs: function() {
 
-				//console.log('Admin::Staff');
-
-				$("#salutation, #first_name, #last_name").keyup(function(e) {
+				$('#salutation, #first_name, #last_name').keyup(function(e) {
 					var input = $('#salutation').val() + ' ' + $('#first_name').val() + ' ' + $('#last_name').val();
 					console.log(input);
 					$('#display_name').prop('value', input);
 				});
 
 				$('#account').on('click', function() {
-					var disabled = ($(this).is(":checked")) ? false : true;
+					var disabled = ($(this).is(':checked')) ? false : true;
 					$('#accountAuth').prop('disabled', disabled);
 				});
 
@@ -458,9 +423,6 @@
 
 				$('#division').on('change', function(e) {
 
-					//var optionSelected = $("option:selected", this);
-					//var valueSelected = this.value;
-					//console.log(valueSelected);
 					$('.branchs-prefetch .typeahead').typeahead('destroy');
 					$('.sectors-prefetch .typeahead').typeahead('destroy');
 					$('.units-prefetch .typeahead').typeahead('destroy');
@@ -606,15 +568,12 @@
 			},
 
 			setting: function() {
-				console.log('Setting');
-
-				$("#field").on("change", function(e) {
-					var value = $(this).val(),
-						all = $(".attributes_type, .attributes_width, .attributes_height");
+				$('#field').on('change', function(e) {
+					var value = $(this).val(), all = $('.attributes_type, .attributes_width, .attributes_height');
 					if (value == 'image') {
 						all.removeClass('hide');
 					} else if (value == 'file') {
-						$(".attributes_width, .attributes_height").addClass('hide');
+						$('.attributes_width, .attributes_height').addClass('hide');
 						$('.attributes_type').removeClass('hide');
 					} else {
 						all.addClass('hide');

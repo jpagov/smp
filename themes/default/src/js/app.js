@@ -113,8 +113,8 @@
 
                     var $widget = $(this),
                         $checkbox = $widget.find('input')
-                    color = ($widget.data('color') ? $widget.data('color') : "primary"),
-                        style = ($widget.data('style') == "button" ? "btn-" : "list-group-item-"),
+                    color = ($widget.data('color') ? $widget.data('color') : 'primary'),
+                        style = ($widget.data('style') == 'button' ? 'btn-' : 'list-group-item-'),
                         settings = {
                             on: {
                                 icon: 'glyphicon glyphicon-check'
@@ -126,8 +126,8 @@
 
                     $widget.on('click', function () {
 
-                        $(this).parent().parent().find('.panel-body').fadeIn("slow", function () {
-                            $(this).removeClass("hidden");
+                        $(this).parent().parent().find('.panel-body').fadeIn('slow', function () {
+                            $(this).removeClass('hidden');
                         });
 
                         $checkbox.prop('checked', !$checkbox.is(':checked'));
@@ -140,7 +140,7 @@
                         var isChecked = $checkbox.is(':checked');
 
                         // Set the button's state
-                        $widget.data('state', (isChecked) ? "on" : "off");
+                        $widget.data('state', (isChecked) ? 'on' : 'off');
 
                         // Set the button's icon
                         $widget.find('.state-icon')
@@ -170,17 +170,39 @@
             init: function () {
 
                 var path = '/' + window.location.pathname.split('/')[1] || '/';
+                var endpoint = path + '/api';
+
+                if (window.location.pathname.split('/')[3]) {
+                    endpoint += '/' + window.location.pathname.split('/')[3];
+                }
+
+                //$(":focus").keyup(function(e) {
+                //	$('#search .typeahead').typeahead('destroy');
+                //	staffs.initialize(true);
+                //});
 
                 var staff = new Bloodhound({
                     datumTokenizer: function (d) {
+
                         return d.tokens;
                     },
                     queryTokenizer: Bloodhound.tokenizers.whitespace,
-                    prefetch: {
-                        url: path + '/api?code=6f05ad622a3d32a5a81aee5d73a5826adb8cbf63',
-                        ttl: 0
+                    remote: {
+                        url: endpoint + '/?query=%QUERY',
+                        replace: function () {
+                            var query = $(':focus').val();
+                            return endpoint + '/?query=' + query;
+                        },
+                        filter: function (list) {
+                            if (list instanceof Array) {
+                                return list;
+                            } else {
+                                return [list];
+                            }
+                        },
                     }
                 });
+
                 staff.initialize();
 
                 $('#search .typeahead').typeahead(null, {
@@ -196,19 +218,21 @@
                             '<small><span class="glyphicon glyphicon-envelope"></span> {{email}}</small>',
                             '<small><span class="glyphicon glyphicon-phone-alt"></span> {{telephone}}</small>',
                             '</p>'
-                        ].join(''))
+                        ].join('')),
+                        empty: [
+                            '<div class="empty-message">',
+                            'N/A',
+                            '</div>'
+                        ].join('\n'),
                     }
                 }).on('typeahead:selected', function (e, data) {
-                    //$('#search').submit();
-                    //window.location.replace('/smp/' + data.slug);
-                    // similar behavior as clicking on a link
                     window.location.href = path + '/' + data.slug;
                 });
 
                 // hover cards
                 $('a[rel=popover]').popover({
                     html: true,
-                    trigger: "manual",
+                    trigger: 'manual',
                     animation: false,
                     content: function () {
 
@@ -228,11 +252,11 @@
                     }
                 }).hover(function (e) {
                     $(this).popover('show');
-                }).on("mouseleave", function () {
+                }).on('mouseleave', function () {
                     var _this = this;
                     setTimeout(function () {
-                        if (!$(".popover:hover").length) {
-                            $(_this).popover("hide");
+                        if (!$('.popover:hover').length) {
+                            $(_this).popover('hide');
                         }
                     }, 100);
                 });;
@@ -255,7 +279,7 @@
                     forceHandCursor: true,
                 });
 
-                var clip = new ZeroClipboard($(".email"));
+                var clip = new ZeroClipboard($('.email'));
                 var zbridge = $('#global-zeroclipboard-html-bridge');
 
                 clip.on('ready', function (e) {
@@ -264,7 +288,7 @@
                     zbridge.data('placement', 'top').attr('title', 'Copy to clipboard').tooltip();
 
                     // request email from ajax
-                    this.on("copy", function (e) {
+                    this.on('copy', function (e) {
                         e.clipboardData.clearData();
                         var email = (e.target.id).replace('staff-email-', '');
                         $.ajax({
@@ -380,7 +404,6 @@
 
 
                 $('#messageModal').on('show.bs.modal', function (event) {
-                    console.log('Modal Message');
                     //var button = $(event.relatedTarget) // Button that triggered the modal
                     //var recipient = button.data('staff');
                     //var staffid = button.data('contact-title');
@@ -420,7 +443,7 @@
                 });
 
                 $('#account').on('click', function () {
-                    var disabled = ($(this).is(":checked")) ? false : true;
+                    var disabled = ($(this).is(':checked')) ? false : true;
                     $('#accountAuth').prop('disabled', disabled);
                 });
 
@@ -582,10 +605,9 @@
             },
 
             setting: function () {
-
                 $('#field').on('change', function (e) {
                     var value = $(this).val(),
-                        all = $(".attributes_type, .attributes_width, .attributes_height");
+                        all = $('.attributes_type, .attributes_width, .attributes_height');
                     if (value == 'image') {
                         all.removeClass('hide');
                     } else if (value == 'file') {
