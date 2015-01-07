@@ -101,7 +101,7 @@ function revision($filename) {
 	if (file_exists($manifest_path)) {
 		$manifest = Json::decode(file_get_contents($manifest_path), true);
 	} else {
-		$manifest = [];
+		return $filename;
 	}
 
 	if (array_key_exists($filename, $manifest)) {
