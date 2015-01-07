@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="<?php echo str_replace('_', '-', language_current_id()); ?>">
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,12 +8,9 @@
   <meta name="description" content="<?php echo _e(site_description()); ?>">
   <link rel="stylesheet" href="<?php echo revision('css/app.min.css'); ?>">
   <link rel="alternate" type="application/rss+xml" title="RSS" href="<?php echo rss_url(); ?>">
-  <meta property="og:title" content="<?php echo page_title('Page can’t be found'); ?>">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="<?php echo e(current_url()); ?>">
-  <meta property="og:image" content="<?php echo theme_url('app/views/assets/img/jpa-101pxx119px.png'); ?>">
-  <meta property="og:site_name" content="<?php echo site_name(); ?>">
-  <meta property="og:description" content="<?php echo _e(site_description()); ?>">
+
+  <?php theme_include('social'); ?>
+
   <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
@@ -97,10 +94,10 @@
 
 
         <div class="col-sm-6" itemscope itemtype="http://schema.org/WebSite">
-        <meta itemprop="url" content="<?php echo full_url(); ?>"/>
+        <meta itemprop="url" content="<?php echo full_url(); ?>">
           <form class="navbar-form" role="search" action="<?php echo search_url(); ?>" id="search" itemprop="potentialAction" itemscope itemtype="http://schema.org/SearchAction">
             <div class="input-group col-xs-12">
-            <meta itemprop="target" content="<?php echo full_url(); ?>search/term={query}"/>
+            <meta itemprop="target" content="<?php echo full_url(); ?>search/term={query}">
               <input type="text" class="form-control search-query typeahead" id="search-term" name="term" placeholder="<?php echo _e('site.search_placeholder'); ?>" value="<?php echo search_term(); ?>">
               <button class="sr-only" type="submit"><?php echo _e('site.submit'); ?></button>
             </div>

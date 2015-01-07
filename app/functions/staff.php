@@ -312,6 +312,10 @@ function staff_rating() {
 
 }
 
+function gender($gender) {
+	return ($gender == 'F') ? 'female' : 'male';
+}
+
 function customised() {
 	//if($itm = Registry::get('staff')) {
 	//	return $itm->js or $itm->css;
