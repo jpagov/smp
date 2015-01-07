@@ -17,11 +17,11 @@
     $active = (((total_breadcrumb() - 1) === array_search($key, array_keys(breadcrumbs())))) ? true : false; ?>
 
     <?php if (is_staff()) : ?>
-    <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a href="<?php echo base_url('division/' . $org['url']); ?>" title="<?php echo $org['title']; ?>"><?php echo $title; ?></a></li>
+    <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a href="<?php echo base_url('division/' . $org['url']); ?>" title="<?php echo $org['title']; ?>"><span itemprop="title"><?php echo $title; ?></span></a></li>
 
 		<?php else : ?>
 
-	<li<?php if ($active) { echo ' class="active"'; } else {  echo ' itemscope itemtype="http://data-vocabulary.org/Breadcrumb"'; }; ?>><?php if (!$active) : ?><a href="<?php echo base_url('division/' . $org['url']); ?>" title="<?php echo $org['title']; ?>" itemprop="url"><?php endif; ?><?php echo $title; ?><?php if (!$active) : ?></a><?php endif; ?></li>
+	<li<?php if ($active) { echo ' class="active"'; } else {  echo ' itemscope itemtype="http://data-vocabulary.org/Breadcrumb"'; }; ?>><?php if (!$active) : ?><a href="<?php echo base_url('division/' . $org['url']); ?>" title="<?php echo $org['title']; ?>" itemprop="url"><?php endif; ?><span itemprop="title"><?php echo $title; ?></span><?php if (!$active) : ?></a><?php endif; ?></li>
 
 	<?php endif; ?>
 
