@@ -36,23 +36,24 @@ class Email extends PHPMailer {
 
        	$this->addAddress($email['to'], Config::meta('sitename'));
 
+       	$message = Braces::compile(PATH . 'content/email.html', array(
+       		'title' => $email['subject'] ?: __('site.message_subject'),
+       		'hi' => __('email.hi'),
+       		'sender_name' => __('email.sender_name'),
+       		'sender_name_value' => $email['name'] ?: __('email.notavailable'),
+       		'sender_email' => __('email.sender_email'),
+			'sender_email_value' => $email['email'] ?: __('email.notavailable'),
+			'sender_date' => __('email.sender_date'),
+			'sender_date_value' => $email['created'] ? Date::format('now', 'd-m-Y H:i:s') : gmdate('d-m-Y H:i:s'),
+			'message' => __('email.message'),
+			'message_value' => $email['message'],
+			'thanks' => __('email.thanks'),
+			'footer' => Config::meta('sitename'),
 
-
-        /*
-        if (is_array($email)) {
-            foreach ($email as $address) {
-                $this->addAddress($address);
-            }
-        } else {
-            $this->addAddress($email);
-        }
-        */
-
-
-        //$this->isHTML($html);
+		));
 
         $this->Subject = $email['subject'];
-        $this->msgHTML($email['message']);
+        $this->msgHTML($message);
         $this->AltBody = $email['message'];
     }
 

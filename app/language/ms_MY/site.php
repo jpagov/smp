@@ -129,4 +129,7 @@ return array(
 	'intan_training' => 'Urusan Latihan Di INTAN',
 	'idea_hatch' => 'Idea Hatch',
 	'other' => 'Lain-lain Perkhidmatan',
+
+	// mailer
+	'message_subject' => 'SMP: Maklum Balas',
 );

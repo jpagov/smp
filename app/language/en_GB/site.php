@@ -133,4 +133,6 @@ return array(
 	'idea_hatch' => 'Idea Hatch',
 	'other' => 'Other Services',
 
+	// mailer
+	'message_subject' => 'SMP: Feedback',
 );
