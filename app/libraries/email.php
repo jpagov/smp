@@ -39,6 +39,8 @@ class Email extends PHPMailer {
        	$message = Braces::compile(PATH . 'content/email.html', array(
        		'title' => $email['subject'] ?: __('site.message_subject'),
        		'hi' => __('email.hi'),
+       		'abstract' => __('email.abstract'),
+       		'detail' => __('email.detail'),
        		'sender_name' => __('email.sender_name'),
        		'sender_name_value' => $email['name'] ?: __('email.notavailable'),
        		'sender_email' => __('email.sender_email'),
@@ -48,7 +50,7 @@ class Email extends PHPMailer {
 			'message' => __('email.message'),
 			'message_value' => $email['message'],
 			'thanks' => __('email.thanks'),
-			'footer' => Config::meta('sitename'),
+			'footer' => __('site.title'),
 
 		));
 
