@@ -2,7 +2,8 @@
 
 class Email extends PHPMailer {
 
-    public function __construct($email, $subject, $msg, $debug = 0, $html = false) {
+    public function __construct($email, $subject, $msg, $debug = 0, $html = false, $param = array()) {
+
         parent::__construct();
 
         if ($debug) {
@@ -11,6 +12,12 @@ class Email extends PHPMailer {
 
         if (Config::mail('driver') == 'smtp') {
             $this->isSMTP();
+            $this->Host = Config::mail('host');
+            $this->Port = Config::mail('port');
+        }
+
+        foreach ($param as $key => $option) {
+        	$this->$key = $option;
         }
 
         if (Config::mail('username') && Config::mail('password')) {
