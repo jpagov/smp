@@ -67,6 +67,14 @@ function show_personal_assistant() {
 	return setting('show_personal_assistant');
 }
 
+function show_rating() {
+	return setting('show_rating');
+}
+
+function show_message() {
+	return setting('show_message');
+}
+
 function twitter_account() {
 	return site_meta('twitter', 'hariadi');
 }

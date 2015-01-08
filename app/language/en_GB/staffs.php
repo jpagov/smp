@@ -36,6 +36,10 @@ return array(
 
 
 	// form fields
+	'message' => 'Message',
+	'message_explain' => 'Enable message',
+	'rating' => 'Rating',
+	'rating_explain' => 'Enable rating',
 	'salutation' => 'Salutation',
 	'name' => 'Name',
 	'first_name' => 'First Name',

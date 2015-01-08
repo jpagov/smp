@@ -47,6 +47,28 @@
 
                   <div class="col-sm-offset-1 col-md-8 col-md-pull-3">
 
+                  	<div class="form-group">
+				              <div class="col-sm-offset-2 col-sm-10">
+				                <div class="checkbox">
+				                  <label>
+				                    <?php echo Form::checkbox('message', 1, Input::previous('message'), array('id' => 'message')); ?> <?php echo __('staffs.message'); ?>
+				                  </label>
+				                </div>
+				                <span class="help-block"><?php echo __('staffs.message_explain'); ?></span>
+				              </div>
+				            </div>
+
+				            <div class="form-group">
+				              <div class="col-sm-offset-2 col-sm-10">
+				                <div class="checkbox">
+				                  <label>
+				                    <?php echo Form::checkbox('rating', 1, Input::previous('rating'), array('id' => 'rating')); ?> <?php echo __('staffs.rating'); ?>
+				                  </label>
+				                </div>
+				                <span class="help-block"><?php echo __('staffs.rating_explain'); ?></span>
+				              </div>
+				            </div>
+
                     <div class="form-group">
                       <label class="col-sm-2 control-label" for="salutation"><?php echo __('staffs.salutation'); ?></label>
                       <div class="col-sm-6">

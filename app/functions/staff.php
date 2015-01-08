@@ -155,6 +155,10 @@ function staff_view() {
     return $stats;
 }
 
+function staff_message() {
+	return Registry::prop('staff', 'message') ? true : false;
+}
+
 function staff_hierarchy($id = null, $array = false) {
 
 	$id = ($id) ?: staff_id();

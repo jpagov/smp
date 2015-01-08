@@ -36,6 +36,10 @@ return array(
 
 
 	// form fields
+	'message' => 'Mesej',
+	'message_explain' => 'Hidupkan fungsi mesej',
+	'rating' => 'Penarafan',
+	'rating_explain' => 'Hidupkan fungsi penarafan',
 	'salutation' => 'Gelaran',
 	'name' => 'Nama',
 	'first_name' => 'Nama pertama',

@@ -32,7 +32,8 @@ class Staff extends Base {
 		'account',
 		'view',
 		'created',
-		'rating'
+		'rating',
+		'message'
 		)) {
 		$fields = array();
 		foreach ($field as $column) {

@@ -15,8 +15,6 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 			'missing',
 		));
 
-
-
 		$filter = array();
 		$search = false;
 		$staffs = false;
@@ -201,6 +199,8 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 		}
 
 		$input = Input::get(array(
+			'message',
+			'rating',
 			'salutation',
 			'first_name',
 			'last_name',
@@ -394,6 +394,8 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 	Route::post('admin/staffs/add', function() {
 
 		$input = Input::get(array(
+			'message',
+			'rating',
 			'salutation',
 			'first_name',
 			'last_name',
@@ -404,18 +406,15 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 			'fax',
 			'status',
 			'report_to',
-
 			'scheme',
 			'grade',
 			'job_title',
 			'position',
 			'description',
-
 			'division',
 			'branch',
 			'sector',
 			'unit',
-
 			'account'
 		));
 

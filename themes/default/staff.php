@@ -59,11 +59,13 @@
 
 <section class="col-xs-12 col-md-4 sidebar">
 
+	<?php if(show_message() && staff_message()): ?>
 	<div class="well well-sm">
 		<button id="message-button" type="button" class="btn btn-primary btn-lg btn-block"><?php echo _e('site.contact_message'); ?></button>
 	</div>
+	<?php endif; ?>
 
-	<?php if(ratings_open()): ?>
+	<?php if(show_rating() && ratings_open()): ?>
 	<div class="well">
 
 		<div class="rating-inner">
