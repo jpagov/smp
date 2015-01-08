@@ -6,6 +6,8 @@ class Email extends PHPMailer {
 
         parent::__construct();
 
+        $this->SMTPAuth = false;
+
         if ($debug) {
             $this->SMTPDebug = $debug;
         }

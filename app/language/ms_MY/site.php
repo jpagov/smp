@@ -104,7 +104,7 @@ return array(
 	'contact_email_explain' => '<i class="text-muted">(Optional)</i> Memudahkan pegawai untuk merujuk kepada nama mengguna emel ini',
 	'contact_message' => 'Mesej',
 	'message_created' => 'Terima kasih, mesej anda telah disimpan',
-	'contact_note' => 'Sila ambil maklum kemudahan ini disediakan hanya sebagai maklum balas sehala dan terpulang kepada pegawai tersebut sama ada ingin membalas atau tidak. Maklumat lanjut sila layari <a href="/maklumbalas/">Sistem Maklumb Balas</a>',
+	'contact_note' => 'Sila ambil maklum kemudahan ini disediakan hanya sebagai maklum balas sehala dan terpulang kepada pegawai tersebut sama ada ingin membalas atau tidak. Maklumat lanjut sila layari <a href="/maklumbalas/">Sistem Maklum Balas</a>',
 	'message_missing' => 'Sila masukkan mesej anda, hendaklah sama atau melebihi %s karakter',
 
 	'iamnotrobot' => 'Saya bukan robot',
