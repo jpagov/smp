@@ -2,24 +2,22 @@
 
 class Email extends PHPMailer {
 
-    public function __construct($email, $subject, $msg, $debug = 0, $html = false, $param = array()) {
+	// name, email, message, staff, ip, created, to, subject
+    public function __construct($email = array(), $param = array(
+			'SMTPDebug' => 0,
+			'SMTPAuth' => false,
+    	)) {
 
         parent::__construct();
 
-        $this->SMTPAuth = false;
-
-        if ($debug) {
-            $this->SMTPDebug = $debug;
+        foreach ($param as $key => $option) {
+        	$this->$key = $option;
         }
 
         if (Config::mail('driver') == 'smtp') {
             $this->isSMTP();
             $this->Host = Config::mail('host');
             $this->Port = Config::mail('port');
-        }
-
-        foreach ($param as $key => $option) {
-        	$this->$key = $option;
         }
 
         if (Config::mail('username') && Config::mail('password')) {
@@ -31,8 +29,16 @@ class Email extends PHPMailer {
 
         $this->setFrom(Config::mail('from.address'), Config::mail('from.name'));
 
-        $this->addReplyTo(Config::mail('from.address'), Config::meta('sitename'));
+        if (array_key_exists('email', $email)) {
 
+       		$this->addReplyTo($email['email'], array_key_exists('name', $email) ? $email['name'] : Config::meta('sitename'));
+       	}
+
+       	$this->addAddress($email['to'], Config::meta('sitename'));
+
+
+
+        /*
         if (is_array($email)) {
             foreach ($email as $address) {
                 $this->addAddress($address);
@@ -40,11 +46,14 @@ class Email extends PHPMailer {
         } else {
             $this->addAddress($email);
         }
+        */
+
 
         //$this->isHTML($html);
 
-        $this->Subject = $subject;
-        $this->AltBody = $msg;
+        $this->Subject = $email['subject'];
+        $this->msgHTML($email['message']);
+        $this->AltBody = $email['message'];
     }
 
 }

@@ -126,7 +126,7 @@ return array(
 	'discipline' => 'Tatatertib dan Keutuhan',
 	'recognition' => 'Pengiktirafan Kelayakan',
 	'counseling' => 'Kaunseling dan motivasi',
-	'intan' => 'Urusan Latihan Di INTAN',
+	'intan_training' => 'Urusan Latihan Di INTAN',
 	'idea_hatch' => 'Idea Hatch',
 	'other' => 'Lain-lain Perkhidmatan',
 );

@@ -89,12 +89,10 @@ Route::post('(:any)', array('before' => 'csrf', 'main' => function() {
 			$contact = Message::create($message);
 			Notify::success(__('site.message_created'));
 
-			// Send email to staff
-			// TODO: also send copy to sender
+			$message['to'] = $staff->email;
+			$message['subject'] =  __('site.message_subject');
 
-			// Get staf email
-			$subject = __('site.message_subject');
-			$mail = new Email($staff->email, $subject, $contact->message, 2);
+			$mail = new Email($message);
 
 			if(!$mail->send()) {
 				Notify::warning(__('users.msg_not_send', $mail->ErrorInfo));
