@@ -27,8 +27,8 @@ class Email extends PHPMailer {
             $this->SMTPSecure = Config::mail('encryption');
         }
 
-        $this->From = Config::mail('from.address');
-        $this->FromName = Config::mail('from.name');
+        $this->setFrom(Config::mail('from.address'), Config::mail('from.name'));
+
         $this->addReplyTo(Config::mail('from.address'), Config::meta('sitename'));
 
         if (is_array($email)) {
@@ -39,10 +39,10 @@ class Email extends PHPMailer {
             $this->addAddress($email);
         }
 
-        $this->isHTML($html);
+        //$this->isHTML($html);
 
         $this->Subject = $subject;
-        $this->Body = $this->AltBody = $msg;
+        $this->AltBody = $msg;
     }
 
 }
