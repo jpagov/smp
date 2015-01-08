@@ -1,11 +1,11 @@
 	<meta property="og:locale" content="<?php echo language_current_id(); ?>">
 	<meta property="og:description" content="<?php echo _e(site_description()); ?>">
 	<meta property="og:title" content="<?php echo page_title('Page can’t be found'); ?>">
-	<meta property="og:url" content="<?php echo e(current_url()); ?>">
+	<meta property="og:url" content="<?php echo full_url(current_url()); ?>">
 	<meta name="twitter:card" content="summary">
 	<meta name="twitter:site" content="@jpagov">
 	<meta name="twitter:creator" content="@jpagov">
-	<meta name="twitter:url" content="<?php echo e(current_url()); ?>">
+	<meta name="twitter:url" content="<?php echo full_url(current_url()); ?>">
 	<meta name="twitter:domain" content="<?php echo page_title('Page can’t be found'); ?> - <?php echo site_name(); ?>">
 	<?php if (is_staff()) : ?><meta property="og:type" content="profile">
 	<meta property="og:image" content="<?php echo asset('content/avatar/' . staff_custom_field('avatar')); ?>">
