@@ -30,6 +30,10 @@ Route::get(array('api', 'api/(:any)'), function($slug = '') {
 
 	$query = isset($input['query']) ? $input['query'] : 0;
 
+	if ( !$query ) {
+		return;
+	}
+
 	$division = 0;
 
 	if ($input['division'] && $div = Division::slug($input['division'])) {
@@ -38,12 +42,11 @@ Route::get(array('api', 'api/(:any)'), function($slug = '') {
 
 	$fields = array('id', 'display_name', 'position', 'email', 'telephone', 'slug', 'gender');
 
-	//TODO: make this configurable via admin under setting->user
 	$staffs = Staff::where('status', '=', 'active')
 		->where('display_name', 'like', '%' . $query . '%')
-		->where('grade', '>=', '22')
+		->or_where('position', 'like', '%' . $query . '%')
+		->or_where('telephone', 'like', '%' . $query . '%')
 		->sort(Base::table('staffs.grade'), 'desc');
-
 
 	if ($division) {
 		$staffs->where('division', '=', $division);
@@ -53,7 +56,7 @@ Route::get(array('api', 'api/(:any)'), function($slug = '') {
 		return;
 	}
 
-	$staffs = $staffs->get(Staff::fields($fields));
+	$staffs = $staffs->take(Config::meta('staffs_per_page'))->get(Staff::fields($fields));
 
 	$api = array();
 
