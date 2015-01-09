@@ -120,6 +120,30 @@
                 <div class="form-group">
                   <div class="col-sm-offset-3 col-sm-9">
                     <div class="checkbox">
+                      <label><?php $checked = Input::previous('show_message', $meta['show_message']) ? ' checked' : ''; ?>
+                        <?php echo Form::checkbox('show_message', 1, $checked, array(
+                        'id' => 'show_message')); ?> <?php echo __('metadata.show_message'); ?>
+                      </label>
+                    </div>
+                    <span class="help-block"><?php echo __('metadata.show_message_explain'); ?></span>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <div class="col-sm-offset-3 col-sm-9">
+                    <div class="checkbox">
+                      <label><?php $checked = Input::previous('show_rating', $meta['show_rating']) ? ' checked' : ''; ?>
+                        <?php echo Form::checkbox('show_rating', 1, $checked, array(
+                        'id' => 'show_rating')); ?> <?php echo __('metadata.show_rating'); ?>
+                      </label>
+                    </div>
+                    <span class="help-block"><?php echo __('metadata.show_rating_explain'); ?></span>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <div class="col-sm-offset-3 col-sm-9">
+                    <div class="checkbox">
                       <label><?php $checked = Input::previous('show_direct_report', $meta['show_direct_report']) ? ' checked' : ''; ?>
                         <?php echo Form::checkbox('show_direct_report', 1, $checked, array(
                         'id' => 'show_direct_report')); ?> <?php echo __('metadata.show_direct_report'); ?>

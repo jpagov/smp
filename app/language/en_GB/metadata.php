@@ -5,6 +5,7 @@ return array(
 	'metadata' => 'Site Metadata',
 	'metadata_desc' => 'Manage your site data',
 	'language_settings' => 'Language',
+	'staff_settings' => 'Staff',
 	'comment_settings' => 'Comments',
 	'theme_settings' => 'Appearance',
 
@@ -59,6 +60,15 @@ return array(
 
 	'show_personal_assistant' => 'Show <abbr title="Personal Assistant">PA</abbr>',
 	'show_personal_assistant_explain' => 'This will show <abbr title="Personal Assistant">PA</abbr> in Staff profile.',
+
+	'show_message' => 'Show Message',
+	'show_message_explain' => 'This will show message box in staff profile where customer can directly contact.',
+
+	'show_rating' => 'Show Rating',
+	'show_message_explain' => 'This will show star rating in staff profile.',
+
+	'show_hierarchy' => 'Show hirarchy',
+	'show_hierarchy_explain' => 'Show organization hirarchy',
 
 	// messages
 	'updated' => 'Metadata updated',

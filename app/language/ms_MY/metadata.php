@@ -2,32 +2,32 @@
 
 return array(
 
-	'metadata' => 'Site Metadata',
-	'metadata_desc' => 'Manage your site data',
-	'language_settings' => 'Language',
-	'staff_settings' => 'Staff',
-	'comment_settings' => 'Comments',
-	'theme_settings' => 'Appearance',
+	'metadata' => 'Metadata',
+	'metadata_desc' => 'Pengurusan metada',
+	'language_settings' => 'Bahasa',
+	'staff_settings' => 'Pegawai',
+	'comment_settings' => 'Komen',
+	'theme_settings' => 'Antaramuka',
 
 	// form fields
-	'sitename' => 'Site name',
+	'sitename' => 'Nama',
 	'sitename_explain' => '',
-	'sitename_missing' => 'Your site needs a name!',
+	'sitename_missing' => 'Sila letakkan nama aplikasi!',
 
-	'sitedescription' => 'Site description',
+	'sitedescription' => 'Deskripsi',
 	'sitedescription_explain' => '',
-	'sitedescription_missing' => 'Your site needs a description!',
+	'sitedescription_missing' => 'Sila letakkan deskripsi aplikasi!',
 
-	'homepage' => 'Home Page',
+	'homepage' => 'Laman utama',
 	'homepage_explain' => '',
 
-	'staffspage' => 'Staffs Page',
+	'staffspage' => 'Laman Pegawai',
 	'staffspage_explain' => '',
 
-    'management_page' => 'Management Page',
+    'management_page' => 'Laman Pengurusan',
     'management_page_explain' => '',
 
-	'staffs_per_page' => 'Staffs per page',
+	'staffs_per_page' => 'Pegawai per laman',
 	'staffs_per_page_explain' => '',
 
 	'category' => 'Default to show Category Page',
@@ -43,27 +43,33 @@ return array(
 	'comment_moderation_keys_explain' => 'Comma separated list of keywords to blacklist against.
 		Comments will automatically be set as spam.',
 
-	'default_language' => 'Current language',
+	'default_language' => 'Bahasa lalai',
 	'default_language_explain' => '',
 
-	'current_theme' => 'Current theme',
+	'current_theme' => 'Theme lalai',
 	'current_theme_explain' => '',
 
-	'show_division_meta' => 'Show Division info',
-	'show_division_meta_explain' => 'This will show <code>address</code>, <code>telephone</code> and <code>fax</code> info on Division page.',
+	'show_division_meta' => 'Tunjukkan info Bahagian',
+	'show_division_meta_explain' => 'Paparan maklumat lanjut berkenaan organisasi seperti <code>alamat</code>, <code>telefon</code> dan <code>fax</code>.',
 
-	'show_division_meta' => 'Show Division info',
-	'show_division_meta_explain' => 'This will show <code>address</code>, <code>telephone</code> and <code>fax</code> info on Division page.',
-
-	'show_direct_report' => 'Show Direct Report',
-	'show_direct_report_explain' => 'This will show Direct Report in Staff profile.',
+	'show_direct_report' => 'Tunjukkan Penyelia',
+	'show_direct_report_explain' => 'Memaparkan profil penyelia bagi pegawai.',
 
 	'show_personal_assistant' => 'Show <abbr title="Personal Assistant">PA</abbr>',
 	'show_personal_assistant_explain' => 'This will show <abbr title="Personal Assistant">PA</abbr> in Staff profile.',
 
-	// messages
-	'updated' => 'Metadata updated',
+	'show_message' => 'Tunjukkan Mesej',
+	'show_message_explain' => 'Satu kotak mesej akan ditampakkan pada profile pegawai bagi memudahkan pelanggan berhubung.',
 
-    'by' => ' by ',
+	'show_rating' => 'Tunjukkan Penarafan',
+	'show_rating_explain' => 'Penarafan bintang pada profile pegawai.',
+
+	'show_hierarchy' => 'Tunjukkan hirarki',
+	'show_hierarchy_explain' => 'Tunjukkan hirarki organisasi.',
+
+	// messages
+	'updated' => 'Metadata telah dikemaskini',
+
+    'by' => ' oleh ',
 
 );
