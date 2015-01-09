@@ -116,6 +116,38 @@ gulp.task('uncss', function() {
 		.pipe(gulp.dest('./out'));
 });
 
+gulp.task('imagemin', [
+	'imagemin:avatar',
+	'imagemin:email'
+]);
+
+gulp.task('imagemin:avatar', function () {
+    return gulp.src('../../content/adobe/*.jpg')
+        .pipe(plugins.imagemin({
+            progressive: true,
+            svgoPlugins: [{removeViewBox: false}]
+        }))
+        .pipe(gulp.dest('../../content/avatar'));
+});
+
+gulp.task('imagemin:email', function () {
+    return gulp.src('../../content/email/*.png')
+        .pipe(plugins.imagemin({
+            progressive: true,
+            svgoPlugins: [{removeViewBox: false}]
+        }))
+        .pipe(gulp.dest('../../content/email'));
+});
+
+gulp.task('imagemin:assets', function () {
+    return gulp.src(dirs.src + '/img/*.{jpg,png,svg}')
+        .pipe(plugins.imagemin({
+            progressive: true,
+            svgoPlugins: [{removeViewBox: false}]
+        }))
+        .pipe(gulp.dest(dirs.assets + '/img'));
+});
+
 
 // ---------------------------------------------------------------------
 // | Main tasks                                                        |

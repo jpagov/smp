@@ -65,7 +65,7 @@ return array(
 	'show_message_explain' => 'This will show message box in staff profile where customer can directly contact.',
 
 	'show_rating' => 'Show Rating',
-	'show_message_explain' => 'This will show star rating in staff profile.',
+	'show_rating_explain' => 'This will show star rating in staff profile.',
 
 	'show_hierarchy' => 'Show hirarchy',
 	'show_hierarchy_explain' => 'Show organization hirarchy',
