@@ -30,6 +30,7 @@ Route::get(array('api', 'api/(:any)'), function($slug = '') {
 
 	$query = isset($input['query']) ? $input['query'] : 0;
 
+
 	if ( !$query ) {
 		return;
 	}
@@ -42,11 +43,12 @@ Route::get(array('api', 'api/(:any)'), function($slug = '') {
 
 	$fields = array('id', 'display_name', 'position', 'email', 'telephone', 'slug', 'gender');
 
-	$staffs = Staff::where('status', '=', 'active')
-		->where('display_name', 'like', '%' . $query . '%')
-		->or_where('position', 'like', '%' . $query . '%')
-		->or_where('telephone', 'like', '%' . $query . '%')
-		->sort(Base::table('staffs.grade'), 'desc');
+	$staffs = Staff::where('status', '=', 'active');
+
+	if ($query) {
+
+		$staffs->where($fields, 'REGEXP', preg_quote($query), true);
+	}
 
 	if ($division) {
 		$staffs->where('division', '=', $division);
@@ -56,7 +58,9 @@ Route::get(array('api', 'api/(:any)'), function($slug = '') {
 		return;
 	}
 
-	$staffs = $staffs->take(Config::meta('staffs_per_page'))->get(Staff::fields($fields));
+	$staffs = $staffs->sort(Base::table('staffs.grade'), 'desc')
+		->take(Config::meta('staffs_per_page'))
+		->get(Staff::fields($fields));
 
 	$api = array();
 
