@@ -1,4 +1,7 @@
 var gulp = require('gulp');
+var penthouse = require('penthouse');
+var Promise = require("bluebird");
+var penthouseAsync = Promise.promisify(penthouse);
 var plugins = require('gulp-load-plugins')(); // Load all gulp plugins
 											  // automatically and attach
 											  // them to the `plugins` object
@@ -148,6 +151,39 @@ gulp.task('imagemin:assets', function () {
         .pipe(gulp.dest(dirs.assets + '/img'));
 });
 
+gulp.task('critical', [
+	'critical:home',
+	'critical:staff'
+]);
+
+gulp.task('critical:home', function(){
+	penthouseAsync({
+		url : 'https://sistem.jpa.gov.my/smp/',
+		css : dirs.assets + '/css/app.css',
+		height: 480
+	}).then( function (criticalCSS){
+		require('fs').writeFile(dirs.assets + '/css/home-critical.css', criticalCSS );
+	}).then(function() {
+		return gulp.src(dirs.assets + '/css/home-critical.css')
+			.pipe(plugins.minifyCss({keepSpecialComments: 0}))
+			.pipe(gulp.dest(dirs.assets + '/css/'));
+	});
+});
+
+gulp.task('critical:staff', function(){
+	penthouseAsync({
+		url : 'https://sistem.jpa.gov.my/smp/hariadi-hinta',
+		css : dirs.assets + '/css/app.css',
+		height: 480
+	}).then( function (criticalCSS){
+		require('fs').writeFile(dirs.assets + '/css/staff-critical.css', criticalCSS );
+	}).then(function() {
+		return gulp.src(dirs.assets + '/css/staff-critical.css')
+			.pipe(plugins.minifyCss({keepSpecialComments: 0}))
+			.pipe(gulp.dest(dirs.assets + '/css/'));
+	});
+});
+
 
 // ---------------------------------------------------------------------
 // | Main tasks                                                        |
@@ -157,6 +193,7 @@ gulp.task('build', function (done) {
 	runSequence(
 		['clean', 'bundle'],
 		'copy',
+		'critical'
 	done);
 });
 

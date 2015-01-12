@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title><?php if (base_url() == current_url()) : echo site_name(); else : echo page_title('Page can’t be found'); ?> - <?php echo site_name(); ?><?php endif; ?> ☎</title>
   <meta name="description" content="<?php echo _e(site_description()); ?>">
+  <?php theme_include('critical'); ?>
   <link rel="stylesheet" href="<?php echo revision('css/app.min.css'); ?>">
   <link rel="alternate" type="application/rss+xml" title="RSS" href="<?php echo rss_url(); ?>">
 
