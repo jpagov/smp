@@ -222,7 +222,9 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 		));
 
 		$account_enable = false;
-			$password_reset = false;
+		$password_reset = false;
+
+		$input['account'] = $input['account'] ?: 0;
 
 		if(empty($input['slug'])) {
 		  $input['slug'] = $input['display_name'];

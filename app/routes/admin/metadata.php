@@ -72,7 +72,7 @@ Route::collection(array('before' => 'auth,admin,csrf'), function() {
 		$input['description'] = e($input['description'], ENT_COMPAT);
 
 		foreach($input as $key => $value) {
-			Query::table(Base::table('meta'))->where('key', '=', $key)->update(array('value' => $value));
+			Query::table(Base::table('meta'))->where('key', '=', $key)->update(array('value' => ($value ?: 0)));
 		}
 
 		Notify::success(__('metadata.updated'));
