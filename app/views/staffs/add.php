@@ -299,7 +299,7 @@
               <?php foreach($divisions as $key => $division): ?>
               <?php if ($key !== 0) : ?>
 
-                <?php if (($key-1) % 2 == 0) : ?><div class="col-sm-offset-2 col-sm-4"><?php endif; ?>
+                <div class="col-sm-offset-2 col-sm-4">
 
                   <div class="checkbox" id="division-role">
                     <label for="division-role-<?php echo $key; ?>">
@@ -307,7 +307,7 @@
                     </label>
                   </div>
 
-                <?php if (($key-1) % 2 == 1) : ?></div><?php endif; ?>
+                </div>
 
               <?php endif; ?>
               <?php endforeach; ?>
