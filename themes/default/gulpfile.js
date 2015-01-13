@@ -121,7 +121,8 @@ gulp.task('uncss', function() {
 
 gulp.task('imagemin', [
 	'imagemin:avatar',
-	'imagemin:email'
+	'imagemin:email',
+	'imagemin:assets'
 ]);
 
 gulp.task('imagemin:avatar', function () {
@@ -193,7 +194,7 @@ gulp.task('build', function (done) {
 	runSequence(
 		['clean', 'bundle'],
 		'copy',
-		'critical'
+		'critical',
 	done);
 });
 
