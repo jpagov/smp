@@ -67,5 +67,8 @@ return array(
 
 	// profile
 	'profile' => 'Profile',
+	'please_login' => 'Please sign in',
+	'your_email' => 'Your Email',
+
 
 );

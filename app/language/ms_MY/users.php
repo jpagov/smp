@@ -7,11 +7,11 @@ return array(
 	'create_user' => 'Create a new user',
 	'add_user' => 'Add a new user',
 	'editing_user' => 'Editing %s&rsquo;s Profile',
-	'remembered' => 'I know my password',
-	'forgotten_password' => 'Forgotten your password?',
+	'remembered' => 'Oh, saya ingat katalaluan!',
+	'forgotten_password' => 'Lupa katalaluan?',
 
 	// roles
-	'administrator' => 'Admin',
+	'administrator' => 'Pentadbir',
 	'administrator_explain' => '',
 
 	'editor' => 'Editor',
@@ -21,7 +21,7 @@ return array(
 	'user_explain' => '',
 
 	// form fields
-	'real_name' => 'Real Name',
+	'real_name' => 'Nama Sebenar',
 	'real_name_explain' => '',
 
 	'bio' => 'Biography',
@@ -33,39 +33,41 @@ return array(
 	'role' => 'Role',
 	'role_explain' => '',
 
-	'username' => 'Username',
+	'username' => 'Katanama',
 	'username_explain' => '',
-	'username_missing' => 'Please enter a username, must be at least %s characters',
+	'username_missing' => 'Sila masukkan katanama, sekurang-kurangnya %s karakter',
 
-	'password' => 'Password',
+	'password' => 'Katalaluan',
 	'password_explain' => '',
-	'password_too_short' => 'Password must be at least %s characters',
+	'password_too_short' => 'Kataluan hendaklah sekurang-kurangnya  %s karakter',
 
-	'new_password' => 'New Password',
+	'new_password' => 'Katalaluan Baru',
 
-	'email' => 'Email',
+	'email' => 'Emel',
 	'email_explain' => '',
-	'email_missing' => 'Please enter a valid email address',
-	'email_not_found' => 'Profile not found.',
+	'email_missing' => 'Sila masukkan emel sah',
+	'email_not_found' => 'Profil pentadbir tidak wujud.',
 
 	// messages
 	'updated' => 'User profile updated.',
 	'created' => 'User profile created.',
 	'deleted' => 'User profile deleted.',
 	'delete_error' => 'You cannot delete your own profile',
-	'login_error' => 'Username or password is wrong.',
-	'logout_notice' => 'You are now logged out.',
-	'recovery_sent' => 'We have sent you an email to confirm your password change.',
-	'recovery_expired' => 'Password recovery token has expired, please try again.',
-	'password_reset' => 'Your new password has been set. Go and login now!',
+	'login_error' => 'Katanama dan Katalaluan tidak padan.',
+	'logout_notice' => 'Anda telah mendaftar keluar dari sistem.',
+	'recovery_sent' => 'ihak kami telah menghantar emel pengesahan bagi penukaran katalaluan.',
+	'recovery_expired' => 'Token pemulihan Katalaluan telah tamat tempoh, sila cuba lagi.',
+	'password_reset' => 'Katalaluan baru anda telah disimpan. Apa tuggu lagi! Sila daftar masuk.',
 
 	// password recovery email
-  'msg_not_send' => 'Message could not be sent: <code>%s</code>',
-	'recovery_subject' => 'Password Reset',
-	'recovery_message' => 'You have requested to reset your password.' .
-		'To continue follow the link below.' . PHP_EOL . '%s',
+  	'msg_not_send' => 'Mesej tidak dapat dihantar: <code>%s</code>',
+	'recovery_subject' => 'Reset Katalaluan',
+	'recovery_message' => 'Anda atau seseorang telah meminta untuk mereset Katalaluan. ' .
+		'Untuk menukar Katalaluan yang baru, sila klik pautan berikut:.' . PHP_EOL . '%s'. PHP_EOL . 'Sila abaikan emel ini sekiranya anda tidak pernah membuat permintaan tersebut.',
 
 	// profile
-	'profile' => 'Profile',
+	'profile' => 'Profil',
+	'please_login' => 'Daftar masuk',
+	'your_email' => 'Emel anda',
 
 );

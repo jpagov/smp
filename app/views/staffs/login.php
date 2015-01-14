@@ -10,9 +10,9 @@
 	<?php $user = filter_var(Input::previous('user'), FILTER_SANITIZE_STRING); ?>
 
 	<input name="token" type="hidden" value="<?php echo $token; ?>">
-  <h2 class="form-signin-heading">Please sign in</h2>
+	<h2 class="form-signin-heading"><?php echo __('users.please_login'); ?></h2>
 
-  <?php echo Form::text('user', $user, array(
+	<?php echo Form::text('user', $user, array(
 		'class' => 'form-control',
 		'autocapitalize' => 'off',
 		'autofocus' => 'true',
@@ -28,7 +28,7 @@
 
 	<p class="buttons"><a href="<?php echo Uri::to('admin/amnesia'); ?>"><?php echo __('users.forgotten_password'); ?></a></p>
 
-  <button class="btn btn-lg btn-primary btn-block" type="submit"><?php echo __('global.login'); ?></button>
+	<button class="btn btn-lg btn-primary btn-block" type="submit"><?php echo __('global.login'); ?></button>
 </form>
 
 <?php echo $footer; ?>
