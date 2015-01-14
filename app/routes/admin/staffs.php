@@ -424,6 +424,8 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 		  $input['slug'] = $input['display_name'];
 		}
 
+		$input['account'] = $input['account'] ?: 0;
+
 		$input['slug'] = slug($input['slug']);
 
 		$account_enable = false;
