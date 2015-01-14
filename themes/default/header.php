@@ -9,7 +9,7 @@
   <?php theme_include('critical'); ?>
   <link rel="stylesheet" href="<?php echo revision('css/app.min.css'); ?>">
   <link rel="alternate" type="application/rss+xml" title="RSS" href="<?php echo rss_url(); ?>">
-
+  <link rel="alternate" hreflang="<?php echo (language_current_id() == 'ms_MY') ? 'en-GB' : 'ms-MY'; ?>" href="<?php echo current_url(); ?>?lang=<?php echo (language_current_id() == 'ms_MY') ? 'en-GB' : 'ms-MY'; ?>">
   <?php theme_include('social'); ?>
 
   <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
