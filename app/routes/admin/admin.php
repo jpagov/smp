@@ -151,10 +151,15 @@ Route::post('admin/amnesia', array('before' => 'csrf', 'main' => function() {
 	Session::put('token', $token);
 
 	$uri = Uri::full('admin/reset/' . $token);
-	$subject = __('users.recovery_subject');
-	$msg = __('users.recovery_message', $uri);
 
-	$mail = new Email($user->email, $subject, $msg, 2);
+	// name, email, message, staff, ip, created, to, subject
+	$mail = new Email(array(
+		'to' => $user->email,
+		'subject' => __('users.recovery_subject'),
+		'message' => __('users.recovery_message', $uri),
+	), array(), true);
+
+	//$mail = new Email($user->email, $subject, $msg, 2);
 
 	if(!$mail->send()) {
 		Notify::warning(__('users.msg_not_send', $mail->ErrorInfo));

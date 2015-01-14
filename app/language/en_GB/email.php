@@ -9,5 +9,5 @@ return [
 	'sender_email' => 'Email',
 	'sender_date' => 'Date',
 	'message' => 'Message',
-	'thanks' => 'Thank you'
+	'thanks' => 'Thank you',
 ];
