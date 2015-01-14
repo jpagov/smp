@@ -52,6 +52,33 @@ App::setup();
  * Import defined routes
  */
 
-foreach (new FilesystemIterator(APP . 'routes/' . ( is_admin() ? 'admin' : 'public' ) . '/', FilesystemIterator::SKIP_DOTS) as $file) {
-	require $file->getPathname();
+if(is_admin()) {
+	require APP . 'routes/admin/admin' . EXT;
+	require APP . 'routes/admin/api' . EXT;
+	require APP . 'routes/admin/branchs' . EXT;
+	require APP . 'routes/admin/categories' . EXT;
+	require APP . 'routes/admin/comments' . EXT;
+	require APP . 'routes/admin/divisions' . EXT;
+	require APP . 'routes/admin/fields' . EXT;
+	require APP . 'routes/admin/hierarchy' . EXT;
+	require APP . 'routes/admin/import' . EXT;
+	require APP . 'routes/admin/menu' . EXT;
+	require APP . 'routes/admin/metadata' . EXT;
+	require APP . 'routes/admin/pages' . EXT;
+	require APP . 'routes/admin/plugins' . EXT;
+	require APP . 'routes/admin/profile' . EXT;
+	require APP . 'routes/admin/ratings' . EXT;
+	require APP . 'routes/admin/reports' . EXT;
+	require APP . 'routes/admin/sectors' . EXT;
+	require APP . 'routes/admin/staffs' . EXT;
+	require APP . 'routes/admin/units' . EXT;
+	require APP . 'routes/admin/users' . EXT;
+	require APP . 'routes/admin/variables' . EXT;
+} else {
+	require APP . 'routes/public/api' . EXT;
+	require APP . 'routes/public/email' . EXT;
+	require APP . 'routes/public/post' . EXT;
+	require APP . 'routes/public/search' . EXT;
+	require APP . 'routes/public/sitemap' . EXT;
+	require APP . 'routes/public/site' . EXT;
 }

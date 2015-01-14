@@ -26,7 +26,7 @@ class Division extends Base {
 
 	public static function listing() {
 
-		return static::get(array('id', 'slug', 'title', 'staff'));
+		return static::sort('order', 'asc')->get(array('id', 'slug', 'title', 'staff'));
 	}
 
 	public static function slug($slug) {
