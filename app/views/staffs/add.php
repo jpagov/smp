@@ -51,7 +51,7 @@
 				              <div class="col-sm-offset-2 col-sm-10">
 				                <div class="checkbox">
 				                  <label>
-				                    <?php echo Form::checkbox('message', 1, Input::previous('message'), array('id' => 'message')); ?> <?php echo __('staffs.message'); ?>
+				                    <?php echo Form::checkbox('message', 1, (Input::previous('message') ?: true), array('id' => 'message')); ?> <?php echo __('staffs.message'); ?>
 				                  </label>
 				                </div>
 				                <span class="help-block"><?php echo __('staffs.message_explain'); ?></span>
@@ -62,7 +62,7 @@
 				              <div class="col-sm-offset-2 col-sm-10">
 				                <div class="checkbox">
 				                  <label>
-				                    <?php echo Form::checkbox('rating', 1, Input::previous('rating'), array('id' => 'rating')); ?> <?php echo __('staffs.rating'); ?>
+				                    <?php echo Form::checkbox('rating', 1, (Input::previous('rating') ?: true), array('id' => 'rating')); ?> <?php echo __('staffs.rating'); ?>
 				                  </label>
 				                </div>
 				                <span class="help-block"><?php echo __('staffs.rating_explain'); ?></span>
