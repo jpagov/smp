@@ -193,6 +193,7 @@ gulp.task('critical:staff', function(){
 gulp.task('build', function (done) {
 	runSequence(
 		['clean', 'bundle'],
+		'rev',
 		'copy',
 		'critical',
 	done);

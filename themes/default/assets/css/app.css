@@ -245,7 +245,8 @@ form.navbar-form:before {
 }
 
 @media (max-width: 480px) {
-	article.search-result > div > img {
+	article.search-result > div > img,
+  .staff-avatar > img {
 		display: block;
 	  margin-left: auto;
 	  margin-right: auto;
