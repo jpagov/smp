@@ -2,22 +2,15 @@
 
 Route::get('sitemap.xml', function() {
 
-	$xml = '<sitemapindex>';
-
-	// Priority ;p
-	$xml .= '<sitemap>';
-	$xml .= '<loc>' . Uri::full('sitemap-awesome') . '.xml</loc>';
-	$xml .= '</sitemap>';
+	$sitemapindex = new SimpleXMLElement('<sitemapindex></sitemapindex>');
+	$sitemapindex->addAttribute("xmlns", "http://www.sitemaps.org/schemas/sitemap/0.9");
 
 	foreach (Division::listing() as $division) {
-		$xml .= '<sitemap>';
-		$xml .= '<loc>' . Uri::full('sitemap-' . $division->slug) . '.xml</loc>';
-		$xml .= '</sitemap>';
+		$xml = $sitemapindex->addChild('sitemap');
+		$xml->addChild('loc', Uri::full('sitemap-' . $division->slug . '.xml'));
 	}
 
-	$xml .= '</sitemapindex>';
-
-	return Response::create($xml, 200, array('content-type' => 'application/xml'));
+	return Response::create($sitemapindex->asXML(), 200, array('content-type' => 'application/xml'));
 });
 
 Route::get('sitemap-awesome.xml', function() {
