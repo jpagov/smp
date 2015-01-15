@@ -5,6 +5,10 @@ Route::get('sitemap.xml', function() {
 	$sitemapindex = new SimpleXMLElement('<sitemapindex></sitemapindex>');
 	$sitemapindex->addAttribute("xmlns", "http://www.sitemaps.org/schemas/sitemap/0.9");
 
+	// example priority for high profile ;p
+	$xml = $sitemapindex->addChild('sitemap');
+	$xml->addChild('loc', Uri::full('sitemap-awesome.xml'));
+
 	foreach (Division::listing() as $division) {
 		$xml = $sitemapindex->addChild('sitemap');
 		$xml->addChild('loc', Uri::full('sitemap-' . $division->slug . '.xml'));
@@ -15,15 +19,13 @@ Route::get('sitemap.xml', function() {
 
 Route::get('sitemap-awesome.xml', function() {
 
-	$awesome_staff = [487];
-
-	$query = Staff::where_in('id', $awesome_staff);
+	$query = Staff::where_in('id', Config::sitemap('awesome'));
 
 	$total = $query->count();
 
 	$staffs = $query->get(array('id', 'display_name', 'gender', 'slug', 'view', 'created', 'updated'));
 
-	$sitemap = new Sitemap($staffs);
+	$sitemap = new Sitemap($staffs, false);
 
 	return Response::create($sitemap->xml(), 200, array('content-type' => 'application/xml'));
 

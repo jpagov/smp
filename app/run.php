@@ -75,6 +75,7 @@ if(is_admin()) {
 	require APP . 'routes/admin/users' . EXT;
 	require APP . 'routes/admin/variables' . EXT;
 } else {
+	require APP . 'routes/public/action' . EXT;
 	require APP . 'routes/public/api' . EXT;
 	require APP . 'routes/public/email' . EXT;
 	require APP . 'routes/public/post' . EXT;

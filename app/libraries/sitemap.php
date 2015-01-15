@@ -2,18 +2,30 @@
 
 class Sitemap {
 
-	private $xml;
+	private $xml, $exclude = [];
 	public static $urlset;
 
-	public function __construct($data) {
+	public function __construct($data, $exlude = true) {
 
 		if (empty($data)) {
 			return;
 		}
 
-		$this->urlset = new SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" />', LIBXML_NOERROR|LIBXML_ERR_NONE|LIBXML_ERR_FATAL);
+		$this->exclude = Config::sitemap('awesome');
+
+		$this->urlset = new SimpleXMLElement('<urlset>', LIBXML_NOERROR|LIBXML_ERR_NONE|LIBXML_ERR_FATAL);
+
+		// add sitemap ns
+		$this->urlset->addAttribute("xmlns", "http://www.sitemaps.org/schemas/sitemap/0.9");
+
+		// add sitemap image ns
+		$this->urlset->addAttribute("xmlns:xmlns:image", "http://www.sitemaps.org/schemas/sitemap/0.9");
 
 		foreach ($data as $item) {
+
+			if ($exlude && in_array($item->id, $this->exclude)) {
+				continue;
+			}
 
 			$this->xml = $this->urlset->addChild('url');
 			$this->xml->addChild('loc', Uri::full($item->slug));
@@ -30,7 +42,6 @@ class Sitemap {
 				'http://www.google.com/schemas/sitemap-image/1.1');
 		}
 	}
-
 
 	public function xml() {
 		return $this->urlset->asXML();
