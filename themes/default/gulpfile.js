@@ -2,16 +2,10 @@ var gulp = require('gulp');
 var penthouse = require('penthouse');
 var Promise = require("bluebird");
 var penthouseAsync = Promise.promisify(penthouse);
-var plugins = require('gulp-load-plugins')(); // Load all gulp plugins
-											  // automatically and attach
-											  // them to the `plugins` object
-
-var runSequence = require('run-sequence');    // Temporary solution until gulp 4
-											  // https://github.com/gulpjs/gulp/issues/355
-
+var plugins = require('gulp-load-plugins')();
+var runSequence = require('run-sequence');
 var pkg = require('./package.json');
 var dirs = pkg['jpagov-configs'].directories;
-
 var today = new Date();
 var build = today.getFullYear()
 			+ ('0' + (today.getMonth()+1)).slice(-2)
@@ -82,10 +76,19 @@ gulp.task('bundle:js', function () {
 	.pipe(gulp.dest(dirs.assets + '/js/'));
 });
 
+gulp.task('tour:js', function () {
+	return gulp.src([
+		dirs.src + '/js/bootstrap-tour.js'
+	])
+	.pipe(plugins.uglify()) // minify files
+	.pipe(plugins.rename('bootstrap-tour.min.js'))
+	.pipe(gulp.dest(dirs.assets + '/js/'));
+});
+
 gulp.task('bundle:css', function () {
 	return gulp.src([
 			dirs.src + '/css/bootstrap.css',
-			dirs.src + '/css/app.css'
+			dirs.src + '/css/app.css',
 		])
 		.pipe(plugins.concat('app.css'))
 		.pipe(plugins.minifyCss({keepSpecialComments: 0}))
@@ -94,12 +97,23 @@ gulp.task('bundle:css', function () {
 		.pipe(gulp.dest(dirs.assets + '/css/'));
 });
 
+gulp.task('tour:css', function () {
+	return gulp.src([
+			dirs.src + '/css/bootstrap-tour.css'
+		])
+		.pipe(plugins.minifyCss({keepSpecialComments: 0}))
+		.pipe(plugins.rename('bootstrap-tour.min.css'))
+		.pipe(gulp.dest(dirs.assets + '/css/'));
+});
+
 gulp.task('rev', function () {
     // by default, gulp would pick `assets/css` as the base,
     // so we need to set it explicitly:
     return gulp.src([
     		'assets/css/app.min.css',
-    		'assets/js/main.min.js'
+    		'assets/css/bootstrap-tour.min.css',
+    		'assets/js/main.min.js',
+    		'assets/js/bootstrap-tour.min.js'
     	], {base: 'assets'})
         .pipe(gulp.dest(dirs.assets))  // copy original assets to build dir
         .pipe(plugins.rev())
@@ -185,6 +199,11 @@ gulp.task('critical:staff', function(){
 	});
 });
 
+gulp.task('tour', [
+	'tour:css',
+	'tour:js'
+]);
+
 
 // ---------------------------------------------------------------------
 // | Main tasks                                                        |
@@ -192,7 +211,7 @@ gulp.task('critical:staff', function(){
 
 gulp.task('build', function (done) {
 	runSequence(
-		['clean', 'bundle'],
+		['clean', 'bundle', 'tour'],
 		'rev',
 		'copy',
 		'critical',

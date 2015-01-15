@@ -8,6 +8,9 @@
   <meta name="description" content="<?php echo _e(site_description()); ?>">
   <?php theme_include('critical'); ?>
   <link rel="stylesheet" href="<?php echo revision('css/app.min.css'); ?>">
+  <?php if (site_meta('tour')) : ?>
+  <link href="<?php echo revision('css/bootstrap-tour.min.css'); ?>" rel="stylesheet">
+	<?php endif; ?>
   <link rel="alternate" type="application/rss+xml" title="RSS" href="<?php echo rss_url(); ?>">
   <link rel="alternate" hreflang="<?php echo (language_current_id() == 'ms_MY') ? 'en-GB' : 'ms-MY'; ?>" href="<?php echo current_url(); ?>?lang=<?php echo (language_current_id() == 'ms_MY') ? 'en-GB' : 'ms-MY'; ?>">
   <?php theme_include('social'); ?>
@@ -90,6 +93,8 @@
             	<a class="view btn-lg" data-container="body" data-content="<?php echo _e('site.sign_in_explain'); ?>" href="<?php echo base_url('admin'); ?>"><span class="glyphicon glyphicon-log-in"></span>&nbsp; <span class="hidden-lg hidden-md"><?php echo _e('site.administrator'); ?></span></a>
 
             </li>
+
+            <li><button type="button" class="btn btn-warning navbar-btn" id="smp-tour" data-tour><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> <?php echo _e('tour.site_tour'); ?></button></li>
 
           </ul>
 

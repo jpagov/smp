@@ -5,7 +5,7 @@
 		<div class="col-md-6 col-md-offset-3">
 
 			<a class="org-list bg-primary" href="<?php echo base_url('division/pkppa'); ?>">
-				<img class="img-responsive" src="/smp/content/avatar/zabidi.jpg" alt="Tan Sri Mohamad Zabidi Zainal">
+				<img class="img-responsive" src="/smp/content/avatar/zabidi.jpg" alt="Tan Sri Mohamad Zabidi Zainal" id="pkppa">
 				<h2 class="title"><?php echo __('site.pkppa'); ?></h2>
 			</a>
 
