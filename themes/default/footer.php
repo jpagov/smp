@@ -103,7 +103,7 @@
 			}, {
 				path: '<?php echo base_url('search?term=hariadi'); ?>',
 				element: "ul.navbar-right",
-				title: "<?php echo __('tour.step3_title'); ?>",
+				title: "<?php echo __('tour.step4_title'); ?>",
 				placement: "bottom",
 				content: "<?php echo __('tour.step4_content'); ?>",
 				onHidden: function() {
