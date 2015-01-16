@@ -68,6 +68,7 @@ gulp.task('bundle:js', function () {
 		dirs.src + '/js/typeahead.bundle.min.js',
 		dirs.src + '/js/jquery.raty.js',
 		dirs.src + '/js/jquery.toaster.js',
+		dirs.src + '/js/mousetrap.js',
 		dirs.src + '/js/app.js'
 	])
 	.pipe(plugins.concat('main.js'))
@@ -211,7 +212,9 @@ gulp.task('tour', [
 
 gulp.task('build', function (done) {
 	runSequence(
-		['clean', 'bundle', 'tour'],
+		'clean',
+		'bundle',
+		'tour',
 		'rev',
 		'copy',
 		'critical',

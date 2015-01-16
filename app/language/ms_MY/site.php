@@ -11,7 +11,6 @@ return array(
 
 	'search_noresult' => 'Maaf, tiada keputusan ditemui bagi kata kunci &ldquo;<strong class="text-danger">%s</strong>&rdquo;. Anda pasti telah menaip kata kunci yang betul?',
 
-	'keyboard_shortcuts' => 'Pintasan papan kekunci',
 	'view_staff_profile' => 'Lihat profil %s pada %s',
 
 	'divisions' => 'Bahagian',

@@ -26,7 +26,7 @@
   bottom: 0;
   left: 0;
   z-index: 1100;
-  background-color: #000;
+  background-color: #666;
   opacity: 0.8;
   filter: alpha(opacity=80);
 }
@@ -43,6 +43,9 @@
   position: absolute !important;
   z-index: 1100;
   background: inherit;
+}
+.tour-step-background > .search {
+	padding: 6px auto;
 }
 .popover[class*="tour-"] {
   z-index: 1100;
@@ -70,3 +73,4 @@
 .popover[class*="tour-"].orphan .arrow {
   display: none;
 }
+.popover-content > p > kbd { background-color: #000 }

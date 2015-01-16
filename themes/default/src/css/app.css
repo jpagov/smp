@@ -657,8 +657,6 @@ article.search-result > div > img {
 h1 > a.permalink { visibility: hidden; }
 h1:hover > a.permalink { visibility: visible }
 
-.popover-content > kbd { background-color: #000 }
-
 .callout {
     padding: 20px;
     margin: 20px 0px;

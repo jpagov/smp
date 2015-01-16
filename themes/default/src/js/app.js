@@ -18,41 +18,44 @@
 		common: {
 			init: function () {
 
-				// we assume all devices has touch screen and lets trigger all bootstrap
-				// event with 'click', when we see mouse event then we change trigger to // hover
-				//$( "body" ).one('mouseenter', function() {
-				//  console.log("mouse enter");
-				//}).one('mouseleave', function() {
-				//  console.log("mouse leave");
-				//});
+				var path = '/' + window.location.pathname.split('/')[1] || '/'
 
-				// to listen every time
-				/*
-			$( "body" ).mouseenter(function() {
+				// global hotkeys
+				Mousetrap.bind("?", function() {
+					$('#helper-modal').load('/smp/help/keys', function () {
+						$(this).modal('show');
+					});
+				});
 
-				}).mouseleave(function() {
+				// data-hotkey binding
+				var clickable_selectors = [
+					'a[data-hotkey]',
+					'input[data-hotkey][type="submit"]',
+					'input[data-hotkey][type="button"]',
+					'button[data-hotkey][type="button"]'
+				];
 
-			});
-*/
-
-				var path = '/' + window.location.pathname.split('/')[1] || '/';
-
-				$(document).keydown(function (e) {
-					//console.log(e.keyCode);
-
-					if ($(':input').is(':focus')) return; //Will fail if already focused.
-
-					if (e.keyCode == 72 && (window.location.pathname).indexOf('admin') < 0) {
-						$('#search-term').focus();
-					}
-					if (e.shiftKey && e.keyCode == 191) {
-						e.preventDefault();
-
-						$('#helper-modal').load('/smp/help/keys', function () {
-							$(this).modal('show');
+				$(clickable_selectors).each(function(i, selector){
+					$(selector).each(function(i, el){
+						Mousetrap.bind($(el).data('hotkey'), function(e){
+							//function(e, combo)
+							//console.log(combo);
+							el.click();
 						});
+					});
+				});
 
-					}
+				var focusable_selectors = [
+					'input[data-hotkey][type="text"]',
+					'textarea[data-hotkey]',
+				];
+
+				$(focusable_selectors).each(function(i, selector){
+					$(selector).each(function(i, el){
+						Mousetrap.bind($(el).data('hotkey'), function(e){
+							el.focus();
+						});
+					});
 				});
 
 				$('select#role').change(function () {

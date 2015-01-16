@@ -94,17 +94,16 @@
 
             </li>
 
-            <li><button type="button" class="btn btn-warning navbar-btn" id="smp-tour" data-tour><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> <?php echo _e('tour.site_tour'); ?></button></li>
+            <li><button type="button" class="btn btn-warning navbar-btn" id="smp-tour" data-tour data-hotkey="t"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> <?php echo _e('tour.site_tour'); ?></button></li>
 
           </ul>
-
 
         <div class="col-sm-6" itemscope itemtype="http://schema.org/WebSite">
         <meta itemprop="url" content="<?php echo full_url(); ?>">
           <form class="navbar-form" role="search" action="<?php echo search_url(); ?>" id="search" itemprop="potentialAction" itemscope itemtype="http://schema.org/SearchAction">
             <div class="input-group col-xs-12">
             <meta itemprop="target" content="<?php echo full_url(); ?>search/term={query}">
-              <input type="text" class="form-control search-query typeahead" id="search-term" name="term" placeholder="<?php echo _e('site.search_placeholder'); ?>" value="<?php echo search_term(); ?>">
+              <input type="text" class="form-control search-query typeahead" id="search-term" name="term" placeholder="<?php echo _e('site.search_placeholder'); ?>" value="<?php echo search_term(); ?>" data-hotkey="h">
               <button class="sr-only" type="submit"><?php echo _e('site.submit'); ?></button>
             </div>
 

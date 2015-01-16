@@ -72,15 +72,17 @@
 				title: "<?php echo __('tour.step1_title'); ?>",
 				placement: "bottom",
 				content: "<?php echo __('tour.step1_content'); ?>",
-				backdrop: false,
 				onShown: function (tour) {
 					var search = 'hariadi';
-					var searchInput = $('.tt-input');
-					searchInput.val('');
+					var searchInput = $('.tour-step-background');
+					searchInput.append('<div id="generated-search"></div>');
+					var generated = $('#generated-search');
+					generated.css('margin', '6px');
+					generated.text('');
 					jQuery({count:0}).animate({count:search.length}, {
 						duration: 2000,
 						step: function() {
-							searchInput.val(search.substring(0, Math.round(this.count)));
+							generated.text(search.substring(0, Math.round(this.count)));
 						}
 					});
 				},
