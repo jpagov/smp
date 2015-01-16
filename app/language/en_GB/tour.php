@@ -11,7 +11,7 @@ return [
 
 	// tour text TODO: inserting to db?
 	'step0_title' => 'Welcome to PSD Staff Directory!',
-	'step0_content' => 'Here you can easily contact PSD officer regarding Pension, Gratuity, Medical Facilities, Scholarship / Loan, Basics, Career Development, Salary / Allowances, Psychological Services / Counseling / Consultation',
+	'step0_content' => '<p>Here you can easily contact PSD officer regarding Pension, Gratuity, Medical Facilities, Scholarship / Loan, Basics, Career Development, Salary / Allowances, Psychological Services / Counseling / Consultation.</p><p>You can use keyborad shortcut <kbd>→</kbd> (Next &raquo;), <kbd>←</kbd> (&laquo; Prev).</p><p>To stop this site tour immediately, press <kbd>Esc</kbd>.</p>',
 
 	'step1_title' => 'Search',
 	'step1_content' => '<p>To improve system flexibilty with user friendly interface, we suggest search results base on your keyword</p><p>If suggesting insufficient, this sistem will search and matching your keyword with <code>Name</code>, <code>Email</code>, <code>Job Description</code>, or <code>Telephone number</code></p>',

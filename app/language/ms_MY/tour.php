@@ -10,7 +10,7 @@ return [
 
 	// tour text TODO: inserting to db?
 	'step0_title' => 'Selamat datang ke Direktori Pegawai JPA!',
-	'step0_content' => 'Sistem ini bertujuan memudahkan anda menghubungi pegawai JPA berkenaan Pencen, Ganjaran, Kemudahan Perubatan, Biasiswa / Pinjaman, Dasar-dasar, Kemajuan Kerjaya, Gaji / Elaun, Perkhidmatan Psikologi / Kaunseling / Rundingcara',
+	'step0_content' => '<p>Sistem ini bertujuan memudahkan anda menghubungi pegawai JPA berkenaan Pencen, Ganjaran, Kemudahan Perubatan, Biasiswa / Pinjaman, Dasar-dasar, Kemajuan Kerjaya, Gaji / Elaun, Perkhidmatan Psikologi / Kaunseling / Rundingcara.</p><p>Anda boleh menggunakan pintasan papan kekunci <kbd>→</kbd> (Lagi &raquo;), <kbd>←</kbd> (&laquo; Kembali).</p><p>Untuk menghentikan panduan ini serta merta, tekan <kbd>Esc</kbd></p>',
 
 	'step1_title' => 'Carian',
 	'step1_content' => '<p>Bagi meningkatkan fleksibiliti dengan antaramuka yang mesra pengguna, kami mencadangkan beberapa keputusan carian berdasarkan kata kunci yang dimasukkan.</p><p>Sekiranya cadangan keputusan yang diberikan tidak memadaikan, sistem ini akan mencari kata kunci yang sepadan dengan <code>Nama</code>, <code>Emel</code>, <code>Ringkasan Tugas</code>, atau <code>No. Telefon</code>.</p>',
