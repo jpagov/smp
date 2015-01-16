@@ -68,13 +68,16 @@
 	<?php if(show_rating() && ratings_open()): ?>
 	<div class="well">
 
-		<div class="rating-inner">
+		<div class="rating-inner" itemscope itemtype="http://data-vocabulary.org/Review-aggregate">
 
-			<div class="rating" itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
-				<span class="rating-num" itemprop="ratingValue"><?php echo rating_average(); ?></span>
+			<span itemprop="itemreviewed" class="hidden"><?php echo staff_name(); ?></span>
+			<a class="hidden" aria-hidden="true" href="<?php echo base_url(staff_slug()); ?>" itemprop="url"><img src="<?php echo asset('content/avatar/' . staff_custom_field('avatar')); ?>" class="hidden" itemprop="photo"></a>
+
+			<div class="rating" itemprop="rating" itemscope itemtype="http://data-vocabulary.org/Rating">
+				<span class="rating-num" itemprop="average"><?php echo rating_average(); ?></span> / <span itemprop="best">5</span>
 				<div id="star-rating" data-score="<?php echo rating_average(); ?>" data-staff="<?php echo staff_id(); ?>"></div>
 				<div class="rating-users">
-					<i class="glyphicon glyphicon-user"></i> <span id="rating-count" itemprop="reviewCount"><?php echo total_ratings(); ?></span> total
+					<i class="glyphicon glyphicon-user"></i> <span id="rating-count" itemprop="ratingCount"><?php echo total_ratings(); ?></span> <span itemprop="votes"><?php echo total_ratings(); ?></span>
 				</div>
 			</div>
 

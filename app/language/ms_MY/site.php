@@ -131,4 +131,7 @@ return array(
 
 	// mailer
 	'message_subject' => 'SMP: Maklum Balas',
+
+	//rating
+	'rating_total' => 'jumlah penilaian',
 );

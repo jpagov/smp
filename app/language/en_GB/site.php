@@ -133,4 +133,7 @@ return array(
 
 	// mailer
 	'message_subject' => 'SMP: Feedback',
+
+	//rating
+	'rating_total' => 'rating total',
 );

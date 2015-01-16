@@ -65,7 +65,7 @@
 
           	<?php if(total_languages()): ?>
           		<li class="dropdown">
-          			<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><img alt="<?php echo language_name(); ?>" src="<?php echo language_flag(language_current_id()); ?>"> <span class="sr-only" itemprop="inLanguage"><?php echo language_name(); ?></span> <span class="caret"></span></a>
+          			<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><img alt="<?php echo language_name(); ?>" src="<?php echo language_flag(language_current_id()); ?>"> <span class="sr-only"><?php echo language_name(); ?></span> <span class="caret"></span></a>
 
           			<ul class="dropdown-menu" role="menu">
 			            <?php while(languages()): ?>
