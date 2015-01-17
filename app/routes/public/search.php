@@ -119,12 +119,17 @@ Route::get(array('search', 'search/(:num)'), function($offset = 1) {
 		// revert plus back to spaces
 		$term = str_replace('+', ' ', $term);
 
-		$log = Search::create(array(
-			'search' => $cari->input(),
-			'created' => Date::mysql('now')
-			));
+		if ($cari->input()) {
 
-		Stats::log($log->id, 'search');
+			$log = Search::create(array(
+				'search' => $cari->input(),
+				'created' => Date::mysql('now')
+				));
+
+			Stats::log($log->id, 'search');
+		}
+
+
 
 		if($offset > 0) {
 			list($total, $staffs) = Staff::search($term, $offset, Config::meta('staffs_per_page'), false, $filter, $field);

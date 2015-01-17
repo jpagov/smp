@@ -522,10 +522,10 @@ Route::get('(:all)', function($uri) use($staffs_page) {
 * Rss feed
 */
 Route::get(array('rss', 'feeds/rss'), function() {
-	$uri = 'http://' . $_SERVER['HTTP_HOST'];
-	$rss = new Rss(Config::meta('sitename'), Config::meta('description'), $uri, Config::app('language'));
 
-	$query = Staff::where('status', '=', 'active')->sort(Base::table('staffs.grade'), 'desc');
+	$rss = new Rss(Config::meta('sitename'), Config::meta('description'), Uri::full(''), Config::app('language'));
+
+	$query = Staff::where('status', '=', 'active')->sort(Base::table('staffs.grade'), 'desc')->take(25);
 
 	foreach($query->get() as $staff) {
 		$rss->item(
@@ -547,7 +547,7 @@ Route::get(array('rss', 'feeds/rss'), function() {
 Route::get('feeds/json', function() {
 	$json = Json::encode(array(
 	'meta' => Config::get('meta'),
-	'staffs' => Staff::where('status', '=', 'active')->sort(Base::table('staffs.created'), 'desc')->get()
+	'staffs' => Staff::where('status', '=', 'active')->sort(Base::table('staffs.created'), 'desc')->take(25)->get()
 	));
 
 	return Response::create($json, 200, array('content-type' => 'application/json'));
