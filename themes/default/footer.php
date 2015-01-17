@@ -63,16 +63,16 @@
 			backdropPadding: 4,
 			steps: [{
 				path: '<?php echo base_url(); ?>',
-				element: "#pkppa",
-				title: "<?php echo __('tour.step0_title'); ?>",
-				placement: "right",
-				content: "<?php echo __('tour.step0_content'); ?>",
+				element: '#pkppa',
+				title: '<?php echo __('tour.step0_title'); ?>',
+				placement: 'right',
+				content: '<?php echo __('tour.step0_content'); ?>',
 			}, {
 				path: '<?php echo base_url(); ?>',
-				element: "#search-term",
-				title: "<?php echo __('tour.step1_title'); ?>",
-				placement: "bottom",
-				content: "<?php echo __('tour.step1_content'); ?>",
+				element: '#search-term',
+				title: '<?php echo __('tour.step1_title'); ?>',
+				placement: 'bottom',
+				content: '<?php echo __('tour.step1_content'); ?>',
 				onShown: function (tour) {
 					var search = 'hariadi';
 					var searchInput = $('.tour-step-background');
@@ -89,23 +89,53 @@
 				},
 			}, {
 				path: '<?php echo base_url('search?term=hariadi'); ?>',
-				element: ".staffs-search-result",
-				title: "<?php echo __('tour.step2_title'); ?>",
-				placement: "bottom",
-				content: "<?php echo __('tour.step2_content'); ?>",
+				element: '.staffs-search-result',
+				title: '<?php echo __('tour.step2_title'); ?>',
+				placement: 'bottom',
+				content: '<?php echo __('tour.step2_content'); ?>',
 			}, {
 				path: '<?php echo base_url('search?term=hariadi'); ?>',
-				element: "section.col-sm-3",
-				title: "<?php echo __('tour.step3_title'); ?>",
-				placement: "left",
-				content: "<?php echo __('tour.step3_content'); ?>",
+				element: 'section.col-sm-3',
+				title: '<?php echo __('tour.step3_title'); ?>',
+				placement: 'left',
+				content: '<?php echo __('tour.step3_content'); ?>',
 
 			}, {
-				path: '<?php echo base_url('search?term=hariadi'); ?>',
+				path: '<?php echo base_url('hariadi-hinta'); ?>',
+				element: "section.staff",
+				title: '<?php echo __('tour.step31_title'); ?>',
+				placement: 'right',
+				content: '<?php echo __('tour.step31_content'); ?>',
+			}, {
+				path: '<?php echo base_url('hariadi-hinta'); ?>',
+				element: 'div.well:nth-child(1)',
+				title: '<?php echo __('tour.step32_title'); ?>',
+				placement: 'left',
+				content: '<?php echo __('tour.step32_content'); ?>',
+			}, {
+				path: '<?php echo base_url('hariadi-hinta'); ?>',
+				element: '.rating-inner',
+				title: '<?php echo __('tour.step33_title'); ?>',
+				placement: 'left',
+				content: '<?php echo __('tour.step33_content'); ?>'
+			}, {
+				path: '<?php echo base_url('hariadi-hinta'); ?>',
+				element: 'div.tepian',
+				title: '<?php echo __('tour.step34_title'); ?>',
+				placement: 'top',
+				content: '<?php echo __('tour.step34_content'); ?>',
+			}, {
+				path: '<?php echo base_url('hariadi-hinta'); ?>',
 				element: "ul.navbar-right",
 				title: "<?php echo __('tour.step4_title'); ?>",
-				placement: "bottom",
-				content: "<?php echo __('tour.step4_content'); ?>",
+				placement: 'bottom',
+				content: "<?php echo __('tour.step4_content'); ?>"
+			}, {
+				path: '<?php echo base_url('hariadi-hinta'); ?>',
+				element: '.staff-avatar > img',
+				title: '<?php echo __('tour.step5_title'); ?>',
+				placement: 'right',
+				content: '<?php echo __('tour.step5_content'); ?>',
 				onHidden: function() {
 					$('#helper-modal').load('/smp/help/keys', function () {
 						$(this).modal('show');

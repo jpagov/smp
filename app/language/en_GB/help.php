@@ -3,8 +3,11 @@
 return [
 
 	'help' => 'Help',
+	'go_to' => 'Go to',
+	'site_tour' => 'Bring up site tour',
 	'keyboard_shortcuts' => 'Keyboard Shortcuts',
 	'sitewide' => 'Site wide shortcuts',
+	'homepage' => 'Homepage',
 	'focus_search' => 'Focus on search',
 	'display_help' => 'Show this help dialog',
 	'advanced_search' => 'Advanced Search',
@@ -27,5 +30,5 @@ return [
 	'in_field' => '<kbd>field</kbd>',
 	'in_field_explain' => '<code>display_name</code>, <code>description</code>, <code>elephone</code>',
 
-	'division_slug_list' => 'Division slug list <kbd>slug</kbd>',
+	'division_slug_list' => 'Division slug list <code>slug</code>',
 ];

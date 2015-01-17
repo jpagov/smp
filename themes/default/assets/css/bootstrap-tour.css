@@ -73,4 +73,3 @@
 .popover[class*="tour-"].orphan .arrow {
   display: none;
 }
-.popover-content > p > kbd { background-color: #000 }

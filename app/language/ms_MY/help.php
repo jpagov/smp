@@ -3,8 +3,11 @@
 return [
 
 	'help' => 'Bantuan',
+	'go_to' => 'Pautan ke',
+	'site_tour' => 'Papar panduan laman',
 	'keyboard_shortcuts' => 'Pintasan Papan Kekunci',
 	'sitewide' => 'Pintasan Keseluruhan',
+	'homepage' => 'Laman utama',
 	'focus_search' => 'Fokus pada carian',
 	'display_help' => 'Papar tetingkap Bantuan',
 	'advanced_search' => 'Carian Terperinci',
@@ -23,8 +26,9 @@ return [
 
 	'in' => 'in:medan',
 	'in_explain' => 'Cari semua pegawai berdasarkan padanan <code>Nama</code>, <code>Emel</code>, <code>Ringkasan Tugas</code>, atau <code>No. Telefon number</code>. <span class="text-muted">Contoh</span>: <code>PPTM in:display_name,description,telephone</code><br>',
+
 	'in_field' => '<kbd>medan</kbd>',
 	'in_field_explain' => '<code>display_name</code>, <code>description</code>, <code>elephone</code>',
 
-	'division_slug_list' => 'Senarai kod Bahagian <kbd>slug</kbd>',
+	'division_slug_list' => 'Senarai kod Bahagian <code>slug</code>',
 ];

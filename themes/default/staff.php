@@ -77,7 +77,7 @@
 				<span class="rating-num" itemprop="average"><?php echo rating_average(); ?></span> / <span itemprop="best">5</span>
 				<div id="star-rating" data-score="<?php echo rating_average(); ?>" data-staff="<?php echo staff_id(); ?>"></div>
 				<div class="rating-users">
-					<i class="glyphicon glyphicon-user"></i> <span id="rating-count" itemprop="ratingCount"><?php echo total_ratings(); ?></span> <span itemprop="votes"><?php echo total_ratings(); ?></span>
+					<i class="glyphicon glyphicon-user"></i> <span id="rating-count" itemprop="ratingCount"><?php echo total_ratings(); ?></span> <span itemprop="votes" class="hidden"><?php echo total_ratings(); ?></span>
 				</div>
 			</div>
 
@@ -104,6 +104,7 @@
 	</div>
 	<?php endif; ?>
 
+	<div class="tepian">
 			<?php if (show_direct_report() and staff_report_to_id()) : $boss = staff_report_to(); ?>
 
 					<h2 class="modal-header"><?php echo _e('site.direct_report'); ?></h2>
@@ -151,7 +152,7 @@
 				</a>
 				<?php endforeach; ?>
 		</div>
-
+	</div>
 </section>
 <div class="modal fade" id="messageModal" tabindex="-1" role="dialog" aria-labelledby="messageModalLabel" aria-hidden="true">
   <div class="modal-dialog">
