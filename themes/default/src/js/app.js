@@ -342,6 +342,9 @@
 					},
 					click: function (score, evt) {
 
+						//disable rating
+						$(this).find('img').unbind();
+
 						var token = $('#contact-staff :input[name=token]').val();
 						var url = $('#contact-staff :input[name=url]').val();
 
@@ -352,7 +355,6 @@
 								staff: $(this).attr('data-staff')
 							})
 							.done(function (data) {
-								console.log(data);
 
 								if (data.status) {
 

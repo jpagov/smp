@@ -42,13 +42,14 @@ gulp.task('bundle', [
 ]);
 
 gulp.task('copy:js', function () {
-	return gulp.src(dirs.src + '/js/*.js')
+	return gulp.src(dirs.src + '/js/*min-*.js')
 			   .pipe(gulp.dest(dirs.assets + '/js/'));
 });
 
 gulp.task('copy:css', function () {
 	return gulp.src([
-			dirs.src + '/css/*.css'
+			dirs.src + '/css/*min-*.css',
+			dirs.src + '/css/*critical.css',
 		]).pipe(gulp.dest(dirs.assets + '/css/'));
 });
 
@@ -174,9 +175,9 @@ gulp.task('critical', [
 
 gulp.task('critical:home', function(){
 	penthouseAsync({
-		url : 'https://sistem.jpa.gov.my/smp/',
-		css : dirs.assets + '/css/app.css',
-		height: 480
+		url : 'https://sistem.jpa.gov/smp/',
+		css : dirs.src + '/css/app.css',
+		height: 600
 	}).then( function (criticalCSS){
 		require('fs').writeFile(dirs.assets + '/css/home-critical.css', criticalCSS );
 	}).then(function() {
@@ -188,9 +189,9 @@ gulp.task('critical:home', function(){
 
 gulp.task('critical:staff', function(){
 	penthouseAsync({
-		url : 'https://sistem.jpa.gov.my/smp/hariadi-hinta',
-		css : dirs.assets + '/css/app.css',
-		height: 480
+		url : 'https://sistem.jpa.gov/smp/hariadi-hinta/',
+		css : dirs.src + '/css/app.css',
+		height: 600
 	}).then( function (criticalCSS){
 		require('fs').writeFile(dirs.assets + '/css/staff-critical.css', criticalCSS );
 	}).then(function() {
@@ -217,7 +218,6 @@ gulp.task('build', function (done) {
 		'tour',
 		'rev',
 		'copy',
-		'critical',
 	done);
 });
 

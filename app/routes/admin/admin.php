@@ -24,6 +24,7 @@ Route::action('csrf', function() {
 	if(Request::method() == 'POST') {
 		if( ! Csrf::check(Input::get('token'))) {
 			Notify::warning(array('Invalid token'));
+			Csrf::reset();
 
 			if ($url = Input::get('url')) {
 				return Response::redirect(filter_var($url, FILTER_SANITIZE_URL));
