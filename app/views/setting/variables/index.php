@@ -1,32 +1,35 @@
 <?php echo $header; ?>
 
-<hgroup class="wrap">
-	<h1><?php echo __('extend.variables'); ?></h1>
+<?php echo Html::link('admin/setting/variables/add', __('extend.create_variable'), array('class' => 'btn btn-lg btn-primary pull-right')); ?>
 
-	<nav>
-		<?php echo Html::link('admin/setting/variables/add', __('extend.create_variable'), array('class' => 'btn')); ?>
-	</nav>
-</hgroup>
+<h1 class="page-header"><?php echo __('extend.variables'); ?></h1>
 
-<section class="wrap">
-	<?php echo $messages; ?>
+<?php echo $messages; ?>
 
-	<?php if(count($variables)): ?>
-	<ul class="list">
-		<?php foreach($variables as $var): ?>
-		<li>
-			<a href="<?php echo Uri::to('admin/setting/variables/edit/' . $var->key); ?>">
-				<strong><?php echo substr($var->key, strlen('custom_')); ?></strong>
-				<p><?php echo e($var->value); ?></p>
-			</a>
-		</li>
-		<?php endforeach; ?>
-	</ul>
-	<?php else: ?>
-	<p class="empty">
-		<span class="icon"></span> <?php echo __('extend.novars_desc'); ?>
-	</p>
-	<?php endif; ?>
-</section>
+<div class="row">
+  <div class="col col-lg-9">
+
+	<section class="wrap">
+		<?php echo $messages; ?>
+
+		<?php if(count($variables)): ?>
+
+		<dl class="dl-horizontal">
+			<?php foreach($variables as $var): ?>
+			<dt><a href="<?php echo Uri::to('admin/setting/variables/edit/' . $var->key); ?>"><strong><?php echo substr($var->key, strlen('custom_')); ?></strong></a></dt>
+			<dd>
+				<?php echo e($var->value); ?>
+			</dd>
+			<?php endforeach; ?>
+		</dl>
+		<?php else: ?>
+		<p class="empty">
+			<span class="icon"></span> <?php echo __('extend.novars_desc'); ?>
+		</p>
+		<?php endif; ?>
+	</section>
+
+	</div>
+</div>
 
 <?php echo $footer; ?>

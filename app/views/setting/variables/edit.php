@@ -1,37 +1,67 @@
 <?php echo $header; ?>
 
-<hgroup class="wrap">
-	<h1><?php echo __('extend.editing_variable', $variable->user_key); ?></h1>
-</hgroup>
+<?php echo Html::link('admin/setting/variables', __('global.back'), array('class' => 'btn btn-lg btn-primary pull-right')); ?>
 
-<section class="wrap">
-	<?php echo $messages; ?>
+<h1 class="page-header"><?php echo __('extend.editing_variable', $variable->user_key); ?></h1>
 
-	<form method="post" action="<?php echo Uri::to('admin/setting/variables/edit/' . $variable->key); ?>" novalidate>
+<?php echo $messages; ?>
+
+<div class="row">
+
+	<form class="form-horizontal" method="post" action="<?php echo Uri::to('admin/setting/variables/add'); ?>" novalidate>
+
+		<div class="col-md-9">
 
 		<input name="token" type="hidden" value="<?php echo $token; ?>">
 
 		<fieldset class="split">
-			<p>
-				<label><?php echo __('extend.name'); ?>:</label>
-				<?php echo Form::text('key', Input::previous('key', $variable->user_key)); ?>
-				<em><?php echo __('extend.name_explain'); ?></em>
-			</p>
 
-			<p>
-				<label><?php echo __('extend.value'); ?>:</label>
-				<?php echo Form::textarea('value', Input::previous('value', $variable->value), array('cols' => 20)); ?>
-				<em><?php echo __('extend.value_explain'); ?></em>
-				<summary><?php echo __('extend.value_code_snipet', $variable->user_key); ?></summary>
-			</p>
+			<div class="form-group">
+                <label class="col-sm-2 control-label" for="key"><?php echo __('extend.name'); ?></label>
+                <div class="col-sm-6">
+                <?php echo Form::text('key', Input::previous('key', $variable->user_key), array(
+                    'class' => 'form-control',
+                    'id' => 'key',
+                )); ?>
+                <em class="help-block"><?php echo __('extend.name_explain'); ?></em>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="value"><?php echo __('extend.value'); ?></label>
+                <div class="col-sm-6">
+                <?php echo Form::textarea('value', Input::previous('value', $variable->value), array(
+                	'cols' => 20,
+                    'class' => 'form-control',
+                    'id' => 'value',
+                )); ?>
+                <em class="help-block"><?php echo __('extend.value_explain'); ?></em>
+                </div>
+            </div>
+
+
 		</fieldset>
 
-		<aside class="buttons">
-			<?php echo Form::button(__('global.update'), array('class' => 'btn', 'type' => 'submit')); ?>
-			<?php echo Html::link('admin/setting/variables/delete/' . $variable->key,
-				__('global.delete'), array('class' => 'btn delete red')); ?>
+		</div><!-- /col-md-9 -->
+		<aside class="col-md-3">
+
+			<?php echo Form::button(__('global.update'), array(
+				'class' => 'btn btn-primary btn-lg btn-block',
+				'type' => 'submit'
+				)); ?>
+
+			<?php echo Html::link('admin/staffs/delete/' . $variable->key,
+			__('global.delete'), array(
+				'class' => 'btn btn-warning btn-lg btn-block delete'
+				)); ?>
+
 		</aside>
+
+
+		</div>
 	</form>
-</section>
+
+
+</div>
 
 <?php echo $footer; ?>
