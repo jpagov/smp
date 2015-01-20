@@ -26,4 +26,13 @@ class Date {
 		return $date->format('Y-m-d H:i:s');
 	}
 
+	/*
+	 * For sitemap
+	 */
+	public static function sitemap($date) {
+		$date = new DateTime($date, new DateTimeZone('GMT'));
+
+		return $date->format('Y-m-dTH:i:sP');
+	}
+
 }

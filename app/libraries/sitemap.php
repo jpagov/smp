@@ -29,7 +29,7 @@ class Sitemap {
 
 			$this->xml = $this->urlset->addChild('url');
 			$this->xml->addChild('loc', Uri::full($item->slug));
-			$this->xml->addChild('lastmod', ($item->updated == '0000-00-00 00:00:00' ? $item->created : $item->updated)  );
+			$this->xml->addChild('lastmod', ($item->updated == '0000-00-00 00:00:00' ? Date::sitemap($item->created) : Date::sitemap($item->updated))  );
 			$this->xml->addChild('changefreq', ($item->view >= 20000 ? 'daily' : 'weekly'));
 			$this->xml->addChild('priority', '1.0');
 
