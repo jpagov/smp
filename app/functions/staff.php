@@ -163,6 +163,19 @@ function staff_hierarchy($id = null, $array = false) {
 
 	$id = ($id) ?: staff_id();
 
+	if ($staff = Staff::find($id)) {
+
+		Hierarchy::where('staff', '=', $staff->id)->delete();
+		Hierarchy::create(array(
+			'staff' => $staff->id,
+			'division' => ($staff->division) ?: 0,
+			'branch' => ($staff->branch) ?: 0,
+			'sector' => ($staff->sector) ?: 0,
+			'unit' => ($staff->unit) ?: 0,
+		));
+
+	}
+
 	if($hierarchy = Hierarchy::where('staff', '=', $id)->fetch()) {
 
 		$org = array();

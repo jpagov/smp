@@ -142,7 +142,11 @@
 					});
 				},
 			}]
-		}).init().start(<?php echo site_meta('tour_force'); ?>);
+		}).init();
+
+		if (screen.width > 480) {
+			tour.start(<?php echo site_meta('tour_force'); ?>);
+		}
 
 		$(document).on('click', '[data-tour]', function(e) {
 			e.preventDefault();
@@ -151,6 +155,8 @@
 			}
 			tour.restart();
 		});
+
+		console.log(typeof screen.width);
 
 
 	</script>

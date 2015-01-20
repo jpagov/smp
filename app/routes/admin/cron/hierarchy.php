@@ -3,7 +3,7 @@ set_time_limit(0);
 
 Route::collection(array('before' => 'auth,admin'), function() {
 
-	Route::get(array('admin/hirarchy', 'admin/hirarchy/(:num)'), function($page = 1) {
+	Route::get(array('admin/cron/hirarchy', 'admin/cron/hirarchy/(:num)'), function($page = 1) {
 
 		$loop = round(Migrate::count()/100);
 		$staffs = Staff::paginate($page, 100);
@@ -21,7 +21,7 @@ Route::collection(array('before' => 'auth,admin'), function() {
 
 		if ($page < $loop) {
 			sleep(1);
-			return Response::redirect('admin/hirarchy/' . ($page+1) );
+			return Response::redirect('admin/cron/hirarchy/' . ($page+1) );
 		}
 
 	});

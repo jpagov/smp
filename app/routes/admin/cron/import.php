@@ -7,7 +7,7 @@ Route::collection(array('before' => 'auth,admin'), function() {
 	/*
 	Admin JSON API
 	*/
-	Route::get(array('admin/import', 'admin/import/(:num)'), function($page = 1) {
+	Route::get(array('admin/cron/import', 'admin/cron/import/(:num)'), function($page = 1) {
 
 		/* ############################################################
 		   WARNING: THIS WILL DELETE YOUR EXISTING DATA. BACKUP FIRST.
@@ -158,7 +158,7 @@ Route::collection(array('before' => 'auth,admin'), function() {
 
 		if ($page < $loop) {
 			sleep(1);
-			return Response::redirect('admin/import/' . ($page+1) );
+			return Response::redirect('admin/cron/import/' . ($page+1) );
 		}
 
 		//exit();

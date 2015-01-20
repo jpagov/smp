@@ -60,8 +60,6 @@ if(is_admin()) {
 	require APP . 'routes/admin/comments' . EXT;
 	require APP . 'routes/admin/divisions' . EXT;
 	require APP . 'routes/admin/fields' . EXT;
-	require APP . 'routes/admin/hierarchy' . EXT;
-	require APP . 'routes/admin/import' . EXT;
 	require APP . 'routes/admin/menu' . EXT;
 	require APP . 'routes/admin/metadata' . EXT;
 	require APP . 'routes/admin/pages' . EXT;
@@ -74,6 +72,9 @@ if(is_admin()) {
 	require APP . 'routes/admin/units' . EXT;
 	require APP . 'routes/admin/users' . EXT;
 	require APP . 'routes/admin/variables' . EXT;
+	require APP . 'routes/admin/cron/slug' . EXT;
+	require APP . 'routes/admin/cron/hierarchy' . EXT;
+	require APP . 'routes/admin/cron/import' . EXT;
 } else {
 	require APP . 'routes/public/action' . EXT;
 	require APP . 'routes/public/api' . EXT;
