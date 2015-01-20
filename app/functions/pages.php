@@ -23,7 +23,7 @@ function page_name() {
 
 function page_title($default = '') {
 	if($title = Registry::prop('staff', 'display_name')) {
-		return $title;
+		return trim($title);
 	}
 
 	if($title = Registry::prop('staff_division', 'title')) {

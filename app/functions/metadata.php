@@ -11,7 +11,7 @@ function site_description() {
 	// return is_staff() ? page_rating() . ' - ' . staff_description() : (base_url() == current_url()) ? 'site.home_description' : Config::meta('description');
 
 	if (is_staff()) {
-		return page_rating() . ' - ' . staff_description();
+		return  (page_rating() ? page_rating() . ' - ' : '') . staff_description();
 	} elseif(base_url() == current_url()) {
 		return 'site.home_description';
 	} else {
