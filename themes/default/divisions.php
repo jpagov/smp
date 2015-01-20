@@ -63,7 +63,7 @@
 
 			<div class="col-md-12">
 				<a class="org-list bg-primary" href="<?php echo base_url('division/pkppap'); ?>" data-hotkey="g p">
-					<img class="img-responsive" src="/smp/content/avatar/default-male.jpg" alt="Kosong">
+					<img class="img-responsive" src="/smp/content/avatar/jalil.marzuki.jpg" alt="Dato' Jalil Marzuki">
 					<h2 class="title"><?php echo __('site.pkppap'); ?></h2>
 				</a>
 			</div>
@@ -109,7 +109,7 @@
 
 			<div class="col-md-12">
 				<a class="org-list bg-primary" href="<?php echo base_url('division/pkppao'); ?>" data-hotkey="g o">
-					<img class="img-responsive" src="/smp/content/avatar/default-male.jpg" alt="<?php echo __('site.pkppao'); ?>">
+					<img class="img-responsive" src="/smp/content/avatar/ahmadjailani.jpg" alt="Dr. Ahmad Jailani Muhamed Yunus">
 					<h2 class="title"><?php echo __('site.pkppao'); ?></h2>
 				</a>
 			</div>

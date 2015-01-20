@@ -1,6 +1,13 @@
 <?php
 
 return array(
+
+	//pagination
+	'first' => 'Pertama',
+	'next' => 'Seterus',
+	'prev' => 'Sebelum',
+	'last' => 'Akhir',
+
 	//admin
 	'administrator' => 'Pentadbir',
 	'sign_in_explain' => 'Daftar masuk pentadbir',

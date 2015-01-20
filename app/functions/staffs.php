@@ -23,7 +23,7 @@ function staffs() {
 	return $result;
 }
 
-function staffs_next($text = 'Next &rarr;', $default = '') {
+function staffs_next($text = 'Next &rarr;', $default = '', $canonical = false) {
 	$total = Registry::get('total_staffs');
 	$offset = Registry::get('page_offset');
 	$per_page = Config::meta('staffs_per_page');
@@ -37,10 +37,10 @@ function staffs_next($text = 'Next &rarr;', $default = '') {
 
 	$pagination = new Paginator(array(), $total, $offset, $per_page, $url);
 
-	return $pagination->prev_link($text, $default);
+	return $pagination->prev_link($text, $default, $canonical);
 }
 
-function staffs_prev($text = '&larr; Previous', $default = '') {
+function staffs_canonical_next() {
 	$total = Registry::get('total_staffs');
 	$offset = Registry::get('page_offset');
 	$per_page = Config::meta('staffs_per_page');
@@ -54,7 +54,41 @@ function staffs_prev($text = '&larr; Previous', $default = '') {
 
 	$pagination = new Paginator(array(), $total, $offset, $per_page, $url);
 
-	return $pagination->next_link($text, $default);
+	return $pagination->prev_link(null, '');
+}
+
+function staffs_prev($text = '&larr; Previous', $default = '', $canonical = false) {
+	$total = Registry::get('total_staffs');
+	$offset = Registry::get('page_offset');
+	$per_page = Config::meta('staffs_per_page');
+	$page = Registry::get('page');
+	$url = base_url($page->slug . '/');
+
+	// filter division
+	if($division = Registry::get('staff_division')) {
+		$url = base_url('division/' . $division->slug . '/');
+	}
+
+	$pagination = new Paginator(array(), $total, $offset, $per_page, $url);
+
+	return $pagination->next_link($text, $default, $canonical);
+}
+
+function staffs_canonical_prev() {
+	$total = Registry::get('total_staffs');
+	$offset = Registry::get('page_offset');
+	$per_page = Config::meta('staffs_per_page');
+	$page = Registry::get('page');
+	$url = base_url($page->slug . '/');
+
+	// filter division
+	if($division = Registry::get('staff_division')) {
+		$url = base_url('division/' . $division->slug . '/');
+	}
+
+	$pagination = new Paginator(array(), $total, $offset, $per_page, $url);
+
+	return $pagination->next_link(null, '');
 }
 
 function staffs_paging() {

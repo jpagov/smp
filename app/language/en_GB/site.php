@@ -3,6 +3,10 @@
 return array(
 
 	//admin
+	'first' => 'First',
+	'next' => 'Next',
+	'prev' => 'Prev',
+	'last' => 'Last',
 	'administrator' => 'Administrator',
 	'sign_in_explain' => 'Admin sign in',
 

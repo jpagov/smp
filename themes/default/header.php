@@ -15,6 +15,13 @@
   <link rel="alternate" hreflang="<?php echo (language_current_id() == 'ms_MY') ? 'en-GB' : 'ms-MY'; ?>" href="<?php echo current_url(); ?>?lang=<?php echo (language_current_id() == 'ms_MY') ? 'en-GB' : 'ms-MY'; ?>">
   <?php theme_include('social'); ?>
 
+  <?php if(has_pagination()): ?>
+  <?php if(Uri::current() == '/'): ?>
+  <?php echo staffs_paging()->canonical_base_link(); ?>
+<?php else: ?>
+  <?php echo staffs_paging()->canonical_base_link() . staffs_paging()->prev_link() . staffs_paging()->next_link(); ?>
+	<?php endif; ?>
+	<?php endif; ?>
   <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>

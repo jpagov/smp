@@ -6,6 +6,7 @@ class Paginator {
 	public $count = 0;
 	public $page = 1;
 	public $perpage = 10;
+	public $range = 5;
 
 	public $first = 'First';
 	public $last = 'Last';
@@ -13,6 +14,10 @@ class Paginator {
 	public $prev = 'Previous';
 
 	public function __construct($results, $count, $page, $perpage, $url) {
+		$this->first = __('site.first');
+		$this->last = __('site.last');
+		$this->next = __('site.next');
+		$this->prev = __('site.prev');
 		$this->results = $results;
 		$this->count = $count;
 		$this->page = $page;
@@ -20,23 +25,17 @@ class Paginator {
 		$this->url = rtrim($url, '/');
 	}
 
-	public function next_link($ajax = false, $text = null, $default = '') {
+	public function base_link() {
+		return $this->page;
+	}
+
+	public function canonical_base_link() {
+		return '<link rel="canonical" href="' . $this->url . '">' ;
+	}
+
+	public function next_link($text = null, $default = '', $canonical = true) {
 
 		if(is_null($text)) $text = $this->next;
-
-		$qs = '';
-
-		if ($ajax and is_admin()) {
-
-			parse_str($_SERVER['QUERY_STRING']);
-
-			if (isset($type) or isset($division)) {
-				$type = filter_var($type, FILTER_SANITIZE_SPECIAL_CHARS);
-				$division = filter_var($division, FILTER_SANITIZE_SPECIAL_CHARS);
-
-				$qs .= '?' . http_build_query(array('type' => $type, 'division' => $division));
-			}
-		}
 
 		$pages = ceil($this->count / $this->perpage);
 
@@ -45,19 +44,23 @@ class Paginator {
 
 			$url = $this->url . '/' . $page;
 
-			return '<a href="' . $url . '">' . $text . ' <span aria-hidden="true">&rarr;</span></a>';
+			return ($canonical)
+				? '<link rel="next" href="' . $url . '">'
+				: '<a href="' . $url . '">' . $text . ' <span aria-hidden="true">&rarr;</span></a>';
 		}
 
 		return $default;
 	}
 
-	public function prev_link($text = null, $default = '') {
+	public function prev_link($text = null, $default = '', $canonical = true) {
 		if(is_null($text)) $text = $this->prev;
 
 		if($this->page > 1) {
 			$page = $this->page - 1;
 
-			return '<a href="' . $this->url . '/' . $page . '"><span aria-hidden="true">&larr;</span>' . $text . '</a>';
+			return PHP_EOL . ($canonical)
+				? '<link rel="prev" href="' . $this->url . '/' . $page . '">'
+				: '<a href="' . $this->url . '/' . $page . '"><span aria-hidden="true">&larr;</span>' . $text . '</a>';
 		}
 
 		return $default;
@@ -67,7 +70,6 @@ class Paginator {
 		$html = '';
 
 		$pages = ceil($this->count / $this->perpage);
-		$range = 4;
 
 		if($pages > 1) {
 
@@ -78,7 +80,7 @@ class Paginator {
 					<li><a href="' . $this->url . '/' . $page . '">' . $this->prev . '</a></li>';
 			}
 
-			for($i = $this->page - $range; $i < $this->page + $range; $i++) {
+			for($i = $this->page - $this->range; $i < $this->page + $this->range; $i++) {
 				if($i < 0) continue;
 
 				$page = $i + 1;
