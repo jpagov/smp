@@ -32,7 +32,7 @@ class Date {
 	public static function sitemap($date) {
 		$date = new DateTime($date, new DateTimeZone('GMT'));
 
-		return $date->format('Y-m-d\TH:i:sP');
+		return $date->format('c');
 	}
 
 }
