@@ -60,6 +60,9 @@ return array(
 	'avatar' => 'Avatar',
 	'avatar_explain' => 'Click on image to upload file',
 
+	'management' => 'Pengurusan Atasan',
+	'management_explain' => '',
+
 	'male' => 'Lelaki',
 	'female' => 'Perempuan',
 

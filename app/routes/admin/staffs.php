@@ -218,6 +218,7 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 			'position',
 			'description',
 			'division',
+			'management',
 			'account'
 		));
 
@@ -225,6 +226,7 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 		$password_reset = false;
 
 		$input['account'] = $input['account'] ?: 0;
+		$input['management'] = $input['management'] ?: 0;
 
 		if(empty($input['slug'])) {
 		  $input['slug'] = $input['display_name'];
@@ -413,6 +415,7 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 			'job_title',
 			'position',
 			'description',
+			'management',
 			'division',
 			'branch',
 			'sector',
@@ -425,6 +428,7 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 		}
 
 		$input['account'] = $input['account'] ?: 0;
+		$input['management'] = $input['management'] ?: 0;
 
 		$input['slug'] = slug($input['slug']);
 

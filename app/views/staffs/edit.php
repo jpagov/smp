@@ -177,6 +177,17 @@
 								<legend>Position</legend>
 
 								<div class="form-group">
+									<div class="col-sm-offset-2 col-sm-10">
+										<div class="checkbox">
+											<label>
+												<?php echo Form::checkbox('management', 1, Input::previous('management', $staff->management), array('id' => 'management')); ?> <?php echo __('staffs.management'); ?>
+											</label>
+										</div>
+										<span class="help-block"><?php echo __('staffs.management_explain'); ?></span>
+									</div>
+								</div>
+
+								<div class="form-group">
 										<label class="col-sm-2 control-label" for="report_to"><?php echo __('staffs.report_to'); ?></label>
 										<div class="col-sm-8 reportto-prefetch">
 											<?php echo Form::text('report_to', Input::previous('report_to', $staff->report_to), array('class' => 'form-control typeahead col-sm-12', 'id' => 'report_to')); ?>
