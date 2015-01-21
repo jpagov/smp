@@ -218,7 +218,7 @@ function staff_hierarchy_url($id = null, $type = 'division') {
 		foreach (array('division', 'branch', 'sector', 'unit') as $org) {
 			if ($hierarchy->$org) {
 				if ($h = $org::find($hierarchy->$org)) {
-					$url[$org] = $h->slug;
+					$url[$org] = $org . ':' . $h->slug;
 				}
 			}
 		}
@@ -228,7 +228,7 @@ function staff_hierarchy_url($id = null, $type = 'division') {
 
 	//$str = substr($str, 0, strpos($str, $prefix)+strlen($prefix));
 
-	return implode('/', array_splice($url, 0, array_search($type,array_keys($url))+1));
+	return implode('+', array_splice($url, 0, array_search($type,array_keys($url))+1));
 }
 
 

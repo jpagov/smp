@@ -97,7 +97,7 @@
 
             <li>
 
-            	<a class="view btn-lg" data-container="body" data-content="<?php echo _e('site.sign_in_explain'); ?>" href="<?php echo base_url('admin'); ?>"><span class="glyphicon glyphicon-log-in"></span>&nbsp; <span class="hidden-lg hidden-md"><?php echo _e('site.administrator'); ?></span></a>
+            	<a rel="nofollow" class="view btn-lg" data-container="body" data-content="<?php echo _e('site.sign_in_explain'); ?>" href="<?php echo base_url('admin'); ?>"><span class="glyphicon glyphicon-log-in"></span>&nbsp; <span class="hidden-lg hidden-md"><?php echo _e('site.administrator'); ?></span></a>
 
             </li>
 

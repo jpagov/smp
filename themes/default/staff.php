@@ -47,7 +47,7 @@
 					<dl class="dl-horizontal">
 							<?php foreach($organization as $key => $org): ?>
 							<dt><?php echo _e('site.' . $key); ?></dt>
-							<dd><a href="<?php echo base_url('division/' . $org['url']); ?>"><?php echo $org['title']; ?></a></dd>
+							<dd><a rel="nofollow" href="<?php echo base_url('search?term=' . $org['url']); ?>"><?php echo $org['title']; ?></a></dd>
 							<?php endforeach; ?>
 					</dl>
 					<?php endif; ?>
