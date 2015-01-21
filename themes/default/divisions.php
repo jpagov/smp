@@ -63,7 +63,7 @@
 
 			<div class="col-md-12">
 				<a class="org-list bg-primary" href="<?php echo base_url('division/pkppap'); ?>" data-hotkey="g p">
-					<img class="img-responsive" src="/smp/content/avatar/jalil.jpg" alt="Dato' Jalil Marzuki">
+					<img class="img-responsive" src="/smp/content/avatar/default-male.jpg" alt="Dato' Jalil Marzuki">
 					<h2 class="title"><?php echo __('site.pkppap'); ?></h2>
 				</a>
 			</div>
