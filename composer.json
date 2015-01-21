@@ -12,7 +12,13 @@
         "phpmailer/phpmailer": "dev-master"
 	},
 	"require-dev": {
-        "hariadi/siapa": "dev-master"
+        "hariadi/siapa": "dev-master",
+        "symfony/console": "3.0.*@dev"
+	},
+	"autoload": {
+		"psr-4": {
+			"": "src/"
+		}
 	},
 	"extra": {
 		"installer-paths": {

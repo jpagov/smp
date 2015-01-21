@@ -1,0 +1,63 @@
+#!/usr/bin/env php
+<?php
+
+define('DS', DIRECTORY_SEPARATOR);
+define('ENV', getenv('APP_ENV'));
+define('VERSION', '0.9.2');
+
+define('PATH', dirname(__FILE__) . DS);
+define('APP', PATH . 'app' . DS);
+define('SYS', PATH . 'system' . DS);
+define('EXT', '.php');
+
+// set to run indefinitely if needed
+set_time_limit(0);
+
+/* Optional. It’s better to do it in the php.ini file */
+date_default_timezone_set('Asia/Kuala_Lumpur');
+
+require PATH . 'system/helpers' . EXT;
+require PATH . 'system/error' . EXT;
+require PATH . 'system/arr' . EXT;
+require PATH . 'system/config' . EXT;
+require PATH . 'system/autoloader' . EXT;
+
+/**
+ * Register the autoloader
+ */
+spl_autoload_register(array('System\\Autoloader', 'load'));
+
+// set the base path to search
+System\Autoloader::directory(PATH);
+
+// map application aliases to autoloader so we dont
+// have to fully specify the class namespaces each time.
+System\Autoloader::$aliases = (array) System\Config::aliases();
+
+/*
+ * Set autoload directories to include your app models and libraries
+ */
+Autoloader::directory(array(
+	APP . 'models',
+	APP . 'libraries'
+));
+
+/**
+ * Helpers
+ */
+require APP . 'helpers' . EXT;
+
+
+// include the composer autoloader
+require_once __DIR__ . '/vendor/autoload.php';
+
+// import the Symfony Console Application
+use Symfony\Component\Console\Application;
+
+$hierarchy = new \Smp\Console\Command\HierarchyCommand();
+$slug = new \Smp\Console\Command\SlugCommand();
+
+$app = new Application('SMP CLI Tools', '0.1.0');
+$app->add($hierarchy);
+$app->add($slug);
+$app->run();
