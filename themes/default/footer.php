@@ -155,10 +155,6 @@
 			}
 			tour.restart();
 		});
-
-		console.log(typeof screen.width);
-
-
 	</script>
 	<?php endif; ?>
   </body>
