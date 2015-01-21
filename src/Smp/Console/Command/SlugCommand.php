@@ -27,8 +27,17 @@ EOT
 
 	protected function execute(InputInterface $input, OutputInterface $output) {
 
-		$valid = array('staff', 'division', 'branch', 'sector', 'unit');
-		$default = array('branch');
+		$valid = ['staff', 'division', 'branch', 'sector', 'unit'];
+
+		$alias = [
+			'staff' => 'staff',
+			'division' => 'bahagian',
+			'branch' => 'cawangan',
+			'sector' => 'sektor',
+			'unit' => 'unit',
+		];
+
+		$default = ['branch'];
 
 		if ($type = $input->getArgument('type') && in_array($type, $valid)) {
 			$default = $type;
@@ -54,7 +63,7 @@ EOT
 
 			foreach ($branchs as $branch) {
 
-				if (str_word_count($branch->title) > 2) {
+				if (str_word_count($branch->title) > 2 && (strpos(strtolower($branch->title), $alias[$item]) >= 0)) {
 
 					\Slug::where('title', 'like', $branch->title)
 						->where('type', '=', 'branch')->delete();
@@ -63,7 +72,7 @@ EOT
 						'realid' => $branch->id,
 						'title' => $branch->title,
 						'slug' => $branch->slug,
-						'type' => 'branch',
+						'type' => $item,
 					));
 
 					$model::update($branch->id, array(
