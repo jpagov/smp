@@ -101,7 +101,11 @@
 
             </li>
 
-            <li><button type="button" class="btn btn-warning navbar-btn" id="smp-tour" data-tour data-hotkey="t"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> <?php echo _e('tour.site_tour'); ?></button></li>
+            <li>
+
+            <a rel="nofollow" class="view btn-lg btn-warning" href="<?php echo base_url('panduan'); ?>" data-tour data-hotkey="t"><span class="glyphicon glyphicon-info-sign"></span>&nbsp; <span class="hidden-lg hidden-md"><?php echo _e('tour.site_tour'); ?></span></a>
+
+            </li>
 
           </ul>
 

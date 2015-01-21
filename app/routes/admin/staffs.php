@@ -106,6 +106,13 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 		$vars['messages'] = Notify::read();
 		$vars['token'] = Csrf::token();
 		$vars['staff'] = Staff::find($id);
+
+		if (!$vars['staff'] = Staff::find($id)) {
+			Notify::warning(__('staffs.not_found'));
+
+			return Response::redirect('admin/staffs');
+		}
+
 		$vars['fields'] = Extend::fields('staff', $id);
 		$division_roles = array();
 		$vars['tab'] = 'profile'; //default tab to open

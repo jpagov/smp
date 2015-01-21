@@ -139,4 +139,15 @@ function is_valid_callback($subject) {
         && ! in_array(mb_strtolower($subject, 'UTF-8'), $reserved_words);
 }
 
+function get_staff($id) {
+
+	if (!$staff = Staff::where('id', '=', $id)->fetch(array('id', 'display_name', 'email'))) {
+		return;
+	}
+
+	$staff->avatar = ($staff->email) ? preg_replace( "/^([^@]+)(@.*)$/", "$1", $staff->email) : 'default-male';
+
+	return $staff;
+}
+
 

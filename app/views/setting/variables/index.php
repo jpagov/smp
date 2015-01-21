@@ -10,7 +10,6 @@
   <div class="col col-lg-9">
 
 	<section class="wrap">
-		<?php echo $messages; ?>
 
 		<?php if(count($variables)): ?>
 
