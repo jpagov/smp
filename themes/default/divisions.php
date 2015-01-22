@@ -126,7 +126,7 @@
 
 				<div class="col-xs-6">
 					<div class="org org-success text-center pkkpa-child">
-						<a href="<?php echo base_url('division/bps'); ?>" class="org-link" data-hotkey="b p s"><p><span class="visible-xs-block">BPS</span> <span class="hidden-xs"><?php echo __('site.bps'); ?></span></p></a>
+						<a href="<?php echo base_url('division/bpps'); ?>" class="org-link" data-hotkey="b p s"><p><span class="visible-xs-block">BPS</span> <span class="hidden-xs"><?php echo __('site.bps'); ?></span></p></a>
 					</div>
 				</div>
 
