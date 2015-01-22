@@ -11,7 +11,6 @@
   <?php if (site_meta('tour')) : ?>
   <link href="<?php echo revision('css/bootstrap-tour.min.css'); ?>" rel="stylesheet">
 	<?php endif; ?>
-  <link rel="alternate" type="application/rss+xml" title="RSS" href="<?php echo rss_url(); ?>">
   <link rel="alternate" hreflang="<?php echo (language_current_id() == 'ms_MY') ? 'en-GB' : 'ms-MY'; ?>" href="<?php echo current_url(); ?>?lang=<?php echo (language_current_id() == 'ms_MY') ? 'en-GB' : 'ms-MY'; ?>">
   <?php theme_include('social'); ?>
 

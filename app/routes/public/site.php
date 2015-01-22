@@ -517,42 +517,6 @@ Route::get('(:all)', function($uri) use($staffs_page) {
 
 });
 
-
-/**
-* Rss feed
-*/
-Route::get(array('rss', 'feeds/rss'), function() {
-
-	$rss = new Rss(Config::meta('sitename'), Config::meta('description'), Uri::full(''), Config::app('language'));
-
-	$query = Staff::where('status', '=', 'active')->sort(Base::table('staffs.grade'), 'desc')->take(25);
-
-	foreach($query->get() as $staff) {
-		$rss->item(
-		$staff->title,
-		Uri::full(Registry::get('staffs_page')->slug . '/' . $staff->slug),
-		$staff->description,
-		$staff->created
-		);
-	}
-
-	$xml = $rss->output();
-
-	return Response::create($xml, 200, array('content-type' => 'application/xml'));
-});
-
-/**
-* Json feed
-*/
-Route::get('feeds/json', function() {
-	$json = Json::encode(array(
-	'meta' => Config::get('meta'),
-	'staffs' => Staff::where('status', '=', 'active')->sort(Base::table('staffs.created'), 'desc')->take(25)->get()
-	));
-
-	return Response::create($json, 200, array('content-type' => 'application/json'));
-});
-
 /**
 * Keyboard Shortcut Helper
 */
