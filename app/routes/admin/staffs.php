@@ -1,6 +1,6 @@
 <?php
 
-Route::collection(array('before' => 'auth,csrf'), function() {
+Route::collection(array('before' => 'auth,csrf', 'after' => 'log'), function() {
 
 	/*
 		List staffs
@@ -231,7 +231,7 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 
 		$account_enable = false;
 		$password_reset = false;
-
+		$input['display_name'] = trim($input['display_name']);
 		$input['management'] = $input['management'] ?: 0;
 
 		if(empty($input['slug'])) {
@@ -433,6 +433,7 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 		  $input['slug'] = $input['display_name'];
 		}
 
+		$input['display_name'] = trim($input['display_name']);
 		$input['management'] = $input['management'] ?: 0;
 
 		$input['slug'] = slug($input['slug']);

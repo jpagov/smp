@@ -35,6 +35,20 @@ Route::action('csrf', function() {
 	}
 });
 
+Route::action('log', function($response) {
+
+	$action = array(
+		'who' => Auth::user()->id,
+		'ip' => get_client_ip(),
+		'method' => Request::method(),
+		'what' => Uri::current(),
+		'when' => Date::mysql('now'),
+	);
+
+	Log::create($action);
+
+});
+
 /**
  * Admin routing
  */
