@@ -57,7 +57,7 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 			->take(5)->get(array('id', 'email', 'telephone', 'display_name', 'role', 'created'));
 
 		$vars['updates'] = Staff::sort('updated', 'desc')
-			->take(5)->get(array('email', 'telephone', 'display_name', 'role', 'updated'));
+			->take(5)->get(array('id', 'email', 'telephone', 'display_name', 'role', 'updated'));
 
 		$vars['status'] = 'all';
 		$vars['trends'] = array(

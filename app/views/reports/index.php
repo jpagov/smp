@@ -47,7 +47,7 @@
 					<h3><a href="<?php echo Uri::to('admin/reports/category'); ?>">Category</a></h3>
 					<?php if (count($categories)) : ?>
 					<?php foreach($categories as $category): ?>
-					<li class="list-group-item"><span class="badge alert-success"><?php echo custom_number_format($category->stats); ?></span><?php echo $category->trend; ?></li>
+					<li class="list-group-item"><span class="badge alert-success"><?php echo custom_number_format($category->stats); ?></span><?php echo __($category->trend); ?></li>
 					<?php endforeach; ?>
 					<?php else: ?>
 					<p>No data</p>
@@ -112,7 +112,7 @@
 					<h3><a href="<?php echo Uri::to('admin/reports/category'); ?>">Category</a></h3>
 					<?php if (count($top_categories)) : ?>
 					<?php foreach($top_categories as $category): ?>
-					<li class="list-group-item"><span class="badge alert-success"><?php echo custom_number_format($category->stats); ?></span><?php echo $category->trend; ?></li>
+					<li class="list-group-item"><span class="badge alert-success"><?php echo custom_number_format($category->stats); ?></span><?php echo __($category->trend); ?></li>
 					<?php endforeach; ?>
 					<?php else: ?>
 					<p>No data</p>
@@ -177,7 +177,7 @@
 
 					<div class="list-group">
 				    <?php foreach($updates as $update): ?>
-					<a href="#" class="list-group-item <?php echo admin_color($update->role); ?>">
+					<a href="<?php echo Uri::to('admin/staffs/edit/' . $update->id); ?>" class="list-group-item <?php echo admin_color($update->role); ?>">
 				        <h4 class="list-group-item-heading"><?php echo $update->display_name; ?></h4>
 				        <p class="list-group-item-text"><?php echo Date::format($update->updated); ?> <code><?php echo $update->email; ?></code> <code><?php echo $update->telephone; ?></code></p>
 				    </a>
