@@ -159,7 +159,7 @@ function staff_message() {
 	return Registry::prop('staff', 'message') ? true : false;
 }
 
-function staff_hierarchy($id = null, $array = false) {
+function staff_hierarchy($id = null, $array = false, $breadcrumb = false) {
 
 	$id = ($id) ?: staff_id();
 
@@ -189,7 +189,7 @@ function staff_hierarchy($id = null, $array = false) {
 							'id' => $h->id,
 							'title' => $h->title,
 							'slug' => $h->slug,
-							'url' => staff_hierarchy_url($id, $item),
+							'url' => staff_hierarchy_url($id, $item, $breadcrumb),
 						);
 					} else {
 						$org[] = $h->title;
@@ -208,7 +208,7 @@ function staff_hierarchy($id = null, $array = false) {
 	return false;
 }
 
-function staff_hierarchy_url($id = null, $type = 'division') {
+function staff_hierarchy_url($id = null, $type = 'division', $breadcrumb = false) {
 
 	$id = ($id) ?: staff_id();
 
@@ -218,7 +218,7 @@ function staff_hierarchy_url($id = null, $type = 'division') {
 		foreach (array('division', 'branch', 'sector', 'unit') as $org) {
 			if ($hierarchy->$org) {
 				if ($h = $org::find($hierarchy->$org)) {
-					$url[$org] = $org . ':' . $h->slug;
+					$url[$org] = ($breadcrumb) ? $h->slug : $org . ':' . $h->slug;
 				}
 			}
 		}
@@ -227,8 +227,8 @@ function staff_hierarchy_url($id = null, $type = 'division') {
 
 
 	//$str = substr($str, 0, strpos($str, $prefix)+strlen($prefix));
-
-	return implode('+', array_splice($url, 0, array_search($type,array_keys($url))+1));
+	$separator = ($breadcrumb) ? '/' : '+';
+	return implode($separator, array_splice($url, 0, array_search($type,array_keys($url))+1));
 }
 
 

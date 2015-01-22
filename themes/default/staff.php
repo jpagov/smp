@@ -10,49 +10,45 @@
 
 		<div class="row">
 
-				<div class="col-xs-9 col-md-push-3">
-						<h1 itemprop="name"><em itemprop="honorificPrefix"><?php echo staff_salutation(); ?></em> <span itemprop="givenName"><?php echo staff_first_name(); ?></span> <span itemprop="familyName"><?php echo staff_last_name(); ?></span> <a class="permalink" aria-hidden="true" href="<?php echo base_url(staff_slug()); ?>" title="Permalink to this staff profile page" itemprop="url"><small class="glyphicon glyphicon-link"></small></a></h1>
-						<p class="lead" itemprop="jobTitle"><?php echo staff_job_title(); ?></p>
+			<div class="col-sm-3 staff-avatar">
+				<img src="<?php echo asset('content/avatar/' . staff_custom_field('avatar')); ?>" class="img-responsive img-thumbnail" itemprop="image">
 
-						<?php if (staff_description()) : ?><p class="well well-sm bg-warning" itemprop="description"><?php echo staff_description(); ?></p><?php endif; ?>
+				<div class="star-rating">
+					<p><abbr title="<?php echo _e('site.profile_hit', number_format(staff_view())); ?>" itemprop="interactionCount" content="UserPageVisits:<?php echo number_format(staff_view()); ?>"><small><?php echo custom_number_format(staff_view()); ?></small></abbr></p>
 				</div>
+			</div>
 
-				<div class="col-xs-3 col-md-pull-9 staff-avatar">
-						<img src="<?php echo asset('content/avatar/' . staff_custom_field('avatar')); ?>" class="img-responsive img-thumbnail" itemprop="image">
+			<div class="col-sm-9 ">
+				<h1 itemprop="name"><em itemprop="honorificPrefix"><?php echo staff_salutation(); ?></em> <span itemprop="givenName"><?php echo staff_first_name(); ?></span> <span itemprop="familyName"><?php echo staff_last_name(); ?></span> <a class="permalink" aria-hidden="true" href="<?php echo base_url(staff_slug()); ?>" title="Permalink to this staff profile page" itemprop="url"><small class="glyphicon glyphicon-link"></small></a></h1>
+				<p class="lead" itemprop="jobTitle"><?php echo staff_job_title(); ?></p>
 
-						 <div class="star-rating">
-								<p> <abbr title="<?php echo _e('site.profile_hit', number_format(staff_view())); ?>" itemprop="interactionCount" content="UserPageVisits:<?php echo number_format(staff_view()); ?>"><small><?php echo custom_number_format(staff_view()); ?></small></abbr></p>
-						</div>
-
-
-
-				</div>
+				<?php if (staff_description()) : ?><p class="well well-sm bg-warning" itemprop="description"><?php echo staff_description(); ?></p><?php endif; ?>
+			</div>
 
 		</div>
-
 		<div class="row">
 
-				<div class="col-md-12 col-md-offset-2 meta">
-						<dl class="dl-horizontal">
+			<div class="col-md-12 col-md-offset-2 meta">
+				<dl class="dl-horizontal">
 
-							<dt><?php echo _e('site.designation'); ?></dt>
-							<dd><i class="glyphicon glyphicon-barcode"></i> <?php echo staff_position(); ?></dd>
-							<dt><?php echo _e('site.email'); ?></dt>
-							<dd><i class="glyphicon glyphicon-comment"></i> <a itemprop="email" href="mailto:<?php echo staff_email_encode(); ?>" id="staff-message" data-toggle="modal" data-target="#messageModal" data-staff="<?php echo staff_name(); ?>" data-staff-id="<?php echo staff_id(); ?>"><?php echo staff_email_image(); ?></a></dd>
-							<dt><?php echo _e('site.telephone'); ?></dt>
-							<dd><i class="glyphicon glyphicon-earphone"></i> <?php echo staff_telephone_link(); ?></dd>
-					</dl>
+					<dt><?php echo _e('site.designation'); ?></dt>
+					<dd><i class="glyphicon glyphicon-barcode"></i> <?php echo staff_position(); ?></dd>
+					<dt><?php echo _e('site.email'); ?></dt>
+					<dd><i class="glyphicon glyphicon-comment"></i> <a itemprop="email" href="mailto:<?php echo staff_email_encode(); ?>" id="staff-message" data-toggle="modal" data-target="#messageModal" data-staff="<?php echo staff_name(); ?>" data-staff-id="<?php echo staff_id(); ?>"><?php echo staff_email_image(); ?></a></dd>
+					<dt><?php echo _e('site.telephone'); ?></dt>
+					<dd><i class="glyphicon glyphicon-earphone"></i> <?php echo staff_telephone_link(); ?></dd>
+				</dl>
 
-					<?php if ($organization = staff_hierarchy(staff_id(), true)) : ?>
-					<dl class="dl-horizontal">
-							<?php foreach($organization as $key => $org): ?>
-							<dt><?php echo _e('site.' . $key); ?></dt>
-							<dd><a rel="nofollow" href="<?php echo base_url('search?term=' . $org['url']); ?>"><?php echo $org['title']; ?></a></dd>
-							<?php endforeach; ?>
-					</dl>
-					<?php endif; ?>
+				<?php if ($organization = staff_hierarchy(staff_id(), true)) : ?>
+				<dl class="dl-horizontal">
+						<?php foreach($organization as $key => $org): ?>
+						<dt><?php echo _e('site.' . $key); ?></dt>
+						<dd><a rel="nofollow" href="<?php echo base_url('search?term=' . $org['url']); ?>"><?php echo $org['title']; ?></a></dd>
+						<?php endforeach; ?>
+				</dl>
+				<?php endif; ?>
 
-			</div>
+		</div>
 	</div>
 
 </section>

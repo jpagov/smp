@@ -488,7 +488,7 @@ Route::get('(:all)', function($uri) use($staffs_page) {
 			return Response::create(new Template('404'), 404);
 		}
 
-		if($breadcrumbs = staff_hierarchy($staff->id, true)) {
+		if($breadcrumbs = staff_hierarchy($staff->id, true, true)) {
 			Registry::set('breadcrumb', $breadcrumbs);
 		}
 

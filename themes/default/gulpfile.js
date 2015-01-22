@@ -189,7 +189,7 @@ gulp.task('critical:home', function(){
 
 gulp.task('critical:staff', function(){
 	penthouseAsync({
-		url : 'https://sistem.jpa.gov/smp/hariadi-hinta/',
+		url : 'https://sistem.jpa.gov.my/smp/hariadi-hinta/',
 		css : dirs.src + '/css/app.css',
 		height: 600
 	}).then( function (criticalCSS){
@@ -216,6 +216,7 @@ gulp.task('build', function (done) {
 		'clean',
 		'bundle',
 		'tour',
+		'critical',
 		'rev',
 		'copy',
 	done);
