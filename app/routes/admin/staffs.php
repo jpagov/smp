@@ -232,7 +232,6 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 		$account_enable = false;
 		$password_reset = false;
 
-		$input['account'] = $input['account'] ?: 0;
 		$input['management'] = $input['management'] ?: 0;
 
 		if(empty($input['slug'])) {
@@ -434,7 +433,6 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 		  $input['slug'] = $input['display_name'];
 		}
 
-		$input['account'] = $input['account'] ?: 0;
 		$input['management'] = $input['management'] ?: 0;
 
 		$input['slug'] = slug($input['slug']);
