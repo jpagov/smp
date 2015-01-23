@@ -70,12 +70,11 @@
 			<a class="hidden" aria-hidden="true" href="<?php echo base_url(staff_slug()); ?>" itemprop="url"><img src="<?php echo asset('content/avatar/' . staff_custom_field('avatar')); ?>" class="hidden" itemprop="photo"></a>
 
 			<div class="rating" itemprop="rating" itemscope itemtype="http://data-vocabulary.org/Rating">
-				<span class="rating-num" itemprop="average"><?php echo rating_average(); ?></span> / <span itemprop="bestRating">5</span>
+				<span class="rating-num" itemprop="average"><?php echo rating_average(); ?></span> / <span itemprop="best">5</span>
 				<div id="star-rating" data-score="<?php echo rating_average(); ?>" data-staff="<?php echo staff_id(); ?>"></div>
 				<div class="rating-users">
 					<i class="glyphicon glyphicon-user"></i> <span id="rating-count" itemprop="ratingCount"><?php echo total_ratings(); ?></span> <span itemprop="votes" class="hidden"><?php echo total_ratings(); ?></span>
 				</div>
-				<meta itemprop="worstRating" content="1">
 			</div>
 
 			<div class="clearfix visible-xs-block"></div>
