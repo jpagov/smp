@@ -62,18 +62,21 @@
 	<?php endif; ?>
 
 	<?php if(show_rating() && ratings_open()): ?>
-	<div class="well">
+	<div class="well" itemscope itemtype="http://schema.org/Organization">
 
-		<div class="rating-inner" itemscope itemtype="http://data-vocabulary.org/Review-aggregate">
+		<meta itemprop="url" content="<?php echo full_url(staff_slug()); ?>">
+    	<meta itemprop="logo" content="<?php echo full_url('content/avatar/' . staff_custom_field('avatar')); ?>">
+
+		<div class="rating-inner" itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
 
 			<span itemprop="itemreviewed" class="hidden"><?php echo staff_name(); ?></span>
-			<a class="hidden" aria-hidden="true" href="<?php echo base_url(staff_slug()); ?>" itemprop="url"><img src="<?php echo asset('content/avatar/' . staff_custom_field('avatar')); ?>" class="hidden" itemprop="photo"></a>
 
-			<div class="rating" itemprop="rating" itemscope itemtype="http://data-vocabulary.org/Rating">
-				<span class="rating-num" itemprop="average"><?php echo rating_average(); ?></span> / <span itemprop="best">5</span>
+			<div class="rating">
+				<span class="rating-num" itemprop="ratingValue"><?php echo rating_average(); ?></span> / <span itemprop="bestRating">5</span>
+				<meta itemprop="worstRating" content="1">
 				<div id="star-rating" data-score="<?php echo rating_average(); ?>" data-staff="<?php echo staff_id(); ?>"></div>
 				<div class="rating-users">
-					<i class="glyphicon glyphicon-user"></i> <span id="rating-count" itemprop="ratingCount"><?php echo total_ratings(); ?></span> <span itemprop="votes" class="hidden"><?php echo total_ratings(); ?></span>
+					<i class="glyphicon glyphicon-user"></i> <span id="rating-count" itemprop="ratingCount"><?php echo total_ratings(); ?></span>
 				</div>
 			</div>
 

@@ -11,15 +11,8 @@
 		"postalCode": "62510",
 		"streetAddress": "Blok C1-C2, Kompleks C, Pusat Pentadbiran Kerajaan Persekutuan"
 	},
-	"openingHours": "Mo,Tu,We,Th,Fr,Sa,Su 08:00-17:00",
 	"email": "komunikasi(at)jpa.gov.my",
 	"faxNumber": "+603-88891968",
-	"member": [
-		{
-			"@type": "GovernmentOrganization",
-			"name": "Prime Minister Office",
-		}
-	],
 	"contactPoint" : [
 		{
 			"@type" : "ContactPoint",
@@ -50,6 +43,11 @@
 		}
 	],
 	"foundingDate": "12 August 1934",
-	"foundingLocation": "Malayan Establishment Office"
+	"foundingLocation": "Malayan Establishment Office",
+	"sameAs" : [
+		"https://www.facebook.com/myjpa",
+		"https://www.twitter.com/jpagov",
+		"https://plus.google.com/+jpagovmy"
+	]
 }
 </script>
