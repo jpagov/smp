@@ -17,4 +17,12 @@ return array(
   'trending' => 'Trending <small>1 %s</small>',
   'no_keyword' => 'No keyword (empty)',
 
+  // log
+  'log' => 'Log',
+  'log_who' => 'Siapa',
+  'log_when' => 'Bila',
+  'log_what' => 'Apa',
+  'log_method' => 'Method',
+  'log_ip' => 'Alamat IP',
+
 );

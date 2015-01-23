@@ -61,7 +61,7 @@ class Email extends PHPMailer {
 				'message' => __('email.message'),
 				'message_value' => $email['message'],
 				'thanks' => __('email.thanks'),
-				'footer' => __('site.title'),
+				'footer' => __('site.title') . ' ' . __('site.footer'),
 
 			));
 		}
