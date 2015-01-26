@@ -22,6 +22,13 @@ function theme_url($file = '') {
 	return asset($base . ltrim($file, '/'));
 }
 
+function theme_full_url($file = '') {
+	$theme_folder = Config::meta('theme');
+	$base = 'themes' . '/' . $theme_folder . '/' . 'assets/';
+
+	return full_url($base . ltrim($file, '/'));
+}
+
 function theme_asset($file = '') {
 	return theme_url('assets/' . ltrim($file, '/'));
 }
@@ -41,6 +48,10 @@ function asset_url($extra = '') {
 
 function current_url() {
 	return base_url(Uri::current());
+}
+
+function full_current_url() {
+	return full_url(Uri::current());
 }
 
 function rss_url() {
@@ -149,5 +160,4 @@ function get_staff($id) {
 
 	return $staff;
 }
-
 

@@ -5,19 +5,19 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title><?php if (base_url() == current_url()) : echo site_name(); else : echo page_title('Page can’t be found'); ?> - <?php echo site_name(); ?><?php endif; ?> ☏</title>
-  <meta name="description" content="<?php echo _e(site_description()); ?>">
+  <meta name="description" content="<?php echo site_description(); ?>">
   <?php theme_include('critical'); ?>
   <link rel="stylesheet" href="<?php echo revision('css/app.min.css'); ?>">
   <?php if (site_meta('tour')) : ?>
   <link href="<?php echo revision('css/bootstrap-tour.min.css'); ?>" rel="stylesheet">
 	<?php endif; ?>
-  <link rel="alternate" hreflang="<?php echo (language_current_id() == 'ms_MY') ? 'en-GB' : 'ms-MY'; ?>" href="<?php echo current_url(); ?>?lang=<?php echo (language_current_id() == 'ms_MY') ? 'en-GB' : 'ms-MY'; ?>">
+  <link rel="alternate" hreflang="<?php echo (language_current_id() == 'ms_MY') ? 'en-GB' : 'ms-MY'; ?>" href="<?php echo full_current_url(); ?>?lang=<?php echo (language_current_id() == 'ms_MY') ? 'en-GB' : 'ms-MY'; ?>">
   <?php theme_include('social'); ?>
 
   <?php if(has_pagination()): ?>
   <?php if(Uri::current() == '/'): ?>
   <?php echo staffs_paging()->canonical_base_link(); ?>
-<?php else: ?>
+	<?php else: ?>
   <?php echo staffs_paging()->canonical_base_link() . staffs_paging()->prev_link() . staffs_paging()->next_link(); ?>
 	<?php endif; ?>
 	<?php endif; ?>
@@ -35,7 +35,7 @@
       <script><?php echo staff_js(); ?></script>
     <?php endif; ?>
   </head>
-  <body class="<?php echo trim(body_class()); ?>" itemscope itemtype="http://schema.org/GovernmentOrganization">
+  <body class="<?php echo trim(body_class()); ?>" itemscope itemtype="https://schema.org/GovernmentOrganization">
     <div class="navbar navbar-inverse" role="navigation">
       <div class="container">
         <div class="navbar-header">
@@ -108,9 +108,9 @@
 
           </ul>
 
-        <div class="col-sm-6" itemscope itemtype="http://schema.org/WebSite">
+        <div class="col-sm-6" itemscope itemtype="https://schema.org/WebSite">
         <meta itemprop="url" content="<?php echo full_url(); ?>">
-          <form class="navbar-form" role="search" action="<?php echo search_url(); ?>" id="search" itemprop="potentialAction" itemscope itemtype="http://schema.org/SearchAction">
+          <form class="navbar-form" role="search" action="<?php echo search_url(); ?>" id="search" itemprop="potentialAction" itemscope itemtype="https://schema.org/SearchAction">
             <div class="input-group col-xs-12">
             <meta itemprop="target" content="<?php echo full_url(); ?>search/term={term}">
               <input itemprop="query-input" type="text" class="form-control search-query typeahead" id="search-term" name="term" placeholder="<?php echo _e('site.search_placeholder'); ?>" value="<?php echo search_term(); ?>" data-hotkey="s">
@@ -132,7 +132,7 @@
     </div><!-- //.navbar -->
 
     <div class="container">
-      <div class="row"<?php if (is_staff()) echo ' itemscope itemtype="http://schema.org/Person"'; ?>>
+      <div class="row"<?php if (is_staff()) echo ' itemscope itemtype="https://schema.org/Person"'; ?>>
 
         <?php if (Uri::current() == '/') : ?>
     		<?php theme_include(is_category() ? 'categories' : 'divisions'); ?>

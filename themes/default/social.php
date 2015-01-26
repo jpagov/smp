@@ -20,6 +20,6 @@
 
 	<meta name="twitter:image:src" content="<?php echo full_url('content/avatar/' . staff_custom_field('avatar')); ?>"><?php else : ?>
 	<meta property="og:type" content="website">
-	<meta property="og:image" content="<?php echo theme_asset('img/jpa-101pxx119px.png'); ?>">
+	<meta property="og:image" content="<?php echo theme_full_url('img/jpa-101pxx119px.png'); ?>">
 	<meta property="og:site_name" content="<?php echo site_name(); ?>">
 	<meta property="og:description" content="<?php echo _e(site_description()); ?>"><?php endif; ?>

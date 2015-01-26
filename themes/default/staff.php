@@ -83,12 +83,12 @@
 	<?php endif; ?>
 
 	<?php if(show_rating() && ratings_open()): ?>
-	<div class="well" itemscope itemtype="http://schema.org/Organization">
+	<div class="well" itemscope itemtype="https://schema.org/Organization">
 
 		<meta itemprop="url" content="<?php echo full_url(staff_slug()); ?>">
     	<meta itemprop="logo" content="<?php echo full_url('content/avatar/' . staff_custom_field('avatar')); ?>">
 
-		<div class="rating-inner" itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
+		<div class="rating-inner" itemprop="aggregateRating" itemscope itemtype="https://schema.org/AggregateRating">
 
 			<span itemprop="itemreviewed" class="hidden"><?php echo staff_name(); ?></span>
 

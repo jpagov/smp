@@ -423,6 +423,7 @@ Route::get(array(
 
 	// setup breadcrumb
 	foreach ($hierarchies as $key => $value) {
+		Registry::set($key, $value);
 		$breadcrumbs[$key] = $value->id;
 	}
 
@@ -543,8 +544,9 @@ Route::get('test', function() {
 	$page->slug = 'test';
 
 	Registry::set('page', $page);
-	Csrf::reset();
-	return mt_rand(0, 100);
+	//Csrf::reset();
+	echo ctype_digit(str_replace('-', '', '03 8885 4258'));
+	dd(tel_ascii());
 });
 
 /*

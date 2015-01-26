@@ -35,7 +35,7 @@ return array(
   	// site
 	'toggle_navigation' => 'Toggle Navigation',
 	'title' => 'Staff Directory',
-	'description' => '⓿❸-❽⓿⓿⓿-❽⓿⓿⓿ Staff Directory Of Public Service Department Of Malaysia',
+	'description' => 'Staff Directory Of Public Service Department Of Malaysia',
 	'footer' => 'Public Service Department Of Malaysia',
 	'home_description' => 'Contact us regarding Pension, Gratuity, Medical Facilities, Scholarship / Loan, Basics, Career Development, Salary / Allowances, Psychological Services / Counseling / Consultation',
 

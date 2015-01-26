@@ -1,6 +1,6 @@
 <script type="application/ld+json">
 {
-	"@context": "http://schema.org",
+	"@context": "https://schema.org",
 	"@type": "GovernmentOrganization",
 	"name": "Public Service Department Of Malaysia",
 	"url" : "https://sistem.jpa.gov.my/smp/",

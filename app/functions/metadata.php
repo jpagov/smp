@@ -13,9 +13,15 @@ function site_description() {
 	if (is_staff()) {
 		return  (page_rating() ? page_rating() . ' - ' : '') . staff_description();
 	} elseif(base_url() == current_url()) {
-		return 'site.home_description';
+		return  __('site.home_description');
 	} else {
-		return Config::meta('description');
+		$desc = unit_description()
+			?: sector_description()
+			?: branch_description()
+			?: division_description()
+			?: Config::meta('description');
+
+		return trim(tel_ascii() . ' ' . __($desc));
 	}
 }
 

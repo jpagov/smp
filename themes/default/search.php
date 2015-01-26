@@ -4,7 +4,7 @@
 
 <?php echo search_form_notifications(); ?>
 
-<section class="col-sm-9 staffs-search-result" itemtype="http://schema.org/ItemList">
+<section class="col-sm-9 staffs-search-result" itemtype="https://schema.org/ItemList">
 
 	<?php if(has_search_results()): ?>
 
@@ -13,7 +13,7 @@
 		<div id="staff-search-result">
 			<?php $i = 0; while(search_results()): $i++; ?>
 
-			<article class="search-result row" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/Person">
+			<article class="search-result row" itemprop="itemListElement" itemscope="" itemtype="https://schema.org/Person">
 
 				<div class="col-xs-12 col-sm-2">
 					<img src="<?php echo asset('content/avatar/' . staff_custom_field('avatar')); ?>" class="img-responsive img-thumbnail" alt="<?php echo staff_name(); ?>" itemprop="image" >

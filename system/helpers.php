@@ -100,3 +100,26 @@ function get_client_ip() {
         $ipaddress = 'UNKNOWN';
     return $ipaddress;
 }
+
+function is_tel($tel) {
+
+	$tel = str_replace(array('-', ' '), array('', ''), $tel);
+	return ctype_digit($tel);
+}
+
+function tel_ascii() {
+
+	$num = division_telephone() ?: staff_telephone() ?: '03-8000-8000';
+
+	if (!is_tel($num)) {
+		return;
+	}
+
+	$telephone = [];
+
+	foreach (str_split($num) as $tel) {
+		$telephone[] = Config::ascii('number.black.' . $tel);
+	}
+
+	return implode($telephone);
+}
