@@ -33,6 +33,10 @@
 						<li><a itemprop="sameAs" aria-label="Google Plus" href="https://plus.google.com/+<?php echo $gplus; ?>"><i class="icon-gplus" aria-hidden="true"></i></a> </li>
 						<?php endif; ?>
 
+						<?php if ($github = staff_custom_field('github')) : ?>
+						<li><a itemprop="sameAs" aria-label="GitHub" href="https://github.com/<?php echo $github; ?>"><i class="icon-github-circled" aria-hidden="true"></i></a> </li>
+						<?php endif; ?>
+
 					</ul>
 
 					<?php endif; ?>
