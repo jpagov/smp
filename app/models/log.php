@@ -47,7 +47,7 @@ class Log extends Base {
 				Base::table('staffs.role as role'),
 			));
 
-		return new Paginator($results, $count, $page, $perpage, Uri::to('logs'));
+		return new Paginator($results, $count, $page, $perpage, Uri::to('admin/reports/log'));
 	}
 
 }
