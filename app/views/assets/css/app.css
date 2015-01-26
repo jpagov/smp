@@ -224,7 +224,7 @@ form.navbar-form:before {
 .meta .dl-horizontal dd i { padding-right: 2px; }
 */
 @media(min-width:767px) {
-    .star-rating {
+    .staff-extend {
         text-align: center
     }
 

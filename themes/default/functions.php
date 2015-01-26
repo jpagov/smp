@@ -75,16 +75,16 @@ function show_message() {
 	return setting('show_message');
 }
 
+function show_social() {
+	return setting('show_social');
+}
+
 function twitter_account() {
 	return site_meta('twitter', 'hariadi');
 }
 
 function twitter_url() {
 	return 'https://twitter.com/' . twitter_account();
-}
-
-function total_articles() {
-	return Post::where(Base::table('posts.status'), '=', 'published')->count();
 }
 
 function total_staff() {

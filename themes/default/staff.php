@@ -10,11 +10,33 @@
 
 		<div class="row">
 
-			<div class="col-sm-3 staff-avatar">
+			<div class="col-sm-3 staff-avatar text-center">
 				<img src="<?php echo asset('content/avatar/' . staff_custom_field('avatar')); ?>" class="img-responsive img-thumbnail" itemprop="image">
 
-				<div class="star-rating">
+				<div class="staff-extend">
+
 					<p><abbr title="<?php echo _e('site.profile_hit', number_format(staff_view())); ?>" itemprop="interactionCount" content="UserPageVisits:<?php echo number_format(staff_view()); ?>"><small><?php echo custom_number_format(staff_view()); ?></small></abbr></p>
+
+					<?php if(show_social()): ?>
+`
+					<ul class="social-icons icon-flat list-inline">
+
+						<?php if ($twitter = staff_custom_field('twitter')) : ?>
+						<li><a itemprop="sameAs" aria-label="Twitter" href="https://twitter.com/<?php echo $twitter; ?>"><i class="icon-twitter" aria-hidden="true"></i></a> </li>
+						<?php endif; ?>
+
+						<?php if ($fb = staff_custom_field('facebook')) : ?>
+						<li><a itemprop="sameAs" aria-label="Facebook" href="https://www.facebook.com/<?php echo $fb; ?>"><i class="icon-facebook" aria-hidden="true"></i></a> </li>
+						<?php endif; ?>
+
+						<?php if ($gplus = staff_custom_field('gplus')) : ?>
+						<li><a itemprop="sameAs" aria-label="Google Plus" href="https://plus.google.com/+<?php echo $gplus; ?>"><i class="icon-gplus" aria-hidden="true"></i></a> </li>
+						<?php endif; ?>
+
+					</ul>
+
+					<?php endif; ?>
+
 				</div>
 			</div>
 
@@ -23,12 +45,7 @@
 				<p class="lead" itemprop="jobTitle"><?php echo staff_job_title(); ?></p>
 
 				<?php if (staff_description()) : ?><p class="well well-sm bg-warning" itemprop="description"><?php echo staff_description(); ?></p><?php endif; ?>
-			</div>
 
-		</div>
-		<div class="row">
-
-			<div class="col-md-12 col-md-offset-2 meta">
 				<dl class="dl-horizontal">
 
 					<dt><?php echo _e('site.designation'); ?></dt>

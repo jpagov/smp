@@ -90,6 +90,7 @@ gulp.task('tour:js', function () {
 gulp.task('bundle:css', function () {
 	return gulp.src([
 			dirs.src + '/css/bootstrap.css',
+			dirs.src + '/css/fontello.css',
 			dirs.src + '/css/app.css',
 		])
 		.pipe(plugins.concat('app.css'))
@@ -206,12 +207,26 @@ gulp.task('tour', [
 	'tour:js'
 ]);
 
+gulp.task('watch', function() {
+    gulp.watch(dirs.src + '/js/*.js', ['build']);
+    gulp.watch(dirs.src + '/css/*.css', ['build']);
+});
 
 // ---------------------------------------------------------------------
 // | Main tasks                                                        |
 // ---------------------------------------------------------------------
 
 gulp.task('build', function (done) {
+	runSequence(
+		'clean',
+		'bundle',
+		'tour',
+		'rev',
+		'copy',
+	done);
+});
+
+gulp.task('buildc', function (done) {
 	runSequence(
 		'clean',
 		'bundle',

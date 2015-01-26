@@ -224,14 +224,9 @@ form.navbar-form:before {
 .meta .dl-horizontal dd i { padding-right: 2px; }
 */
 @media(min-width:767px) {
-    .star-rating {
+    .staff-extend {
         text-align: center
     }
-
-    article.search-result > div > img {
-			width: 64px;
-			height: 72px;
-		}
 
 		.org-list > h2 {
 			font-size: 24px;
@@ -245,14 +240,6 @@ form.navbar-form:before {
 }
 
 @media (max-width: 480px) {
-	article.search-result > div > img,
-  .staff-avatar > img {
-		display: block;
-	  margin-left: auto;
-	  margin-right: auto;
-	  width: 160px;
-		height: 160px;
-	}
 
 	.org-list > h2 {
 		font-size: 14px;
@@ -688,3 +675,34 @@ kbd{
 	border-radius:3px;
 	box-shadow:inset 0 -1px 0 #bbb;
 }
+
+.social-icons li > a > i[class*='icon-'],.social-icons li > a > span[class*='icon-'] {
+	font-size: 1.8em;
+}
+
+.social-icons li > a {
+	color: #FFF;
+}
+
+.social-icons li > a:hover, .social-icons li > a:active {
+	-webkit-box-shadow: 1px 1px 3px #333;
+	-moz-box-shadow: 1px 1px 3px #333;
+	box-shadow: 1px 1px 3px #333;
+}
+
+.social-icons.icon-zoom li > a:hover, .social-icons.icon-zoom li > a:active {
+ 	-webkit-transform: scale(1.1);
+	-moz-transform: scale(1.1);
+	-ms-transform: scale(1.1);
+	-o-transform: scale(1.1);
+	transform: scale(1.1);
+}
+
+.social-icons .icon-facebook,.social-icons .icon-facebook-square{background-color:#3C599F;}
+.social-icons .icon-github,.social-icons .icon-github-alt,.social-icons .icon-github-square{background-color:#070709;}
+.social-icons .icon-gplus,.social-icons .icon-google-plus,.social-icons .icon-google-plus-square{background-color:#CF3D2E;}
+.social-icons .icon-html5{background-color:#E54D26;}
+.social-icons .icon-instagram{background-color:#A1755C;}
+.social-icons .icon-stack-overflow{background-color:#FF7300;}
+.social-icons .icon-twitter,.social-icons .icon-twitter-square{background-color:#32CCFE;}
+.social-icons .icon-youtube,.social-icons .icon-youtube-play,.social-icons .icon-youtube-square{background-color:#C52F30;}

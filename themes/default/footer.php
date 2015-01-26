@@ -6,7 +6,7 @@
 
     <div id="helper-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="helpModalLabel" aria-hidden="true"></div>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <script>window.jQuery || document.write('<script src="<?php echo theme_asset('js/jquery-1.11.2.min.js'); ?>"><\/script>')</script>
     <script src="<?php echo revision('js/main.min.js'); ?>"></script>
     <?php if (site_meta('tour')) : ?><script src="<?php echo revision('js/bootstrap-tour.min.js'); ?>"></script><?php endif; ?>
@@ -22,14 +22,7 @@
 
 	<?php if (Uri::current() == '/') : ?><?php theme_include('schema'); ?><?php endif; ?>
 	<script>
-	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-	  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-	  ga('create', 'UA-974231-8', 'auto');
-	  ga('send', 'pageview');
-
+	  !function(S,i,s,t,e,m){S.GoogleAnalyticsObject=s;S[s]||(S[s]=function(){(S[s].q=S[s].q||[]).push(arguments)});S[s].l=+new Date;e=i.createElement(t);m=i.getElementsByTagName(t)[0];e.src='//www.google-analytics.com/analytics.js';m.parentNode.insertBefore(e,m)}(window,document,'ga','script');ga('create','UA-974231-8','auto');ga('send','pageview');
 	</script>
 	<?php if (site_meta('tour')) : ?>
 	<script type="text/javascript">

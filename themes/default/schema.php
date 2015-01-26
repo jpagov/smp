@@ -3,7 +3,7 @@
 	"@context": "http://schema.org",
 	"@type": "GovernmentOrganization",
 	"name": "Public Service Department Of Malaysia",
-	"url" : "https://www.jpa.gov.my",
+	"url" : "https://sistem.jpa.gov.my/smp/",
 	"logo" : "https://sistem.jpa.gov.my/smp/app/views/assets/img/jpa-101pxx119px.png",
 	"address": {
 		"@type": "PostalAddress",
