@@ -24,7 +24,7 @@
 				<?php if($logs->count): ?>
 					<?php foreach($logs->results as $log): ?>
 					<tr class="status draft">
-						<td><?php echo $log->when; ?></td>
+						<td><?php echo Date::format($log->when, 'D, d M Y H:i:s'); ?></td>
 						<td><?php echo $log->name; ?></td>
 						<td><?php echo $log->ip; ?></td>
 						<td><?php echo $log->method; ?></td>
