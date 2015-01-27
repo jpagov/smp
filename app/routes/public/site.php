@@ -172,7 +172,7 @@ Route::get(array('division/(:any)', 'division/(:any)/(:num)'), function($divisio
 		return Response::create(new Template('404'), 404);
 	}
 
-	Staff::update($division->id, array('view' => $division->view +1));
+	Division::update($division->id, array('view' => $division->view +1));
 
 	Stats::log($division->id, 'division');
 
