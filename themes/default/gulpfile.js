@@ -34,6 +34,7 @@ gulp.task('clean', function (done) {
 gulp.task('copy', [
 	'copy:js',
 	'copy:css'
+	'copy:img'
 ]);
 
 gulp.task('bundle', [
@@ -51,6 +52,11 @@ gulp.task('copy:css', function () {
 			dirs.src + '/css/*min-*.css',
 			dirs.src + '/css/*critical.css',
 		]).pipe(gulp.dest(dirs.assets + '/css/'));
+});
+
+gulp.task('copy:img', function () {
+	return gulp.src(dirs.src + '/img/*.{jpg,png,svg}')
+			   .pipe(gulp.dest(dirs.assets + '/img/'));
 });
 
 gulp.task('lint:js', function () {
