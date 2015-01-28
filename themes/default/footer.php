@@ -22,7 +22,7 @@
 
 	<?php if (Uri::current() == '/') : ?><?php theme_include('schema'); ?><?php endif; ?>
 	<script>
-	  !function(S,i,s,t,e,m){S.GoogleAnalyticsObject=s;S[s]||(S[s]=function(){(S[s].q=S[s].q||[]).push(arguments)});S[s].l=+new Date;e=i.createElement(t);m=i.getElementsByTagName(t)[0];e.src='//www.google-analytics.com/analytics.js';m.parentNode.insertBefore(e,m)}(window,document,'ga','script');ga('create','UA-974231-8','auto');ga('send','pageview');
+	  !function(S,i,s,t,e,m){S.GoogleAnalyticsObject=s;S[s]||(S[s]=function(){(S[s].q=S[s].q||[]).push(arguments)});S[s].l=+new Date;e=i.createElement(t);m=i.getElementsByTagName(t)[0];e.src='//www.google-analytics.com/analytics.js';m.parentNode.insertBefore(e,m)}(window,document,'ga','script');ga('create','UA-974231-8','auto');ga('require', 'displayfeatures');ga('send','pageview');
 	</script>
 	<?php if (site_meta('tour')) : ?>
 	<script type="text/javascript">
