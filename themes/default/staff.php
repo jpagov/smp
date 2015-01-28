@@ -18,7 +18,7 @@
 					<p><abbr title="<?php echo _e('site.profile_hit', number_format(staff_view())); ?>" itemprop="interactionCount" content="UserPageVisits:<?php echo number_format(staff_view()); ?>"><small><?php echo custom_number_format(staff_view()); ?></small></abbr></p>
 
 					<?php if(show_social()): ?>
-`
+
 					<ul class="social-icons icon-flat list-inline">
 
 						<?php if ($twitter = staff_custom_field('twitter')) : ?>
