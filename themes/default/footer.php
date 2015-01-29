@@ -137,9 +137,11 @@
 			}]
 		}).init();
 
+		<?php if (Uri::current() == '/') : ?>
 		if (screen.width > 480) {
-			tour.start(<?php echo site_meta('tour_force'); ?>);
+    		tour.start(<?php echo site_meta('tour_force'); ?>);
 		}
+		<?php endif; ?>
 
 		$(document).on('click', '[data-tour]', function(e) {
 			e.preventDefault();
