@@ -239,7 +239,7 @@ Route::collection(array('before' => 'auth,csrf', 'after' => 'log'), function() {
 
 		$input['slug'] = slug($input['slug']);
 
-		if ($account = Input::get('account') {
+		if ($account = Input::get('account')) {
 		  $account_enable = true;
 		  $input['account'] = $account;
 		  $input['role'] = Input::get('role');
@@ -440,7 +440,7 @@ Route::collection(array('before' => 'auth,csrf', 'after' => 'log'), function() {
 		$account_enable = false;
 		$password_reset = false;
 
-		if ($account = Input::get('account') {
+		if ($account = Input::get('account')) {
 			$input['account'] = $account;
 		  $account_enable = true;
 		} else {
