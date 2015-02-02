@@ -226,7 +226,6 @@ Route::collection(array('before' => 'auth,csrf', 'after' => 'log'), function() {
 			'description',
 			'division',
 			'management',
-			'account'
 		));
 
 		$account_enable = false;
@@ -240,8 +239,9 @@ Route::collection(array('before' => 'auth,csrf', 'after' => 'log'), function() {
 
 		$input['slug'] = slug($input['slug']);
 
-		if ($input['account']) {
+		if ($account = Input::get('account')
 		  $account_enable = true;
+		  $input['account'] = $account;
 		  $input['role'] = Input::get('role');
 		} else {
 		  $input['role'] = 'staff';
@@ -426,7 +426,6 @@ Route::collection(array('before' => 'auth,csrf', 'after' => 'log'), function() {
 			'branch',
 			'sector',
 			'unit',
-			'account'
 		));
 
 		if(empty($input['slug'])) {
@@ -441,10 +440,10 @@ Route::collection(array('before' => 'auth,csrf', 'after' => 'log'), function() {
 		$account_enable = false;
 		$password_reset = false;
 
-		if ($input['account']) {
+		if ($account = Input::get('account')
+			$input['account'] = $account;
 		  $account_enable = true;
 		} else {
-		  $input['account'] = 0;
 		  unset($input['role']);
 		}
 
