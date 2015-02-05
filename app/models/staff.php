@@ -32,6 +32,7 @@ class Staff extends Base {
 		'account',
 		'view',
 		'created',
+		'updated',
 		'rating',
 		'message'
 		)) {
@@ -170,6 +171,11 @@ class Staff extends Base {
 				} else {
 					$query->where_in('division', $division, 'AND ');
 				}
+			} else {
+				if (!ctype_digit($division)) {
+					$division = Division::slug($division)->id;
+				}
+				$query->where('division', '=', $division);
 			}
 			unset($filter['division']);
 		}
@@ -192,6 +198,11 @@ class Staff extends Base {
 					$query->where_in('branch', $branch, 'AND ');
 				}
 
+			} else {
+				if (!ctype_digit($branch)) {
+					$branch = Branch::slug($branch)->id;
+				}
+				$query->where('branch', '=', $branch);
 			}
 			unset($filter['branch']);
 		}
@@ -214,6 +225,11 @@ class Staff extends Base {
 					$query->where_in('sector', $sector, 'AND ');
 				}
 
+			} else {
+				if (!ctype_digit($sector)) {
+					$sector = Sector::slug($sector)->id;
+				}
+				$query->where('sector', '=', $sector);
 			}
 			unset($filter['sector']);
 		}
@@ -237,6 +253,11 @@ class Staff extends Base {
 					$query->where_in('unit', $unit, 'AND ');
 				}
 
+			} else {
+				if (!ctype_digit($unit)) {
+					$unit = Unit::slug($unit)->id;
+				}
+				$query->where('unit', '=', $unit);
 			}
 			unset($filter['unit']);
 		}

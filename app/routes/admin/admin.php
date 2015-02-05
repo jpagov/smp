@@ -81,6 +81,8 @@ Route::post('admin/login', array('before' => 'csrf', 'main' => function() {
 
 	$admin = Auth::user();
 
+
+
 	Staff::update($admin->id, array('last_visit' => Date::mysql('now')));
 
 	$redirect = 'admin/staffs';
@@ -90,9 +92,7 @@ Route::post('admin/login', array('before' => 'csrf', 'main' => function() {
         Session::erase('redirect');
     }
 
-    $division = (array_filter($admin->roles)) ? $admin->roles[0] : ($admin->division) ?: '';
-
-
+    $division = ($admin->division) ? $admin->division : (array_filter($admin->roles)) ?: '';
 
    	if ($div = Division::find($division)) {
    		$division = $div->slug;

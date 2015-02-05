@@ -49,7 +49,7 @@
                 <div class="form-group">
                     <div class="col-sm-offset-3 col-sm-9">
                     <?php echo Form::button(__('global.save'), array(
-                      'type' => 'submit', 
+                      'type' => 'submit',
                       'class' => 'btn btn-primary'
                     )); ?>
 
@@ -61,6 +61,26 @@
 
             </fieldset>
         </form>
+
+
+<div class="panel panel-default">
+	<div class="panel-heading">Staff who under unit</div>
+	<div class="list-group">
+		<?php foreach($staffs->results as $staff): ?>
+
+
+			<?php echo Html::link('admin/staffs/edit/' . $staff->id, $staff->display_name, array('class' => 'list-group-item'
+			)); ?>
+
+		<?php endforeach; ?>
+	</div>
+</div>
+  <?php if ($staffs->links()) : ?>
+		<ul class="pagination">
+			<?php echo $staffs->links(); ?>
+		</ul>
+	<?php endif; ?>
+
     </div>
 </div>
 

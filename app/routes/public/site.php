@@ -545,8 +545,9 @@ Route::get('test', function() {
 
 	Registry::set('page', $page);
 	//Csrf::reset();
-	echo ctype_digit(str_replace('-', '', '03 8885 4258'));
-	dd(tel_ascii());
+	//echo ctype_digit(str_replace('-', '', '03 8885 4258'));
+	//dd(tel_ascii());
+	return new Template('test');
 });
 
 /*

@@ -58,6 +58,10 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 		$vars['token'] = Csrf::token();
 		$vars['unit'] = Unit::find($id);
 
+		$vars['staffs'] = Staff::search(null, 1, Config::meta('staffs_per_page'), true, [
+			'unit' => $vars['unit']->id
+		]);
+
 		return View::create('units/edit', $vars)
 			->partial('header', 'partials/header')
 			->partial('footer', 'partials/footer');
