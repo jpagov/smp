@@ -317,10 +317,8 @@ Route::collection(array('before' => 'auth,csrf', 'after' => 'log'), function() {
 		}
 
 		// set default credential for non administrator
-		if ($user->role == 'editor') {
+		if ($user->role != 'administrator') {
 			$input['account'] = $staff->account;
-			$input['username'] = $staff->username;
-			$input['password'] = $staff->password;
 			$input['role'] = $staff->role;
 		}
 
@@ -446,7 +444,7 @@ Route::collection(array('before' => 'auth,csrf', 'after' => 'log'), function() {
 		$input['display_name'] = trim($input['display_name']);
 		$input['management'] = $input['management'] ?: 0;
 
-		$input['slug'] = slug($input['slug']);
+		$input['slug'] = slug(trim($input['slug']));
 
 		$account_enable = false;
 		$password_reset = false;

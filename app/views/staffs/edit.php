@@ -22,9 +22,7 @@
 					<?php if($fields): ?>
 						<li<?php echo is_class_active($tab, 'extend', true); ?>><a href="#extend" data-toggle="tab">Extend</a></li>
 					<?php endif; ?>
-					<?php if($admin->role == 'administrator'): ?>
 						<li<?php echo is_class_active($tab, 'admin', true); ?>><a href="#admin" data-toggle="tab">Administration</a></li>
-					<?php endif; ?>
 				</ul>
 
 				<div class="tab-content">
@@ -294,14 +292,29 @@
 							</div>
 						<?php endif; ?>
 
-						<?php if($admin->role == 'administrator'): ?>
+
 							<div class="tab-pane <?php echo is_class_active($tab, 'admin'); ?>" id="admin">
 
 								<div class="form-group">
 									<div class="col-sm-offset-2 col-sm-10">
 										<div class="checkbox">
 											<label>
-												<?php echo Form::checkbox('account', 1, Input::previous('account', $staff->account), array('id' => 'account')); ?> Enable account
+
+											<?php
+
+											$account = [];
+											$account['id'] = $accountName = 'account';
+
+											if ($admin->role != 'administrator') {
+												$accountName .= '_ro';
+												$account['id'] = $accountName;
+												$account['disabled'] = 'disabled';
+												echo Form::hidden('account', Input::previous('account', $staff->account));
+											}
+											?>
+
+
+												<?php echo Form::checkbox($accountName, 1, Input::previous('account', $staff->account), $account); ?> Enable account
 											</label>
 										</div>
 										<span class="help-block"><?php echo __('staffs.account_explain'); ?></span>
@@ -330,9 +343,20 @@
 								<div class="form-group">
 									<label class="col-sm-2 control-label" for="role"><?php echo __('staffs.role'); ?></label>
 									<div class="col-sm-4">
-										<?php $role = ($staff->role) ? $staff->role : 'staff'; ?>
-										<?php echo Form::select('role', $roles, Input::previous('role', $role), array('class' => 'form-control', 'id' => 'role',
-										)); ?>
+
+									<?php
+										$role = ($staff->role) ?: 'staff';
+										$roleAttr = [];
+										$roleAttr['id'] = 'role';
+										$rolename = 'role';
+										if ($admin->role != 'administrator') {
+											$rolename .= '_ro';
+											$roleAttr['id'] = $rolename;
+											$roleAttr['disabled'] = 'disabled';
+											echo Form::hidden('role', $role);
+										}
+									?>
+										<?php echo Form::select($rolename, $roles, Input::previous('role', $role), $roleAttr); ?>
 									</div>
 								</div>
 
@@ -346,8 +370,24 @@
 
 													<div class="checkbox" id="division-role">
 														<label for="division-role-<?php echo $key; ?>">
-															<?php $checked = (in_array($key, $division_roles)) ? true : false; ?>
-															<?php echo Form::checkbox('roles[]', $key, $checked, array('id' => 'division-role-' . $key)); ?> <?php echo $division; ?>
+															<?php
+															$checked = (in_array($key, $division_roles)) ? true : false;
+
+															$rolesAttr = [];
+															$roleAttr['id'] = 'division-role-' . $key;
+															$rolesName = 'roles';
+
+															if ($admin->role != 'administrator') {
+																$rolesName .= '_ro';
+																$rolesAttr['disabled'] = 'disabled';
+																if ($checked) {
+																	echo Form::hidden('roles[]', $key);
+																}
+
+															}
+															$rolesName .= '[]'
+															?>
+															<?php echo Form::checkbox($rolesName, $key, $checked, $rolesAttr); ?> <?php echo $division; ?>
 														</label>
 													</div>
 
@@ -362,7 +402,7 @@
 
 							</fieldset>
 						</div>
-					<?php endif; ?>
+
 
 				</div><!-- /tab-content -->
 			</div><!-- /tabs -->
