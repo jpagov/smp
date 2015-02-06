@@ -57,9 +57,11 @@ use Symfony\Component\Console\Application;
 $hierarchy = new \Smp\Console\Command\HierarchyCommand();
 $slug = new \Smp\Console\Command\SlugCommand();
 $rating = new \Smp\Console\Command\RatingCommand();
+$admin = new \Smp\Console\Command\AdminCommand();
 
 $app = new Application('SMP CLI Tools', '0.1.0');
 $app->add($hierarchy);
 $app->add($slug);
 $app->add($rating);
+$app->add($admin);
 $app->run();
