@@ -135,6 +135,15 @@
                         )); ?>
                       </div>
                     </div>
+
+                    <div class="form-group">
+											<label class="col-sm-2 control-label" for="slug"><?php echo __('staffs.slug'); ?></label>
+											<div class="col-sm-6">
+												<?php echo Form::text('slug', Input::previous('slug'), array('class' => 'form-control', 'id' => 'slug',
+												)); ?>
+											</div>
+										</div>
+
                   </div> <!-- /col-sm-offset-1 col-md-8 -->
 
                 </div>
@@ -145,6 +154,17 @@
           <div class="tab-pane" id="positions">
             <fieldset>
               <legend>Position</legend>
+
+              <div class="form-group">
+									<div class="col-sm-offset-2 col-sm-10">
+										<div class="checkbox">
+											<label>
+												<?php echo Form::checkbox('management', 1, Input::previous('management'), array('id' => 'management')); ?> <?php echo __('staffs.management'); ?>
+											</label>
+										</div>
+										<span class="help-block"><?php echo __('staffs.management_explain'); ?></span>
+									</div>
+								</div>
 
               <div class="form-group">
                 <label class="col-sm-2 control-label" for="report_to"><?php echo __('staffs.report_to'); ?></label>

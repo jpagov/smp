@@ -463,13 +463,14 @@ Route::collection(array('before' => 'auth,csrf', 'after' => 'log'), function() {
 		}
 
 		if ($account_enable) {
+
 			if($username = Input::get('username')) {
-			$input['username'] = $username;
+				$input['username'] = $username;
 			}
 
 			if($password = Input::get('password')) {
-			$input['password'] = $password;
-			$password_reset = true;
+				$input['password'] = $password;
+				$password_reset = true;
 			}
 		}
 
@@ -478,10 +479,10 @@ Route::collection(array('before' => 'auth,csrf', 'after' => 'log'), function() {
 		if ($account_enable) {
 
 			$validator->check('username')
-			->is_max(2, __('staffs.username_missing', 2));
+				->is_max(2, __('staffs.username_missing', 2));
 
 			$validator->check('password')
-			->is_max(6, __('staffs.password_too_short', 6));
+				->is_max(6, __('staffs.password_too_short', 6));
 
 			$input['password'] = Hash::make($input['password']);
 
