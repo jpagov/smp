@@ -22,7 +22,7 @@
 					<?php if($fields): ?>
 						<li<?php echo is_class_active($tab, 'extend', true); ?>><a href="#extend" data-toggle="tab">Extend</a></li>
 					<?php endif; ?>
-					<?php if(Auth::user()->role == 'administrator'): ?>
+					<?php if($admin->role == 'administrator'): ?>
 						<li<?php echo is_class_active($tab, 'admin', true); ?>><a href="#admin" data-toggle="tab">Administration</a></li>
 					<?php endif; ?>
 				</ul>
@@ -294,7 +294,7 @@
 							</div>
 						<?php endif; ?>
 
-						<?php if(Auth::user()->role == 'administrator'): ?>
+						<?php if($admin->role == 'administrator'): ?>
 							<div class="tab-pane <?php echo is_class_active($tab, 'admin'); ?>" id="admin">
 
 								<div class="form-group">

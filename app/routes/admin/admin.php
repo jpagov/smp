@@ -37,6 +37,10 @@ Route::action('csrf', function() {
 
 Route::action('log', function($response) {
 
+	if (!Auth::user()) {
+		return;
+	}
+
 	$action = array(
 		'who' => Auth::user()->id,
 		'ip' => get_client_ip(),

@@ -106,6 +106,7 @@ Route::collection(array('before' => 'auth,csrf', 'after' => 'log'), function() {
 		$vars['messages'] = Notify::read();
 		$vars['token'] = Csrf::token();
 		$vars['staff'] = Staff::find($id);
+		$vars['admin'] = Auth::user();
 
 		if (!$vars['staff'] = Staff::find($id)) {
 			Notify::warning(__('staffs.not_found'));
@@ -204,6 +205,8 @@ Route::collection(array('before' => 'auth,csrf', 'after' => 'log'), function() {
 
 			return Response::redirect('admin/staffs/edit/' . $user->id);
 		}
+
+		$staff = Staff::find($id);
 
 		$input = Input::get(array(
 			'message',
@@ -311,6 +314,14 @@ Route::collection(array('before' => 'auth,csrf', 'after' => 'log'), function() {
 				$input[$org] = $hierarchy[$org] = 0;
 			}
 
+		}
+
+		// set default credential for non administrator
+		if ($user->role == 'editor') {
+			$input['account'] = $staff->account;
+			$input['username'] = $staff->username;
+			$input['password'] = $staff->password;
+			$input['role'] = $staff->role;
 		}
 
 		$input['updated'] = Date::mysql('now');
