@@ -16,11 +16,11 @@ function staff_name() {
 }
 
 function staff_first_name() {
-    return Registry::prop('staff', 'first_name');
+	return Registry::prop('staff', 'first_name');
 }
 
 function staff_last_name() {
-    return Registry::prop('staff', 'last_name');
+	return Registry::prop('staff', 'last_name');
 }
 
 function staff_gender() {
@@ -40,8 +40,8 @@ function staff_email_encode() {
 }
 
 function staff_email_image() {
-    $img = Encode::email2image(Registry::prop('staff', 'email'));
-    return '<img src="' . $img . '" alt="'. staff_name() .'">';
+	$img = Encode::email2image(Registry::prop('staff', 'email'));
+	return '<img src="' . $img . '" alt="'. staff_name() .'">';
 }
 
 function staff_telephone() {
@@ -49,7 +49,11 @@ function staff_telephone() {
 }
 
 function staff_telephone_link() {
-  return '<a href="tel:+6'. str_replace(' ', '', staff_telephone()) .'">'. staff_telephone() . '</a> ';
+	$tel = staff_telephone();
+	if (strtolower($tel) == 'n/a' || $tel == '-') {
+		return $tel;
+	}
+	return '<a href="tel:+6'. str_replace(' ', '', staff_telephone()) .'">'. staff_telephone() . '</a> ';
 }
 
 function staff_slug() {
@@ -89,21 +93,21 @@ function staff_url() {
 }
 
 function staff_job_title() {
-  return Registry::prop('staff', 'job_title');
+	return Registry::prop('staff', 'job_title');
 }
 
 function staff_position() {
-  return Registry::prop('staff', 'position');
+	return Registry::prop('staff', 'position');
 }
 
 function staff_grade() {
-  return Registry::prop('staff', 'grade');
+	return Registry::prop('staff', 'grade');
 }
 
 function staff_description() {
 	$desc = trim(Registry::prop('staff', 'description', false));
 
-    return ($desc) ?: __('site.no_desc');
+	return ($desc) ?: __('site.no_desc');
 }
 
 
@@ -140,7 +144,7 @@ function staff_status() {
 }
 
 function staff_legacy_view() {
-    return Registry::prop('staff', 'view');
+	return Registry::prop('staff', 'view');
 }
 
 function staff_view() {
@@ -152,7 +156,7 @@ function staff_view() {
 		$stats += staff_legacy_view();
 	}
 
-    return $stats;
+	return $stats;
 }
 
 function staff_message() {
@@ -257,29 +261,29 @@ function staff_division_url() {
 }
 
 function staff_report_to_id() {
-    return Registry::prop('staff', 'report_to');
+	return Registry::prop('staff', 'report_to');
 }
 
 function staff_report_to() {
-    $query = Staff::where('id', '=', staff_report_to_id());
-    $count = $query->count();
+	$query = Staff::where('id', '=', staff_report_to_id());
+	$count = $query->count();
 
-    $results = $query->take(10)->skip((1 - 1) * 10)->get(array(Staff::fields()));
+	$results = $query->take(10)->skip((1 - 1) * 10)->get(array(Staff::fields()));
 
-    return new Paginator($results, $count, 1, 10, Uri::to('staffs'));
+	return new Paginator($results, $count, 1, 10, Uri::to('staffs'));
 }
 
 function staff_pa_id() {
-    return Registry::prop('staff', 'personal_assistant');
+	return Registry::prop('staff', 'personal_assistant');
 }
 
 function staff_pa() {
-    $query = Staff::where('id', '=', staff_pa_id());
-    $count = $query->count();
+	$query = Staff::where('id', '=', staff_pa_id());
+	$count = $query->count();
 
-    $results = $query->take(10)->skip((1 - 1) * 10)->get(array(Staff::fields()));
+	$results = $query->take(10)->skip((1 - 1) * 10)->get(array(Staff::fields()));
 
-    return new Paginator($results, $count, 1, 10, Uri::to('staffs'));
+	return new Paginator($results, $count, 1, 10, Uri::to('staffs'));
 }
 
 function staff_custom_field($key, $default = '') {
@@ -301,21 +305,21 @@ function staff_custom_field($key, $default = '') {
 
 function staff_relevancy($staff = null) {
 	$staff = $staff ?: staff_id();
-    return Stats::relevancy($staff);
+	return Stats::relevancy($staff);
 }
 
 function staff_relevancy_percent() {
-    return staff_relevancy()['relevancy'];
+	return staff_relevancy()['relevancy'];
 }
 
 function staff_relevancy_total() {
-    return staff_relevancy()['from'];
+	return staff_relevancy()['from'];
 }
 
 //function staff_rating($staff = null) {
-    ////return round(staff_relevancy_percent() / 20);
+	////return round(staff_relevancy_percent() / 20);
 
-//    $staff = $staff ?: staff_id();
+//	$staff = $staff ?: staff_id();
 //   return Staff::rating($staff);
 //}
 
@@ -324,7 +328,7 @@ function staff_total_ratings() {
 }
 
 function staff_rating() {
-    ////return round(staff_relevancy_percent() / 20);
+	////return round(staff_relevancy_percent() / 20);
 
 
 }
