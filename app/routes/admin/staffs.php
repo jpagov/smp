@@ -132,31 +132,31 @@ Route::collection(array('before' => 'auth,csrf', 'after' => 'log'), function() {
 		}
 
 		if ($report = Staff::find($vars['staff']->report_to)) {
-		  $vars['staff']->report_to = $report->display_name;
+			$vars['staff']->report_to = $report->display_name;
 		}
 
 		if ($pa = Staff::find($vars['staff']->personal_assistant)) {
-		  $vars['staff']->personal_assistant = $pa->display_name;
+			$vars['staff']->personal_assistant = $pa->display_name;
 		}
 
 		if ($branch = Branch::find($vars['staff']->branch)) {
-		  $vars['staff']->branch = $branch->title;
+			$vars['staff']->branch = $branch->title;
 		}
 
 		if ($sector = Sector::find($vars['staff']->sector)) {
-		  $vars['staff']->sector = $sector->title;
+			$vars['staff']->sector = $sector->title;
 		}
 
 		if ($unit = Unit::find($vars['staff']->unit)) {
-		  $vars['staff']->unit = $unit->title;
+			$vars['staff']->unit = $unit->title;
 		}
 
 		// get current staff division role
 		if ($staff_roles = Role::where('staff', '=', $id)->get(array('division'))) {
-		  foreach ($staff_roles as $div) {
+			foreach ($staff_roles as $div) {
 			$division_roles[] = $div->division;
 
-		  }
+			}
 		}
 
 		$vars['division_roles'] = $division_roles;
@@ -170,8 +170,8 @@ Route::collection(array('before' => 'auth,csrf', 'after' => 'log'), function() {
 		$vars['staff']->unit = $hierarchies->unit;
 		*/
 		foreach (array('Scheme', 'Division', 'Branch', 'Sector', 'Unit') as $hierarchy) {
-		  $vars[strtolower($hierarchy) . 's'] = $hierarchy::dropdown();
-		  $vars[strtolower($hierarchy) . 's'] = array_unshift_assoc($vars[strtolower($hierarchy) . 's'], '0', __('staffs.please_select'));
+			$vars[strtolower($hierarchy) . 's'] = $hierarchy::dropdown();
+			$vars[strtolower($hierarchy) . 's'] = array_unshift_assoc($vars[strtolower($hierarchy) . 's'], '0', __('staffs.please_select'));
 		}
 
 		$vars['genders'] = array(
@@ -237,28 +237,28 @@ Route::collection(array('before' => 'auth,csrf', 'after' => 'log'), function() {
 		$input['management'] = $input['management'] ?: 0;
 
 		if(empty($input['slug'])) {
-		  $input['slug'] = $input['display_name'];
+			$input['slug'] = $input['display_name'];
 		}
 
 		$input['slug'] = slug($input['slug']);
 
 		if ($account = Input::get('account')) {
-		  $account_enable = true;
-		  $input['account'] = $account;
-		  $input['role'] = Input::get('role');
+			$account_enable = true;
+			$input['account'] = $account;
+			$input['role'] = Input::get('role');
 		} else {
-		  $input['role'] = 'staff';
+			$input['role'] = 'staff';
 		}
 
 		if ($account_enable) {
-		  if($username = Input::get('username')) {
+			if($username = Input::get('username')) {
 			$input['username'] = $username;
-		  }
+			}
 
-		  if($password = Input::get('password')) {
+			if($password = Input::get('password')) {
 			$input['password'] = $password;
 			$password_reset = true;
-		  }
+			}
 		}
 
 		$validator = new Validator($input);
@@ -268,10 +268,12 @@ Route::collection(array('before' => 'auth,csrf', 'after' => 'log'), function() {
 		});
 
 		$validator->check('email')
-		  ->is_email(__('staffs.email_missing'));
+			->is_email(__('staffs.email_missing'));
 
-		$validator->check('telephone')
-		  ->is_max(4, __('staffs.telephone_missing', 4));
+		if (strtolower($input['telephone']) != 'n/a') {
+			$validator->check('telephone')
+				->is_max(4, __('staffs.telephone_missing', 4));
+		}
 
 		if($account_enable) {
 			$validator->check('username')
@@ -296,9 +298,9 @@ Route::collection(array('before' => 'auth,csrf', 'after' => 'log'), function() {
 		}
 
 		$hierarchy = array(
-		  'branch' => 0,
-		  'sector' => 0,
-		  'unit' => 0,
+			'branch' => 0,
+			'sector' => 0,
+			'unit' => 0,
 		);
 
 		$input['report_to'] = ($reportTo = Input::get('report_to')) ? Staff::setid($reportTo) : 0;
@@ -438,7 +440,7 @@ Route::collection(array('before' => 'auth,csrf', 'after' => 'log'), function() {
 		));
 
 		if(empty($input['slug'])) {
-		  $input['slug'] = $input['display_name'];
+			$input['slug'] = $input['display_name'];
 		}
 
 		$input['display_name'] = trim($input['display_name']);
@@ -451,37 +453,37 @@ Route::collection(array('before' => 'auth,csrf', 'after' => 'log'), function() {
 
 		if ($account = Input::get('account')) {
 			$input['account'] = $account;
-		  $account_enable = true;
+			$account_enable = true;
 		} else {
-		  unset($input['role']);
+			unset($input['role']);
 		}
 
 		if($role = Input::get('role')) {
-		  $input['role'] = $role;
+			$input['role'] = $role;
 		}
 
 		if ($account_enable) {
-		  if($username = Input::get('username')) {
+			if($username = Input::get('username')) {
 			$input['username'] = $username;
-		  }
+			}
 
-		  if($password = Input::get('password')) {
+			if($password = Input::get('password')) {
 			$input['password'] = $password;
 			$password_reset = true;
-		  }
+			}
 		}
 
 			$validator = new Validator($input);
 
 		if ($account_enable) {
 
-		  $validator->check('username')
+			$validator->check('username')
 			->is_max(2, __('staffs.username_missing', 2));
 
-		  $validator->check('password')
-		  ->is_max(6, __('staffs.password_too_short', 6));
+			$validator->check('password')
+			->is_max(6, __('staffs.password_too_short', 6));
 
-		  $input['password'] = Hash::make($input['password']);
+			$input['password'] = Hash::make($input['password']);
 
 		}
 
@@ -489,7 +491,7 @@ Route::collection(array('before' => 'auth,csrf', 'after' => 'log'), function() {
 				->is_email(__('staffs.email_missing'));
 
 		$validator->check('telephone')
-		  ->is_max(4, __('staffs.telephone_missing', 4));
+			->is_max(4, __('staffs.telephone_missing', 4));
 
 			if($errors = $validator->errors()) {
 				Input::flash();
@@ -500,28 +502,28 @@ Route::collection(array('before' => 'auth,csrf', 'after' => 'log'), function() {
 			}
 
 		$hierarchy = array(
-		  'branch' => 0,
-		  'sector' => 0,
-		  'unit' => 0,
+			'branch' => 0,
+			'sector' => 0,
+			'unit' => 0,
 		);
 
 		if ($reportTo = Input::get('report_to')) {
-		  $input['report_to'] = Staff::setid($reportTo);
+			$input['report_to'] = Staff::setid($reportTo);
 		}
 
 		if ($branch = Input::get('branch')) {
-		  $input['branch'] = Branch::id($branch);
-		  $hierarchy['branch'] = $input['branch'];
+			$input['branch'] = Branch::id($branch);
+			$hierarchy['branch'] = $input['branch'];
 		}
 
 		if ($sector = Input::get('sector')) {
-		  $input['sector'] = Sector::id($sector);
-		  $hierarchy['sector'] = $input['sector'];
+			$input['sector'] = Sector::id($sector);
+			$hierarchy['sector'] = $input['sector'];
 		}
 
 		if ($unit = Input::get('unit')) {
-		  $input['unit'] = Unit::id($unit);
-		  $hierarchy['unit'] = $input['unit'];
+			$input['unit'] = Unit::id($unit);
+			$hierarchy['unit'] = $input['unit'];
 		}
 
 		$input['created'] = Date::mysql('now');
@@ -531,24 +533,24 @@ Route::collection(array('before' => 'auth,csrf', 'after' => 'log'), function() {
 		Extend::process('staff', $staff->id, $staff->email);
 
 		if ($division = $input['division']) {
-		  $hierarchy['staff'] = $staff->id;
-		  $hierarchy['division'] = $division;
-		  Hierarchy::create($hierarchy);
+			$hierarchy['staff'] = $staff->id;
+			$hierarchy['division'] = $division;
+			Hierarchy::create($hierarchy);
 
-		  Division::counter();
+			Division::counter();
 		}
 
 		// division roles
 		if( $account_enable and $inputroles = Input::get('roles') ) {
 
-		  $roles = array();
-		  Role::where('staff', '=', $staff->id)->delete();
+			$roles = array();
+			Role::where('staff', '=', $staff->id)->delete();
 
-		  foreach ($inputroles as $div) {
+			foreach ($inputroles as $div) {
 			$roles['staff'] = $staff->id;
 			$roles['division'] = $div;
 			Role::create($roles);
-		  }
+			}
 		}
 
 		Notify::success(__('staffs.created', Uri::to('admin/staffs/edit/' . $staff->id)));
