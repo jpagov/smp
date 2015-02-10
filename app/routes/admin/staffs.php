@@ -553,6 +553,13 @@ Route::collection(array('before' => 'auth,csrf', 'after' => 'log'), function() {
 			}
 		}
 
+		// Automatically add 5 rating for new staff ;)
+		Rating::create([
+			'staff' => $staff->id,
+			'score' => 5,
+			'created' => $input['created']
+		]);
+
 		Notify::success(__('staffs.created', Uri::to('admin/staffs/edit/' . $staff->id)));
 
 		return Response::redirect('admin/staffs');
