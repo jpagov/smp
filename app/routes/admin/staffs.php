@@ -420,6 +420,7 @@ Route::collection(array('before' => 'auth,csrf', 'after' => 'log'), function() {
 			'salutation',
 			'first_name',
 			'last_name',
+			'slug',
 			'display_name',
 			'gender',
 			'email',
