@@ -94,7 +94,7 @@
 
 			<div class="rating">
 				<span class="rating-num" itemprop="ratingValue"><?php echo rating_average(); ?></span> / <span itemprop="bestRating">5</span>
-				<meta itemprop="worstRating" content="1">
+				<span class="sr-only" itemprop="worstRating">1</span>
 				<div id="star-rating" data-score="<?php echo rating_average(); ?>" data-staff="<?php echo staff_id(); ?>"></div>
 				<div class="rating-users">
 					<i class="glyphicon glyphicon-user"></i> <span id="rating-count" itemprop="ratingCount"><?php echo total_ratings(); ?></span>
