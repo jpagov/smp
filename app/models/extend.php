@@ -99,11 +99,11 @@ class Extend extends Base {
 
 				if($value) {
 
-          if ($item->key == 'avatar') {
-            $html .= '<label class="control-label"><img src="' . asset('content/avatar/' . $value) . '" class="img-responsive img-thumbnail"></label>';
-          } else {
-            $html .= '<a href="' . asset('content/' . $value) . '" target="_blank">' . $value . '</a>';
-          }
+			if ($item->key == 'avatar') {
+			$html .= '<label class="control-label"><img src="' . asset('content/avatar/' . $value) . '" class="img-responsive img-thumbnail"></label>';
+			} else {
+			$html .= '<a href="' . asset('content/' . $value) . '" target="_blank">' . $value . '</a>';
+			}
 				}
 
 				$html .= '<input class="' .  ($item->key == 'avatar' ? 'sr-only' : 'form-control') . '" id="extend_' . $item->key . '" name="extend[' . $item->key . ']" type="file">';
@@ -155,12 +155,12 @@ class Extend extends Base {
 		$storage = PATH . 'content' . DS;
 		$original = '';
 
-        if ($avatar) {
-          $storage .= 'avatar' . DS;
-          $original .= $storage . 'original' . DS;
+		if ($avatar) {
+			$storage .= 'avatar' . DS;
+			$original .= $storage . 'original' . DS;
 
-          if(!is_dir($original)) mkdir($original);
-        }
+			if(!is_dir($original)) mkdir($original);
+		}
 
 		if(!is_dir($storage)) mkdir($storage);
 
@@ -168,12 +168,14 @@ class Extend extends Base {
 
 		// Added rtrim to remove file extension before adding again
 
-        if ($avatar) {
-          //$filename = hash('md5', $avatar) . '.' . $ext;
-          $filename = rtrim($file['name'], '.' . $ext) . '.' . $ext;
-        } else {
-          $filename = slug(rtrim($file['name'], '.' . $ext)) . '.' . $ext;
-        }
+		if ($avatar) {
+			//$filename = hash('md5', $avatar) . '.' . $ext;
+			$filename = preg_replace( "/^([^@]+)(@.*)$/", "$1", $avatar) . '.' .  $ext;
+
+			//$filename = rtrim($file['name'], '.' . $ext) . '.' . $ext;
+		} else {
+			$filename = slug(rtrim($file['name'], '.' . $ext)) . '.' . $ext;
+		}
 
 		$filepath = $storage . $filename;
 
@@ -198,7 +200,7 @@ class Extend extends Base {
 			$name = basename($file['name']);
 			$ext = pathinfo($file['name'], PATHINFO_EXTENSION);
 
-            $avatar = ($extend->key == 'avatar') ? $extend->email : null;
+			$avatar = ($extend->key == 'avatar') ? $extend->email : null;
 
 			if($filepath = static::upload($file, $avatar)) {
 				$filename = basename($filepath);
@@ -259,9 +261,9 @@ class Extend extends Base {
 	public static function process($type, $item, $email = null) {
 		foreach(static::fields($type, $item) as $extend) {
 
-      if ($email) {
-        $extend->email = $email;
-      }
+	  if ($email) {
+		$extend->email = $email;
+	  }
 
 			if($extend->attributes) {
 				$extend->attributes = Json::decode($extend->attributes);
@@ -297,7 +299,7 @@ class Extend extends Base {
 						->where('extend', '=', $extend->id)
 						->where($extend->type, '=', $item)->delete();
 
-          $resource = PATH . 'content' . DS . ($extend->key == 'avatar' ? 'avatar' : '') . DS . $extend->value->filename;
+			$resource = PATH . 'content' . DS . ($extend->key == 'avatar' ? 'avatar' : '') . DS . $extend->value->filename;
 					file_exists($resource) and unlink(PATH . 'content' . DS . ($extend->key == 'avatar' ? 'avatar' : '') . DS . $extend->value->filename);
 				}
 			}
