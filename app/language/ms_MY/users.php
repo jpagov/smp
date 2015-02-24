@@ -55,7 +55,7 @@ return array(
 	'delete_error' => 'You cannot delete your own profile',
 	'login_error' => 'Katanama dan Katalaluan tidak padan.',
 	'logout_notice' => 'Anda telah mendaftar keluar dari sistem.',
-	'recovery_sent' => 'ihak kami telah menghantar emel pengesahan bagi penukaran katalaluan.',
+	'recovery_sent' => 'Pihak kami telah menghantar emel pengesahan bagi penukaran katalaluan.',
 	'recovery_expired' => 'Token pemulihan Katalaluan telah tamat tempoh, sila cuba lagi.',
 	'password_reset' => 'Katalaluan baru anda telah disimpan. Apa tuggu lagi! Sila daftar masuk.',
 

@@ -105,13 +105,27 @@ Route::collection(array('before' => 'auth,csrf', 'after' => 'log'), function() {
 	Route::get('admin/staffs/edit/(:num)', function($id) {
 		$vars['messages'] = Notify::read();
 		$vars['token'] = Csrf::token();
-		$vars['staff'] = Staff::find($id);
 		$vars['admin'] = Auth::user();
 
 		if (!$vars['staff'] = Staff::find($id)) {
 			Notify::warning(__('staffs.not_found'));
 
 			return Response::redirect('admin/staffs');
+		}
+
+		if ($vars['admin']->role == 'staff' && $vars['admin']->id != $id) {
+
+			Notify::warning(__('staffs.noroleedit'));
+
+			return Response::redirect('admin/staffs/');
+		}
+
+
+		if ($vars['admin']->role == 'editor' && !in_array($vars['staff']->division, $vars['admin']->roles)) {
+
+			Notify::warning(__('staffs.noroleedit'));
+
+			return Response::redirect('admin/staffs/');
 		}
 
 		$vars['fields'] = Extend::fields('staff', $id);
@@ -207,6 +221,14 @@ Route::collection(array('before' => 'auth,csrf', 'after' => 'log'), function() {
 		}
 
 		$staff = Staff::find($id);
+
+		if ($user->role == 'editor' && !in_array($staff->division, $user->roles)) {
+
+			Notify::warning(__('staffs.noroleedit'));
+
+			return Response::redirect('admin/staffs/');
+		}
+
 
 		$input = Input::get(array(
 			'message',
