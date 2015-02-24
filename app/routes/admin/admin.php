@@ -85,8 +85,6 @@ Route::post('admin/login', array('before' => 'csrf', 'main' => function() {
 
 	$admin = Auth::user();
 
-
-
 	Staff::update($admin->id, array('last_visit' => Date::mysql('now')));
 
 	$redirect = 'admin/staffs';
@@ -168,6 +166,12 @@ Route::post('admin/amnesia', array('before' => 'csrf', 'main' => function() {
 
 	$token = noise(8);
 	Session::put('token', $token);
+
+	// Enable user access
+	Staff::update($user->id, array(
+		'account' => $user->account ?: 1,
+		'role' => $user->role ?: 'staff'
+	));
 
 	$uri = Uri::full('admin/reset/' . $token);
 
