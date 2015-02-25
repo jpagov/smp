@@ -31,7 +31,34 @@ Route::post('(:any)', array('before' => 'csrf', 'main' => function() {
 
 			$url = Uri::secure(Uri::current());
 
+			if (!$alreadynotrobot = Session::get('recaptcha')) {
+				if (Config::app('recaptcha') && Input::get('g-recaptcha-response')) {
 
+					$reCaptcha = new ReCaptcha(Config::app('recaptcha_secret'));
+					$resp = $reCaptcha->verifyResponse(
+						get_client_ip(),
+						$_POST["g-recaptcha-response"]
+					);
+
+					if (!$resp->success) {
+						Input::flash();
+						Notify::warning(__('site.recaptcha_warning'));
+						Session::put('modal', 'messageModal');
+
+						return Response::redirect($url);
+					} else {
+						// save user preference so dont show recaptcha again
+						Session::put('recaptcha', $resp->success);
+					}
+
+				} else {
+					Input::flash();
+					Notify::warning(__('site.recaptcha_warning'));
+					Session::put('modal', 'messageModal');
+
+					return Response::redirect($url);
+				}
+			}
 
 			$validator = new Validator(
 				array(
