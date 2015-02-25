@@ -67,7 +67,7 @@ Route::post('(:any)', array('before' => 'csrf', 'main' => function() {
 
 			$emailer = [
 				'to' => $staff->email,
-				'subject' => __('users.recovery_subject'),
+				'subject' => $message['subject'],
 				'message' => Braces::compile(PATH . 'content/message.html', array(
 					'title' => $message['subject'],
 					'hi' => __('email.hi'),

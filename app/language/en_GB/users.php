@@ -62,8 +62,8 @@ return array(
 	// password recovery email
 	'msg_not_send' => 'Message could not be sent: <code>%s</code>',
 	'recovery_subject' => 'Password Reset',
-	'recovery_message' => 'You have requested to reset your password.' .
-		'To continue follow the link below.' . PHP_EOL . '%s',
+	'recovery_message' => 'You or somebody have requested to reset your password.' .
+		'To continue follow the link below:<br><br>' . PHP_EOL . '%s' . '<br>If you don\'t requested before just ignore this email.',
 
 	// profile
 	'profile' => 'Profile',

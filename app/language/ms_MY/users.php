@@ -63,7 +63,7 @@ return array(
   	'msg_not_send' => 'Mesej tidak dapat dihantar: <code>%s</code>',
 	'recovery_subject' => 'Reset Katalaluan',
 	'recovery_message' => 'Anda atau seseorang telah meminta untuk mereset Katalaluan. ' .
-		'Untuk menukar Katalaluan yang baru, sila klik pautan berikut:.' . PHP_EOL . '%s'. PHP_EOL . 'Sila abaikan emel ini sekiranya anda tidak pernah membuat permintaan tersebut.',
+		'Untuk menukar Katalaluan yang baru, sila klik pautan berikut:<br><br>' . PHP_EOL . '%s'. PHP_EOL . '<br><br>Sila abaikan emel ini sekiranya anda tidak pernah membuat permintaan tersebut.',
 
 	// profile
 	'profile' => 'Profil',
