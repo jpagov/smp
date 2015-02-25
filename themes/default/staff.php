@@ -86,7 +86,7 @@
 	<div class="well" itemscope itemtype="https://schema.org/Organization">
 
 		<meta itemprop="url" content="<?php echo full_url(staff_slug()); ?>">
-    	<meta itemprop="logo" content="<?php echo full_url('content/avatar/' . staff_custom_field('avatar')); ?>">
+		<meta itemprop="logo" content="<?php echo full_url('content/avatar/' . staff_custom_field('avatar')); ?>">
 
 		<div class="rating-inner" itemprop="aggregateRating" itemscope itemtype="https://schema.org/AggregateRating">
 
@@ -175,41 +175,48 @@
 	</div>
 </section>
 <div class="modal fade" id="messageModal" tabindex="-1" role="dialog" aria-labelledby="messageModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-    <form id="contact-staff" method="post">
-    	<input name="staff" type="hidden" value="<?php echo staff_id(); ?>">
-    	<input name="token" type="hidden" value="<?php echo Csrf::token(); ?>">
-    	<input name="url" type="hidden" value="<?php echo full_url(Uri::current()); ?>">
-    	<input name="type" type="hidden" value="message">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="messageModalLabel"><?php echo __('site.new_message_to', staff_name()); ?></h4>
-      </div>
-      <div class="modal-body">
-      <p class="bg-warning"><small class="text-warning"><i><?php echo __('site.contact_note'); ?></i></small></p>
-      <?php echo $notify; ?>
-        <form>
-        	<input type="hidden" id="recipient-id">
-          <div class="form-group">
-            <label for="from-name" class="control-label"><?php echo _e('site.contact_name'); ?></label>
+	<div class="modal-dialog">
+	<div class="modal-content">
+	<form id="contact-staff" method="post">
+		<input name="staff" type="hidden" value="<?php echo staff_id(); ?>">
+		<input name="token" type="hidden" value="<?php echo Csrf::token(); ?>">
+		<input name="url" type="hidden" value="<?php echo full_url(Uri::current()); ?>">
+		<input name="type" type="hidden" value="message">
+		<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		<h4 class="modal-title" id="messageModalLabel"><?php echo __('site.new_message_to', staff_name()); ?></h4>
+		</div>
+		<div class="modal-body">
+		<p class="bg-warning"><small class="text-warning"><i><?php echo __('site.contact_note'); ?></i></small></p>
+		<?php echo $notify; ?>
+		<form>
+			<input type="hidden" id="recipient-id">
 
-            <?php echo Form::text('contact[name]', Input::previous('contact[name]'), array('class' => 'form-control', 'id' => 'from-name',
-                    )); ?>
+			<?php if (!Session::get('recaptcha')) : ?>
+			<div class="form-group">
+			<div class="g-recaptcha" data-sitekey="6Lekyf8SAAAAACxfU-BGeFKFqTkjBcNCFHx3lpmo"></div>
+			</div>
+			<?php endif; ?>
 
-            <span class="help-block"><?php echo __('site.contact_name_explain'); ?></span>
-          </div>
-          <div class="form-group">
-            <label for="from-email" class="control-label"><?php echo _e('site.contact_email'); ?></label>
+			<div class="form-group">
+			<label for="from-name" class="control-label"><?php echo _e('site.contact_name'); ?></label>
 
-            <?php echo Form::text('contact[email]', Input::previous('contact[email]'), array('class' => 'form-control ', 'id' => 'from-email',
-                    )); ?>
+			<?php echo Form::text('contact[name]', Input::previous('contact[name]'), array('class' => 'form-control', 'id' => 'from-name',
+					)); ?>
 
-            <span class="help-block"><?php echo __('site.contact_email_explain'); ?></span>
-          </div>
+			<span class="help-block"><?php echo __('site.contact_name_explain'); ?></span>
+			</div>
+			<div class="form-group">
+			<label for="from-email" class="control-label"><?php echo _e('site.contact_email'); ?></label>
 
-          <div class="form-group<?php if ( in_array('message', $errors)) echo ' has-error'; ?>">
-            <label for="message-text" class="control-label"><?php echo _e('site.contact_message'); ?></label>
+			<?php echo Form::text('contact[email]', Input::previous('contact[email]'), array('class' => 'form-control ', 'id' => 'from-email',
+					)); ?>
+
+			<span class="help-block"><?php echo __('site.contact_email_explain'); ?></span>
+			</div>
+
+			<div class="form-group<?php if ( in_array('message', $errors)) echo ' has-error'; ?>">
+			<label for="message-text" class="control-label"><?php echo _e('site.contact_message'); ?></label>
 
 				<?php echo Form::textarea('contact[message]', Input::previous('contact[message]'), array(
 					'rows' => 3,
@@ -217,22 +224,16 @@
 					'id' => 'message-text'
 				)); ?>
 
-          </div>
+			</div>
 
-          <?php if (!Session::get('recaptcha')) : ?>
-          <div class="form-group">
-          	<div class="g-recaptcha" data-sitekey="6Lekyf8SAAAAACxfU-BGeFKFqTkjBcNCFHx3lpmo"></div>
-          </div>
-          <?php endif; ?>
-
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button id="btn-message-send" type="submit" class="btn btn-primary">Send message</button>
-      </div>
-      </form>
-    </div>
-  </div>
+		</div>
+		<div class="modal-footer">
+		<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		<button id="btn-message-send" type="submit" class="btn btn-primary">Send message</button>
+		</div>
+		</form>
+	</div>
+	</div>
 </div>
 
 <?php if(comments_open()): ?>
