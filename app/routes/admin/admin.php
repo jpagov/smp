@@ -169,7 +169,7 @@ Route::post('admin/amnesia', array('before' => 'csrf', 'main' => function() {
 
 	// Enable user access
 	Staff::update($user->id, array(
-		'username' => preg_replace( "/^([^@]+)(@.*)$/", "$1", $user->emel ?: $email),
+		'username' => preg_replace( "/^([^@]+)(@.*)$/", "$1", $user->email ?: $email),
 		'account' => $user->account ?: 1,
 		'role' => $user->role ?: 'staff'
 	));
