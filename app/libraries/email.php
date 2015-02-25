@@ -3,10 +3,20 @@
 class Email extends PHPMailer {
 
 	// name, email, message, staff, ip, created, to, subject
-	public function __construct($email = array(), $param = array(
-			'SMTPDebug' => 0,
-			'SMTPAuth' => false,
-		), $amnesia = false) {
+	public function __construct($email = array(), $param = array('SMTPDebug' => 0,'SMTPAuth' => false)) {
+
+		/*
+		$email['to']
+		$email['to_name']
+		$email['from']
+		$email['from_name']
+		$email['subject']
+		$email['message']
+
+		// user provide their email address
+		$email['email']
+
+		*/
 
 		parent::__construct();
 
@@ -27,47 +37,19 @@ class Email extends PHPMailer {
 			$this->SMTPSecure = Config::mail('encryption');
 		}
 
-		$this->setFrom(Config::mail('from.address'), Config::mail('from.name'));
+		$this->From = Config::mail('from.address');
+		$this->FromName = Config::mail('from.name');
 
-		if (array_key_exists('email', $email)) {
+		if (array_key_exists('from', $email)) {
 
-			$this->addReplyTo($email['email'], array_key_exists('name', $email) ? $email['name'] : Config::meta('sitename'));
+			$this->addReplyTo($email['from'], array_key_exists('from_name', $email) ? $email['from_name'] : Config::meta('sitename'));
 		}
 
-		$this->addAddress($email['to'], Config::meta('sitename'));
+		$this->addAddress($email['to'], array_key_exists('to_name', $email) ? $email['to_name'] : Config::meta('sitename'));
 
-		if ($amnesia) {
-
-			$message = Braces::compile(PATH . 'content/amnesia.html', array(
-				'title' => $email['subject'] ?: __('users.recovery_subject'),
-				'hi' => __('email.hi'),
-				'message' => $email['message'],
-				'thanks' => __('email.thanks'),
-				'footer' => __('site.title'),
-			));
-		} else {
-
-			$message = Braces::compile(PATH . 'content/email.html', array(
-				'title' => $email['subject'] ?: __('site.message_subject'),
-				'hi' => __('email.hi'),
-				'abstract' => __('email.abstract'),
-				'detail' => __('email.detail'),
-				'sender_name' => __('email.sender_name'),
-				'sender_name_value' => array_key_exists('name', $email) ? $email['name'] : __('email.notavailable'),
-				'sender_email' => __('email.sender_email'),
-				'sender_email_value' => array_key_exists('email', $email) ? $email['email'] : __('email.notavailable'),
-				'sender_date' => __('email.sender_date'),
-				'sender_date_value' => $email['created'] ? Date::format('now', 'd-m-Y H:i:s') : gmdate('d-m-Y H:i:s'),
-				'message' => __('email.message'),
-				'message_value' => $email['message'],
-				'thanks' => __('email.thanks'),
-				'footer' => __('site.title') . ' ' . __('site.footer'),
-
-			));
-		}
 
 		$this->Subject = $email['subject'];
-		$this->msgHTML($message);
+		$this->msgHTML($email['message']);
 		$this->AltBody = $email['message'];
 	}
 

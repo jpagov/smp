@@ -384,6 +384,38 @@ Route::collection(array('before' => 'auth,csrf', 'after' => 'log'), function() {
 			Role::where('staff', '=', $id)->delete();
 		}
 
+		// Send email notification for editor
+		if ($staff->role != 'editor' && $input['role'] == 'editor') {
+
+			$email_div = array_map(function($var) {
+
+				return ($item = Division::find($var)) ? $item->title : $var;
+
+			}, $inputroles);
+
+			// name, email, message, staff, ip, created, to, subject
+			$emailer = [
+				'to' => $staff->email,
+				'subject' => __('email.editor_subject'),
+				'message' => Braces::compile(PATH . 'content/editor.html', [
+					'title' => __('email.editor_subject'),
+					'hi' => __('email.hi'),
+					'message' => __('users.editor_message', implode(', ', $email_div), Uri::full('admin/amnesia/')),
+					'thanks' => __('email.thanks'),
+					'footer' => __('site.title'),
+				])
+			];
+
+			$mail = new Email($emailer);
+
+			if(!$mail->send()) {
+				Notify::warning(__('users.msg_not_send', $mail->ErrorInfo));
+			}
+
+			Notify::success(__('users.recovery_sent'));
+
+		}
+
 		Notify::success(__('staffs.updated'));
 
 		return Response::redirect('admin/staffs/edit/' . $id);
