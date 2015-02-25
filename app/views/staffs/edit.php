@@ -8,57 +8,57 @@
 
 <div class="row">
 
-	<form class="form-horizontal" method="post" action="<?php echo Uri::to('admin/staffs/edit/' . $staff->id); ?>" enctype="multipart/form-data" role="form">
-		<div class="col-md-9">
+<form class="form-horizontal" method="post" action="<?php echo Uri::to('admin/staffs/edit/' . $staff->id); ?>" enctype="multipart/form-data" role="form">
+	<div class="col-md-9">
 
-			<input name="token" type="hidden" value="<?php echo $token; ?>">
+		<input name="token" type="hidden" value="<?php echo $token; ?>">
 
-			<!-- tabs -->
-			<div class="tabs-top">
+		<!-- tabs -->
+		<div class="tabs-top">
 
-				<ul class="nav nav-tabs">
-					<li<?php echo is_class_active($tab, 'profile', true); ?>><a href="#profile" data-toggle="tab">Profile</a></li>
-					<li<?php echo is_class_active($tab, 'positions', true); ?>><a href="#positions" data-toggle="tab">Position</a></li>
-					<?php if($fields): ?>
-						<li<?php echo is_class_active($tab, 'extend', true); ?>><a href="#extend" data-toggle="tab">Extend</a></li>
-					<?php endif; ?>
-						<li<?php echo is_class_active($tab, 'admin', true); ?>><a href="#admin" data-toggle="tab">Administration</a></li>
-				</ul>
+			<ul class="nav nav-tabs">
+				<li<?php echo is_class_active($tab, 'profile', true); ?>><a href="#profile" data-toggle="tab">Profile</a></li>
+				<li<?php echo is_class_active($tab, 'positions', true); ?>><a href="#positions" data-toggle="tab">Position</a></li>
+				<?php if($fields): ?>
+					<li<?php echo is_class_active($tab, 'extend', true); ?>><a href="#extend" data-toggle="tab">Extend</a></li>
+				<?php endif; ?>
+				<li<?php echo is_class_active($tab, 'admin', true); ?>><a href="#admin" data-toggle="tab">Administration</a></li>
+			</ul>
 
-				<div class="tab-content">
+			<div class="tab-content">
 
-					<div class="tab-pane <?php echo is_class_active($tab, 'profile'); ?>" id="profile">
-						<fieldset>
-							<legend>Profile</legend>
+				<div class="tab-pane <?php echo is_class_active($tab, 'profile'); ?>" id="profile">
+					<fieldset>
+						<legend>Profile</legend>
 
-							<div class="row">
+						<div class="row">
 
-								<div class="col-md-3 col-md-push-9">
-									<div class="form-group">
+							<div class="col-md-3 col-md-push-9">
+								<div class="form-group">
 
-										<label class="control-label" for="extend_avatar">
-											<?php
-											$default_avatar = ($staff->gender == 'M') ?
-												'default-male.jpg' :
-												'default-female.jpg';
+									<label class="control-label" for="extend_avatar">
+										<?php
+										$default_avatar = ($staff->gender == 'M') ?
+										'default-male.jpg' :
+										'default-female.jpg';
 
-											$avatar = ($fields && isset($fields[0]->value->filename)) ?
-												$fields[0]->value->filename :
-												$default_avatar;
+										$avatar = ($fields && isset($fields[0]->value->filename)) ?
+										$fields[0]->value->filename :
+										$default_avatar;
 
-											$remove = true;
-											if ($avatar === 'default-male.jpg' || $avatar === 'default-female.jpg') {
-												$remove = false;
-											}
-											?>
-											<img src="<?php echo avatar($avatar); ?>" class="img-responsive img-thumbnail pull-left"></label>
-											<input class="sr-only" id="extend_avatar" name="extend[avatar]" type="file">
-											<?php if ( $remove) : ?>
+										$remove = true;
+										if ($avatar === 'default-male.jpg' || $avatar === 'default-female.jpg') {
+											$remove = false;
+										}
+										?>
+										<img src="<?php echo avatar($avatar); ?>" class="img-responsive img-thumbnail pull-left"></label>
+										<input class="sr-only" id="extend_avatar" name="extend[avatar]" type="file">
+										<?php if ( $remove) : ?>
 											<p>
-											<label>Remove Avatar:</label>
-											<input type="checkbox" name="extend_remove[avatar]" value="1"></p>
-										<?php endif; ?>
-										<span class="help-block"><?php echo __('staffs.avatar_explain'); ?></span>
+												<label>Remove Avatar:</label>
+												<input type="checkbox" name="extend_remove[avatar]" value="1"></p>
+											<?php endif; ?>
+											<span class="help-block"><?php echo __('staffs.avatar_explain'); ?></span>
 										</div>
 									</div> <!-- /col-md-3 -->
 
@@ -186,11 +186,11 @@
 								</div>
 
 								<div class="form-group">
-										<label class="col-sm-2 control-label" for="report_to"><?php echo __('staffs.report_to'); ?></label>
-										<div class="col-sm-8 reportto-prefetch">
-											<?php echo Form::text('report_to', Input::previous('report_to', $staff->report_to), array('class' => 'form-control typeahead col-sm-12', 'id' => 'report_to')); ?>
-										</div>
+									<label class="col-sm-2 control-label" for="report_to"><?php echo __('staffs.report_to'); ?></label>
+									<div class="col-sm-8 reportto-prefetch">
+										<?php echo Form::text('report_to', Input::previous('report_to', $staff->report_to), array('class' => 'form-control typeahead col-sm-12', 'id' => 'report_to')); ?>
 									</div>
+								</div>
 
 								<div class="form-group">
 									<label class="col-sm-2 control-label" for="personal_assistant"><?php echo __('staffs.personal_assistant'); ?></label>
@@ -278,19 +278,19 @@
 
 									<fieldset>
 
-									<?php foreach($fields as $field): if($field->key == 'avatar') continue ; ?>
-										 <div class="form-group">
-											<label class="col-md-2 control-label" for="extend_<?php echo $field->key; ?>"><?php echo $field->label; ?></label>
-											<div class="col-md-6">
-												<?php echo Extend::html($field); ?>
+										<?php foreach($fields as $field): if($field->key == 'avatar') continue ; ?>
+											<div class="form-group">
+												<label class="col-md-2 control-label" for="extend_<?php echo $field->key; ?>"><?php echo $field->label; ?></label>
+												<div class="col-md-6">
+													<?php echo Extend::html($field); ?>
+												</div>
 											</div>
-										</div>
-									<?php endforeach; ?>
+										<?php endforeach; ?>
 
-								</fieldset>
+									</fieldset>
 
-							</div>
-						<?php endif; ?>
+								</div>
+							<?php endif; ?>
 
 
 							<div class="tab-pane <?php echo is_class_active($tab, 'admin'); ?>" id="admin">
@@ -300,18 +300,18 @@
 										<div class="checkbox">
 											<label>
 
-											<?php
+												<?php
 
-											$account = [];
-											$account['id'] = $accountName = 'account';
+												$account = [];
+												$account['id'] = $accountName = 'account';
 
-											if ($admin->role != 'administrator') {
-												$accountName .= '_ro';
-												$account['id'] = $accountName;
-												$account['disabled'] = 'disabled';
-												echo Form::hidden('account', Input::previous('account', $staff->account));
-											}
-											?>
+												if ($admin->role != 'administrator') {
+													$accountName .= '_ro';
+													$account['id'] = $accountName;
+													$account['disabled'] = 'disabled';
+													echo Form::hidden('account', Input::previous('account', $staff->account));
+												}
+												?>
 
 
 												<?php echo Form::checkbox($accountName, 1, Input::previous('account', $staff->account), $account); ?> Enable account
@@ -344,7 +344,7 @@
 									<label class="col-sm-2 control-label" for="role"><?php echo __('staffs.role'); ?></label>
 									<div class="col-sm-4">
 
-									<?php
+										<?php
 										$role = ($staff->role) ?: 'staff';
 										$roleAttr = [];
 										$roleAttr['id'] = 'role';
@@ -355,7 +355,7 @@
 											$roleAttr['disabled'] = 'disabled';
 											echo Form::hidden('role', $role);
 										}
-									?>
+										?>
 										<?php echo Form::select($rolename, $roles, Input::previous('role', $role), $roleAttr); ?>
 									</div>
 								</div>
@@ -374,7 +374,7 @@
 															$checked = (in_array($key, $division_roles)) ? true : false;
 
 															$rolesAttr = [];
-															$roleAttr['id'] = 'division-role-' . $key;
+															$rolesAttr['id'] = 'division-role-' . $key;
 															$rolesName = 'roles';
 
 															if ($admin->role != 'administrator') {
@@ -404,30 +404,30 @@
 						</div>
 
 
-				</div><!-- /tab-content -->
-			</div><!-- /tabs -->
+					</div><!-- /tab-content -->
+				</div><!-- /tabs -->
 
-		</div><!-- /col-md-9 -->
-		<div class="col-md-3">
+			</div><!-- /col-md-9 -->
+			<div class="col-md-3">
 
-			<?php echo Form::button(__('global.update'), array(
-				'class' => 'btn btn-primary btn-lg btn-block',
-				'type' => 'submit'
-				)); ?>
-
-			<?php echo Html::link('admin/staffs/delete/' . $staff->id,
-				__('global.delete'), array(
-					'class' => 'btn btn-warning btn-lg btn-block delete'
+				<?php echo Form::button(__('global.update'), array(
+					'class' => 'btn btn-primary btn-lg btn-block',
+					'type' => 'submit'
 					)); ?>
 
-			<?php echo Html::link($staff->slug,
-				__('global.view'), array(
-					'class' => 'btn btn-success btn-lg btn-block',
-					'target' => '_blank'
-					)); ?>
+				<?php echo Html::link('admin/staffs/delete/' . $staff->id,
+					__('global.delete'), array(
+						'class' => 'btn btn-warning btn-lg btn-block delete'
+						)); ?>
 
-				</div>
-			</form>
-		</div>
+				<?php echo Html::link($staff->slug,
+					__('global.view'), array(
+						'class' => 'btn btn-success btn-lg btn-block',
+						'target' => '_blank'
+						)); ?>
 
-		<?php echo $footer; ?>
+					</div>
+				</form>
+			</div>
+
+			<?php echo $footer; ?>
