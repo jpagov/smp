@@ -176,14 +176,19 @@ Route::post('admin/amnesia', array('before' => 'csrf', 'main' => function() {
 
 	$uri = Uri::full('admin/reset/' . $token);
 
-	// name, email, message, staff, ip, created, to, subject
-	$mail = new Email(array(
+	$emailer = [
 		'to' => $user->email,
 		'subject' => __('users.recovery_subject'),
-		'message' => __('users.recovery_message', $uri),
-	), array(), true);
+		'message' => Braces::compile(PATH . 'content/amnesia.html', [
+			'title' => __('users.recovery_subject'),
+			'hi' => __('email.hi'),
+			'message' => __('users.recovery_message', $uri),
+			'thanks' => __('email.thanks'),
+			'footer' => __('site.title'),
+		])
+	];
 
-	//$mail = new Email($user->email, $subject, $msg, 2);
+	$mail = new Email($emailer);
 
 	if(!$mail->send()) {
 		Notify::warning(__('users.msg_not_send', $mail->ErrorInfo));

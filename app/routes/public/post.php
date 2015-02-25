@@ -31,34 +31,7 @@ Route::post('(:any)', array('before' => 'csrf', 'main' => function() {
 
 			$url = Uri::secure(Uri::current());
 
-			if (!$alreadynotrobot = Session::get('recaptcha')) {
-				if (Config::app('recaptcha') && Input::get('g-recaptcha-response')) {
 
-					$reCaptcha = new ReCaptcha(Config::app('recaptcha_secret'));
-					$resp = $reCaptcha->verifyResponse(
-						get_client_ip(),
-						$_POST["g-recaptcha-response"]
-					);
-
-					if (!$resp->success) {
-						Input::flash();
-						Notify::warning(__('site.recaptcha_warning'));
-						Session::put('modal', 'messageModal');
-
-						return Response::redirect($url);
-					} else {
-						// save user preference so dont show recaptcha again
-						Session::put('recaptcha', $resp->success);
-					}
-
-				} else {
-					Input::flash();
-					Notify::warning(__('site.recaptcha_warning'));
-					Session::put('modal', 'messageModal');
-
-					return Response::redirect($url);
-				}
-			}
 
 			$validator = new Validator(
 				array(
@@ -92,7 +65,38 @@ Route::post('(:any)', array('before' => 'csrf', 'main' => function() {
 			$message['to'] = $staff->email;
 			$message['subject'] =  __('site.message_subject');
 
-			$mail = new Email($message);
+			$emailer = [
+				'to' => $staff->email,
+				'subject' => __('users.recovery_subject'),
+				'message' => Braces::compile(PATH . 'content/message.html', array(
+					'title' => $message['subject'],
+					'hi' => __('email.hi'),
+					'abstract' => __('email.abstract'),
+					'detail' => __('email.detail'),
+					'sender_name' => __('email.sender_name'),
+					'sender_name_value' => array_key_exists('name', $message) ? $message['name'] : __('email.notavailable'),
+					'sender_email' => __('email.sender_email'),
+					'sender_email_value' => array_key_exists('email', $message) ? $message['email'] : __('email.notavailable'),
+					'sender_date' => __('email.sender_date'),
+					'sender_date_value' => $message['created'] ? Date::format('now', 'd-m-Y H:i:s') : gmdate('d-m-Y H:i:s'),
+					'message' => __('email.message'),
+					'message_value' => $message['message'],
+					'thanks' => __('email.thanks'),
+					'footer' => __('site.title') . ' ' . __('site.footer'),
+
+				))
+			];
+
+			if (array_key_exists('email', $message)) {
+				$emailer['from'] = $message['email'];
+			}
+
+			if (array_key_exists('name', $message)) {
+				$emailer['from_name'] = $message['name'];
+			}
+
+			$mail = new Email($emailer);
+
 
 			if(!$mail->send()) {
 				Notify::warning(__('users.msg_not_send', $mail->ErrorInfo));
