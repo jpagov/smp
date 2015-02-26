@@ -33,7 +33,7 @@ gulp.task('clean', function (done) {
 
 gulp.task('copy', [
 	'copy:js',
-	'copy:css'
+	'copy:css',
 	'copy:img'
 ]);
 
