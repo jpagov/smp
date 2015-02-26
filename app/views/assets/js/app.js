@@ -218,14 +218,8 @@
 					queryTokenizer: Bloodhound.tokenizers.whitespace,
 					limit: 10,
 					remote: {
-						url: endpoint + 'branch.json',
-						replace: function() {
-							if ($('#division').val() == 0) {
-								return endpoint + 'branch.json';
-							} else {
-								return endpoint + $('#division').val() + '/branch.json';
-							}
-						},
+						//url: endpoint + 'branch.json',
+						url: endpoint + 'queries/branch/%QUERY.json',
 						filter: function(list) {
 							return $.map(list, function(item) {
 								return {
@@ -250,14 +244,8 @@
 					queryTokenizer: Bloodhound.tokenizers.whitespace,
 					limit: 10,
 					remote: {
-						url: endpoint + 'sector.json',
-						replace: function() {
-							if ($('#division').val() == 0) {
-								return endpoint + 'sector.json';
-							} else {
-								return endpoint + $('#division').val() + '/sector.json';
-							}
-						},
+						//url: endpoint + 'sector.json',
+						url: endpoint + 'queries/sector/%QUERY.json',
 						filter: function(list) {
 							return $.map(list, function(item) {
 								return {
@@ -282,14 +270,8 @@
 					queryTokenizer: Bloodhound.tokenizers.whitespace,
 					limit: 10,
 					remote: {
-						url: endpoint + 'unit.json',
-						replace: function() {
-							if ($('#division').val() == 0) {
-								return endpoint + 'unit.json';
-							} else {
-								return endpoint + $('#division').val() + '/unit.json';
-							}
-						},
+						//url: endpoint + 'unit.json',
+						url: endpoint + 'queries/unit/%QUERY.json',
 						filter: function(list) {
 							return $.map(list, function(item) {
 								return {

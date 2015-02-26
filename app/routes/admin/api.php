@@ -5,8 +5,8 @@ Route::collection(array('before' => 'auth'), function() {
 
 	/*
 	Admin Staff JSON API
-  */
-  Route::get('admin/api/(:any)/staff.json', function($divisions_slug = null) {
+	*/
+	Route::get('admin/api/(:any)/staff.json', function($divisions_slug = null) {
 
 	if (!ctype_digit($divisions_slug)) {
 		$division_id = Division::slug($divisions_slug)->slug;
@@ -15,25 +15,25 @@ Route::collection(array('before' => 'auth'), function() {
 	}
 
 	if (! $staffs = Staff::where('division', '=', $division_id)->get()) {
-	  return Response::create(Json::encode(array('no result')), 200, array('content-type' => 'application/json'));
+		return Response::create(Json::encode(array('no result')), 200, array('content-type' => 'application/json'));
 	}
 
 	$api = array();
 
 	foreach ($staffs as $staff) {
-	  $api[] = $staff->display_name;
+		$api[] = $staff->display_name;
 	}
 
 	$json = Json::encode($api);
 
 	return Response::create($json, 200, array('content-type' => 'application/json'));
 
-  });
+});
 
-  /*
-	Admin Staff JSON API
-  */
-  Route::get('admin/api/(:any)/queries/(:any).json', function($divisions_slug = null, $name = null) {
+/*
+Admin Staff JSON API
+*/
+Route::get('admin/api/(:any)/queries/(:any).json', function($divisions_slug = null, $name = null) {
 
 	if (!ctype_digit($divisions_slug)) {
 		$division_id = Division::slug($divisions_slug)->slug;
@@ -45,25 +45,55 @@ Route::collection(array('before' => 'auth'), function() {
 		->where('display_name', 'like', '%' . $name . '%')
 		->where('status', '=', 'active')
 		->get()) {
-	  return Response::create(Json::encode(array('no result')), 200, array('content-type' => 'application/json'));
+
+		return Response::create(Json::encode(array('no result')), 200, array('content-type' => 'application/json'));
 	}
 
 	$api = array();
 
 	foreach ($staffs as $staff) {
-	  $api[] = $staff->display_name;
+		$api[] = $staff->display_name;
 	}
 
 	$json = Json::encode($api);
 
 	return Response::create($json, 200, array('content-type' => 'application/json'));
 
-  });
+});
 
-  /*
+/*
+Admin Branch Query JSON API
+*/
+Route::get('admin/api/queries/(:any)/(:any).json', function($slug = null, $term = null) {
+
+	$valid = array('branch', 'sector', 'unit');
+
+	if (!in_array($slug, $valid)) {
+
+		return Response::create(Json::encode(array('no result')), 200, array('content-type' => 'application/json'));
+	}
+
+	if (! $items = $slug::where('title', 'like', '%' . $term . '%')->get()) {
+
+		return Response::create(Json::encode(array('no result')), 200, array('content-type' => 'application/json'));
+	}
+
+	$api = array();
+
+	foreach ($items as $item) {
+		$api[] = $item->title;
+	}
+
+	$json = Json::encode($api);
+
+	return Response::create($json, 200, array('content-type' => 'application/json'));
+
+	});
+
+	/*
 	Admin JSON API
-  */
-  Route::get('admin/api/(:any).json', function($hierarchy) {
+	*/
+	Route::get('admin/api/(:any).json', function($hierarchy) {
 
 	$valid = array('division', 'branch', 'sector', 'unit');
 
@@ -72,25 +102,25 @@ Route::collection(array('before' => 'auth'), function() {
 	}
 
 	if (! $hierarchies = $hierarchy::get()) {
-	  return Response::error(404);
+		return Response::error(404);
 	}
 
 	$api = array();
 
 	foreach ($hierarchies as $item) {
-	  $api[] = $item->title;
+		$api[] = $item->title;
 	}
 
 	$json = Json::encode($api);
 
 	return Response::create($json, 200, array('content-type' => 'application/json'));
 
-  });
+	});
 
-  /*
+	/*
 	Admin JSON API filter by division
-  */
-  Route::get('admin/api/(:any)/(:any).json', function($division_slug = null, $filter = null) {
+	*/
+	Route::get('admin/api/(:any)/(:any).json', function($division_slug = null, $filter = null) {
 
 	if (ctype_digit($division_slug)) {
 		$division_slug = Division::find($division_slug)->slug;
@@ -107,7 +137,7 @@ Route::collection(array('before' => 'auth'), function() {
 	}
 
 	if (! $filters = Hierarchy::$filter($division->id)) {
-	  return Response::error(404);
+		return Response::error(404);
 	}
 
 	$api = array();
@@ -116,20 +146,20 @@ Route::collection(array('before' => 'auth'), function() {
 		if (empty(trim($item->title))) {
 			continue;
 		}
-	  $api[] = $item->title;
+		$api[] = $item->title;
 	}
 
 	$json = Json::encode($api);
 
 	return Response::create($json, 200, array('content-type' => 'application/json', 'charset' => 'UTF-8'));
 
-  });
+});
 
-  /*
-	Admin JSON API filter by division
-	api/bpm/branch/query
-  */
-  Route::get('admin/api/(:any)/(:any)/(:any)', function($division_slug = null, $hierarchy = null, $query = null) {
+/*
+Admin JSON API filter by division
+api/bpm/branch/query
+*/
+Route::get('admin/api/(:any)/(:any)/(:any)', function($division_slug = null, $hierarchy = null, $query = null) {
 
 	if (ctype_digit($division_slug)) {
 		$division_slug = Division::find($division_slug)->slug;
@@ -146,7 +176,7 @@ Route::collection(array('before' => 'auth'), function() {
 	}
 
 	if (! $querys = Hierarchy::$hierarchy($division->id)) {
-	  return Response::error(404);
+		return Response::error(404);
 	}
 
 	$api = array();
@@ -155,20 +185,20 @@ Route::collection(array('before' => 'auth'), function() {
 		if (empty(trim($item->title))) {
 			continue;
 		}
-	  $api[] = $item->title;
+		$api[] = $item->title;
 	}
 
 	$json = Json::encode($api);
 
 	return Response::create($json, 200, array('content-type' => 'application/json', 'charset' => 'UTF-8'));
 
-  });
+});
 
-  Route::get(
-	array(
-		'admin/api/reports/staff.json',
-		'admin/api/reports/(:any)/staff.json'
-	), function($page = 1, $type = 'email', $fields = array('id', 'display_name')) {
+Route::get(
+array(
+	'admin/api/reports/staff.json',
+	'admin/api/reports/(:any)/staff.json'
+), function($page = 1, $type = 'email', $fields = array('id', 'display_name')) {
 
 	$validtype = array('email', 'telephone');
 	$per_page = Config::meta('staffs_per_page');
