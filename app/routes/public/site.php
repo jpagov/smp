@@ -277,6 +277,7 @@ Route::get(array(
 			}
 		}
 		Registry::set('breadcrumb', $bc);
+		Registry::set('pagination', $bc['branch']);
 	}
 
 	// get the last page
@@ -346,6 +347,7 @@ Route::get(array(
 		$breadcrumbs[$key] = $value->id;
 	}
 
+
 	if($hierarchy = Hierarchy::search($breadcrumbs)) {
 		$breadcrumb = breadcrumb_hierarchy($hierarchy->id);
 
@@ -356,6 +358,7 @@ Route::get(array(
 			}
 		}
 		Registry::set('breadcrumb', $bc);
+		Registry::set('pagination', $bc['sector']);
 	}
 
 	// get the last page
@@ -437,6 +440,7 @@ Route::get(array(
 			}
 		}
 		Registry::set('breadcrumb', $bc);
+		Registry::set('pagination', $bc['unit']);
 	}
 
 	// get the last page

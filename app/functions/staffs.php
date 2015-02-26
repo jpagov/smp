@@ -35,6 +35,10 @@ function staffs_next($text = 'Next &rarr;', $default = '', $canonical = false) {
 		$url = base_url('division/' . $division->slug . '/');
 	}
 
+	if ($hierarchy = Registry::get('pagination')) {
+		$url = base_url('division/' . $hierarchy['url'] . '/');
+	}
+
 	$pagination = new Paginator(array(), $total, $offset, $per_page, $url);
 
 	return $pagination->prev_link($text, $default, $canonical);
@@ -50,6 +54,10 @@ function staffs_canonical_next() {
 	// filter division
 	if($division = Registry::get('staff_division')) {
 		$url = base_url('division/' . $division->slug . '/');
+	}
+
+	if ($hierarchy = Registry::get('pagination')) {
+		$url = base_url('division/' . $hierarchy['url'] . '/');
 	}
 
 	$pagination = new Paginator(array(), $total, $offset, $per_page, $url);
@@ -69,6 +77,10 @@ function staffs_prev($text = '&larr; Previous', $default = '', $canonical = fals
 		$url = base_url('division/' . $division->slug . '/');
 	}
 
+	if ($hierarchy = Registry::get('pagination')) {
+		$url = base_url('division/' . $hierarchy['url'] . '/');
+	}
+
 	$pagination = new Paginator(array(), $total, $offset, $per_page, $url);
 
 	return $pagination->next_link($text, $default, $canonical);
@@ -84,6 +96,10 @@ function staffs_canonical_prev() {
 	// filter division
 	if($division = Registry::get('staff_division')) {
 		$url = base_url('division/' . $division->slug . '/');
+	}
+
+	if ($hierarchy = Registry::get('pagination')) {
+		$url = base_url('division/' . $hierarchy['url'] . '/');
 	}
 
 	$pagination = new Paginator(array(), $total, $offset, $per_page, $url);
@@ -102,6 +118,10 @@ function staffs_paging() {
     if($division = Registry::get('staff_division')) {
         $url = base_url('division/' . $division->slug . '/');
     }
+
+    if ($hierarchy = Registry::get('pagination')) {
+		$url = base_url('division/' . $hierarchy['url'] . '/');
+	}
 
     $pagination = new Paginator(array(), $total, $offset, $per_page, $url);
 
