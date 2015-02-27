@@ -597,16 +597,20 @@ Route::collection(array('before' => 'auth,csrf', 'after' => 'log'), function() {
 		}
 
 		// division roles
-		if( $account_enable and $inputroles = Input::get('roles') ) {
+		if( $account_enable && $inputroles = Input::get('roles') ) {
 
 			$roles = array();
 			Role::where('staff', '=', $staff->id)->delete();
 
 			foreach ($inputroles as $div) {
-			$roles['staff'] = $staff->id;
-			$roles['division'] = $div;
-			Role::create($roles);
+				$roles['staff'] = $staff->id;
+				$roles['division'] = $div;
+				Role::create($roles);
+
+				//Role::update($role->id, $roles);
 			}
+
+
 		}
 
 		// Automatically add 5 rating for new staff ;)
@@ -633,11 +637,41 @@ Route::collection(array('before' => 'auth,csrf', 'after' => 'log'), function() {
 			return Response::redirect('admin/staffs/edit/' . $id);
 		}
 
-		Staff::where('id', '=', $id)->delete();
-		Hierarchy::where('staff', '=', $id)->delete();
-		Role::where('staff', '=', $id)->delete();
+		if ($staff = Staff::find($id)) {
 
-		Notify::success(__('staffs.deleted'));
+			$deleted = [];
+			foreach($staff->data as $key => $value) {
+				if ($key == 'id') {
+					$deleted['staff_id'] = $value;
+				} else {
+					$deleted[$key] = $value;
+				}
+			}
+
+			StaffDelete::create($deleted);
+
+			Staff::where('id', '=', $id)->delete();
+			Hierarchy::where('staff', '=', $id)->delete();
+			Role::where('staff', '=', $id)->delete();
+
+			//remove avatar
+			$storage = PATH . 'content' . DS . 'avatar' . DS;
+			$original = $storage . 'original' . DS;
+
+			$avatar = preg_replace( "/^([^@]+)(@.*)$/", "$1", $staff->email) . '.jpg';
+			$filepath = $storage . $avatar;
+
+			if (file_exists($filepath)) {
+				$copy = $original . $avatar;
+
+				if (copy($filepath, $copy)) {
+					unlink($filepath);
+				}
+			}
+
+			Notify::success(__('staffs.deleted'));
+		}
+
 
 		return Response::redirect('admin/staffs');
 	});
