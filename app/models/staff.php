@@ -283,6 +283,11 @@ class Staff extends Base {
 		->skip(--$page * $per_page)
 		->get(array(static::fields()));
 
+		// fix: why this $page start with 0 on admin only? even we set default to 1?
+		if (strpos(Uri::current(), 'admin/staffs') !== false) {
+			$page = $page+1;
+		}
+
 		return ($object) ? new Paginator($staffs, $count, $page, $per_page, Uri::to('admin/staffs')) : array($count, $staffs);
 	}
 
