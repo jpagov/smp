@@ -40,7 +40,7 @@
 
     <?php
       $menu = array('staffs');
-      $hierarchies = array('divisions', 'branchs', 'sectors', 'units');
+      $hierarchies = array('divisions', 'branchs', 'sectors', 'units', 'categories');
       $reports_mostview = array('staff', 'category', 'division', 'search');
       $admin = array('users', 'pages', 'fields', 'variables', 'metadata');
     ?>

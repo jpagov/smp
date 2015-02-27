@@ -7,6 +7,7 @@ return array(
 
 	'create_category' => 'Create a new category',
 	'edit_category' => 'Editing &ldquo;%s&rdquo;',
+	'redirect' => 'Redirect',
 
 	// form fields
 	'title' => 'Title',

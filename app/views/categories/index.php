@@ -8,7 +8,7 @@
 
 <div class="row">
     <div class="col-lg-9">
-        <?php //print_r($sectors); ?>
+
         <div class="table-responsive">
             <table class="table table-hover">
                 <thead>
@@ -16,6 +16,7 @@
                         <th>ID</th>
                         <th><?php echo __('categories.categories'); ?></th>
                         <th><?php echo __('categories.slug'); ?></th>
+                        <th><?php echo __('categories.redirect'); ?></th>
                         <th><?php echo __('hierarchy.view'); ?></th>
                     </tr>
                 </thead>
@@ -24,8 +25,9 @@
                     <?php foreach($categories->results as $category): ?>
                     <tr class="status draft">
                         <td><?php echo $category->id; ?></td>
-                        <td><a href="<?php echo Uri::to('admin/categories/edit/' . $category->id); ?>"><?php echo $category->title; ?></a></td>
+                        <td><a href="<?php echo Uri::to('admin/categories/edit/' . $category->id); ?>"><?php echo __($category->title); ?></a></td>
                         <td><?php echo $category->slug; ?></td>
+                        <td><?php echo $category->hierarchy; ?></td>
                         <td><?php echo $category->view; ?></td>
                     </tr>
                 <?php endforeach; ?>

@@ -28,6 +28,7 @@ return array(
 
   	// menu
   	'category' => 'Category',
+  	'categories' => 'Categories',
 	'division' => 'Division',
 	'divisions' => 'Divisions',
 	'branch' => 'Branch',

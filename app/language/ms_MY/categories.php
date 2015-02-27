@@ -7,6 +7,7 @@ return array(
 
 	'create_category' => 'Cipta kategori baru',
 	'edit_category' => 'Mengemaskini &ldquo;%s&rdquo;',
+	'redirect' => 'Redirect',
 
 	// form fields
 	'title' => 'Tajuk',

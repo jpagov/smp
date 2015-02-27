@@ -2,35 +2,35 @@
 
 return array(
 
-	'add' => 'Add new %s',
-	'detail' => 'Details',
-	'title' => 'Title',
+	'add' => 'Tambah baru %s',
+	'detail' => 'Maklumat Lanjut',
+	'title' => 'Tajuk',
 	'slug' => 'Slug',
-	'description' => 'Description',
+	'description' => 'Deskripsi',
 	'order' => 'Order',
-  'view' => 'View',
+ 	'view' => 'Dilihat',
 
-	'division' => 'Division',
-	'divisions' => 'Divisions',
+	'division' => 'Bahagian',
+	'divisions' => 'Bahagian',
 
-	'branch' => 'Branch',
-	'branchs' => 'Branchs',
+	'branch' => 'Cawangan',
+	'branchs' => 'Cawangan',
 
-	'sector' => 'Sector',
-	'sectors' => 'Sectors',
+	'sector' => 'Sektor',
+	'sectors' => 'Sektor',
 
 	'unit' => 'Unit',
 	'units' => 'Units',
 
-	'create_division' => 'Create Division',
-	'create_branch' => 'Create Branch',
-	'create_sector' => 'Create Sector',
-	'create_unit' => 'Create Unit',
+	'create_division' => 'Cipta Bahagian',
+	'create_branch' => 'Cipta Cawangan',
+	'create_sector' => 'Cipta Sektor',
+	'create_unit' => 'Cipta Unit',
 
-	'title_missing' => 'Please enter a title',
+	'title_missing' => 'Sila masukkan tajuk',
 
-	'staff' => 'Staff',
-	'type' => 'Type',
+	'staff' => 'Pegawai',
+	'type' => 'Jenis',
 	'parent' => 'Parent',
 
 	// messages

@@ -2,7 +2,7 @@
 
 <?php echo Html::link('admin/categories', __('global.back'), array('class' => 'btn btn-lg btn-primary pull-right')); ?>
 
-<h1 class="page-header"><?php echo __('categories.edit_category', $category->title); ?></h1>
+<h1 class="page-header"><?php echo __('categories.edit_category', __($category->title)); ?></h1>
 
 <?php echo $messages; ?>
 

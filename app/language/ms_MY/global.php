@@ -28,6 +28,7 @@ return array(
 
   	// menu
   	'category' => 'Kategori',
+  	'categories' => 'Kategori',
 	'division' => 'Bahagian',
 	'divisions' => 'Bahagian',
 	'branch' => 'Cawangan',
