@@ -69,6 +69,7 @@ if(is_admin()) {
 	require APP . 'routes/admin/reports' . EXT;
 	require APP . 'routes/admin/sectors' . EXT;
 	require APP . 'routes/admin/staffs' . EXT;
+	require APP . 'routes/admin/revisions' . EXT;
 	require APP . 'routes/admin/units' . EXT;
 	require APP . 'routes/admin/users' . EXT;
 	require APP . 'routes/admin/variables' . EXT;

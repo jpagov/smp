@@ -1,12 +1,13 @@
 <?php
 
-class StaffDelete extends Base {
+class Revision extends Base {
 
-	public static $table = 'staffs_delete';
+	public static $table = 'revisions';
 
   // default get all field excerpt username && password
 	public static function fields($field = array(
 		'id',
+		'staff_id',
 		'slug',
 		'salutation',
 		'first_name',
@@ -33,12 +34,14 @@ class StaffDelete extends Base {
 		'view',
 		'created',
 		'updated',
+		'revision_date',
+		'admin',
 		'rating',
 		'message'
 		)) {
 		$fields = array();
 		foreach ($field as $column) {
-			$fields[] = Base::table('staffs.' . $column);
+			$fields[] = Base::table('revisions.' . $column);
 		}
 		return $fields;
 	}
@@ -70,22 +73,22 @@ class StaffDelete extends Base {
 
 	public static function listing($page = 1, $per_page = 10, $hierarchy = null, $top = null) {
 
-		$query = static::where(Base::table('staffs.status'), '=', 'active')
-					   ->where(Base::table('staffs.email'), '<>', '')
-					   ->where(Base::table('staffs.telephone'), '<>', '');
+		$query = static::where(Base::table('revisions.status'), '=', 'active')
+					   ->where(Base::table('revisions.email'), '<>', '')
+					   ->where(Base::table('revisions.telephone'), '<>', '');
 
 		$get = array(static::fields());
 
 		if ($top) {
-			$query = $query->where(Base::table('staffs.management'), '=', '1');
+			$query = $query->where(Base::table('revisions.management'), '=', '1');
 		} else {
 
 			if( isset($hierarchy['division']) && $division = $hierarchy['division']) {
 
 				$query = $query->left_join(
 					Base::table('divisions'),
-					Base::table('divisions.id'), '=', Base::table('staffs.division'));
-				$query->where(Base::table('staffs.division'), '=', $division->id);
+					Base::table('divisions.id'), '=', Base::table('revisions.division'));
+				$query->where(Base::table('revisions.division'), '=', $division->id);
 
 				array_push($get, Base::table('divisions.slug as division_slug'), Base::table('divisions.title as division_title'));
 			}
@@ -94,8 +97,8 @@ class StaffDelete extends Base {
 
 				$query = $query->left_join(
 					Base::table('branchs'),
-					Base::table('branchs.id'), '=', Base::table('staffs.branch'));
-				$query->where(Base::table('staffs.branch'), '=', $branch->id);
+					Base::table('branchs.id'), '=', Base::table('revisions.branch'));
+				$query->where(Base::table('revisions.branch'), '=', $branch->id);
 
 				array_push($get, Base::table('branchs.slug as branch_slug'), Base::table('branchs.title as branch_title'));
 			}
@@ -104,8 +107,8 @@ class StaffDelete extends Base {
 
 				$query = $query->left_join(
 					Base::table('sectors'),
-					Base::table('sectors.id'), '=', Base::table('staffs.sector'));
-				$query->where(Base::table('staffs.sector'), '=', $sector->id);
+					Base::table('sectors.id'), '=', Base::table('revisions.sector'));
+				$query->where(Base::table('revisions.sector'), '=', $sector->id);
 
 				array_push($get, Base::table('sectors.slug as sector_slug'), Base::table('sectors.title as sector_title'));
 			}
@@ -114,8 +117,8 @@ class StaffDelete extends Base {
 
 				$query = $query->left_join(
 					Base::table('units'),
-					Base::table('units.id'), '=', Base::table('staffs.unit'));
-				$query->where(Base::table('staffs.unit'), '=', $unit->id);
+					Base::table('units.id'), '=', Base::table('revisions.unit'));
+				$query->where(Base::table('revisions.unit'), '=', $unit->id);
 
 				array_push($get, Base::table('units.slug as unit_slug'), Base::table('units.title as unit_title'));
 			}
@@ -124,7 +127,7 @@ class StaffDelete extends Base {
 		$total = $query->count();
 
     // get staffs
-		$staffs = $query->sort(Base::table('staffs.grade'), 'desc')
+		$staffs = $query->sort(Base::table('revisions.grade'), 'desc')
 		->take($per_page)
 		->skip(--$page * $per_page)
 		->get($get);
