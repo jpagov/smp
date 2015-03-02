@@ -280,18 +280,20 @@ class Revision extends Base {
 
 		$count = $query->count();
 
-		$query->sort('grade', 'desc');
+		$query->sort('staff_id')->sort('revision_date', 'desc');
+
+		$query->group('staff_id');
 
 		$staffs = $query->take($per_page)
 		->skip(--$page * $per_page)
 		->get(array(static::fields()));
 
 		// fix: why this $page start with 0 on admin only? even we set default to 1?
-		if (strpos(Uri::current(), 'admin/staffs') !== false) {
+		if (strpos(Uri::current(), 'admin/revisions') !== false) {
 			$page = $page+1;
 		}
 
-		return ($object) ? new Paginator($staffs, $count, $page, $per_page, Uri::to('admin/staffs')) : array($count, $staffs);
+		return ($object) ? new Paginator($staffs, $count, $page, $per_page, Uri::to('admin/revisions')) : array($count, $staffs);
 	}
 
 	public static function paginate($page = 1, $perpage = 10) {
@@ -299,9 +301,21 @@ class Revision extends Base {
 
 		$count = $query->count();
 
-		$results = $query->take($perpage)->skip(($page - 1) * $perpage)->sort('grade', 'desc')->get(array(static::fields()));
+		$results = $query->take($perpage)->skip(($page - 1) * $perpage)->sort('revision_date', 'desc')->sort('grade', 'desc')->get(array(static::fields()));
 
-		return new Paginator($results, $count, $page, $perpage, Uri::to('admin/staffs'));
+		return new Paginator($results, $count, $page, $perpage, Uri::to('admin/revisions'));
+	}
+
+	public static function staffid($id, $page = 1, $perpage = 10) {
+		$query = Query::table(static::table());
+
+		$query->where('staff_id', '=', $id);
+
+		$count = $query->count();
+
+		$results = $query->take($perpage)->skip(($page - 1) * $perpage)->sort('revision_date', 'desc')->sort('grade', 'desc')->get(array(static::fields()));
+
+		return new Paginator($results, $count, $page, $perpage, Uri::to('admin/revisions'));
 	}
 
 	public static function related($id, $page = 1, $perpage = 6) {

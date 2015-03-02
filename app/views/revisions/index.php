@@ -23,18 +23,18 @@
 						<!--th><?php echo __('staffs.role'); ?></th-->
 						<th><?php echo __('staffs.telephone'); ?></th>
 						<th><?php echo __('staffs.status'); ?></th>
-						<th><?php echo __('staffs.role'); ?></th>
+						<th><?php echo __('staffs.revision'); ?></th>
 					</tr>
 				</thead>
 				<tbody>
 					<?php foreach($staffs->results as $staff): ?>
 						<tr class="status draft">
 							<td><?php echo $staff->staff_id; ?></td>
-							<td><a href="<?php echo Uri::to('admin/staffs/edit/' . $staff->id); ?>" title=""><?php echo $staff->display_name; ?></a></td>
+							<td><a href="<?php echo Uri::to('admin/revisions/list/' . $staff->staff_id); ?>" title=""><?php echo $staff->display_name; ?></a></td>
 							<td><?php echo $staff->email; ?></td>
 							<td><?php echo $staff->telephone; ?></td>
 							<td><abbr title="<?php echo Date::format($staff->created); ?>"><?php echo __('global.' . $staff->status); ?></abbr></td>
-							<td><?php echo ucfirst($staff->role); ?></td>
+							<td><?php echo $staff->total; ?></td>
 
 							</tr>
 						<?php endforeach; ?>
