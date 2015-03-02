@@ -400,11 +400,13 @@ Route::collection(array('before' => 'auth,csrf', 'after' => 'log'), function() {
 				'message' => Braces::compile(PATH . 'content/editor.html', [
 					'title' => __('email.editor_subject'),
 					'hi' => __('email.hi'),
-					'message' => __('users.editor_message', implode(', ', $email_div), Uri::full('admin/amnesia/')),
+					'message' => __('email.editor_message', implode(', ', $email_div), Uri::full('admin/amnesia/')),
 					'thanks' => __('email.thanks'),
 					'footer' => __('site.title'),
 				])
 			];
+
+			dd($emailer);
 
 			$mail = new Email($emailer);
 
