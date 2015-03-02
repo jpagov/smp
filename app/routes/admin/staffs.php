@@ -406,8 +406,6 @@ Route::collection(array('before' => 'auth,csrf', 'after' => 'log'), function() {
 				])
 			];
 
-			dd($emailer);
-
 			$mail = new Email($emailer);
 
 			if(!$mail->send()) {
