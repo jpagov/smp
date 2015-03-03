@@ -1,5 +1,8 @@
 <?php echo $header; ?>
 
+<?php echo Html::link('admin/revisions', __('global.back'), array('class' => 'btn btn-lg btn-default pull-right')); ?>
+
+
 <h1 class="page-header"><?php echo __('revision.revision'); ?></h1>
 
 <?php echo $messages; ?>
@@ -61,21 +64,23 @@
 
 		<div class="col col-lg-3">
 
-			<?php echo Form::button(__('global.update'), array(
-				'class' => 'btn btn-primary btn-lg btn-block',
-				'type' => 'submit',
-				'name' => 'action',
-				'value' => 'compare',
-			)); ?>
+			<div class="well">
 
-			<?php echo Form::button(__('global.delete'), array(
-				'class' => 'btn btn-warning btn-lg btn-block delete',
-				'type' => 'submit',
-				'name' => 'action',
-				'value' => 'delete',
-			)); ?>
+				<?php echo Form::button(__('global.update'), array(
+					'class' => 'btn btn-primary btn-lg btn-block',
+					'type' => 'submit',
+					'name' => 'action',
+					'value' => 'compare',
+				)); ?>
 
-			<nav class="sidebar">
+				<?php echo Form::button(__('global.delete'), array(
+					'class' => 'btn btn-warning btn-lg btn-block delete',
+					'type' => 'submit',
+					'name' => 'action',
+					'value' => 'delete',
+				)); ?>
+
+			</div>
 
 			<div class="panel panel-default">
 				<div class="panel-heading">
@@ -87,12 +92,9 @@
 			</div>
 
 
+		</div>
 
-						</nav>
+		</form>
+	</div>
 
-					</div>
-
-					</form>
-				</div>
-
-				<?php echo $footer; ?>
+<?php echo $footer; ?>
