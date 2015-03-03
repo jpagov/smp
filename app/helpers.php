@@ -7,7 +7,7 @@ function __($line) {
 }
 
 function uri($url = '') {
-    return Uri::to($url);
+	return Uri::to($url);
 }
 
 function _e($line, $default = null) {
@@ -29,13 +29,13 @@ function is_category() {
 }
 
 function avatar_url() {
-  return asset('content/avatar/');
+	return asset('content/avatar/');
 }
 
 function avatar($avatar = 'default-male.jpg') {
-  $avatar = avatar_url() . $avatar . '.jpg';
-  $avatar = str_replace('.jpg.jpg', '.jpg', $avatar);
-  return $avatar;
+	$avatar = avatar_url() . $avatar . '.jpg';
+	$avatar = str_replace('.jpg.jpg', '.jpg', $avatar);
+	return $avatar;
 }
 
 function slug($str, $separator = '-') {
@@ -44,7 +44,11 @@ function slug($str, $separator = '-') {
 	// replace non letter or digits by separator
 	$str = preg_replace('#^[^A-z0-9]+$#', $separator, $str);
 
-  return strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', $separator, $str)));
+	return strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', $separator, $str)));
+}
+
+function username($str) {
+	return preg_replace( "/^([^@]+)(@.*)$/", "$1", $str);
 }
 
 function parse($str, $markdown = true) {
@@ -63,7 +67,7 @@ function parse($str, $markdown = true) {
 
 	$str = html_entity_decode($str, ENT_NOQUOTES, System\Config::app('encoding'));
 
-	//  Parse Markdown as well?
+	//	Parse Markdown as well?
 	if($markdown === true) {
 		$md = new Markdown;
 		$str = $md->transform($str);
@@ -79,66 +83,66 @@ function readable_size($size) {
 }
 
 function onload() {
-  return ' class="' . (is_admin() ? 'admin' : 'login') . '" id="' . explode('/', Uri::current())[1] . '"';
+	return ' class="' . (is_admin() ? 'admin' : 'login') . '" id="' . explode('/', Uri::current())[1] . '"';
 }
 
 function jusa($gred) {
-    $gred = intval($gred);
+	$gred = intval($gred);
 
-    switch ($gred) {
+	switch ($gred) {
 
-        case ($gred >= 99):
-            return 'TURUS I';
+		case ($gred >= 99):
+			return 'TURUS I';
 
-        case ($gred >= 97 && $gred <= 98):
-            return 'TURUS II';
+		case ($gred >= 97 && $gred <= 98):
+			return 'TURUS II';
 
-        case ($gred >= 95 && $gred <= 97):
-            return 'TURUS III';
+		case ($gred >= 95 && $gred <= 97):
+			return 'TURUS III';
 
-        case ($gred >= 91 && $gred <= 94):
-            return 'A';
+		case ($gred >= 91 && $gred <= 94):
+			return 'A';
 
-        case ($gred >= 88 && $gred <= 90):
-            return 'B';
+		case ($gred >= 88 && $gred <= 90):
+			return 'B';
 
-        case ($gred >= 56 && $gred <= 87):
-            return 'C';
+		case ($gred >= 56 && $gred <= 87):
+			return 'C';
 
-        default:
-            return;
-    }
+		default:
+			return;
+	}
 }
 
 function reportTo($desc) {
-    $desc = trim(strip_tags(parse($desc), '<ol><ul><li>'));
-    return $desc;
+	$desc = trim(strip_tags(parse($desc), '<ol><ul><li>'));
+	return $desc;
 }
 
 function array_unshift_assoc(&$arr, $key, $val) {
-    $arr = array_reverse($arr, true);
-    $arr[$key] = $val;
-    return array_reverse($arr, true);
+	$arr = array_reverse($arr, true);
+	$arr[$key] = $val;
+	return array_reverse($arr, true);
 }
 
 function custom_number_format($n, $precision = 1) {
-    if ($n < 1000) {
+	if ($n < 1000) {
 
-        $n_format = number_format($n);
+		$n_format = number_format($n);
 
-    } else if ($n >= 1000) {
+	} else if ($n >= 1000) {
 
-        $n_format = number_format($n / 1000 , $precision) . 'K';
+		$n_format = number_format($n / 1000 , $precision) . 'K';
 
-    } else if ($n < 1000000000) {
-        // Anything less than a billion
-        $n_format = number_format($n / 1000000, $precision) . 'M';
-    } else {
-        // At least a billion
-        $n_format = number_format($n / 1000000000, $precision) . 'B';
-    }
+	} else if ($n < 1000000000) {
+		// Anything less than a billion
+		$n_format = number_format($n / 1000000, $precision) . 'M';
+	} else {
+		// At least a billion
+		$n_format = number_format($n / 1000000000, $precision) . 'B';
+	}
 
-    return $n_format;
+	return $n_format;
 }
 
 function active($check) {
@@ -169,17 +173,17 @@ function admin_search_term() {
 
 function admin_color($role) {
 
-    switch ($role) {
+	switch ($role) {
 
-        case ($role == 'administrator'):
-            return 'list-group-item-success';
+		case ($role == 'administrator'):
+			return 'list-group-item-success';
 
-        case ($role == 'editor'):
-            return 'list-group-item-info';
+		case ($role == 'editor'):
+			return 'list-group-item-info';
 
-        default:
-            return;
-    }
+		default:
+			return;
+	}
 }
 
 function staff_hierarchy_admin($id = null, $array = false) {

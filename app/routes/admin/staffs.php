@@ -259,7 +259,7 @@ Route::collection(array('before' => 'auth,csrf', 'after' => 'log'), function() {
 		$input['management'] = $input['management'] ?: 0;
 
 		if(empty($input['slug'])) {
-			$input['slug'] = $input['display_name'];
+			$input['slug'] = $input['email'] ?: $input['display_name'];
 		}
 
 		$input['slug'] = slug($input['slug']);
@@ -495,7 +495,7 @@ Route::collection(array('before' => 'auth,csrf', 'after' => 'log'), function() {
 		));
 
 		if(empty($input['slug'])) {
-			$input['slug'] = $input['display_name'];
+			$input['slug'] = $input['email'] ?: $input['display_name'];
 		}
 
 		$input['display_name'] = trim($input['display_name']);
