@@ -78,29 +78,7 @@ Route::get('category/(:any)', function($slug) {
 
 	Stats::log($category->id, 'category');
 
-	$url = 'division';
-
-	if ($hierarchy = Hierarchy::find($category->hierarchy)) {
-
-		if ($division = Division::find($hierarchy->division)) {
-			$url .= '/' . $division->slug;
-		}
-
-		if ($branch = Branch::find($hierarchy->branch)) {
-			$url .= '/' . $branch->slug;
-		}
-
-		if ($sector = Sector::find($hierarchy->sector)) {
-			$url .= '/' . $sector->slug;
-		}
-
-		if ($unit = Unit::find($hierarchy->unit)) {
-			$url .= '/' . $unit->slug;
-		}
-
-	}
-
-	return Response::redirect($url);
+	return Response::redirect($category->redirect);
 });
 
 Route::get('content/avatar/(:any).jpg', function($email) {

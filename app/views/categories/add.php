@@ -61,39 +61,6 @@
 	        </div>
 
            </fieldset>
-           <fieldset>
-           	<legend><?php echo __('categories.redirect'); ?></legend>
-
-           	<div class="form-group">
-              <label class="col-sm-2 control-label" for="division"><?php echo __('staffs.division'); ?></label>
-              <div class="col-sm-6">
-                <?php echo Form::select('division', $divisions, Input::previous('division'), array('class' => 'form-control', 'id' => 'division',
-                )); ?>
-              </div>
-            </div>
-
-            <div class="form-group">
-              <label class="col-sm-2 control-label" for="branch"><?php echo __('staffs.branch'); ?></label>
-              <div class="col-sm-8 branch-prefetch">
-                <?php echo Form::text('branch', Input::previous('branch'), array('class' => 'form-control typeahead col-sm-12', 'id' => 'branch')); ?>
-              </div>
-            </div>
-
-            <div class="form-group">
-              <label class="col-sm-2 control-label" for="sector"><?php echo __('staffs.sector'); ?></label>
-              <div class="col-sm-8 sector-prefetch">
-                <?php echo Form::text('sector', Input::previous('sector'), array('class' => 'form-control typeahead', 'id' => 'sector')); ?>
-              </div>
-            </div>
-
-            <div class="form-group">
-              <label class="col-sm-2 control-label" for="unit"><?php echo __('staffs.unit'); ?></label>
-              <div class="col-sm-8 unit-prefetch">
-                <?php echo Form::text('unit', Input::previous('unit'), array('class' => 'form-control typeahead', 'id' => 'unit')); ?>
-              </div>
-            </div>
-
-           </fieldset>
 
         </div>
         <div class="col-md-3">

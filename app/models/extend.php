@@ -164,7 +164,7 @@ class Extend extends Base {
 
 		if(!is_dir($storage)) mkdir($storage);
 
-		$ext = pathinfo($file['name'], PATHINFO_EXTENSION);
+		$ext = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
 
 		// Added rtrim to remove file extension before adding again
 
