@@ -27,7 +27,7 @@
                         <td><?php echo $category->id; ?></td>
                         <td><a href="<?php echo Uri::to('admin/categories/edit/' . $category->id); ?>"><?php echo __($category->title); ?></a></td>
                         <td><?php echo $category->slug; ?></td>
-                        <td><?php echo $category->hierarchy; ?></td>
+                        <td><?php echo $category->redirect; ?></td>
                         <td><?php echo $category->view; ?></td>
                     </tr>
                 <?php endforeach; ?>

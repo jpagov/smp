@@ -23,30 +23,6 @@ Route::collection(array('before' => 'auth,csrf,admin'), function() {
 		$vars['messages'] = Notify::read();
 		$vars['token'] = Csrf::token();
 		$vars['category'] = Category::find($id);
-		$vars['divisions'] = array_unshift_assoc(Division::dropdown(), '0', __('staffs.please_select'));
-
-		$vars['hierarchy'] = array(
-			'division' => 0,
-			'branch' => 0,
-			'sector' => 0,
-			'unit' => 0,
-		);
-
-		if ( $vars['category']->hierarchy && $hierarchy = Hierarchy::find($vars['category']->hierarchy)) {
-
-			$vars['division'] = $hierarchy->division;
-
-			$vars['branch'] = ($branch = Branch::find($hierarchy->branch)) ? $branch->title : '';
-
-			$vars['sector'] = ($sector = Sector::find($hierarchy->sector)) ? $sector->title : '';
-
-			$vars['unit'] = ($unit = Unit::find($hierarchy->unit)) ? $unit->title : '';
-		} else {
-			$vars['division'] = 0;
-			$vars['branch'] = 0;
-			$vars['sector'] = 0;
-			$vars['unit'] = 0;
-		}
 
 		return View::create('categories/edit', $vars)
 			->partial('header', 'partials/header')
