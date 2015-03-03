@@ -14,7 +14,7 @@
 			<table class="table table-hover">
 				<thead>
 					<tr>
-						<th>ID</th>
+						<th><?php echo __('revision.select'); ?></th>
 						<th><?php echo __('staffs.name'); ?></th>
 						<th><?php echo __('staffs.email'); ?></th>
 						<!--th><?php echo __('staffs.role'); ?></th-->
@@ -27,8 +27,16 @@
 				<tbody>
 					<?php foreach($revisions->results as $revision): ?>
 						<tr class="status draft">
-							<td><?php echo $revision->staff_id; ?></td>
-							<td><a href="<?php echo Uri::to('admin/revisions/edit/' . $revision->staff_id); ?>" title=""><?php echo $revision->display_name; ?></a></td>
+
+							<?php
+							$idAttr = [];
+							if (in_array($revision->id, $input['id'])) {
+								$idAttr['checked'] = 'checked';
+							}
+
+							?>
+							<td class="text-center"><?php echo Form::checkbox('id[]', $revision->id, $idAttr); ?></td>
+							<td><a href="<?php echo Uri::to('admin/revisions/edit/' . $revision->id); ?>" title=""><?php echo $revision->display_name; ?></a></td>
 							<td><?php echo $revision->email; ?></td>
 							<td><?php echo $revision->telephone; ?></td>
 							<td><abbr title="<?php echo Date::format($revision->created); ?>"><?php echo __('global.' . $revision->status); ?></abbr></td>
@@ -52,6 +60,20 @@
 		</div>
 
 		<div class="col col-lg-3">
+
+			<?php echo Form::button(__('global.update'), array(
+				'class' => 'btn btn-primary btn-lg btn-block',
+				'type' => 'submit',
+				'name' => 'action',
+				'value' => 'compare',
+			)); ?>
+
+			<?php echo Form::button(__('global.delete'), array(
+				'class' => 'btn btn-warning btn-lg btn-block delete',
+				'type' => 'submit',
+				'name' => 'action',
+				'value' => 'delete',
+			)); ?>
 
 			<nav class="sidebar">
 

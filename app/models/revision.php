@@ -46,6 +46,17 @@ class Revision extends Base {
 		return $fields;
 	}
 
+	public static function total($id) {
+		return static::where('staff_id', '=', $id)->count();
+	}
+
+	public static function remove($id) {
+		if (!$results = static::where('staff_id', '=', $id)->sort('revision_date')->take(1)->delete()) {
+			return false;
+		}
+		return true;
+	}
+
 	public static function id($id) {
 		return static::get('id', $id);
 	}

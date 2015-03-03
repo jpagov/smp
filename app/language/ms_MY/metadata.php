@@ -8,6 +8,7 @@ return array(
 	'staff_settings' => 'Pegawai',
 	'comment_settings' => 'Komen',
 	'theme_settings' => 'Antaramuka',
+	'revision_settings' => 'Revisi',
 
 	// form fields
 	'sitename' => 'Nama',
@@ -66,6 +67,10 @@ return array(
 
 	'show_hierarchy' => 'Tunjukkan hirarki',
 	'show_hierarchy_explain' => 'Tunjukkan hirarki organisasi.',
+
+	'revision' => 'Revisi',
+	'enable_revision' => 'Hidupkan fungsi revisi',
+	'max_revision' => 'Maximum revisi',
 
 	// messages
 	'updated' => 'Metadata telah dikemaskini',

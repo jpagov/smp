@@ -104,9 +104,68 @@ Route::collection(array('before' => 'auth,csrf', 'after' => 'log'), function() {
 	});
 
 Route::get('admin/revisions/list/(:num)', function($id) {
+
 	$vars['messages'] = Notify::read();
 	$vars['token'] = Csrf::token();
 	$vars['admin'] = Auth::user();
+
+	$input = filter_var_array(Input::get([
+			'action',
+			'id',
+		]), [
+		'action' => FILTER_SANITIZE_SPECIAL_CHARS,
+		'id' => [
+			'filter' => FILTER_VALIDATE_INT,
+			'flags' => FILTER_FORCE_ARRAY,
+		],
+	]);
+
+	$vars['input'] = $input;
+
+	if (array_filter($input)) {
+
+		if ( $input['id'][0]) {
+
+			Notify::warning(__('revision.missing_id'));
+			return Response::redirect('admin/revisions/list/' . $id);
+
+		}
+
+		if ( $input['action'] == 'compare' && count($input['id']) < 2) {
+
+			Notify::warning(__('revision.missing_compare'));
+			return Response::redirect('admin/revisions/list/' . $id);
+
+		}
+
+		if ( $input['action'] == 'compare' ) {
+			$compare = $input;
+			unset($compare['action']);
+			$url = 'admin/revisions/compare/' . '?' . urldecode(preg_replace('/%5B[0-9]+%5D/simU', '%5B%5D', http_build_query($compare)));
+
+			dd('Not implemented yet');
+			return Response::redirect($url);
+
+		}
+
+		if ( $input['action'] == 'delete' && !$input['id'][0]) {
+
+			Notify::warning(__('revision.missing_id'));
+			return Response::redirect('admin/revisions/list/' . $id);
+
+		}
+
+		if ( $input['action'] == 'delete') {
+
+			foreach ($input['id'] as $revid) {
+				Revision::find($revid)->delete();
+			}
+
+			Notify::warning(__('revision.delete'));
+			return Response::redirect('admin/revisions/list/' . $id);
+
+		}
+	}
 
 	if (!$vars['revisions'] = Revision::staffid($id)) {
 		Notify::warning(__('staffs.not_found'));

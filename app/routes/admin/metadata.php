@@ -42,6 +42,8 @@ Route::collection(array('before' => 'auth,admin,csrf'), function() {
 			'show_division_meta',
 			'show_hierarchy',
 			'show_direct_report',
+			'revision',
+			'max_revision',
 			'show_personal_assistant',
 			'auto_published_comments',
 			'theme',

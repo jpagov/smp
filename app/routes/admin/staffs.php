@@ -355,28 +355,38 @@ Route::collection(array('before' => 'auth,csrf', 'after' => 'log'), function() {
 
 		if ($filteredArr) {
 			// Before update, insert to revision
-			$revision = [];
-			foreach($staff->data as $key => $value) {
-				if ($key == 'id') {
-					$revision['staff_id'] = $value;
-				} else {
-					$revision[$key] = $value;
+			if (Config::meta('revision')) {
+
+				$revision = [];
+				foreach($staff->data as $key => $value) {
+					if ($key == 'id') {
+						$revision['staff_id'] = $value;
+					} else {
+						$revision[$key] = $value;
+					}
 				}
-			}
 
-			$extend = [];
+				$extend = [];
 
-			foreach (['avatar', 'twitter', 'facebook', 'gplus', 'github'] as $fields) {
-				if($field = Extend::field('staff', $fields, $id)) {
-					$extend[$fields] = Extend::value($field);
+				foreach (['avatar', 'twitter', 'facebook', 'gplus', 'github'] as $fields) {
+					if($field = Extend::field('staff', $fields, $id)) {
+						$extend[$fields] = Extend::value($field);
+					}
 				}
+
+				$revision['extend'] = serialize($extend);
+				$revision['admin'] = $user->id;
+				$revision['revision_date'] = Date::mysql('now');
+
+				// 
+				if (Revision::total($staff->id) > (int) Config::meta('max_revision')) {
+					Revision::remove($staff->id);
+				}
+
+				Revision::create($revision);
+				
 			}
-
-			$revision['extend'] = serialize($extend);
-			$revision['admin'] = $user->id;
-			$revision['revision_date'] = Date::mysql('now');
-
-			Revision::create($revision);
+			
 			Staff::update($id, $input);
 			Extend::process('staff', $id, $input['email']);
 
