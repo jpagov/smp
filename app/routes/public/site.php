@@ -464,7 +464,7 @@ Route::get('(:num)', function($id) use($staffs_page) {
 
 Route::get('(:all)', function($uri) use($staffs_page) {
 
-	// find if slug is staff
+	// find if slug in staff table
 	if( $staff = Staff::slug(basename($uri)) ) {
 
 		if ($staff->status == 'inactive') {
@@ -484,6 +484,13 @@ Route::get('(:all)', function($uri) use($staffs_page) {
 		Registry::set('division', Division::find($staff->division));
 
 		return new Template('staff');
+	}
+
+	// find if slug in revision table
+	if( $staff = Revision::slug(basename($uri)) ) {
+
+		// found the old slug, redirect using staff id
+		return Response::redirect($staff->staff_id);
 	}
 
 	// Find for page slug

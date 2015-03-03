@@ -6,7 +6,7 @@ Route::collection(array('before' => 'auth,csrf', 'after' => 'log'), function() {
 		List staffs
 	*/
 
-	Route::get(array('admin/staffs', 'admin/staffs/(:num)'), function($page = 1) {
+	Route::get(array('admin/revisions', 'admin/revisions/(:num)'), function($page = 1) {
 
 		$input = Input::get(array(
 			'term',
@@ -77,9 +77,13 @@ Route::collection(array('before' => 'auth,csrf', 'after' => 'log'), function() {
 		}
 
 		if ($search) {
-			$staffs = Staff::search($input['term'], $page, Config::meta('staffs_per_page'), true, $filter);
+			$staffs = Revision::search($input['term'], $page, Config::meta('staffs_per_page'), true, $filter);
 		} else {
-			$staffs = Staff::paginate($page, Config::meta('staffs_per_page'));
+			$staffs = Revision::paginate($page, Config::meta('staffs_per_page'));
+		}
+
+		foreach($staffs->results as $staff) {
+			$staff->total = Revision::where('staff_id', '=', $staff->staff_id)->count();
 		}
 
 		$vars['messages'] = Notify::read();
@@ -93,43 +97,129 @@ Route::collection(array('before' => 'auth,csrf', 'after' => 'log'), function() {
 			'staff' => __('global.staff')
 		);
 
-		return View::create('staffs/index', $vars)
+		return View::create('revisions/index', $vars)
 			->partial('header', 'partials/header')
 			->partial('search', 'partials/search', $vars)
 			->partial('footer', 'partials/footer');
 	});
 
-	/*
-		Edit staff
-	*/
-	Route::get('admin/staffs/edit/(:num)', function($id) {
-		$vars['messages'] = Notify::read();
-		$vars['token'] = Csrf::token();
-		$vars['admin'] = Auth::user();
+Route::get('admin/revisions/list/(:num)', function($id) {
 
-		if (!$vars['staff'] = Staff::find($id)) {
-			Notify::warning(__('staffs.not_found'));
+	$vars['messages'] = Notify::read();
+	$vars['token'] = Csrf::token();
+	$vars['admin'] = Auth::user();
 
-			return Response::redirect('admin/staffs');
+	$input = filter_var_array(Input::get([
+			'action',
+			'id',
+		]), [
+		'action' => FILTER_SANITIZE_SPECIAL_CHARS,
+		'id' => [
+			'filter' => FILTER_VALIDATE_INT,
+			'flags' => FILTER_FORCE_ARRAY,
+		],
+	]);
+
+	$vars['input'] = $input;
+
+	if (array_filter($input)) {
+
+		if ( $input['action'] == 'compare' && !$input['id'][0]) {
+
+			Notify::warning(__('revision.missing_compare'));
+			return Response::redirect('admin/revisions/list/' . $id);
+
 		}
 
+		if ( $input['action'] == 'compare' ) {
+			$compare = $input;
+			unset($compare['action']);
+			$url = 'admin/revisions/compare/' . '?' . urldecode(preg_replace('/%5B[0-9]+%5D/simU', '%5B%5D', http_build_query($compare)));
+
+			dd('Not implemented yet');
+			return Response::redirect($url);
+
+		}
+
+		if ( $input['action'] == 'delete' && !$input['id'][0]) {
+
+			Notify::warning(__('revision.missing_id'));
+			return Response::redirect('admin/revisions/list/' . $id);
+
+		}
+
+		if ( $input['action'] == 'delete') {
+
+			foreach ($input['id'] as $revid) {
+				Revision::find($revid)->delete();
+			}
+
+			Notify::warning(__('revision.delete'));
+			return Response::redirect('admin/revisions/list/' . $id);
+
+		}
+	}
+
+	if (!$vars['revisions'] = Revision::staffid($id)) {
+		Notify::warning(__('staffs.not_found'));
+
+		return Response::redirect('admin/revisions');
+	}
+
+	if ($vars['admin']->role != 'administrator') {
 		if ($vars['admin']->role == 'staff' && $vars['admin']->id != $id) {
 
 			Notify::warning(__('staffs.noroleedit'));
 
-			return Response::redirect('admin/staffs/');
+			return Response::redirect('admin/revisions/');
+		}
+	}
+
+	if ($vars['admin']->role == 'editor' && !in_array($vars['revisions']->division, $vars['admin']->roles)) {
+
+		Notify::warning(__('staffs.noroleedit'));
+
+		return Response::redirect('admin/revisions/');
+	}
+
+	return View::create('revisions/list', $vars)
+			->partial('header', 'partials/header')
+			->partial('footer', 'partials/footer');
+
+
+});
+
+	/*
+		Edit staff
+	*/
+	Route::get('admin/revisions/edit/(:num)', function($id) {
+		$vars['messages'] = Notify::read();
+		$vars['token'] = Csrf::token();
+		$vars['admin'] = Auth::user();
+
+		if (!$vars['staff'] = Revision::find($id)) {
+			Notify::warning(__('staffs.not_found'));
+
+			return Response::redirect('admin/revisions');
 		}
 
+		if ($vars['admin']->role != 'administrator') {
+			if ($vars['admin']->role == 'staff' && $vars['admin']->id != $id) {
+
+				Notify::warning(__('staffs.noroleedit'));
+
+				return Response::redirect('admin/revisions/');
+			}
+		}
 
 		if ($vars['admin']->role == 'editor' && !in_array($vars['staff']->division, $vars['admin']->roles)) {
 
 			Notify::warning(__('staffs.noroleedit'));
 
-			return Response::redirect('admin/staffs/');
+			return Response::redirect('admin/revisions/');
 		}
 
 		$vars['fields'] = Extend::fields('staff', $id);
-
 		$division_roles = array();
 		$vars['tab'] = 'profile'; //default tab to open
 
@@ -146,11 +236,11 @@ Route::collection(array('before' => 'auth,csrf', 'after' => 'log'), function() {
 			$vars['tab'] = $input['edit'];
 		}
 
-		if ($report = Staff::find($vars['staff']->report_to)) {
+		if ($report = Revision::find($vars['staff']->report_to)) {
 			$vars['staff']->report_to = $report->display_name;
 		}
 
-		if ($pa = Staff::find($vars['staff']->personal_assistant)) {
+		if ($pa = Revision::find($vars['staff']->personal_assistant)) {
 			$vars['staff']->personal_assistant = $pa->display_name;
 		}
 
@@ -205,12 +295,12 @@ Route::collection(array('before' => 'auth,csrf', 'after' => 'log'), function() {
 			'staff' => __('global.staff')
 		);
 
-		return View::create('staffs/edit', $vars)
+		return View::create('revisions/edit', $vars)
 			->partial('header', 'partials/header')
 			->partial('footer', 'partials/footer');
 	});
 
-	Route::post('admin/staffs/edit/(:num)', function($id) {
+	Route::post('admin/revisions/edit/(:num)', function($id) {
 
 		$user = Auth::user();
 
@@ -218,16 +308,16 @@ Route::collection(array('before' => 'auth,csrf', 'after' => 'log'), function() {
 
 			Notify::warning(__('staffs.noroleedit'));
 
-			return Response::redirect('admin/staffs/edit/' . $user->id);
+			return Response::redirect('admin/revisions/edit/' . $user->id);
 		}
 
-		$staff = Staff::find($id);
+		$staff = Revision::find($id);
 
 		if ($user->role == 'editor' && !in_array($staff->division, $user->roles)) {
 
 			Notify::warning(__('staffs.noroleedit'));
 
-			return Response::redirect('admin/staffs/');
+			return Response::redirect('admin/revisions/');
 		}
 
 
@@ -260,7 +350,7 @@ Route::collection(array('before' => 'auth,csrf', 'after' => 'log'), function() {
 		$input['management'] = $input['management'] ?: 0;
 
 		if(empty($input['slug'])) {
-			$input['slug'] = $input['email'] ?: $input['display_name'];
+			$input['slug'] = $input['display_name'];
 		}
 
 		$input['slug'] = slug($input['slug']);
@@ -313,7 +403,7 @@ Route::collection(array('before' => 'auth,csrf', 'after' => 'log'), function() {
 
 			Notify::warning($errors);
 
-			return Response::redirect('admin/staffs/edit/' . $id);
+			return Response::redirect('admin/revisions/edit/' . $id);
 		}
 
 		if($password_reset) {
@@ -326,9 +416,9 @@ Route::collection(array('before' => 'auth,csrf', 'after' => 'log'), function() {
 			'unit' => 0,
 		);
 
-		$input['report_to'] = ($reportTo = Input::get('report_to')) ? Staff::setid($reportTo) : 0;
+		$input['report_to'] = ($reportTo = Input::get('report_to')) ? Revision::setid($reportTo) : 0;
 
-		$input['personal_assistant'] = ($pa = Input::get('personal_assistant')) ? Staff::setid($pa) : 0;
+		$input['personal_assistant'] = ($pa = Input::get('personal_assistant')) ? Revision::setid($pa) : 0;
 
 		foreach (array('branch', 'sector', 'unit') as $org) {
 
@@ -349,48 +439,9 @@ Route::collection(array('before' => 'auth,csrf', 'after' => 'log'), function() {
 
 		$input['updated'] = Date::mysql('now');
 
-		$diff = array_diff_assoc($staff->data, $input);
+		Revision::update($id, $input);
 
-		$filteredArr = array_diff_key( $diff, array_flip( ['id', 'password', 'view', 'created', 'updated', 'last_visit', 'jusa', 'sort'] ) );
-
-		if ($filteredArr) {
-			// Before update, insert to revision
-			if (Config::meta('revision')) {
-
-				$revision = [];
-				foreach($staff->data as $key => $value) {
-					if ($key == 'id') {
-						$revision['staff_id'] = $value;
-					} else {
-						$revision[$key] = $value;
-					}
-				}
-
-				$extend = [];
-
-				foreach (['avatar', 'twitter', 'facebook', 'gplus', 'github'] as $fields) {
-					if($field = Extend::field('staff', $fields, $id)) {
-						$extend[$fields] = Extend::value($field);
-					}
-				}
-
-				$revision['extend'] = serialize($extend);
-				$revision['admin'] = $user->id;
-				$revision['revision_date'] = Date::mysql('now');
-
-				// 
-				if (Revision::total($staff->id) > (int) Config::meta('max_revision')) {
-					Revision::remove($staff->id);
-				}
-
-				Revision::create($revision);
-				
-			}
-			
-			Staff::update($id, $input);
-			Extend::process('staff', $id, $input['email']);
-
-		}
+		Extend::process('staff', $id, $input['email']);
 
 		if ($division = $input['division']) {
 			$hierarchy['staff'] = $id;
@@ -440,7 +491,7 @@ Route::collection(array('before' => 'auth,csrf', 'after' => 'log'), function() {
 				'message' => Braces::compile(PATH . 'content/editor.html', [
 					'title' => __('email.editor_subject'),
 					'hi' => __('email.hi'),
-					'message' => __('email.editor_message', implode(', ', $email_div), Uri::full('admin/amnesia/')),
+					'message' => __('users.editor_message', implode(', ', $email_div), Uri::full('admin/amnesia/')),
 					'thanks' => __('email.thanks'),
 					'footer' => __('site.title'),
 				])
@@ -458,13 +509,13 @@ Route::collection(array('before' => 'auth,csrf', 'after' => 'log'), function() {
 
 		Notify::success(__('staffs.updated'));
 
-		return Response::redirect('admin/staffs/edit/' . $id);
+		return Response::redirect('admin/revisions/edit/' . $id);
 	});
 
 	/*
 		Add staff
 	*/
-	Route::get('admin/staffs/add', function() {
+	Route::get('admin/revisions/add', function() {
 
 		$user = Auth::user();
 
@@ -472,7 +523,7 @@ Route::collection(array('before' => 'auth,csrf', 'after' => 'log'), function() {
 
 			Notify::warning(__('staffs.noroleadd'));
 
-			return Response::redirect('admin/staffs/edit/' . $user->id);
+			return Response::redirect('admin/revisions/edit/' . $user->id);
 		}
 
 		$vars['messages'] = Notify::read();
@@ -501,12 +552,12 @@ Route::collection(array('before' => 'auth,csrf', 'after' => 'log'), function() {
 			'staff' => __('global.staff')
 		);
 
-		return View::create('staffs/add', $vars)
+		return View::create('revisions/add', $vars)
 			->partial('header', 'partials/header')
 			->partial('footer', 'partials/footer');
 	});
 
-	Route::post('admin/staffs/add', function() {
+	Route::post('admin/revisions/add', function() {
 
 		$input = Input::get(array(
 			'message',
@@ -535,7 +586,7 @@ Route::collection(array('before' => 'auth,csrf', 'after' => 'log'), function() {
 		));
 
 		if(empty($input['slug'])) {
-			$input['slug'] = $input['email'] ?: $input['display_name'];
+			$input['slug'] = $input['display_name'];
 		}
 
 		$input['display_name'] = trim($input['display_name']);
@@ -594,7 +645,7 @@ Route::collection(array('before' => 'auth,csrf', 'after' => 'log'), function() {
 
 				Notify::warning($errors);
 
-				return Response::redirect('admin/staffs/add');
+				return Response::redirect('admin/revisions/add');
 			}
 
 		$hierarchy = array(
@@ -604,7 +655,7 @@ Route::collection(array('before' => 'auth,csrf', 'after' => 'log'), function() {
 		);
 
 		if ($reportTo = Input::get('report_to')) {
-			$input['report_to'] = Staff::setid($reportTo);
+			$input['report_to'] = Revision::setid($reportTo);
 		}
 
 		if ($branch = Input::get('branch')) {
@@ -624,7 +675,7 @@ Route::collection(array('before' => 'auth,csrf', 'after' => 'log'), function() {
 
 		$input['created'] = Date::mysql('now');
 
-		$staff = Staff::create($input);
+		$staff = Revision::create($input);
 
 		Extend::process('staff', $staff->id, $staff->email);
 
@@ -660,29 +711,29 @@ Route::collection(array('before' => 'auth,csrf', 'after' => 'log'), function() {
 			'created' => $input['created']
 		]);
 
-		Notify::success(__('staffs.created', Uri::to('admin/staffs/edit/' . $staff->id)));
+		Notify::success(__('staffs.created', Uri::to('admin/revisions/edit/' . $staff->id)));
 
 		$qs = '';
 		if (Session::get('division')) {
 			$qs = '/?division[]=' . Session::get('division');
 		}
 
-		return Response::redirect('admin/staffs' . $qs);
+		return Response::redirect('admin/revisions' . $qs);
 	});
 
 	/*
 		Delete staff
 	*/
-	Route::get('admin/staffs/delete/(:num)', function($id) {
+	Route::get('admin/revisions/delete/(:num)', function($id) {
 		$self = Auth::user();
 
 		if($self->id == $id) {
 			Notify::warning(__('staffs.delete_error'));
 
-			return Response::redirect('admin/staffs/edit/' . $id);
+			return Response::redirect('admin/revisions/edit/' . $id);
 		}
 
-		if ($staff = Staff::find($id)) {
+		if ($staff = Revision::find($id)) {
 
 			$revision = [];
 			foreach($staff->data as $key => $value) {
@@ -693,22 +744,13 @@ Route::collection(array('before' => 'auth,csrf', 'after' => 'log'), function() {
 				}
 			}
 
-			$extend = [];
-
-			foreach (['avatar', 'twitter', 'facebook', 'gplus', 'github'] as $fields) {
-				if($field = Extend::field('staff', $fields, $id)) {
-					$extend[$fields] = Extend::value($field);
-				}
-			}
-
-			$revision['extend'] = serialize($extend);
 			$revision['admin'] = $self->id;
 			$revision['status'] = 'delete';
 			$revision['revision_date'] = Date::mysql('now');
 
 			Revision::create($revision);
 
-			Staff::where('id', '=', $id)->delete();
+			Revision::where('id', '=', $id)->delete();
 			Hierarchy::where('staff', '=', $id)->delete();
 			Role::where('staff', '=', $id)->delete();
 
@@ -736,7 +778,7 @@ Route::collection(array('before' => 'auth,csrf', 'after' => 'log'), function() {
 		}
 
 
-		return Response::redirect('admin/staffs' . $qs);
+		return Response::redirect('admin/revisions' . $qs);
 	});
 });
 
@@ -745,7 +787,7 @@ Route::collection(array('before' => 'auth'), function() {
 	/*
 		Ajax change roles
 	*/
-	Route::post('admin/staffs/role', function() {
+	Route::post('admin/revisions/role', function() {
 		$self = Auth::user();
 
 		if (!Auth::admin()) {
@@ -758,11 +800,11 @@ Route::collection(array('before' => 'auth'), function() {
 			)
 		);
 
-		if (!$staff = Staff::find($input['id'])) {
+		if (!$staff = Revision::find($input['id'])) {
 			return Response::create(Json::encode(array('Staff not exist!')), 200, array('content-type' => 'application/json'));
 		}
 
-		Staff::update($staff->id, array('role' => $input['role'], 'updated' => Date::mysql('now')));
+		Revision::update($staff->id, array('role' => $input['role'], 'updated' => Date::mysql('now')));
 
 		return Response::create(Json::encode($input), 200, array('content-type' => 'application/json'));
 	});

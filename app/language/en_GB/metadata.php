@@ -8,6 +8,7 @@ return array(
 	'staff_settings' => 'Staff',
 	'comment_settings' => 'Comments',
 	'theme_settings' => 'Appearance',
+	'revision_settings' => 'Revision',
 
 	// form fields
 	'sitename' => 'Site name',
@@ -69,6 +70,10 @@ return array(
 
 	'show_hierarchy' => 'Show hirarchy',
 	'show_hierarchy_explain' => 'Show organization hirarchy',
+
+	'revision' => 'Revision',
+	'enable_revision' => 'Enable revision',
+	'max_revision' => 'Maximum revision',
 
 	// messages
 	'updated' => 'Metadata updated',

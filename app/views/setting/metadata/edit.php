@@ -168,6 +168,33 @@
             </fieldset>
 
             <fieldset>
+                <legend><?php echo __('metadata.revision_settings'); ?></legend>
+
+                <div class="form-group">
+                  <div class="col-sm-offset-3 col-sm-9">
+                    <div class="checkbox">
+                      <label><?php $checked = Input::previous('revision', $meta['revision']) ? ' checked' : ''; ?>
+                        <?php echo Form::checkbox('revision', 1, $checked, array(
+                        'id' => 'revision')); ?> <?php echo __('metadata.enable_revision'); ?>
+                      </label>
+                    </div>
+                    <span class="help-block"><?php echo __('metadata.auto_publish_comments_explain'); ?></span>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label" for="max_revision"><?php echo __('metadata.max_revision'); ?></label>
+                    <div class="col-sm-2">
+                    <?php echo Form::text('max_revision', Input::previous('max_revision', $meta['max_revision']), array(
+                        'class' => 'form-control',
+                        'id' => 'max_revision',
+                    )); ?>
+                    </div>
+                </div>
+
+            </fieldset>
+
+            <fieldset>
                 <legend><?php echo __('metadata.comment_settings'); ?></legend>
 
                 <div class="form-group">
