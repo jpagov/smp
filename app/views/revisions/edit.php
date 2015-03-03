@@ -1,10 +1,12 @@
 <?php echo $header; ?>
 
-<?php echo Html::link('admin/staffs', __('global.back'), array('class' => 'btn btn-lg btn-default pull-right')); ?>
+<?php echo Html::link('admin/revisions', __('global.back'), array('class' => 'btn btn-lg btn-default pull-right')); ?>
 
 <h1 class="page-header"><?php echo __('staffs.editing_staff', $staff->display_name); ?></h1>
 
 <?php echo $messages; ?>
+
+
 
 <div class="row">
 
@@ -38,13 +40,10 @@
 
 									<label class="control-label" for="extend_avatar">
 										<?php
-										$default_avatar = ($staff->gender == 'M') ?
-										'default-male.jpg' :
-										'default-female.jpg';
 
-										$avatar = ($fields && isset($fields[0]->value->filename)) ?
-										$fields[0]->value->filename :
-										$default_avatar;
+										$extend = unserialize($staff->extend);
+
+										$avatar = $extend['avatar'];
 
 										$remove = true;
 										if ($avatar === 'default-male.jpg' || $avatar === 'default-female.jpg') {
@@ -282,7 +281,10 @@
 											<div class="form-group">
 												<label class="col-md-2 control-label" for="extend_<?php echo $field->key; ?>"><?php echo $field->label; ?></label>
 												<div class="col-md-6">
-													<?php echo Extend::html($field); ?>
+
+													<?php echo Form::text('extend['. $field->key .']', Input::previous('extend_' . $field->key, $extend[$field->key]), array('class' => 'form-control', 'id' => 'extend_' . $field->key,
+														)); ?>
+
 												</div>
 											</div>
 										<?php endforeach; ?>
@@ -415,13 +417,13 @@
 					'type' => 'submit'
 					)); ?>
 
-				<?php echo Html::link('admin/staffs/delete/' . $staff->id,
+				<?php echo Html::link('admin/revisions/delete/' . $staff->id,
 					__('global.delete'), array(
 						'class' => 'btn btn-warning btn-lg btn-block delete'
 						)); ?>
 
-				<?php echo Html::link($staff->slug,
-					__('global.view'), array(
+				<?php echo Html::link('admin/revisions/restore/' . $staff->id,
+					__('revision.restore'), array(
 						'class' => 'btn btn-success btn-lg btn-block',
 						'target' => '_blank'
 						)); ?>

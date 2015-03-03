@@ -1,6 +1,6 @@
 <?php echo $header; ?>
 
-<?php echo Html::link('admin/staffs/add', __('staffs.create_staff'), array('class' => 'btn btn-lg btn-primary pull-right')); ?>
+<?php echo Html::link('admin/revisions/add', __('staffs.create_staff'), array('class' => 'btn btn-lg btn-primary pull-right')); ?>
 
 <h1 class="page-header"><?php echo __('staffs.staff'); ?></h1>
 
@@ -23,7 +23,7 @@
 						<!--th><?php echo __('staffs.role'); ?></th-->
 						<th><?php echo __('staffs.telephone'); ?></th>
 						<th><?php echo __('staffs.status'); ?></th>
-						<th><?php echo __('staffs.revision'); ?></th>
+						<th><?php echo __('revision.revision'); ?></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -34,7 +34,7 @@
 							<td><?php echo $staff->email; ?></td>
 							<td><?php echo $staff->telephone; ?></td>
 							<td><abbr title="<?php echo Date::format($staff->created); ?>"><?php echo __('global.' . $staff->status); ?></abbr></td>
-							<td><?php echo $staff->total; ?></td>
+							<td class="text-center"><kbd><?php echo $staff->total; ?></kbd></td>
 
 							</tr>
 						<?php endforeach; ?>
@@ -69,7 +69,7 @@
 
 								<ul class="list-group checked-list-box">
 
-									<?php echo Html::link('admin/staffs', '<span class="icon"></span> ' . __('global.all'), array(
+									<?php echo Html::link('admin/revisions', '<span class="icon"></span> ' . __('global.all'), array(
 										'class' => (!isset($division)) ? 'list-group-item active' : 'list-group-item'
 										)); ?>
 
@@ -104,7 +104,7 @@
 
 										<?php
 
-										echo Html::link('admin/staffs', '<span class="icon"></span> ' . __('global.all'), array(
+										echo Html::link('admin/revisions', '<span class="icon"></span> ' . __('global.all'), array(
 											'class' => ($status == 'all') ? 'list-group-item active' : 'list-group-item'
 											)); ?>
 

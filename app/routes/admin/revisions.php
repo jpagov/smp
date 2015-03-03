@@ -124,14 +124,7 @@ Route::get('admin/revisions/list/(:num)', function($id) {
 
 	if (array_filter($input)) {
 
-		if ( $input['id'][0]) {
-
-			Notify::warning(__('revision.missing_id'));
-			return Response::redirect('admin/revisions/list/' . $id);
-
-		}
-
-		if ( $input['action'] == 'compare' && count($input['id']) < 2) {
+		if ( $input['action'] == 'compare' && !$input['id'][0]) {
 
 			Notify::warning(__('revision.missing_compare'));
 			return Response::redirect('admin/revisions/list/' . $id);
