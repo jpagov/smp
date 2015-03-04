@@ -51,7 +51,7 @@
 											$remove = false;
 										}
 										?>
-										<img src="<?php echo avatar($avatar); ?>" class="img-responsive img-thumbnail pull-left"></label>
+										<img src="<?php echo avatar($avatar); ?>" class="img-responsive img-thumbnail pull-left" width="130" width="170" ></label>
 										<input class="sr-only" id="extend_avatar" name="extend[avatar]" type="file">
 										<?php if ( $remove) : ?>
 											<p>
