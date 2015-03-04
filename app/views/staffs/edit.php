@@ -426,8 +426,24 @@
 						'target' => '_blank'
 						)); ?>
 
-					</div>
-				</form>
-			</div>
 
-			<?php echo $footer; ?>
+				<?php if($revisions->count): ?>
+				<hr>
+				<div class="panel panel-default">
+					<!-- Default panel contents -->
+					<div class="panel-heading"><?php echo __('staffs.edit_history'); ?></div>
+
+					<!-- List group -->
+					<ul class="list-group">
+						<?php foreach($revisions->results as $revision): ?>
+						<li class="list-group-item"><?php echo Date::format($revision->revision_date, 'd M Y H:i:s'); ?> - <?php echo Staff::find($revision->admin)->display_name; ?></li>
+						<?php endforeach; ?>
+					</ul>
+				</div>
+				<?php endif; ?>
+
+			</div>
+		</form>
+	</div>
+
+	<?php echo $footer; ?>
