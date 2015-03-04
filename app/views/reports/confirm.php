@@ -26,7 +26,7 @@
 					<?php foreach($confirms->results as $confirm): ?>
 
 					<tr class="status draft">
-						<td><button type="button" class="btn btn-<?php echo ($confirm->confirm_date) ? 'success' : 'danger'; ?> btn-xs"><span class="<?php echo ($confirm->confirm_date) ? 'glyphicon glyphicon-thumbs-up' : 'glyphicon glyphicon-thumbs-down'; ?>"></span></button> <a href="<?php echo Uri::to('admin/confirm/resend/' . $confirm->id); ?>" class="btn btn-primary btn-xs" role="button"><span class="glyphicon glyphicon-envelope"></span> <?php echo __('reports.confirm_resend_email'); ?></a></td>
+						<td><button type="button" class="btn btn-<?php echo ($confirm->confirm_date) ? 'success' : 'danger'; ?> btn-xs"><span class="<?php echo ($confirm->confirm_date) ? 'glyphicon glyphicon-thumbs-up' : 'glyphicon glyphicon-thumbs-down'; ?>"></span></button> <?php if (!$confirm->confirm_date): ?><a href="<?php echo Uri::to('admin/confirm/resend/' . $confirm->id); ?>" class="btn btn-primary btn-xs" role="button"><span class="glyphicon glyphicon-envelope"></span> <?php echo __('reports.confirm_resend_email'); ?></a><?php endif; ?></td>
 						<td><?php echo $confirm->name; ?></td>
 						<td><?php echo Date::format($confirm->created, 'D, d M Y H:i:s'); ?></td>
 						<td><?php echo Date::format($confirm->confirm_date, 'D, d M Y H:i:s'); ?></td>

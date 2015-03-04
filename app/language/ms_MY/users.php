@@ -7,7 +7,7 @@ return array(
 	'create_user' => 'Create a new user',
 	'add_user' => 'Add a new user',
 	'editing_user' => 'Editing %s&rsquo;s Profile',
-	'remembered' => 'Oh, saya ingat katalaluan!',
+	'remembered' => 'Daftar masuk',
 	'forgotten_password' => 'Lupa katalaluan?',
 
 	// roles
@@ -57,7 +57,7 @@ return array(
 	'logout_notice' => 'Anda telah mendaftar keluar dari sistem.',
 	'recovery_sent' => 'Pihak kami telah menghantar emel pengesahan bagi penukaran katalaluan.',
 	'recovery_expired' => 'Token pemulihan Katalaluan telah tamat tempoh, sila cuba lagi.',
-	'password_reset' => 'Katalaluan baru anda telah disimpan. Apa tuggu lagi! Sila daftar masuk.',
+	'password_reset' => 'Katalaluan baru anda telah disimpan. Katanama: <kbd>%s</kbd>',
 
 	// password recovery email
   	'msg_not_send' => 'Mesej tidak dapat dihantar: <code>%s</code>',

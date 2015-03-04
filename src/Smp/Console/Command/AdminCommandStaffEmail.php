@@ -58,8 +58,15 @@ class AdminCommandStaffEmail extends Command {
 
 			foreach ($staffs as $staff) {
 
-				if ($staff->id != 487) {
-				//if (\Confirm::where('staff_id', '=', $staff->id)->count()) {
+				if ($staff->id != 487 || $staff->id != 190) {
+				//if ($confirm = \Confirm::where('staff_id', '=', $staff->id)->get()) {
+					//if ($confirm->confirm_date) {
+					//	continue;
+					//}
+					$progress->getProgress();
+					$progress->advance();
+					$output->writeln(PHP_EOL . '<info>Already sent. Skipped.</info>');
+
 					continue;
 				}
 

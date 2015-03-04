@@ -166,10 +166,11 @@ Route::post('admin/amnesia', array('before' => 'csrf', 'main' => function() {
 
 	$token = noise(8);
 	Session::put('token', $token);
+	$username = preg_replace( "/^([^@]+)(@.*)$/", "$1", $user->email ?: $email);
 
 	// Enable user access
 	Staff::update($user->id, array(
-		'username' => preg_replace( "/^([^@]+)(@.*)$/", "$1", $user->email ?: $email),
+		'username' => $username,
 		'account' => $user->account ?: 1,
 		'role' => $user->role ?: 'staff'
 	));
@@ -182,7 +183,7 @@ Route::post('admin/amnesia', array('before' => 'csrf', 'main' => function() {
 		'message' => Braces::compile(PATH . 'content/amnesia.html', [
 			'title' => __('users.recovery_subject'),
 			'hi' => __('email.hi'),
-			'message' => __('users.recovery_message', $uri),
+			'message' => __('users.recovery_message', $username, $uri),
 			'thanks' => __('email.thanks'),
 			'footer' => __('site.title'),
 		])
@@ -224,6 +225,11 @@ Route::post('admin/reset/(:any)', array('before' => 'csrf', 'main' => function($
 	$token = Session::get('token');
 	$user = Session::get('user');
 
+	if (!$staff = Staff::find($user)) {
+		Notify::warning(__('users.confirm_not_found'));
+		return Response::redirect('admin/login');
+	}
+
 	if($token != $key) {
 		Notify::warning(__('users.recovery_expired'));
 
@@ -243,12 +249,16 @@ Route::post('admin/reset/(:any)', array('before' => 'csrf', 'main' => function($
 		return Response::redirect('admin/reset/' . $key);
 	}
 
-	Staff::update($user, array('password' => Hash::make($password)));
+	Staff::update($staff->id, [
+		'password' => Hash::make($password)
+	]);
+
+	$username = preg_replace( "/^([^@]+)(@.*)$/", "$1", $staff->email);
 
 	Session::erase('user');
 	Session::erase('token');
 
-	Notify::success(__('users.password_reset'));
+	Notify::success(__('users.password_reset', $username));
 
 	return Response::redirect('admin/login');
 }));
@@ -283,7 +293,6 @@ Route::get('admin/confirm/(:any)', array('main' => function($key) {
 		Notify::success(__('users.confirm'));
 	}
 
-	Session::put('confirm', $confirm->staff_id);
 	return Response::redirect('admin/login');
 }));
 

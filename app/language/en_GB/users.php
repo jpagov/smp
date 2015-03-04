@@ -57,7 +57,7 @@ return [
 	'logout_notice' => 'You are now logged out.',
 	'recovery_sent' => 'We have sent you an email to confirm your password change.',
 	'recovery_expired' => 'Password recovery token has expired, please try again.',
-	'password_reset' => 'Your new password has been set. Go and login now!',
+	'password_reset' => 'Your new password has been set. Username: <kbd>%s</kbd>',
 
 	// password recovery email
 	'msg_not_send' => 'Message could not be sent: <code>%s</code>',
