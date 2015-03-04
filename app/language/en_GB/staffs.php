@@ -1,6 +1,6 @@
 <?php
 
-return array(
+return [
 
 	'staff' => 'Staff',
 	'staffs' => 'Staff',
@@ -126,5 +126,7 @@ return array(
 	'noroleadd' => 'You are not authorize to add staff.',
 	'noroleedit' => 'You are not authorize to edit other staff.',
 
+	'edit_history' => 'History',
+	'edit_by' => 'by',
 
-	);
+];

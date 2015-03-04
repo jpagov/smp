@@ -128,6 +128,7 @@ Route::collection(array('before' => 'auth,csrf', 'after' => 'log'), function() {
 			return Response::redirect('admin/staffs/');
 		}
 
+		$vars['revisions'] = Revision::staffid($id);
 		$vars['fields'] = Extend::fields('staff', $id);
 
 		$division_roles = array();
@@ -378,15 +379,15 @@ Route::collection(array('before' => 'auth,csrf', 'after' => 'log'), function() {
 				$revision['admin'] = $user->id;
 				$revision['revision_date'] = Date::mysql('now');
 
-				// 
+				//
 				if (Revision::total($staff->id) > (int) Config::meta('max_revision')) {
 					Revision::remove($staff->id);
 				}
 
 				Revision::create($revision);
-				
+
 			}
-			
+
 			Staff::update($id, $input);
 			Extend::process('staff', $id, $input['email']);
 

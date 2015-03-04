@@ -1,6 +1,6 @@
 <?php
 
-return array(
+return [
 
 	'staff' => 'Pegawai',
 	'staffs' => 'Pegawai',
@@ -124,5 +124,7 @@ return array(
 	'noroleadd' => 'Anda tiada kebenaran untuk menambah pegawai.',
 	'noroleedit' => 'Anda tiada kebenaran untuk membuat perubahan pegawai lain.',
 
+	'edit_history' => 'Sejarah Pengemaskinian',
+	'edit_by' => 'oleh',
 
-	);
+];
