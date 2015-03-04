@@ -22,7 +22,6 @@ class AdminCommandStaffEmail extends Command {
 
 	protected function execute(InputInterface $input, OutputInterface $output) {
 
-		$path = PATH . 'content' . DS;
 		$default = ['id', 'display_name', 'email', 'email', 'telephone','slug'];
 
 		$progress = new ProgressBar($output, 50);
@@ -65,10 +64,11 @@ class AdminCommandStaffEmail extends Command {
 				}
 
 				$token = noise(10);
-				$profileuri = \Uri::full($staff->slug);
-				$confirmuri = \Uri::full('admin/confirm/' . $token);
+				$url = 'https://sistem.jpa.gov.my' . \Config::app('url') . '/';
+				$profileuri = \Uri::full($url . $staff->slug);
+				$confirmuri = \Uri::full($url . 'admin/confirm/' . $token);
 				$username = preg_replace( "/^([^@]+)(@.*)$/", "$1", $staff->email);
-				$amnesiauri = \Uri::full('admin/amnesia');
+				$amnesiauri = \Uri::full($url . 'admin/amnesia');
 
 				\Confirm::create([
 					'staff_id' => $staff->id,
@@ -107,7 +107,6 @@ class AdminCommandStaffEmail extends Command {
 
 		}
 
-		$output->writeln(PHP_EOL . 'There are ' . $progress->getProgress() . '/' . $count .' staff have no avatar');
-		$output->writeln(PHP_EOL . 'CSV locate here: ' . $path);
+		$output->writeln(PHP_EOL . 'Sending email to ' . $progress->getProgress() . '/' . $count .' staff');
 	}
 }
