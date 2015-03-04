@@ -254,6 +254,98 @@ Route::post('admin/reset/(:any)', array('before' => 'csrf', 'main' => function($
 }));
 
 /*
+	Profile confirmation
+*/
+//Route::get('admin/confirm/(:any)', array('before' => 'guest', 'main' => function($key) {
+Route::get('admin/confirm/(:any)', array('main' => function($key) {
+
+	$vars['messages'] = Notify::read();
+	$key = filter_var($key, FILTER_SANITIZE_SPECIAL_CHARS);
+
+	if (!$confirm = Confirm::where('token', '=', $key)->fetch()) {
+		Notify::warning(__('users.confirm_not_found'));
+		return Response::redirect('admin/login');
+	}
+
+	if ($confirm->confirm_date) {
+
+		$staff = Staff::find($confirm->staff_id);
+		$username = preg_replace( "/^([^@]+)(@.*)$/", "$1", $staff->email);
+
+		Notify::warning(__('users.already_confirm', $username));
+
+	} else {
+
+		Confirm::update($confirm->id, [
+			'confirm_date' => Date::mysql('now')
+		]);
+
+		Notify::success(__('users.confirm'));
+	}
+
+	Session::put('confirm', $confirm->staff_id);
+	return Response::redirect('admin/login');
+}));
+
+/*
+	Resend email confirmation
+*/
+Route::get('admin/confirm/resend/(:num)', array('before' => 'admin', 'main' => function($id) {
+
+	$id = filter_var($id, FILTER_SANITIZE_SPECIAL_CHARS);
+
+	if (!$confirm = Confirm::find($id)) {
+
+		Notify::warning(__('users.confirm_not_found'));
+		return Response::redirect('admin/login');
+
+	}
+
+	if (!$staff = Staff::find($confirm->staff_id)) {
+
+		Notify::warning(__('users.confirm_not_found'));
+		return Response::redirect('admin/login');
+
+	}
+
+	$token = $confirm->token;
+	$profileuri = \Uri::full($staff->slug);
+	$confirmuri = \Uri::full('admin/confirm/' . $token);
+	$username = preg_replace( "/^([^@]+)(@.*)$/", "$1", $staff->email);
+	$amnesiauri = \Uri::full('admin/amnesia');
+
+	$emailer = [
+		'to' => $staff->email,
+		'subject' => __('email.confirm_subject'),
+		'message' => Braces::compile(PATH . 'content/confirm.html', [
+			'title' => __('email.confirm_subject'),
+			'hi' => __('email.hi'),
+			'message_valid' => __('email.confirm_message_valid', $profileuri),
+			'message_confirm' => __('email.confirm_message_confirm', $confirmuri),
+			'message_access' => __('email.confirm_message_access', $username, $amnesiauri),
+			'support' => __('email.confirm_support'),
+			'thanks' => __('email.thanks'),
+			'footer' => __('site.title'),
+		])
+	];
+
+	$mail = new Email($emailer);
+
+	if(!$mail->send()) {
+
+		Notify::warning(__('users.msg_not_send', $mail->ErrorInfo));
+
+	} else {
+
+		Notify::success(__('users.confirm_sent'));
+
+	}
+
+	return Response::redirect('admin/login');
+}));
+
+
+/*
 	Upgrade
 */
 Route::get('admin/upgrade', function() {

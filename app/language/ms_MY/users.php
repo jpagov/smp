@@ -39,7 +39,7 @@ return array(
 
 	'password' => 'Katalaluan',
 	'password_explain' => '',
-	'password_too_short' => 'Kataluan hendaklah sekurang-kurangnya  %s karakter',
+	'password_too_short' => 'Kataluan hendaklah sekurang-kurangnya %s karakter',
 
 	'new_password' => 'Katalaluan Baru',
 
@@ -69,5 +69,11 @@ return array(
 	'profile' => 'Profil',
 	'please_login' => 'Daftar masuk',
 	'your_email' => 'Emel anda',
+
+	// confirmation
+	'confirm' => 'Maklumat anda telah disahkan! Terima kasih atas kerjasama yang diberikan.',
+	'confirm_not_found' => 'Profil tidak wujud',
+	'already_confirm' => 'Anda telah pun membuat pengesahan sebelum ini. Sila daftar masuk menggunakan katanama: <kbd>%s</kbd>',
+	'confirm_sent' => 'Pihak kami telah menghantar emel pengesahan bagi penyemakan maklumat profil.',
 
 );

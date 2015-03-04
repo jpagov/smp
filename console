@@ -59,6 +59,7 @@ $slug = new \Smp\Console\Command\SlugCommand();
 $rating = new \Smp\Console\Command\RatingCommand();
 $adminAdd = new \Smp\Console\Command\AdminCommandAdd();
 $adminStaffImage = new \Smp\Console\Command\AdminCommandStaffImage();
+$adminStaffEmail = new \Smp\Console\Command\AdminCommandStaffEmail();
 $adminFixAvatar = new \Smp\Console\Command\AdminCommandRenameAvatar();
 
 $app = new Application('SMP CLI Tools', '0.1.0');
@@ -67,5 +68,6 @@ $app->add($slug);
 $app->add($rating);
 $app->add($adminAdd);
 $app->add($adminStaffImage);
+$app->add($adminStaffEmail);
 $app->add($adminFixAvatar);
 $app->run();

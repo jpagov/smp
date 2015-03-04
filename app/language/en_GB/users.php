@@ -1,6 +1,6 @@
 <?php
 
-return array(
+return [
 
 	'users' => 'Users',
 
@@ -70,5 +70,10 @@ return array(
 	'please_login' => 'Please sign in',
 	'your_email' => 'Your Email',
 
+	// confirmation
+	'confirm' => 'Your information has been validate! Thank you for your cooperation.',
+	'confirm_not_found' => 'Sorry, profile not found',
+	'already_confirm' => 'You have already made a confirmation before. Please login using your username: <kbd>%s</kbd>',
+	'confirm_sent' => 'We have sent you an email to confirm your profile info.',
 
-);
+];
