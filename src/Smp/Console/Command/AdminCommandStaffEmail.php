@@ -58,8 +58,8 @@ class AdminCommandStaffEmail extends Command {
 
 			foreach ($staffs as $staff) {
 
-				if ($staff->id != 487 || $staff->id != 190) {
-				//if ($confirm = \Confirm::where('staff_id', '=', $staff->id)->get()) {
+				//if ($staff->id != 487 || $staff->id != 190) {
+				if ($confirm = \Confirm::where('staff_id', '=', $staff->id)->get()) {
 					//if ($confirm->confirm_date) {
 					//	continue;
 					//}
