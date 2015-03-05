@@ -183,7 +183,7 @@ Route::post('admin/amnesia', array('before' => 'csrf', 'main' => function() {
 		'message' => Braces::compile(PATH . 'content/amnesia.html', [
 			'title' => __('users.recovery_subject'),
 			'hi' => __('email.hi'),
-			'message' => __('users.recovery_message', $username, $uri),
+			'message' => __('users.recovery_message', $uri),
 			'thanks' => __('email.thanks'),
 			'footer' => __('site.title'),
 		])
