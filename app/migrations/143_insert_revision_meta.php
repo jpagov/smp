@@ -7,15 +7,17 @@ class Migration_insert_revision_meta extends Migration {
 
 		if($this->has_table($table)) {
 
-			Query::table($table)->insert([
-				'key' => 'revision',
-				'value' => 1
-			]);
+			$key = 'revision';
 
-			Query::table($table)->insert([
-				'key' => 'max_revision',
-				'value' => 10
-			]);
+			if(Query::table($table)->where('key', '=', $key)->count() == 0) {
+				Query::table($table)->insert(array('key' => $key, 'value' => 1));
+			}
+
+			$key = 'max_revision';
+
+			if(Query::table($table)->where('key', '=', $key)->count() == 0) {
+				Query::table($table)->insert(array('key' => $key, 'value' => 10));
+			}
 
 		}
 	}
