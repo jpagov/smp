@@ -57,6 +57,7 @@ if(is_admin()) {
 	require APP . 'routes/admin/api' . EXT;
 	require APP . 'routes/admin/branchs' . EXT;
 	require APP . 'routes/admin/categories' . EXT;
+	require APP . 'routes/admin/tags' . EXT;
 	require APP . 'routes/admin/comments' . EXT;
 	require APP . 'routes/admin/divisions' . EXT;
 	require APP . 'routes/admin/fields' . EXT;
