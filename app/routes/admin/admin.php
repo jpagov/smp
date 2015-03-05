@@ -260,7 +260,43 @@ Route::post('admin/reset/(:any)', array('before' => 'csrf', 'main' => function($
 
 	Notify::success(__('users.password_reset', $username));
 
-	return Response::redirect('admin/login');
+	// Automatically sign in
+	$attempt = Auth::attempt($username, $password);
+
+	if( ! $attempt) {
+		Notify::warning(__('users.login_error'));
+
+		return Response::redirect('admin/login');
+	}
+
+	$admin = Auth::user();
+
+	Staff::update($admin->id, array('last_visit' => Date::mysql('now')));
+
+	$redirect = 'admin/staffs';
+
+    if (Session::get('redirect')) {
+    	$redirect = Session::get('redirect');
+        Session::erase('redirect');
+    }
+
+    $division = ($admin->division) ? $admin->division : (array_filter($admin->roles)) ?: '';
+
+   	if ($div = Division::find($division)) {
+   		$division = $div->slug;
+   	}
+
+   	Session::put('division', $division);
+
+   	if ($admin->role == 'staff') {
+   		return Response::redirect('admin/staffs/edit/' . $admin->id);
+   	}
+
+	// check for updates
+	//Update::version();
+  	Division::counter();
+
+	return Response::redirect(($division) ? 'admin/staffs?division[]=' . $division : $redirect);
 }));
 
 /*
