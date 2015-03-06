@@ -128,6 +128,18 @@ Route::collection(array('before' => 'auth,csrf', 'after' => 'log'), function() {
 			return Response::redirect('admin/staffs/');
 		}
 
+
+		$vars['tags'] = [];
+
+		// get current staff division role
+		if ($stafftags = StaffTag::where('staff', '=', $id)->get()) {
+			foreach ($stafftags as $tag) {
+
+				$vars['tags'][] = Tag::find($tag->tag)->title;
+
+			}
+		}
+
 		$vars['revisions'] = Revision::staffid($id);
 		$vars['fields'] = Extend::fields('staff', $id);
 
@@ -352,9 +364,9 @@ Route::collection(array('before' => 'auth,csrf', 'after' => 'log'), function() {
 
 		$diff = array_diff_assoc($staff->data, $input);
 
-		$filteredArr = array_diff_key( $diff, array_flip( ['id', 'password', 'view', 'created', 'updated', 'last_visit', 'jusa', 'sort'] ) );
+		$filteredRev = array_diff_key( $diff, array_flip( ['id', 'password', 'view', 'created', 'updated', 'last_visit', 'jusa', 'sort'] ) );
 
-		if ($filteredArr) {
+		if ($filteredRev) {
 			// Before update, insert to revision
 			if (Config::meta('revision')) {
 
@@ -388,8 +400,20 @@ Route::collection(array('before' => 'auth,csrf', 'after' => 'log'), function() {
 
 			}
 
+		}
+
+		$filteredUpdate = array_diff_key( $diff, array_flip( ['id', 'view', 'created', 'updated', 'last_visit'] ) );
+
+
+		if ($filteredUpdate) {
 			Staff::update($id, $input);
 			Extend::process('staff', $id, $input['email']);
+
+			if($tags = Input::get('tag')) {
+
+				Tag::process($id, $tags);
+
+			}
 
 		}
 

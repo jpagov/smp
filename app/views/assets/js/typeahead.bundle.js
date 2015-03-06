@@ -740,6 +740,9 @@
                 position: "relative",
                 display: "inline-block"
             },
+            wrapper2: {
+                position: "relative"
+            },
             hint: {
                 position: "absolute",
                 top: "0",
@@ -1455,7 +1458,7 @@
             this.isActivated = false;
             this.autoselect = !!o.autoselect;
             this.minLength = _.isNumber(o.minLength) ? o.minLength : 1;
-            this.$node = buildDom(o.input, o.withHint);
+            this.$node = (o.datasets[0].name == "tags") ? buildDom(o.input, o.withHint, true) : buildDom(o.input, o.withHint, false);
             $menu = this.$node.find(".tt-dropdown-menu");
             $input = this.$node.find(".tt-input");
             $hint = this.$node.find(".tt-hint");
@@ -1643,10 +1646,10 @@
             }
         });
         return Typeahead;
-        function buildDom(input, withHint) {
+        function buildDom(input, withHint, tags) {
             var $input, $wrapper, $dropdown, $hint;
             $input = $(input);
-            $wrapper = $(html.wrapper).css(css.wrapper);
+            $wrapper = tags ? $(html.wrapper).css(css.wrapper2) : $(html.wrapper).css(css.wrapper);
             $dropdown = $(html.dropdown).css(css.dropdown);
             $hint = $input.clone().css(css.hint).css(getBackgroundStyles($input));
             $hint.val("").removeData().addClass("tt-hint").removeAttr("id name placeholder required").prop("readonly", true).attr({
@@ -1664,6 +1667,10 @@
                 autocomplete: "off",
                 spellcheck: false
             }).css(withHint ? css.input : css.inputWithNoHint);
+
+            if (tags) {
+            	$input.css("width", "");
+            }
             try {
                 !$input.attr("dir") && $input.attr("dir", "auto");
             } catch (e) {}

@@ -286,6 +286,14 @@ function staff_pa() {
 	return new Paginator($results, $count, 1, 10, Uri::to('staffs'));
 }
 
+function staff_tag() {
+	if (!$tags = StaffTag::where('staff', '=', staff_pa_id())->fetch()) {
+		return false;
+	}
+
+	return $tags;
+}
+
 function staff_custom_field($key, $default = '') {
 	$id = Registry::prop('staff', 'id');
 

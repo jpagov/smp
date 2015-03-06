@@ -10,8 +10,10 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 		<script>window.jQuery || document.write('<script src="<?php echo asset('app/views/assets/js/jquery-1.11.1.min.js'); ?>"><\/script>')</script>
 		<script src="<?php echo asset('app/views/assets/js/bootstrap.min.js'); ?>"></script>
-	    <script src="<?php echo asset('app/views/assets/js/typeahead.bundle.min.js'); ?>"></script>
+	    <script src="<?php echo asset('app/views/assets/js/typeahead.bundle.js'); ?>"></script>
 	    <script src="<?php echo asset('app/views/assets/js/bootstrap-markdown.js'); ?>"></script>
+
+	    <script src="<?php echo asset('app/views/assets/js/bootstrap-tagsinput.js'); ?>"></script>
 
 	    <?php if (isset($javascript)) : ?><?php foreach ($javascript as $js) : ?>
 	    <script src="<?php echo asset('app/views/assets/js/' . $js); ?>"></script>

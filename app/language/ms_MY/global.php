@@ -41,6 +41,8 @@ return array(
 	'setting' => 'Konfigurasi',
 	'hierarchies' => 'Hirarki',
 	'search' => 'Carian',
+	'tags' => 'Tags',
+	'related' => 'Berkaitan',
 
 	// pagination
 	'next' => 'Seterus',

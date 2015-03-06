@@ -41,6 +41,8 @@ return array(
 	'setting' => 'Setting',
 	'hierarchies' => 'Hierarchies',
 	'search' => 'Search',
+	'tags' => 'Tags',
+	'related' => 'Related',
 
 	// pagination
 	'next' => 'Next',

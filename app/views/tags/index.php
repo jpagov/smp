@@ -48,10 +48,14 @@
     <div class="col col-lg-3">
         <nav class="list-sector sidebar">
 
+        <?php $relateds = array('divisions', 'branchs', 'sectors', 'units', 'categories', 'tags'); ?>
+
             <div class="panel panel-default">
-                <div class="panel-heading">Related</div>
+                <div class="panel-heading"><?php echo __('global.related'); ?></div>
                 <div class="list-group">
-                <a class="list-group-item">asasas</a>
+                <?php foreach ($relateds as $related) : ?>
+                <a class="list-group-item <?php if(is_active('admin/' . $related)) echo 'active'; ?>" href="<?php echo Uri::to('admin/' . $related); ?>"><?php echo __('global.' . $related); ?></a>
+                 <?php  endforeach; ?>
                 </div>
             </div>
         </nav>

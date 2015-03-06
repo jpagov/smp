@@ -146,6 +146,10 @@
 
 			staffs: function() {
 
+				$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+				   $('#stafftab a[href="' + e.target.hash + '"]').tab('show');
+				});
+
 				$('#salutation, #first_name, #last_name').keyup(function(e) {
 					var input = $('#salutation').val() + ' ' + $('#first_name').val() + ' ' + $('#last_name').val();
 					$('#display_name').prop('value', input);
@@ -288,6 +292,35 @@
 					name: 'units',
 					displayKey: 'name',
 					source: units.ttAdapter()
+				});
+
+				// tags
+				var tags = new Bloodhound({
+					datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
+					queryTokenizer: Bloodhound.tokenizers.whitespace,
+					limit: 10,
+					remote: {
+						url: endpoint + 'queries/tag/%QUERY.json',
+						//url: endpoint + 'tags.json',
+						filter: function(list) {
+							return $.map(list, function(item) {
+								return {
+									name: item
+								};
+							});
+						}
+					}
+				});
+
+				tags.initialize();
+
+				$('input#tag').tagsinput({
+					typeaheadjs: {
+						name: 'tags',
+						displayKey: 'name',
+						valueKey: 'name',
+						source: tags.ttAdapter()
+					}
 				});
 
 			},

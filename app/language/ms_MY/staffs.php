@@ -19,6 +19,7 @@ return [
 	'editor' => 'Editor',
 	'editor_explain' => '',
 	'staff_explain' => '',
+	'tag_explain' => 'Bagi memudahkan carian',
 
   	// position
 	'report_to' => 'Penyelia',

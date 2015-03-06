@@ -25,4 +25,7 @@ return array(
 	'deleted' => 'Your tag has been deleted.',
 	'delete_error' => 'You must have at least one tag.',
 
+	'staff_under' => 'Staff under this tag',
+	'placeholder' => 'Insert spesific keyword',
+
 );

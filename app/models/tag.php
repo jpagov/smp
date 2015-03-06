@@ -14,6 +14,55 @@ class Tag extends Base {
 		return $items;
 	}
 
+	public static function process($id, $tags) {
+
+		$existing = StaffTag::existing($id);
+		$input = [];
+
+		if (!is_array($tags)) {
+			$input = explode(',', $tags);
+		}
+
+		$tagging = array_map(function($name) {
+			return static::id($name);
+		}, $input);
+
+		$removes = array_diff($existing, $tagging);
+		$adds = array_diff($tagging, $existing);
+
+		foreach ($removes as $remove) {
+			StaffTag::where('staff', '=', $id)
+					->where('tag', '=', $remove)
+					->delete();
+		}
+
+		foreach ($adds as $add) {
+			StaffTag::create([
+				'staff' => $id,
+				'tag' => $add
+			]);
+		}
+
+		// select updated tag and return tag title
+		$existing = StaffTag::tag($id);
+
+		return $existing;
+	}
+
+	public static function id($name) {
+		if (empty(trim($name))) return;
+		if ( !$tag = static::where('title', 'like', $name)->fetch()) {
+			$input = [
+				'title' => $name,
+				'slug' => slug($name),
+				'created' => Date::mysql('now')
+			];
+			$tag = static::create($input);
+			return $tag->id;
+		}
+		return $tag->id;
+	}
+
 	public static function slug($slug) {
 		return static::where('slug', 'like', $slug)->fetch();
 	}

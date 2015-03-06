@@ -25,4 +25,7 @@ return [
 	'deleted' => 'Tag telah dihapus.',
 	'delete_error' => 'Anda mesti mempunyai sekurang-kurangnya satu tag.',
 
+	'staff_under' => 'Pegawai dibawah tag ini',
+	'placeholder' => 'Masukkan kata kunci spesifik',
+
 ];

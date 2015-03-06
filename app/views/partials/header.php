@@ -12,6 +12,8 @@
   <link rel="stylesheet" href="<?php echo asset('app/views/assets/css/app.css'); ?>">
   <link rel="stylesheet" href="<?php echo asset('app/views/assets/css/bootstrap-markdown.min.css'); ?>">
 
+  <link rel="stylesheet" href="<?php echo asset('app/views/assets/css/bootstrap-tagsinput.css'); ?>">
+
   <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!--[if lt IE 9]>
   <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -40,7 +42,7 @@
 
     <?php
       $menu = array('staffs');
-      $hierarchies = array('divisions', 'branchs', 'sectors', 'units', 'categories');
+      $hierarchies = array('divisions', 'branchs', 'sectors', 'units', 'categories', 'tags');
       $reports_mostview = array('staff', 'category', 'division', 'search');
       $admin = array('users', 'pages', 'fields', 'variables', 'metadata');
     ?>
@@ -59,7 +61,7 @@
             <?php foreach($hierarchies as $url):
               // only admin have right to manage division
               if($url == 'divisions' && $user->role != 'administrator') continue; ?>
-              <li <?php if(is_active('admin/reports/' . $url)) echo 'class="active"'; ?>>
+              <li <?php if(is_active('admin/' . $url)) echo 'class="active"'; ?>>
                 <a href="<?php echo Uri::to('admin/' . $url); ?>">
                   <?php echo __('global.' . $url); ?>
                 </a>

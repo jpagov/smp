@@ -16,7 +16,7 @@
 		<!-- tabs -->
 		<div class="tabs-top">
 
-			<ul class="nav nav-tabs">
+			<ul class="nav nav-tabs" id="stafftab">
 				<li<?php echo is_class_active($tab, 'profile', true); ?>><a href="#profile" data-toggle="tab">Profile</a></li>
 				<li<?php echo is_class_active($tab, 'positions', true); ?>><a href="#positions" data-toggle="tab">Position</a></li>
 				<?php if($fields): ?>
@@ -239,6 +239,20 @@
 											'id' => 'description'
 											)); ?>
 										</div>
+									</div>
+
+									<div class="form-group">
+										<label class="col-sm-2 control-label" for="tag"><?php echo __('tags.tag'); ?></label>
+										<div class="col-sm-10">
+											<?php
+											$tag = implode (',', $tags);
+											?>
+
+											<?php echo Form::text('tag', Input::previous('tag', $staff->tags), array('class' => 'form-control', 'id' => 'tag', 'value' => $tag, 'placeholder' => __('tags.placeholder')
+											)); ?>
+											<span class="help-block"><?php echo __('staffs.tag_explain'); ?></span>
+										</div>
+
 									</div>
 
 									<div class="form-group">

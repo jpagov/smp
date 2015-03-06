@@ -19,6 +19,7 @@ return [
 	'editor' => 'Editor',
 	'editor_explain' => '',
 	'staff_explain' => '',
+	'tag_explain' => 'For easy searching',
 
   	// position
 	'report_to' => 'Reporting To',

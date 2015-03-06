@@ -25,6 +25,20 @@ Route::collection(array('before' => 'auth,csrf,admin'), function() {
 		$vars['token'] = Csrf::token();
 		$vars['tag'] = Tag::find($id);
 
+		$vars['staffs'] = $staffs = [];
+		if ($tags = StaffTag::where('tag', '=', $id)->get()) {
+
+			foreach ($tags as $tag) {
+				$staffs[] = $tag->staff;
+			}
+
+			$vars['staffs'] = Staff::where_in('id', $staffs)->get([
+				'id',
+				'display_name',
+				'slug'
+			]);
+		}
+
 		return View::create('tags/edit', $vars)
 			->partial('header', 'partials/header')
 			->partial('footer', 'partials/footer');
@@ -123,10 +137,10 @@ Route::collection(array('before' => 'auth,csrf,admin'), function() {
 		}
 
 		// delete selected
-		Tag::find($id)->delete();
+		Tag::where('id', '=', $id)->delete();
 
 		// delete staffs relation
-		StaffTag::find($id)->delete();
+		StaffTag::where('tag', '=',$id)->delete();
 
 		Notify::success(__('tags.deleted'));
 

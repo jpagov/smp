@@ -49,20 +49,16 @@
 	<div class="col col-lg-3">
 		<nav class="list-unit sidebar">
 
-			<div class="panel panel-default">
-				<div class="panel-heading">Related</div>
-				<div class="list-group">
-					<?php foreach($hierarchies as $key => $hierarchy): ?>
+			<?php $relateds = array('divisions', 'branchs', 'sectors', 'units', 'categories', 'tags'); ?>
 
-						<?php if ( $key.'s' !== basename(Uri::current()) ) : ?>
-
-						<?php echo Html::link('admin/' . $key . 's', __('hierarchy.' . $key), array('class' => 'list-group-item'
-						)); ?>
-
-						<?php endif; ?>
-					<?php endforeach; ?>
-				</div>
-			</div>
+            <div class="panel panel-default">
+                <div class="panel-heading"><?php echo __('global.related'); ?></div>
+                <div class="list-group">
+                <?php foreach ($relateds as $related) : ?>
+                <a class="list-group-item <?php if(is_active('admin/' . $related)) echo 'active'; ?>" href="<?php echo Uri::to('admin/' . $related); ?>"><?php echo __('global.' . $related); ?></a>
+                 <?php  endforeach; ?>
+                </div>
+            </div>
 		</nav>
 	</div>
 </div>
