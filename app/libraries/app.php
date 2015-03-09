@@ -107,6 +107,12 @@ class App {
 	}
 
 	public static function migrations() {
+
+		// check and setup stats table
+		require APP . 'libraries/statistic.php';
+		$logger = new Statistic();
+		$logger->up();
+
 		$current = Config::meta('current_migration');
 		$migrate_to = Config::migrations('current');
 

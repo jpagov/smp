@@ -15,7 +15,7 @@ class SearchCommand extends Command {
 		$this->setName("search")
 			 ->setDescription("Group search report")
 			 ->setHelp(<<<EOT
-Group serach table and update search report table
+Group search table and update search report table
 EOT
 			 );
 	}
@@ -23,8 +23,8 @@ EOT
 	protected function execute(InputInterface $input, OutputInterface $output) {
 
 		$table = \Base::table('search_report');
-		\DB::ask("TRUNCATE `$table`");
 
+		\DB::ask("TRUNCATE `$table`");
 
 		$progress = new ProgressBar($output, 50);
 		$progress->start();

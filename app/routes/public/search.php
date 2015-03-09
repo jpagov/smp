@@ -121,10 +121,10 @@ Route::get(array('search', 'search/(:num)'), function($offset = 1) {
 
 		if ($cari->input()) {
 
-			$log = Search::create(array(
+			$log = Search::create([
 				'search' => $cari->input(),
 				'created' => Date::mysql('now')
-				));
+			]);
 
 			Searchr::search($cari->input());
 

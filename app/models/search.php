@@ -14,6 +14,14 @@ class Search extends Base {
 		return $fields;
 	}
 
+	public static function log($term) {
+
+		return static::create([
+			'search' => $term,
+			'created' => Date::mysql('now')
+		]);
+	}
+
 	private static function get($row, $val) {
 		return static::where($row, '=', $val)->fetch();
 	}
