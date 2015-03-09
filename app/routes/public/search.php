@@ -126,6 +126,8 @@ Route::get(array('search', 'search/(:num)'), function($offset = 1) {
 				'created' => Date::mysql('now')
 				));
 
+			Searchr::search($cari->input());
+
 			Stats::log($log->id, 'search');
 		}
 

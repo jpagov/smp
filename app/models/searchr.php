@@ -8,6 +8,21 @@ class Searchr extends Base {
 		return static::where($row, '=', $val)->fetch();
 	}
 
+	public static function search($term) {
+		if (empty($term)) return false;
+		if ( !$search = static::where('search', '=', $term)->fetch()) {
+			$input = [
+				'search' => $term,
+				'total' => 0
+			];
+			$search = static::create($input);
+		}
+
+		static::update($search->id, ['total' => $search->total +1]);
+
+		return $search->search;
+	}
+
 	public static function paginate($input = [], $page = 1, $perpage = 10) {
 		$query = Query::table(static::table());
 

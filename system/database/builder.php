@@ -174,6 +174,18 @@ abstract class Builder {
 		return 'SELECT ' . $columns . ' FROM ' . $this->wrap($this->table) . $this->build();
 	}
 
+	public function build_select_and_count($columns = null, $group = null) {
+		if(is_array($columns) and count($columns)) {
+			$columns = $this->wrap($columns);
+		}
+		else $columns = '*';
+		if($group) {
+			$group = 'COUNT(' . $this->wrap($group) . ') AS ' . $this->wrap('total');
+		}
+
+		return 'SELECT ' . $columns . ', ' . $group . ' FROM ' . $this->wrap($this->table) . $this->build();
+	}
+
 	/**
 	 * Build a delete query
 	 *

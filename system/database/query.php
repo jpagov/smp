@@ -183,6 +183,14 @@ class Query extends Builder {
 		return $statement->fetchAll();
 	}
 
+	public function get_count($columns = null, $group = null) {
+		list($result, $statement) = $this->connection->ask($this->build_select_and_count($columns, $group), $this->bind);
+
+		$statement->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, $this->fetch_class);
+
+		return $statement->fetchAll();
+	}
+
 	/**
 	 * Insert a row into the database
 	 *
