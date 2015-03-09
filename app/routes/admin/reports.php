@@ -143,8 +143,4 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 		print_r('admin/reports/division'); exit();
 	});
 
-	Route::get('admin/reports/search', function() {
-		print_r('admin/reports/search'); exit();
-	});
-
 });

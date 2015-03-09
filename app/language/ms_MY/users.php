@@ -7,7 +7,7 @@ return array(
 	'create_user' => 'Create a new user',
 	'add_user' => 'Add a new user',
 	'editing_user' => 'Editing %s&rsquo;s Profile',
-	'remembered' => 'Daftar masuk',
+	'remembered' => 'Saya ingat katalaluan',
 	'forgotten_password' => 'Lupa katalaluan?',
 
 	// roles

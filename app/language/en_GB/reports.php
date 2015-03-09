@@ -32,4 +32,8 @@ return [
 	'confirm_date' => 'Date',
 	'confirm_staff_name' => 'Staff',
 
+	// search
+	'search' => 'Search',
+	'search_total' => 'Total',
+
 ];
