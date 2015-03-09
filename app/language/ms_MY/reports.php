@@ -32,4 +32,8 @@ return [
 	'confirm_date' => 'Tarikh Pengesahan',
 	'confirm_staff_name' => 'Pegawai',
 
+	// search
+	'search' => 'Carian',
+	'search_total' => 'Jumlah',
+
 ];
