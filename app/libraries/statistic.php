@@ -2,11 +2,12 @@
 
 class Statistic extends Migration {
 
-	public function tables() {
+	public function tables($table = 'stats') {
 		$default = Config::db('default');
 		$db = Config::db('connections.' . $default . '.database');
 
-		$sql = "SHOW TABLES LIKE '%stats%'";
+		$sql = "SHOW TABLES FROM `$db` WHERE `Tables_in_$db` LIKE '%$table%' AND `Tables_in_$db` NOT LIKE '%report%'";
+
 		list($result, $statement) = DB::ask($sql);
 		$statement->setFetchMode(PDO::FETCH_NUM);
 

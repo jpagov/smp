@@ -109,7 +109,7 @@ class App {
 	public static function migrations() {
 
 		// check and setup stats table
-		require APP . 'libraries/statistic.php';
+		//require APP . 'libraries/statistic.php';
 		$logger = new Statistic();
 		$logger->up();
 
