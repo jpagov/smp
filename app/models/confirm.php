@@ -10,7 +10,7 @@ class Confirm extends Base {
 	}
 
 	public static function paginate($input = [], $page = 1, $perpage = 10) {
-		$query = static::left_join(Base::table('staffs'), Base::table('staffs.id'), '=', Base::table('confirm.staff_id'));
+		$query = static::left_join(Base::table('staffs'), Base::table('confirm.staff_id'), '=', Base::table('staffs.id'));
 
 		if (!empty($input)) {
 			$query->where(Base::table('confirm.confirm_date'), '>=', $input['from'])
@@ -22,7 +22,7 @@ class Confirm extends Base {
 
 		$results = $query->take($perpage)
 			->skip(($page - 1) * $perpage)
-			->sort(Base::table('confirm.confirm_date'), 'desc')
+			->sort(Base::table('confirm.created'), 'desc')
 			->get(array(
 				Base::table('confirm.*'),
 				Base::table('staffs.display_name as name'),
