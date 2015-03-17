@@ -74,9 +74,6 @@ if(is_admin()) {
 	require APP . 'routes/admin/units' . EXT;
 	require APP . 'routes/admin/users' . EXT;
 	require APP . 'routes/admin/variables' . EXT;
-	require APP . 'routes/admin/cron/slug' . EXT;
-	require APP . 'routes/admin/cron/hierarchy' . EXT;
-	require APP . 'routes/admin/cron/import' . EXT;
 	require APP . 'routes/admin/report/log' . EXT;
 	require APP . 'routes/admin/report/confirm' . EXT;
 	require APP . 'routes/admin/report/search' . EXT;
