@@ -116,7 +116,7 @@ function staff_description_html() {
 }
 
 function staff_description_md() {
-  return Registry::prop('staff', 'description');
+  return parse(Registry::prop('staff', 'description'));
 }
 
 function staff_html() {

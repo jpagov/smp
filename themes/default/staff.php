@@ -48,7 +48,7 @@
 				<h1 itemprop="name"><em itemprop="honorificPrefix"><?php echo staff_salutation(); ?></em> <span itemprop="givenName"><?php echo staff_first_name(); ?></span> <span itemprop="familyName"><?php echo staff_last_name(); ?></span> <a class="permalink" aria-hidden="true" href="<?php echo base_url(staff_slug()); ?>" title="Permalink to this staff profile page" itemprop="url"><small class="glyphicon glyphicon-link"></small></a></h1>
 				<p class="lead" itemprop="jobTitle"><?php echo staff_job_title(); ?></p>
 
-				<?php if (staff_description()) : ?><p class="well well-sm bg-warning" itemprop="description"><?php echo staff_description(); ?></p><?php endif; ?>
+				<?php if (staff_description_md()) : ?><div class="well well-sm bg-warning" itemprop="description"><?php echo staff_description_md(); ?></div><?php endif; ?>
 
 				<dl class="dl-horizontal">
 
