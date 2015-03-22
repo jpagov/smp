@@ -43,7 +43,5 @@ vendor
 sftp-config.json
 themes/default/out/
 
-*.js
-*.css
 !*.min-*.js
 !*.min-*.css
