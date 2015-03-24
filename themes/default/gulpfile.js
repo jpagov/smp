@@ -27,7 +27,8 @@ gulp.task('clean', function (done) {
 	require('del')([
 		dirs.assets + '/*.json',
 		dirs.assets + '/js/*.js',
-		dirs.assets + '/css/*.css'
+		dirs.assets + '/css/*.css',
+		'!' + dirs.assets + '/css/*-critical.css'
 	], done);
 });
 
@@ -184,6 +185,7 @@ gulp.task('critical:home', function(){
 	penthouseAsync({
 		url : 'https://sistem.jpa.gov/smp/',
 		css : dirs.src + '/css/app.css',
+		width : 400,
 		height: 600
 	}).then( function (criticalCSS){
 		require('fs').writeFile(dirs.assets + '/css/home-critical.css', criticalCSS );
@@ -198,6 +200,7 @@ gulp.task('critical:staff', function(){
 	penthouseAsync({
 		url : 'https://sistem.jpa.gov.my/smp/hariadi-hinta/',
 		css : dirs.src + '/css/app.css',
+		width : 400,
 		height: 600
 	}).then( function (criticalCSS){
 		require('fs').writeFile(dirs.assets + '/css/staff-critical.css', criticalCSS );
