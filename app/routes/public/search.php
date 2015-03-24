@@ -11,7 +11,7 @@ Route::get(array('search', 'search/(:num)'), function($offset = 1) {
 	$page->title = __('site.search');
 	$page->slug = 'search';
 
-	$field = array('display_name', 'slug');
+	$field = array('display_name', 'slug', 'description');
 	$term = '';
 	$filter = array();
 	$staffs = array();
