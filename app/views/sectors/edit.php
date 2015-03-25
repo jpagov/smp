@@ -7,7 +7,7 @@
 <?php echo $messages; ?>
 
 <div class="row">
-    <div class="col-lg-9">
+    <div class="col-md-9">
         <form class="form-horizontal" method="post" action="<?php echo Uri::to('admin/sectors/edit/' . $sector->id); ?>" novalidate autocomplete="off" enctype="multipart/form-data">
 
             <input name="token" type="hidden" value="<?php echo $token; ?>">
@@ -49,7 +49,7 @@
                 <div class="form-group">
                     <div class="col-sm-offset-3 col-sm-9">
                     <?php echo Form::button(__('global.save'), array(
-                      'type' => 'submit', 
+                      'type' => 'submit',
                       'class' => 'btn btn-primary'
                     )); ?>
 
@@ -62,6 +62,18 @@
             </fieldset>
         </form>
     </div>
-</div>
+    <div class="col-md-3">
+    	<div class="panel panel-default">
+			<div class="panel-heading">Staff</div>
+			<div class="panel-body">
+			<?php if ($staffs->count): ?>
+			<a href="<?php echo Uri::to('admin/staffs?term=sector:' . $sector->slug); ?>"><?php echo $staffs->count; ?> </a>
+			<?php else: ?>
+				No staff
+			<?php endif; ?>
+			</div>
 
+    	</div>
+		</div>
+</div>
 <?php echo $footer; ?>

@@ -62,26 +62,22 @@
             </fieldset>
         </form>
 
-
-<div class="panel panel-default">
-	<div class="panel-heading">Staff who under unit</div>
-	<div class="list-group">
-		<?php foreach($staffs->results as $staff): ?>
-
-
-			<?php echo Html::link('admin/staffs/edit/' . $staff->id, $staff->display_name, array('class' => 'list-group-item'
-			)); ?>
-
-		<?php endforeach; ?>
-	</div>
-</div>
-  <?php if ($staffs->links()) : ?>
-		<ul class="pagination">
-			<?php echo $staffs->links(); ?>
-		</ul>
-	<?php endif; ?>
-
     </div>
+
+    <div class="col-md-3">
+    	<div class="panel panel-default">
+			<div class="panel-heading">Staff</div>
+			<div class="panel-body">
+			<?php if ($staffs->count): ?>
+			<a href="<?php echo Uri::to('admin/staffs?term=unit:' . $unit->slug); ?>"><?php echo $staffs->count; ?> </a>
+			<?php else: ?>
+				No staff
+			<?php endif; ?>
+			</div>
+
+    	</div>
+		</div>
+
 </div>
 
 <?php echo $footer; ?>

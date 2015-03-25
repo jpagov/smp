@@ -58,6 +58,10 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 		$vars['token'] = Csrf::token();
 		$vars['sector'] = Sector::find($id);
 
+		$vars['staffs'] = Staff::search(null, 1, Config::meta('staffs_per_page'), true, [
+			'sector' => $vars['sector']->id
+		]);
+
 		return View::create('sectors/edit', $vars)
 			->partial('header', 'partials/header')
 			->partial('footer', 'partials/footer');
