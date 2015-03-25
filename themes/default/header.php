@@ -5,7 +5,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title><?php if (base_url() == current_url()) : echo site_name(); else : echo page_title('Page can’t be found'); ?> - <?php echo site_name(); ?><?php endif; ?> ☏</title>
-  <meta name="description" content="<?php echo truncate(site_description(), 250); ?>">
+  <meta name="description" content="<?php echo staff_description_text(); ?>">
   <?php theme_include('critical'); ?>
   <link rel="stylesheet" href="<?php echo revision('css/app.min.css'); ?>">
   <?php if (site_meta('tour')) : ?>

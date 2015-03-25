@@ -110,6 +110,9 @@ function staff_description() {
 	return ($desc) ?: __('site.no_desc');
 }
 
+function staff_description_text() {
+	return str_replace(["\r", "\n"], '', strip_tags(staff_description()));
+}
 
 function staff_description_html() {
 	return Registry::prop('staff', 'description', false);
