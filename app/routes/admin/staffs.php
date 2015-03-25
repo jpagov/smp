@@ -47,22 +47,8 @@ Route::collection(array('before' => 'auth,csrf', 'after' => 'log'), function() {
 		$input = array_merge($input, $cari->result());
 
 		//dd($input);
-		if (isset($cari->term)) {
-			# code...
-		}
-		//$input = array_merge($input, $term);
-		//dd($input);
-		if ($input['division']) {
-			$vars['division'] = $filter['division'] = $input['division'];
-			$search = true;
-		}
 
-		if ($input['division']) {
-			$vars['division'] = $filter['division'] = $input['division'];
-			$search = true;
-		}
-
-		foreach (array('division', 'branch', 'sector', 'unit') as $org) {
+		foreach (['division', 'branch', 'sector', 'unit'] as $org) {
 			if (array_key_exists($org, $input)) {
 				$vars[$org] = $filter[$org] = $input[$org];
 				$search = true;

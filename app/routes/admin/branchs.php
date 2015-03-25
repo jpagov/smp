@@ -88,6 +88,9 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 		$vars['token'] = Csrf::token();
 		$vars['branch'] = Branch::find($id);
 
+		$vars['staffs'] = Staff::search(null, 1, Config::meta('staffs_per_page'), true, ['branch' => $vars['branch']->id]
+		);
+
 		return View::create('branchs/edit', $vars)
 			->partial('header', 'partials/header')
 			->partial('footer', 'partials/footer');
