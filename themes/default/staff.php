@@ -83,21 +83,15 @@
 	<?php endif; ?>
 
 	<?php if(show_rating() && ratings_open()): ?>
-	<div class="well" itemscope itemtype="https://schema.org/Organization">
+	<div class="well">
 
-		<meta itemprop="url" content="<?php echo full_url(staff_slug()); ?>">
-		<meta itemprop="logo" content="<?php echo full_url('content/avatar/' . staff_custom_field('avatar')); ?>">
+		<div class="rating-inner">
 
-		<div class="rating-inner" itemprop="aggregateRating" itemscope itemtype="https://schema.org/AggregateRating">
-
-			<span itemprop="itemreviewed" class="hidden"><?php echo staff_name(); ?></span>
-
-			<div class="rating">
-				<span class="rating-num" itemprop="ratingValue"><?php echo rating_average(); ?></span> / <span itemprop="bestRating">5</span>
-				<span class="sr-only" itemprop="worstRating">1</span>
+			<div class="rating" itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
+				<span class="rating-num" itemprop="ratingValue"><?php echo rating_average(); ?></span>
 				<div id="star-rating" data-score="<?php echo rating_average(); ?>" data-staff="<?php echo staff_id(); ?>"></div>
 				<div class="rating-users">
-					<i class="glyphicon glyphicon-user"></i> <span id="rating-count" itemprop="ratingCount"><?php echo total_ratings(); ?></span>
+					<i class="glyphicon glyphicon-user"></i> <span id="rating-count" itemprop="reviewCount"><?php echo total_ratings(); ?></span> total
 				</div>
 			</div>
 
