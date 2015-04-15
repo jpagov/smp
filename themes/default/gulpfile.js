@@ -125,11 +125,11 @@ gulp.task('rev', function () {
     		'assets/js/main.min.js',
     		'assets/js/bootstrap-tour.min.js'
     	], {base: 'assets'})
-        .pipe(gulp.dest(dirs.assets))  // copy original assets to build dir
-        .pipe(plugins.rev())
-        .pipe(gulp.dest(dirs.assets))  // write rev'd assets to build dir
-        .pipe(plugins.rev.manifest())
-        .pipe(gulp.dest(dirs.assets)); // write manifest to build dir
+		.pipe(gulp.dest(dirs.assets))  // copy original assets to build dir
+		.pipe(plugins.rev())
+		.pipe(gulp.dest(dirs.assets))  // write rev'd assets to build dir
+		.pipe(plugins.rev.manifest())
+		.pipe(gulp.dest(dirs.assets)); // write manifest to build dir
 });
 
 gulp.task('uncss', function() {
@@ -183,7 +183,7 @@ gulp.task('critical', [
 
 gulp.task('critical:home', function(){
 	penthouseAsync({
-		url : 'https://sistem.jpa.gov/smp/',
+		url : 'https://sistem.jpa.gov/smp',
 		css : dirs.src + '/css/app.css',
 		width : 400,
 		height: 600
@@ -198,7 +198,7 @@ gulp.task('critical:home', function(){
 
 gulp.task('critical:staff', function(){
 	penthouseAsync({
-		url : 'https://sistem.jpa.gov.my/smp/hariadi-hinta/',
+		url : 'https://sistem.jpa.gov.my/smp/hariadi-hinta',
 		css : dirs.src + '/css/app.css',
 		width : 400,
 		height: 600
