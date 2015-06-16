@@ -125,14 +125,14 @@
 				</div>
 
 				<div class="col-xs-6">
-					<div class="org org-info text-center pkkpa-child">
-						<a href="<?php echo base_url('division/btsa'); ?>" class="org-link" data-hotkey="b 4"><p><span class="visible-xs-block">BTSA</span> <span class="hidden-xs"><?php echo __('site.btsa'); ?></span></p></a>
+					<div class="org org-success text-center pkkpa-child">
+						<a href="<?php echo base_url('division/bpm'); ?>" class="org-link" data-hotkey="b p m"><p><span class="visible-xs-block">BPM</span> <span class="hidden-xs"><?php echo __('site.bpm'); ?></span></p></a>
 					</div>
 				</div>
 
 				<div class="col-xs-6">
 					<div class="org org-success text-center pkkpa-child">
-						<a href="<?php echo base_url('division/bpm'); ?>" class="org-link" data-hotkey="b p m"><p><span class="visible-xs-block">BPM</span> <span class="hidden-xs"><?php echo __('site.bpm'); ?></span></p></a>
+						<a href="<?php echo base_url('division/btsa'); ?>" class="org-link" data-hotkey="b 4"><p><span class="visible-xs-block">BTSA</span> <span class="hidden-xs"><?php echo __('site.btsa'); ?></span></p></a>
 					</div>
 				</div>
 
