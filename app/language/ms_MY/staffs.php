@@ -78,21 +78,21 @@ return [
 
 	'account_explain' => 'Enable account login for this user.',
 
-	'telephone_missing' => 'Please enter a telphone number',
+	'telephone_missing' => 'Sila masukkan nombor telefon',
 
 	'username' => 'Katanama',
 	'username_explain' => '',
-	'username_missing' => 'Please enter a username, must be at least %s characters',
+	'username_missing' => 'Sila masukkan katanama, hendaklah sekurang-kurangnya %s karakter',
 
 	'password' => 'Katalaluan',
 	'password_explain' => '',
-	'password_too_short' => 'Password must be at least %s characters',
+	'password_too_short' => 'Katalaluan hendaklah sekurang-kurangnya %s karakter',
 
 	'new_password' => 'Katalaluan Baru',
 
 	'email' => 'Emel',
 	'email_explain' => '',
-	'email_missing' => 'Please enter a valid email address',
+	'email_missing' => 'Sila masukkan alamat emel yang sah',
 	'email_not_found' => 'Profile not found.',
 
 	'please_select' => '- Sila pilih -',
@@ -105,7 +105,7 @@ return [
 	'login_error' => 'Katanama atau Katalaluan salah.',
 	'logout_notice' => 'Anda telah mendaftar keluar.',
 	'recovery_sent' => 'Pihak kami telah menghantar emel pengesahan untuk menukar katalaluan.',
-	'recovery_expired' => 'Password recovery token has expired, please try again.',
+	'recovery_expired' => 'Token penukaran katalaluan telah tamat tempoh, sila cuba reset semula.',
 	'password_reset' => 'Your new password has been set. Go and login now!',
 
 	// password recovery email
@@ -119,7 +119,7 @@ return [
 	'search_filter_no_telephone' => 'No telephone number',
 
 	//site
-	'address' => 'Address',
+	'address' => 'Alamat',
 	'nothing' => 'Nothing to display',
 
 	'noroleadd' => 'Anda tiada kebenaran untuk menambah pegawai.',
