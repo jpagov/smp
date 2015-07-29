@@ -367,7 +367,7 @@ Route::collection(array('before' => 'auth,csrf', 'after' => 'log'), function() {
 
 				$extend = [];
 
-				foreach (['avatar', 'twitter', 'facebook', 'gplus', 'github'] as $fields) {
+				foreach (['avatar', 'twitter', 'facebook', 'gplus', 'github', 'display_avatar'] as $fields) {
 					if($field = Extend::field('staff', $fields, $id)) {
 						$extend[$fields] = Extend::value($field);
 					}
@@ -493,7 +493,8 @@ Route::collection(array('before' => 'auth,csrf', 'after' => 'log'), function() {
 		$vars['fields'] = Extend::fields('staff');
 
 		foreach (array('Scheme', 'Division', 'Branch', 'Sector', 'Unit') as $hierarchy) {
-			$vars[strtolower($hierarchy) . 's'] = array_unshift_assoc($hierarchy::dropdown(), 0, __('staffs.please_select'));
+			$vars[strtolower($hierarchy) . 's'] = $hierarchy::dropdown();
+			$vars[strtolower($hierarchy) . 's'] = array_unshift_assoc($vars[strtolower($hierarchy) . 's'], '0', __('staffs.please_select'));
 		}
 
 		$vars['genders'] = array(

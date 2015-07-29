@@ -70,6 +70,17 @@
 											<div class="col-sm-offset-2 col-sm-10">
 												<div class="checkbox">
 													<label>
+														<?php echo Form::checkbox('extend[hide_avatar]', 1, Input::previous('extend[hide_avatar]', Extend::value(Extend::field('staff', 'hide_avatar', $staff->id))), array('id' => 'hide_avatar')); ?> <?php echo __('staffs.hide_avatar'); ?>
+													</label>
+												</div>
+												<span class="help-block"><?php echo __('staffs.hide_avatar_explain'); ?></span>
+											</div>
+										</div>
+
+										<div class="form-group">
+											<div class="col-sm-offset-2 col-sm-10">
+												<div class="checkbox">
+													<label>
 														<?php echo Form::checkbox('message', 1, Input::previous('message', $staff->message), array('id' => 'message')); ?> <?php echo __('staffs.message'); ?>
 													</label>
 												</div>
@@ -292,7 +303,8 @@
 
 									<fieldset>
 
-										<?php foreach($fields as $field): if($field->key == 'avatar') continue ; ?>
+										<?php foreach($fields as $field):
+										if($field->key == 'avatar' || $field->key == 'hide_avatar') continue ; ?>
 											<div class="form-group">
 												<label class="col-md-2 control-label" for="extend_<?php echo $field->key; ?>"><?php echo $field->label; ?></label>
 												<div class="col-md-6">

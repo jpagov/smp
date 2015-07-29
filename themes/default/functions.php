@@ -100,6 +100,12 @@ function staff_avatar($id, $gender = 'M') {
 	return $default;
 }
 
+function hide_avatar($default = null) {
+	if (!Auth::check()) {
+		return staff_custom_field('hide_avatar');
+	}
+}
+
 function revision($filename) {
 
 	$base = PATH . 'themes' . DS . Config::meta('theme') . DS;

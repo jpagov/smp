@@ -12,7 +12,9 @@
 		<article class="search-result row">
 
 			<div class="col-xs-12 col-sm-2">
+				<?php if (!staff_custom_field('hide_avatar')) : ?>
 				<img src="<?php echo asset('content/avatar/' . staff_custom_field('avatar')); ?>" class="img-responsive img-thumbnail" alt="<?php echo staff_name(); ?>">
+				<?php endif; ?>
 			</div>
 
 			<div class="col-sm-6 excerpet">

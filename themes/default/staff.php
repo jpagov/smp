@@ -11,7 +11,9 @@
 		<div class="row">
 
 			<div class="col-sm-3 staff-avatar text-center">
+				<?php if (!hide_avatar()) : ?>
 				<img src="<?php echo asset('content/avatar/' . staff_custom_field('avatar')); ?>" class="img-responsive img-thumbnail" itemprop="image">
+				<?php endif; ?>
 
 				<div class="staff-extend">
 
