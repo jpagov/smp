@@ -47,6 +47,8 @@ return [
 	'last_name' => 'Nama akhir',
 	'telephone' => 'Telefon',
 	'gender' => 'Gender',
+	'hide_avatar' => 'Sembunyikan avatar',
+	'hide_avatar_explain' => 'Gambar profil tidak akan dipapar kepada public. Paparan profil hanya untuk warga JPA sahaja.',
 	'display_name' => 'Paparan Nama',
 	'real_name' => 'Real Name',
 	'real_name_explain' => '',

@@ -47,6 +47,8 @@ return [
 	'last_name' => 'Last Name',
 	'telephone' => 'Telephone',
 	'gender' => 'Gender',
+	'hide_avatar' => 'Hide avatar',
+	'hide_avatar_explain' => 'Avatar profile only can be view by JPA staff only.',
 	'display_name' => 'Display Name',
 	'real_name' => 'Real Name',
 	'real_name_explain' => '',
