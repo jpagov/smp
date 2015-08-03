@@ -101,7 +101,7 @@ function staff_avatar($id, $gender = 'M') {
 }
 
 function hide_avatar($default = null) {
-	if (!Auth::check()) {
+	if (!Auth::user()) {
 		return staff_custom_field('hide_avatar');
 	}
 }
