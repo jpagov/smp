@@ -99,7 +99,8 @@
 			<?php $tkppao = get_staff(site_meta('tkppao')); ?>
 			<div class="col-md-12">
 				<a class="org-list bg-primary" href="<?php echo base_url('division/pkppao'); ?>" data-hotkey="g o">
-					<img class="img-responsive" src="/smp/content/avatar/<?php echo $tkppao->avatar; ?>.jpg" alt="<?php echo $tkppao->display_name; ?>">
+					<!-- <img class="img-responsive" src="/smp/content/avatar/<?php //echo $tkppao->avatar; ?>.jpg" alt="<?php echo $tkppao->display_name; ?>"> -->
+					<img class="img-responsive" src="/smp/content/avatar/default-male.jpg" alt="TKPPA(O)">
 					<h2 class="title"><?php echo __('site.pkppao'); ?></h2>
 				</a>
 			</div>
