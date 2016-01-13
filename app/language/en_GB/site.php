@@ -60,7 +60,7 @@ return array(
 
 	// front
 	'pkppa' => 'Office of Director-General of Public Service Department',
-	'paskom' => 'Communication Team',
+	'paskom' => 'Corporate Communication',
 	'audit' => 'Internal Audit Unit',
 	'integriti' => 'Integrity Unit',
 	'law' => 'Legal Advisor',
