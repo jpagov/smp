@@ -152,5 +152,17 @@
 		});
 	</script>
 	<?php endif; ?>
+	<script type="application/ld+json">
+	{
+		"@context": "http://schema.org",
+		"@type": "WebSite",
+		"url": "https://sistem.jpa.gov.my/smp/",
+		"potentialAction": {
+			"@type": "SearchAction",
+			"target": "https://sistem.jpa.gov.my/smp/search?term={term}",
+			"query-input": "required name=term"
+		}
+	}
+	</script>
   </body>
 </html>
