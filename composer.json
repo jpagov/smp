@@ -1,7 +1,11 @@
 {
-	"name": "hariadi/directory",
-	"description": "Sistem Maklumat Pegawai",
+	"name": "jpagov/smp",
+	"description": "Sistem Direktori Pegawai",
 	"authors": [
+		{
+			"name": "Jabatan Perkhidmatan Awam",
+			"email": "jpagovmy@gmail.com"
+		},
 		{
 			"name": "Hariadi Hinta",
 			"email": "diperakui@gmail.com"
