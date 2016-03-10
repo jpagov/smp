@@ -127,7 +127,7 @@
 
 				<div class="col-xs-6">
 					<div class="org org-success text-center pkkpa-child">
-						<a href="<?php echo base_url('division/bpm'); ?>" class="org-link" data-hotkey="b p m"><p><span class="visible-xs-block">BPM</span> <span class="hidden-xs"><?php echo __('site.bpm'); ?></span></p></a>
+						<a href="<?php echo base_url('division/bpms'); ?>" class="org-link" data-hotkey="b p m"><p><span class="visible-xs-block">BPMS</span> <span class="hidden-xs"><?php echo __('site.bpms'); ?></span></p></a>
 					</div>
 				</div>
 
