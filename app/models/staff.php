@@ -125,7 +125,7 @@ class Staff extends Base {
 
     // get staffs
 		$staffs = $query->sort(Base::table('staffs.grade'), 'desc')
-			->sort(Base::table('staffs.sort'))
+			->sort(Base::table('staffs.sort'), 'desc')
 			->take($per_page)
 			->skip(--$page * $per_page)
 			->get($get);
@@ -279,7 +279,7 @@ class Staff extends Base {
 		$count = $query->count();
 
 		$query->sort('grade', 'desc');
-		$query->sort('sort');
+		$query->sort('sort', 'desc');
 
 		$staffs = $query->take($per_page)
 		->skip(--$page * $per_page)
@@ -301,7 +301,7 @@ class Staff extends Base {
 		$results = $query->take($perpage)
 			->skip(($page - 1) * $perpage)
 			->sort('grade', 'desc')
-			->sort('sort')
+			->sort('sort', 'desc')
 			->get(array(static::fields()));
 
 		return new Paginator($results, $count, $page, $perpage, Uri::to('admin/staffs'));
@@ -323,7 +323,7 @@ class Staff extends Base {
 		$results = $query->take($perpage)
 			->skip(($page - 1) * $perpage)
 			->sort('grade', 'desc')
-			->sort('sort')
+			->sort('sort', 'desc')
 			->get(array(static::fields()));
 
 		return new Paginator($results, $count, $page, $perpage, Uri::to('staffs'));
