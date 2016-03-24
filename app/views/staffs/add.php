@@ -227,8 +227,8 @@
 								<div class="col-sm-4">
 									<?php echo Form::text('sort', Input::previous('sort'), array('class' => 'form-control', 'id' => 'sort',
 									)); ?>
-									<span class="help-block"><?php echo __('staffs.sort_explain'); ?></span>
 								</div>
+								<span class="help-block"><?php echo __('staffs.sort_explain'); ?></span>
 							</div>
 
 							<div class="form-group">
