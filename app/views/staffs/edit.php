@@ -242,6 +242,15 @@
 								</div>
 
 								<div class="form-group">
+									<label class="col-sm-2 control-label" for="sort"><?php echo __('staffs.sort'); ?></label>
+									<div class="col-sm-4">
+										<?php echo Form::text('sort', Input::previous('sort', $staff->sort), array('class' => 'form-control', 'id' => 'sort',
+										)); ?>
+										<span class="help-block"><?php echo __('staffs.sort_explain'); ?></span>
+									</div>
+								</div>
+
+								<div class="form-group">
 									<label class="col-sm-2 control-label" for="description"><?php echo __('staffs.description'); ?></label>
 									<div class="col-sm-10">
 										<?php echo Form::textarea('description', Input::previous('description', $staff->description), array(

@@ -53,6 +53,8 @@ return [
 	'real_name' => 'Real Name',
 	'real_name_explain' => '',
 	'fax' => 'Fax',
+	'sort' => 'Urutan',
+	'sort_explain' => 'Nombor sahaja. Lagi kecil lagi tinggi prioriti urutan paparan.',
 
 	'slug' => 'Slug',
 	'slug_explain' => 'Slug uri to identify your staff, should only contain ascii characters',
