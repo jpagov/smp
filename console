@@ -73,3 +73,5 @@ $app->add($adminStaffImage);
 $app->add($adminStaffEmail);
 $app->add($adminFixAvatar);
 $app->run();
+
+die();
