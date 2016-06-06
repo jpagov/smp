@@ -2,7 +2,7 @@
 
 return array(
 
-	'comments' => 'Comments',
+	'comments' => 'Komen',
 	'nocomments_desc' => 'No comments yet.',
 	'editing_comment' => 'Editing comment',
 	'view_comment' => 'View comment',
