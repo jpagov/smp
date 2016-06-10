@@ -48,10 +48,18 @@ class Extend extends Base {
 
 						$storage = PATH . 'content' . DS . 'avatar' . DS . $extend->value->filename;
 
+						$backup = PATH . 'content' . DS . 'backup' . DS . $extend->value->filename;
+
 						$file = $extend->value->filename;
 
 						if (file_exists($storage)) {
 							$value = $file;
+						} else {
+							if (file_exists($backup)) {
+								if (copy($backup, $storage)) {
+									$value = $file;
+								}
+							}
 						}
 					} else {
 						$value = $file;
