@@ -20,7 +20,7 @@
 
 		<div class="col-xs-6 col-sm-4">
 			<div class="org org-danger text-center pkkpa-child">
-				<a href="<?php echo base_url('search?term=unit:paskom'); ?>" class="org-link"><p><span class="visible-xs-block">PASKOM</span> <span class="hidden-xs"><?php echo __('site.paskom'); ?></span></p></a>
+				<a href="<?php echo base_url('search?term=unit:ukk'); ?>" class="org-link"><p><span class="visible-xs-block">PASKOM</span> <span class="hidden-xs"><?php echo __('site.ukk'); ?></span></p></a>
 			</div>
 		</div>
 
