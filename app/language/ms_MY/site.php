@@ -62,7 +62,7 @@ return array(
 
 	// pkppa
 	'pkppa' => 'Pejabat Ketua Pengarah Perkhidmatan Awam',
-	'ukk' => 'Unit Komunikasi Korporat',
+	'paskom' => 'Unit Komunikasi Korporat',
 	'audit' => 'Unit Audit Dalam',
 	'integriti' => 'Unit Integriti',
 	'law' => 'Penasihat Undang-undang',

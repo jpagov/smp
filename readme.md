@@ -37,7 +37,8 @@ buka phpmyadmin (atau command line) untuk ekspot pangkalan data.
 
 ### Akan Datang
 
-* Pemasangan aplikasi secara web
-* Buang statistik dari pangkalan data. Guna Google Analytic dan intergrate secara API.
+* [ ] Pemasangan aplikasi secara web
+* [ ] Buang statistik dari pangkalan data. Guna Google Analytic dan intergrate secara API.
+* [ ] Simpan slug terakhir diubah bagi membolehkan redirect permanent sekiranya slug tidak ditemui
 
 
