@@ -7,7 +7,7 @@
 			</div> <!-- //.row -->
 		</div> <!-- //.container -->
 
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js" integrity="sha384-/Gm+ur33q/W+9ANGYwB2Q4V0ZWApToOzRuA8md/1p9xMMxpqnlguMvk8QuEFWA1B" crossorigin="anonymous"></script>
 		<script>window.jQuery || document.write('<script src="<?php echo asset('app/views/assets/js/jquery-1.11.1.min.js'); ?>"><\/script>')</script>
 		<script src="<?php echo asset('app/views/assets/js/bootstrap.min.js'); ?>"></script>
 	    <script src="<?php echo asset('app/views/assets/js/typeahead.bundle.js'); ?>"></script>
