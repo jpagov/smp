@@ -153,7 +153,11 @@ function is_valid_callback($subject) {
 function get_staff($id) {
 
 	if (!$staff = Staff::where('id', '=', $id)->fetch(array('id', 'display_name', 'email'))) {
-		return;
+		$staff = new stdClass();
+		$staff->avatar = 'default-male';
+		$staff->display_name = 'Kosong';
+
+		return $staff;
 	}
 
 	$staff->avatar = ($staff->email) ? preg_replace( "/^([^@]+)(@.*)$/", "$1", $staff->email) : 'default-male';
