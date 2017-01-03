@@ -527,16 +527,11 @@ Route::get('category', function() {
 
 Route::get('test', function() {
 
-	$page = new Page;
-	$page->id = 0;
-	$page->title = 'Test';
-	$page->slug = 'test';
+	if (!Auth::user()) {
+		return;
+	}
 
-	Registry::set('page', $page);
-	//Csrf::reset();
-	//echo ctype_digit(str_replace('-', '', '03 8885 4258'));
-	//dd(tel_ascii());
-	return new Template('test');
+	dd(get_ip_address());
 });
 
 /*
