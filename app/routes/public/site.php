@@ -531,7 +531,7 @@ Route::get('test', function() {
 		return;
 	}
 
-	dd(get_ip_address());
+	dd(get_ip_address(), is_public('202.21.0.1'));
 });
 
 /*

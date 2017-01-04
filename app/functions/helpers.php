@@ -190,11 +190,29 @@ function get_ip_address() {
  * Ensures an ip address is both a valid IP and does not fall within
  * a private network range.
  */
-function validate_ip($ip)
-{
+function validate_ip($ip) {
     if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4 | FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE) === false) {
         return false;
     }
     return true;
+}
+
+function is_public($ip) {
+
+	// Always false for authenticated user
+	if (Auth::user()) {
+		return false;
+	}
+
+	// detect if ip fall within private network
+	$ip = ip2long($ip);
+	$ip_low = ip2long(site_meta('ip_low', '10.21.0.0'));
+	$ip_high = ip2long(site_meta('ip_high', '10.21.255.255'));
+
+	if ($ip <= $ip_high && $ip_low <= $ip) {
+		return false;
+	}
+
+	return true;
 }
 

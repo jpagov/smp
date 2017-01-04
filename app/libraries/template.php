@@ -17,6 +17,12 @@ class Template extends View {
 			}
 		}
 
+		if (is_public(get_ip_address())) {
+			if(is_readable($base . 'public/' . $template . EXT)) {
+				$template = 'public/' . $template;
+			}
+		}
+
 		$this->path = $base . $template . EXT;
 		$this->vars = array_merge($this->vars, $vars);
 	}
