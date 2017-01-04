@@ -2,13 +2,13 @@
 
 return array(
   // notification
-  'search_missing' => 'Please enter a keyword search, must be at least %s characters',
+  'search_missing' => 'Sila masukkan kata carian, sekurang-kurangnya %s karakter',
 
-  'search_noresult' => 'Unfortunately, there\'s no results for &ldquo;<strong class="text-danger">%s</strong>&rdquo;. Did you spell everything correctly?',
+  'search_noresult' => 'Maaf, tiada keputusan ditemui bagi kata kunci &ldquo;<strong class="text-danger">%s</strong>&rdquo;. Anda pasti telah menaip dengan betul?',
 
-  'display_name' => 'Name',
-  'email' => 'Email',
+  'display_name' => 'Nama',
+  'email' => 'E-mel',
   'slug' => 'Slug URL',
-  'telephone' => 'Telephone ',
-  'description' => 'Job Description',
+  'telephone' => 'Telefon ',
+  'description' => 'Ringkasan tugas',
 );

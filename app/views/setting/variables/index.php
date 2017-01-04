@@ -17,7 +17,7 @@
 			<?php foreach($variables as $var): ?>
 			<dt><a href="<?php echo Uri::to('admin/setting/variables/edit/' . $var->key); ?>"><strong><?php echo substr($var->key, strlen('custom_')); ?></strong></a></dt>
 			<dd>
-				<?php echo e($var->value); ?>
+				<pre><?php echo e($var->value); ?></pre>
 			</dd>
 			<?php endforeach; ?>
 		</dl>
