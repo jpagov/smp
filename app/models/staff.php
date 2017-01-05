@@ -17,6 +17,7 @@ class Staff extends Base {
 		'report_to',
 		'personal_assistant',
 		'position',
+		'management',
 		'description',
 		'scheme',
 		'grade',
@@ -310,13 +311,33 @@ class Staff extends Base {
 	public static function related($id, $page = 1, $perpage = 6) {
 
 		$staff = static::find($id);
-
+		//dd(substr($staff->position, strpos($staff->position, '(')));
 		$query = Query::table(static::table())->where('status', '=', 'active');
 
-		$query->where('grade', '>=', 19)
-			->where('status', '=', 'active')
-			->where('id', '!=', $staff->id)
-			->where('report_to', '=', $staff->id);
+
+		if ($staff->management == 1) {
+			$query->where('position', 'like', '%' . substr($staff->position, 0, -1) . '%')
+				->where('grade', '<', $staff->grade);
+		} else {
+			if ($staff->unit) {
+				$query->where('unit', '=', $staff->unit);
+			}
+
+			if ($staff->sector) {
+				$query->where('sector', '=', $staff->sector);
+			}
+
+			if ($staff->branch) {
+				$query->where('branch', '=', $staff->branch);
+			}
+		}
+
+			//->or_where('report_to', '=', $staff->id);
+
+
+        $query->where('division', '=', $staff->division);
+		$query->where('id', '!=', $staff->id);
+        $query->where('id', '!=', $staff->report_to);
 
 		$count = $query->count();
 
