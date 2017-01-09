@@ -307,6 +307,18 @@ function staff_fourty_eight_and_up() {
 	return  Registry::prop('staff', 'grade') >= 48;
 }
 
+function staff_meta($key, $default = '', $bool = true) {
+
+	$id = Registry::prop('staff', 'id');
+
+	if($extend = Extend::field('staff', $key, $id)) {
+		return Extend::value($extend, $default);
+	}
+
+	return $default;
+
+}
+
 function staff_custom_field($key, $default = '') {
 	$id = Registry::prop('staff', 'id');
 
@@ -315,13 +327,18 @@ function staff_custom_field($key, $default = '') {
 			$default = ($gender == 'M') ? 'default-male.jpg' : 'default-female.jpg';
 		}
 
-	}
-
-	//if (is_48_and_up()) {
+		//if (is_48_and_up()) {
 		if($extend = Extend::field('staff', $key, $id)) {
 			return Extend::value($extend, $default);
 		}
 	//}
+
+	}
+
+	if($extend = Extend::field('staff', $key, $id)) {
+		return Extend::value($extend, $default);
+	}
+
 
 	return $default;
 }

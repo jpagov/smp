@@ -60,7 +60,7 @@ function show_division_meta() {
 }
 
 function show_direct_report() {
-	return setting('show_direct_report');
+	return setting('show_direct_report') && staff_report_to_id() && !hide_supervisor();
 }
 
 function show_personal_assistant() {
@@ -101,15 +101,11 @@ function staff_avatar($id, $gender = 'M') {
 }
 
 function hide_avatar($default = null) {
-	if (!Auth::user()) {
-		return staff_custom_field('hide_avatar');
-	}
+	return empty(staff_custom_field('hide_avatar')) ? false : true;
 }
 
-function hide_supervisor($default = null) {
-	if (!Auth::user()) {
-		return staff_custom_field('hide_supervisor');
-	}
+function hide_supervisor() {
+	return empty(staff_meta('hide_supervisor')) ? false : true;
 }
 
 function is_48_and_up($default = null) {

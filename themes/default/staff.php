@@ -126,7 +126,8 @@
 	<?php endif; ?>
 
 	<div class="tepian">
-			<?php if (show_direct_report() and staff_report_to_id()) : $boss = staff_report_to(); ?>
+
+			<?php if (show_direct_report()) : $boss = staff_report_to(); ?>
 
 					<h2 class="modal-header"><?php echo _e('site.direct_report'); ?></h2>
 
