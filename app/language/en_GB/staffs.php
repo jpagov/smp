@@ -49,6 +49,8 @@ return [
 	'gender' => 'Gender',
 	'hide_avatar' => 'Hide avatar',
 	'hide_avatar_explain' => 'Avatar profile only can be view by JPA staff only.',
+	'hide_supervisor' => 'Hide supervisor',
+	'hide_supervisor_explain' => 'Supervisor profile only can be view by JPA staff only.',
 	'display_name' => 'Display Name',
 	'real_name' => 'Real Name',
 	'real_name_explain' => '',

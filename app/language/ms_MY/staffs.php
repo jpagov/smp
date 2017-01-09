@@ -48,7 +48,9 @@ return [
 	'telephone' => 'Telefon',
 	'gender' => 'Gender',
 	'hide_avatar' => 'Sembunyikan avatar',
-	'hide_avatar_explain' => 'Gambar profil tidak akan dipapar kepada public. Paparan profil hanya untuk warga JPA sahaja.',
+	'hide_avatar_explain' => 'Gambar profil tidak akan dipapar kepada public. Hanya untuk warga JPA sahaja.',
+	'hide_supervisor' => 'Sembunyikan penyelia',
+	'hide_supervisor_explain' => 'Profil penyelia tidak akan dipapar kepada orang ramai. Hanya untuk warga JPA sahaja.',
 	'display_name' => 'Paparan Nama',
 	'real_name' => 'Real Name',
 	'real_name_explain' => '',
@@ -97,25 +99,25 @@ return [
 	'email' => 'Emel',
 	'email_explain' => '',
 	'email_missing' => 'Sila masukkan alamat emel yang sah',
-	'email_not_found' => 'Profile not found.',
+	'email_not_found' => 'Profil tidak ditemui.',
 
 	'please_select' => '- Sila pilih -',
 
 	// messages
-	'updated' => 'Profile telah dikemaskini.',
-	'created' => 'Profile telah diwujudkan. <a href="%s">Lihat profile</a>',
+	'updated' => 'Profil telah dikemaskini.',
+	'created' => 'Profil telah diwujudkan. <a href="%s">Lihat profile</a>',
 	'deleted' => 'Profil telah dihapus.',
 	'delete_error' => 'Anda tdak dibenarkan menghapus profil sendiri.',
 	'login_error' => 'Katanama atau Katalaluan salah.',
 	'logout_notice' => 'Anda telah mendaftar keluar.',
 	'recovery_sent' => 'Pihak kami telah menghantar emel pengesahan untuk menukar katalaluan.',
 	'recovery_expired' => 'Token penukaran katalaluan telah tamat tempoh, sila cuba reset semula.',
-	'password_reset' => 'Your new password has been set. Go and login now!',
+	'password_reset' => 'Katalaluan baru telah ditukar!',
 
 	// password recovery email
-	'recovery_subject' => 'Password Reset',
-	'recovery_message' => 'You have requested to reset your password.' .
-	'To continue follow the link below.' . PHP_EOL . '%s',
+	'recovery_subject' => 'Reset Katalaluan',
+	'recovery_message' => 'Anda telah memohon untuk menukar katalaluan.' .
+	'Untuk meneruskan, klik pautan dibawah.' . PHP_EOL . '%s',
 
 	// search filter
 	'search_filter' => 'Filter',

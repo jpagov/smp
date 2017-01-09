@@ -136,9 +136,15 @@ function staff_time() {
 	}
 }
 
-function staff_date() {
+function staff_date($format = 'j F Y') {
 	if($created = Registry::prop('staff', 'created')) {
-		return Date::format($created);
+		return Date::format($created, $format);
+	}
+}
+
+function staff_created_localized($format = null) {
+	if($created = Registry::prop('staff', 'created')) {
+		return Date::formatLocalized($created, $format);
 	}
 }
 
@@ -297,6 +303,10 @@ function staff_tag() {
 	return $tags;
 }
 
+function staff_fourty_eight_and_up() {
+	return  Registry::prop('staff', 'grade') >= 48;
+}
+
 function staff_custom_field($key, $default = '') {
 	$id = Registry::prop('staff', 'id');
 
@@ -307,9 +317,11 @@ function staff_custom_field($key, $default = '') {
 
 	}
 
-	if($extend = Extend::field('staff', $key, $id)) {
-		return Extend::value($extend, $default);
-	}
+	//if (is_48_and_up()) {
+		if($extend = Extend::field('staff', $key, $id)) {
+			return Extend::value($extend, $default);
+		}
+	//}
 
 	return $default;
 }

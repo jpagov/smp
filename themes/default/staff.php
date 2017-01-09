@@ -11,7 +11,7 @@
 		<div class="row">
 
 			<div class="col-sm-3 staff-avatar text-center">
-				<?php if (!hide_avatar()) : ?>
+				<?php if (!hide_avatar() && is_48_and_up()) : ?>
 				<img src="<?php echo asset('content/avatar/' . staff_custom_field('avatar')); ?>" class="img-responsive img-thumbnail" itemprop="image">
 				<?php endif; ?>
 
@@ -70,6 +70,11 @@
 						<?php endforeach; ?>
 				</dl>
 				<?php endif; ?>
+
+
+				<i>
+					<small>Profil ini telah dikunjungi sebanyak <abbr title="<?php echo number_format(staff_view()); ?>" itemprop="interactionCount" content="UserPageVisits:<?php echo number_format(staff_view()); ?>"><?php echo custom_number_format(staff_view()); ?></abbr> sejak <?php echo staff_created_localized(); ?></small>
+				</i>
 
 		</div>
 	</div>

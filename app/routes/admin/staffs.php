@@ -374,7 +374,7 @@ Route::collection(array('before' => 'auth,csrf', 'after' => 'log'), function() {
 
 				$extend = [];
 
-				foreach (['avatar', 'twitter', 'facebook', 'gplus', 'github', 'display_avatar'] as $fields) {
+				foreach (['avatar', 'twitter', 'facebook', 'gplus', 'github', 'hide_avatar', 'hide_supervisor'] as $fields) {
 					if($field = Extend::field('staff', $fields, $id)) {
 						$extend[$fields] = Extend::value($field);
 					}
@@ -383,6 +383,7 @@ Route::collection(array('before' => 'auth,csrf', 'after' => 'log'), function() {
 				$revision['extend'] = serialize($extend);
 				$revision['admin'] = $user->id;
 				$revision['revision_date'] = Date::mysql('now');
+				unset($revision['last_visit']);
 
 				//
 				if (Revision::total($staff->id) > (int) Config::meta('max_revision')) {
@@ -397,15 +398,13 @@ Route::collection(array('before' => 'auth,csrf', 'after' => 'log'), function() {
 
 		$filteredUpdate = array_diff_key( $diff, array_flip( ['id', 'view', 'created', 'updated', 'last_visit'] ) );
 
-
 		if ($filteredUpdate) {
+
 			Staff::update($id, $input);
 			Extend::process('staff', $id, $input['email']);
 
 			if($tags = Input::get('tag')) {
-
 				Tag::process($id, $tags);
-
 			}
 
 		}

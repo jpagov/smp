@@ -106,6 +106,20 @@ function hide_avatar($default = null) {
 	}
 }
 
+function hide_supervisor($default = null) {
+	if (!Auth::user()) {
+		return staff_custom_field('hide_supervisor');
+	}
+}
+
+function is_48_and_up($default = null) {
+	if (! is_public()) {
+		return true;
+	}
+
+	return staff_fourty_eight_and_up();
+}
+
 function revision($filename) {
 
 	$base = PATH . 'themes' . DS . Config::meta('theme') . DS;
