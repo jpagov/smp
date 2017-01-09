@@ -17,6 +17,27 @@ class Date {
 		return $date->format($format);
 	}
 
+	public static function formatLocalized($date, $format = null) {
+		// set the meta format for localized date
+		if(is_null($format)) {
+			$format = Config::meta('date_format_localized', 'd MMMM y');
+		}
+
+		$date = new DateTime($date, new DateTimeZone('GMT'));
+
+		$fmt = new IntlDateFormatter(
+			Config::app('language'),
+			IntlDateFormatter::FULL,
+			IntlDateFormatter::FULL,
+			Config::app('timezone', 'UTC'),
+			IntlDateFormatter::GREGORIAN,
+			$format
+		);
+
+		return $fmt->format($date);
+
+	}
+
 	/*
 	 * All database dates are stored as GMT
 	 */

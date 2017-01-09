@@ -5,6 +5,8 @@
  */
 date_default_timezone_set(Config::app('timezone', 'UTC'));
 
+setlocale(LC_TIME, Config::app('language', 'en_us') . '.' . Config::app('encoding', 'UTF-8'), Config::app('language', 'en_us') . '.utf8');
+locale_set_default(Config::app('language', 'en_us'));
 /*
  * Define the application error reporting level based on your environment
  */

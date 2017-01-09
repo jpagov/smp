@@ -197,7 +197,9 @@ function validate_ip($ip) {
     return true;
 }
 
-function is_public($ip) {
+function is_public($ip = null) {
+
+	$ip = is_null($ip) ? get_ip_address() : $ip;
 
 	// Always false for authenticated user
 	if (Auth::user()) {

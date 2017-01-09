@@ -51,10 +51,21 @@
 											<div class="col-sm-offset-2 col-sm-10">
 												<div class="checkbox">
 													<label>
-														<?php echo Form::checkbox('extend[display_avatar]', 1, (Input::previous('extend[display_avatar]') ?: true), array('id' => 'display_avatar')); ?> <?php echo __('staffs.display_avatar'); ?>
+														<?php echo Form::checkbox('extend[hide_supervisor]', 1, (Input::previous('extend[hide_supervisor]') ?: true), array('id' => 'hide_supervisor')); ?> <?php echo __('staffs.hide_supervisor'); ?>
 													</label>
 												</div>
-												<span class="help-block"><?php echo __('staffs.display_avatar_explain'); ?></span>
+												<span class="help-block"><?php echo __('staffs.hide_supervisor_explain'); ?></span>
+											</div>
+										</div>
+
+										<div class="form-group">
+											<div class="col-sm-offset-2 col-sm-10">
+												<div class="checkbox">
+													<label>
+														<?php echo Form::checkbox('extend[hide_avatar]', 1, (Input::previous('extend[hide_avatar]') ?: true), array('id' => 'hide_avatar')); ?> <?php echo __('staffs.hide_avatar'); ?>
+													</label>
+												</div>
+												<span class="help-block"><?php echo __('staffs.hide_avatar_explain'); ?></span>
 											</div>
 										</div>
 
