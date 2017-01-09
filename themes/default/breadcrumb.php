@@ -19,12 +19,11 @@
 
     $position = 2;
     foreach(breadcrumbs() as $key => $org):
-    	$title = ($morethan3) ? acronym($org['title']) : $org['title'];
+    	$title = ($morethan3) ? acronym($org['slug']) : $org['title'];
     $active = (((total_breadcrumb() - 1) === array_search($key, array_keys(breadcrumbs())))) ? true : false; ?>
 
     <?php if (is_staff()) : ?>
     <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-
     	<a itemprop="item" href="<?php echo base_url('division/' . $org['url']); ?>" title="<?php echo $org['title']; ?>"><span itemprop="name"><?php echo $title; ?></span></a>
     	<meta itemprop="position" content="<?php echo $position; ?>" />
 
