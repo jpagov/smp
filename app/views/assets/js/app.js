@@ -203,14 +203,6 @@
 					queryTokenizer: Bloodhound.tokenizers.whitespace,
 					remote: {
 						url: endpoint + 'queries/%QUERY.json',
-						replace: function() {
-							var query = $(':focus').val();
-							if ($('#division').val() == 0) {
-								return endpoint + 'queries' + '/' + query + '.json';
-							} else {
-								return endpoint + $('#division').val() + '/queries' + '/' + query + '.json';
-							}
-						},
 						filter: function(list) {
 							return $.map(list, function(item) {
 								return {
@@ -236,7 +228,7 @@
 					limit: 10,
 					remote: {
 						//url: endpoint + 'branch.json',
-						url: endpoint + 'queries/%QUERY.json',
+						url: endpoint + 'queries/branch/%QUERY.json',
 						filter: function(list) {
 							return $.map(list, function(item) {
 								return {
@@ -262,7 +254,7 @@
 					limit: 10,
 					remote: {
 						//url: endpoint + 'sector.json',
-						url: endpoint + 'queries/%QUERY.json',
+						url: endpoint + 'queries/sector/%QUERY.json',
 						filter: function(list) {
 							return $.map(list, function(item) {
 								return {
@@ -288,7 +280,7 @@
 					limit: 10,
 					remote: {
 						//url: endpoint + 'unit.json',
-						url: endpoint + 'queries/%QUERY.json',
+						url: endpoint + 'queries/unit/%QUERY.json',
 						filter: function(list) {
 							return $.map(list, function(item) {
 								return {
