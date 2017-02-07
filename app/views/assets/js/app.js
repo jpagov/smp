@@ -152,7 +152,20 @@
 
 				$('#salutation, #first_name, #last_name').keyup(function(e) {
 					var input = $('#salutation').val() + ' ' + $('#first_name').val() + ' ' + $('#last_name').val();
-					$('#display_name').prop('value', input);
+					$('#display_name').prop('value', $.trim(input));
+				});
+
+				$('#email').keyup(function(e) {
+					var email = $(this).val();
+					var slug = email.replace(/@.*$/,"")
+						.toString().toLowerCase()
+					    .replace(/\s+/g, '-')           // Replace spaces with -
+					    .replace(/[^\w\-]+/g, '-')       // Remove all non-word chars
+					    .replace(/\-\-+/g, '-')         // Replace multiple - with single -
+					    .replace(/^-+/, '')             // Trim - from start of text
+						.replace(/-+$/, '');
+
+					$('#slug').prop('value', $.trim(slug));
 				});
 
 				$('#account').on('click', function() {
@@ -223,7 +236,7 @@
 					limit: 10,
 					remote: {
 						//url: endpoint + 'branch.json',
-						url: endpoint + 'queries/branch/%QUERY.json',
+						url: endpoint + 'queries/%QUERY.json',
 						filter: function(list) {
 							return $.map(list, function(item) {
 								return {
@@ -249,7 +262,7 @@
 					limit: 10,
 					remote: {
 						//url: endpoint + 'sector.json',
-						url: endpoint + 'queries/sector/%QUERY.json',
+						url: endpoint + 'queries/%QUERY.json',
 						filter: function(list) {
 							return $.map(list, function(item) {
 								return {
@@ -275,7 +288,7 @@
 					limit: 10,
 					remote: {
 						//url: endpoint + 'unit.json',
-						url: endpoint + 'queries/unit/%QUERY.json',
+						url: endpoint + 'queries/%QUERY.json',
 						filter: function(list) {
 							return $.map(list, function(item) {
 								return {

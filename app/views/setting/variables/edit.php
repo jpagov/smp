@@ -8,7 +8,7 @@
 
 <div class="row">
 
-	<form class="form-horizontal" method="post" action="<?php echo Uri::to('admin/setting/variables/add'); ?>" novalidate>
+	<form class="form-horizontal" method="post" action="<?php echo Uri::to('admin/setting/variables/edit/'. $variable->key); ?>" novalidate>
 
 		<div class="col-md-9">
 

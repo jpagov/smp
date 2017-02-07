@@ -260,7 +260,9 @@ Route::collection(array('before' => 'auth,csrf', 'after' => 'log'), function() {
 		$input['management'] = $input['management'] ?: 0;
 
 		if(empty($input['slug'])) {
-			$input['slug'] = $input['email'] ?: $input['display_name'];
+			$parts = explode("@", $input['email']);
+			$slug = str_replace($part[0], '.', '-');
+			$input['slug'] = $slug;
 		}
 
 		if (empty($input['sort'])) {
@@ -552,8 +554,10 @@ Route::collection(array('before' => 'auth,csrf', 'after' => 'log'), function() {
 			'unit',
 		));
 
-		if(empty($input['slug'])) {
-			$input['slug'] = $input['email'] ?: $input['display_name'];
+		if(empty($input['slug']) && $input['email']) {
+			$parts = explode("@", $input['email']);
+			$slug = str_replace($part[0], '.', '-');
+			$input['slug'] = $slug;
 		}
 
 		$input['display_name'] = trim($input['display_name']);
