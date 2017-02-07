@@ -18,11 +18,16 @@ class Template extends View {
 		}
 
 		if (is_public(get_ip_address())) {
+
+			if (site_meta('use_table')) {
+				$template .= '-table';
+			}
+
 			if(is_readable($base . 'public/' . $template . EXT)) {
 				$template = 'public/' . $template;
 			}
 		}
-
+		//dd($base . $template . EXT);
 		$this->path = $base . $template . EXT;
 		$this->vars = array_merge($this->vars, $vars);
 	}
