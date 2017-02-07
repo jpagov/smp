@@ -313,10 +313,9 @@ class Staff extends Base {
 
 		$query = Query::table(static::table())->where('status', '=', 'active');
 
-		$query->where('position', 'like', '%' . substr($staff->position, 0, -1) . '%')
-			//->or_where('report_to', '=', $staff->id);
-
-			->where('id', '!=', $staff->id);
+		$query->where('grade', '>=', 19)
+			->where('id', '!=', $staff->id)
+			->where('report_to', '=', $staff->id);
 
 		$count = $query->count();
 
