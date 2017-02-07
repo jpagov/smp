@@ -2,6 +2,26 @@
 
 Route::collection(array('before' => 'auth'), function() {
 
+	/*
+	Admin Staff JSON API
+	*/
+	Route::get('admin/api/queries/(:any).json', function($name = null) {
+
+		if (! $staffs = Staff::where('display_name', 'like', '%' . $name . '%')->get()) {
+			return Response::create(Json::encode(array('no result')), 200, array('content-type' => 'application/json'));
+		}
+
+		$api = array();
+
+		foreach ($staffs as $staff) {
+			$api[] = $staff->display_name;
+		}
+
+		$json = Json::encode($api);
+
+		return Response::create($json, 200, array('content-type' => 'application/json'));
+
+	});
 
 	/*
 	Admin Staff JSON API
