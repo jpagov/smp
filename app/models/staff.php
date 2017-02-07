@@ -314,6 +314,7 @@ class Staff extends Base {
 		$query = Query::table(static::table())->where('status', '=', 'active');
 
 		$query->where('grade', '>=', 19)
+			->where('status', '=', 'active')
 			->where('id', '!=', $staff->id)
 			->where('report_to', '=', $staff->id);
 
