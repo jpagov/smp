@@ -159,7 +159,7 @@ Route::get(array('division/(:any)', 'division/(:any)/(:num)'), function($divisio
 
 	// get public listings
 	list($total, $staffs) = Staff::listing($offset, $per_page = Config::meta('staffs_per_page'), $hierarchies);
-
+	//dd($staffs);
 	// get branch under this division
 	list($count, $branchs) = Branch::listing($division->id, $offset, $per_page = Config::meta('staffs_per_page'));
 
