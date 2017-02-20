@@ -95,6 +95,14 @@
 				})
 */
 
+				$('#collapseHierarchy').on('shown.bs.collapse', function () {
+					console.log('collapse shown');
+					$('.btn-branch').removeClass('hidden');
+				}).on('hidden.bs.collapse', function () {
+					console.log('collapse hidden');
+					$('.btn-branch').removeClass('hidden');
+				});
+
 				$('#collapseDivision').on('shown.bs.collapse', function () {
 					$('.btn-division').removeClass('hidden');
 				}).on('hidden.bs.collapse', function () {
