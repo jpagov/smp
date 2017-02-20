@@ -58,7 +58,8 @@ Route::collection(array('before' => 'auth,csrf,admin'), function() {
 		$vars['token'] = Csrf::token();
 		$vars['division'] = Division::find($id);
 
-		$vars['parents'] = array_unshift_assoc(Division::dropdown(), '0', __('staffs.please_select'));
+		$division_dropdown = Division::dropdown();
+		$vars['parents'] = array_unshift_assoc($division_dropdown, '0', __('staffs.please_select'));
 		$vars['branchs'] = Hierarchy::branch($id);
 		$vars['sectors'] = Hierarchy::sector($id);
 		$vars['units'] = Hierarchy::unit($id);

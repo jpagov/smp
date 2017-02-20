@@ -258,6 +258,8 @@ Route::collection(array('before' => 'auth,csrf', 'after' => 'log'), function() {
 		$password_reset = false;
 		$input['display_name'] = trim($input['display_name']);
 		$input['management'] = $input['management'] ?: 0;
+		$input['message'] = $input['message'] ?: 0;
+		$input['rating'] = $input['rating'] ?: 0;
 
 		if(empty($input['slug'])) {
 			$parts = explode("@", $input['email']);

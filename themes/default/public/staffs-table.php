@@ -1,79 +1,50 @@
 <?php theme_include('header'); ?>
 <?php if (Uri::current() == '/') : theme_include('footer'); exit(); endif; ?>
-
+<?php theme_include('breadcrumb'); ?>
 <section class="content col-md-<?php  echo ( (show_division_meta() && division_has_meta()) || total_branchs() ) ? '9' : '12'; ?>">
-    <?php theme_include('breadcrumb'); ?>
 
-	<?php if (has_staffs()): ?>
+
+	<?php if ($staffs) : ?>
 
 	<div id="staff-result">
-		<?php $i = 0; while (staffs()): $i++; ?>
 
 		<article class="search-result row">
 
-			<?php if (total_branchs()): ?>
-				<?php while (branchs()): ?>
+
 			<div class="panel panel-primary">
 
 
 				<!-- Hierarchy panel contents -->
-				<div class="panel-heading"><?php echo branch_title(); ?></div>
-				<div class="panel-body bg-info">body</div>
+				<div class="panel-heading"><?php echo division_title(); ?></div>
+
 				<!-- Table -->
 				<table class="table table-hover">
 					<thead>
 					<tr>
-						<th>Bil.</th>
 						<th>Nama</th>
-						<th>Jawatan</th>
-						<th>Gelaran</th>
-						<th>Emel</th>
-						<th>Telefon</th>
+						<th data-toggle="tooltip" title="Jawatan"><i class="glyphicon glyphicon-barcode"></i> Jawatan</th>
+						<th data-toggle="tooltip" title="Emel"><i class="glyphicon glyphicon-envelope"></i> Emel</th>
+						<th data-toggle="tooltip" title="Telefon"><i class="glyphicon glyphicon-phone-alt"></i> Telefon</th>
 					</tr>
 					</thead>
 					<tbody>
-						<tr>
-							<th scope="row">1</th>
-							<td>Mark</td>
-							<td>Otto</td>
-							<td>@mdo</td>
-							<td>@mdo</td>
-							<td><?php echo var_dump(branch_id()); ?></td>
-						</tr>
+					<?php
+					$orgs['childs'] = group_by($staffs, division_id());
+
+					echo htmlOrg($orgs);
+					?>
 					</tbody>
 				</table>
 
 
 			</div>
-			<?php endwhile; ?><?php endif; ?>
 
 
-
-			<div class="col-sm-8 excerpet">
-				<h3><a href="<?php echo staff_url(); ?>" title=""><?php echo staff_name(); ?></a></h3>
-				<p><code><?php echo staff_job_title(); ?></code></p>
-			</div>
-
-			<div class="col-sm-4 staff-meta list-unstyle">
-				<ul class="list-unstyled">
-					<li><i class="glyphicon glyphicon-barcode"></i> <span><?php echo staff_position(); ?></span></li>
-
-					<li><i class="glyphicon glyphicon-phone-alt"></i> <span><?php echo staff_telephone(); ?></span></li>
-					<li><i class="glyphicon glyphicon-envelope"></i> <?php if (staff_has_email()) : ?><a href="mailto:<?php echo staff_email_encode(); ?>"><span><?php echo staff_email_image(); ?></span></a><?php else: ?><?php echo __('site.na'); ?> <?php endif; ?></li>
-				</ul>
-			</div>
 
 			<span class="clearfix borda"></span>
 		</article>
 
-		<?php endwhile; ?>
 	</div>
-
-	<?php if (has_pagination()): ?>
-	<nav class="pagination">
-            <?php echo staffs_paging()->links(); ?>
-	</nav>
-	<?php endif; ?>
 
 	<?php else: ?>
 		<p><?php echo _e('staffs.nothing'); ?></p>
@@ -92,7 +63,7 @@
 			<ul class="list-group">
 				<?php while (branchs()): ?>
 
-			<?php var_dump(branch_title()) ?>
+
 				<li class="list-group-item"><a href="<?php echo base_url('division/' . division_slug() .  '/' . branch_slug()); ?>"><?php echo branch_title(); ?></a></li>
 				<?php endwhile; ?>
 			</ul>
@@ -125,4 +96,24 @@
 
 </section>
 <?php endif; ?>
+<!-- Modal -->
+<div class="modal fade" id="staffModal" tabindex="-1" role="dialog" aria-labelledby="staffModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                 <h4 class="modal-title">Modal title</h4>
+
+            </div>
+            <div class="modal-body"><div class="te"></div></div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
 <?php theme_include('footer'); ?>

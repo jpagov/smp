@@ -84,8 +84,8 @@ Route::collection(array('before' => 'auth'), function() {
 	/*
 	Admin Branch Query JSON API
 	*/
-	Route::get('admin/api/queries/(:any)/(:any).json', function($slug = null, $term = null) {
-
+	Route::get('admin/api/queries/(:any)/(:all).json', function($slug = null, $term = null) {
+		dd($term);
 		$valid = array('branch', 'sector', 'unit', 'tag');
 
 		if (!in_array($slug, $valid)) {

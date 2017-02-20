@@ -159,7 +159,14 @@ Route::get(array('division/(:any)', 'division/(:any)/(:num)'), function($divisio
 
 	// get public listings
 	list($total, $staffs) = Staff::listing($offset, $per_page = Config::meta('staffs_per_page'), $hierarchies);
-	//dd($staffs);
+
+	$s = array();
+
+	foreach ($staffs as $staff) {
+		# code...
+	}
+
+	$vars['staffs'] = $staffs;
 	// get branch under this division
 	list($count, $branchs) = Branch::listing($division->id, $offset, $per_page = Config::meta('staffs_per_page'));
 
@@ -199,7 +206,7 @@ Route::get(array('division/(:any)', 'division/(:any)/(:num)'), function($divisio
 	Registry::set('division_slug', $division_slug);
 	Registry::set('division', $division);
 
-	return new Template('staffs');
+	return new Template('staffs', $vars);
 });
 
 /* TODO: separate route
