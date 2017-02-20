@@ -4,7 +4,7 @@
 <section class="content col-md-<?php  echo ( (show_division_meta() && division_has_meta()) || total_branchs() ) ? '9' : '12'; ?>">
 
 
-	<?php if ($staffs) : ?>
+	<?php if (isset($staffs)) : ?>
 
 	<div id="staff-result">
 
@@ -18,7 +18,7 @@
 				<div class="panel-heading"><?php echo division_title(); ?></div>
 
 				<!-- Table -->
-				<table class="table table-hover">
+				<table class="table">
 					<thead>
 					<tr>
 						<th>Nama</th>
