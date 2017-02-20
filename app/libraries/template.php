@@ -17,7 +17,7 @@ class Template extends View {
 			}
 		}
 
-		if (is_public(get_ip_address())) {
+		if (is_public()) {
 
 			if (site_meta('use_table', true)) {
 				$template .= '-table';

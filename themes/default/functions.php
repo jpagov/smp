@@ -104,16 +104,29 @@ function hide_avatar($default = null) {
 	return empty(staff_custom_field('hide_avatar')) ? false : true;
 }
 
+function staff_hide_avatar($id = null) {
+
+	$default =  true;
+
+	if($extend = Extend::field('staff', 'hide_avatar', $id)) {
+		return Extend::value($extend, $default);
+	}
+}
+
+function is_related_top_management($id) {
+	return Staff::where(Base::table('staffs.management'))->get(['management']);
+}
+
 function hide_supervisor() {
 	return empty(staff_meta('hide_supervisor')) ? false : true;
 }
 
-function is_48_and_up($default = null) {
+function is_top_management($default = null) {
 	if (! is_public()) {
 		return true;
 	}
 
-	return staff_fourty_eight_and_up();
+	return staff_is_top_management($default);
 }
 
 function revision($filename) {

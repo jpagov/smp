@@ -303,8 +303,8 @@ function staff_tag() {
 	return $tags;
 }
 
-function staff_fourty_eight_and_up() {
-	return  Registry::prop('staff', 'grade') >= 48;
+function staff_is_top_management($id = null) {
+	return  Registry::prop('staff', 'management');
 }
 
 function staff_meta($key, $default = '', $bool = true) {

@@ -127,11 +127,14 @@ class Staff extends Base
         $total = $query->count();
 
     // get staffs
-        $staffs = $query->sort(Base::table('staffs.grade'), 'desc')
-            ->sort(Base::table('staffs.sort'), 'desc')
-            ->take($per_page)
-            ->skip(--$page * $per_page)
-            ->get($get);
+
+        $staffs = $query->sort(Base::table('staffs.grade'), 'desc')->sort(Base::table('staffs.sort'), 'desc');
+
+        if (! is_public()) {
+			$staffs = $staffs->take($per_page)->skip(--$page * $per_page);
+    	}
+
+    	$staffs = $staffs->get($get);
 
         return array($total, $staffs);
     }
