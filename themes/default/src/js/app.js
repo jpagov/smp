@@ -58,6 +58,16 @@
 					});
 				});
 
+				$('a.staff-ajax').on('click', function () {
+					var $this = $(this);
+					var _href = $this.attr("href");
+					$('#staffModal').load(_href + '/ajax', function () {
+						$(this).modal('show');
+					});
+				});
+
+
+
 				$('select#role').change(function () {
 
 					// Possibly show an ajax loading image $("#ajax_loading").show();
@@ -411,12 +421,11 @@
 					},
 				});
 
-				$('#message-button').on('click', function () {
+				jQuery('body').on('click','#message-button',function(){
 					$('#messageModal').modal('show');
 				});
 
-
-				$('#messageModal').on('show.bs.modal', function (event) {
+				$('#staffModal').on('show.bs.modal', function (event) {
 					//var button = $(event.relatedTarget) // Button that triggered the modal
 					//var recipient = button.data('staff');
 					//var staffid = button.data('contact-title');
