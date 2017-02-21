@@ -2,7 +2,7 @@
   "devDependencies": {
     "bluebird": "^2.9.24",
     "del": "^1.1.1",
-    "gulp": "^3.8.11",
+    "gulp": "^3.9.1",
     "gulp-concat": "^2.5.2",
     "gulp-header": "^1.2.2",
     "gulp-imagemin": "^2.2.1",

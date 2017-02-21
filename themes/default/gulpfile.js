@@ -44,8 +44,10 @@ gulp.task('bundle', [
 ]);
 
 gulp.task('copy:js', function () {
-	return gulp.src(dirs.src + '/js/*min-*.js')
-			   .pipe(gulp.dest(dirs.assets + '/js/'));
+	return gulp.src([
+			dirs.src + '/js/*min-*.js',
+			dirs.src + '/js/jquery*min.js',
+		]).pipe(gulp.dest(dirs.assets + '/js/'));
 });
 
 gulp.task('copy:css', function () {
