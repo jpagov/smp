@@ -34,7 +34,7 @@ return [
 	'sector' => 'Sector',
 	'unit' => 'Unit',
 	'info' => 'Info',
-
+	'staff_details' => 'Staff Details',
 
 	// form fields
 	'message' => 'Message',

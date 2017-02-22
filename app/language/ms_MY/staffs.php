@@ -34,7 +34,7 @@ return [
 	'sector' => 'Sektor',
 	'unit' => 'Unit',
 	'info' => 'Info',
-
+	'staff_details' => 'Butiran Pegawai',
 
 	// form fields
 	'message' => 'Mesej',

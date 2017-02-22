@@ -7,10 +7,10 @@
 
     <div id="helper-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="helpModalLabel" aria-hidden="true"></div>
 
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-    <script>window.jQuery || document.write('<script src="<?php echo theme_asset('js/jquery-1.11.2.min.js'); ?>"><\/script>')</script>
-    <script src="<?php echo revision('js/main.min.js'); ?>"></script>
-    <?php if (site_meta('tour')) : ?><script src="<?php echo revision('js/bootstrap-tour.min.js'); ?>"></script><?php endif; ?>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js" integrity="sha384-3ceskX3iaEnIogmQchP8opvBy3Mi7Ce34nWjpBIwVTHfGYWQS9jwHDVRnpKKHJg7" crossorigin="anonymous"></script>
+    <script>window.jQuery || document.write('<script src="<?php echo theme_asset('js/jquery-3.1.1.min.js'); ?>"><\/script>')</script>
+    <script src="<?php echo revision('js/main.min.js'); ?>" <?php echo assets_sri('js/main.min.js') ?>></script>
+    <?php if (site_meta('tour')) : ?><script src="<?php echo revision('js/bootstrap-tour.min.js'); ?>" <?php echo assets_sri('js/bootstrap-tour.min.js') ?>></script><?php endif; ?>
     <?php if ($modalism = Session::get('modal')) : Session::erase('modal');  ?>
     <script type="text/javascript">
 		$(window).load(function(){
