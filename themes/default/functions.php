@@ -147,3 +147,27 @@ function revision($filename) {
 
   	return theme_asset($filename);
 }
+
+
+
+function checksum($input, $hash = 384) {
+
+	if (empty($input)) {
+		return;
+	}
+
+	$assets = PATH . 'themes' . DS . Config::meta('theme') . DS . 'assets' . DS . $input;
+
+	$hashstring = is_readable($assets)
+		? hash_file('sha' . $hash, $assets, true)
+		: hash('sha' . $hash, $assets, true);
+
+    $hash_base64 = base64_encode($hashstring);
+
+    return "sha$hash-$hash_base64";
+}
+
+function assets_sri($input, $crossorigin = 'anonymous') {
+	$hash = checksum($input);
+	return 'integrity="' . $hash . '" crossorigin="' . $crossorigin .'"';
+}

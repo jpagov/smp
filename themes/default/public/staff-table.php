@@ -1,7 +1,18 @@
-<?php theme_include('header'); ?>
+<?php if ($ajax): ?>
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+	            <h4 class="modal-title" id="helpModalLabel"><?php echo __('staffs.staff_details'); ?></h4>
+	        </div>
+	        <div class="modal-body">
+<?php else: ?>
+	<?php theme_include('header'); ?>
+<?php endif; ?>
 
 <section class="col-xs-12 col-md-8 staff well" id="staff-<?php echo staff_id(); ?>">
-		<?php theme_include('breadcrumb'); ?>
+
+		<?php theme_include('breadcrumb', $ajax); ?>
 
 		<?php
 		$notify = (Notify::read()) ?: ''; echo $notify;
@@ -89,7 +100,7 @@
 	</div>
 	<?php endif; ?>
 
-	<?php if(show_rating() && ratings_open()): ?>
+	<?php if(show_rating() && ratings_open() && !$ajax): ?>
 	<div class="well">
 
 		<div class="rating-inner">
@@ -181,10 +192,11 @@
 		</div>
 	</div>
 </section>
+<div class="clearfix"></div>
 <div class="modal fade" id="messageModal" tabindex="-1" role="dialog" aria-labelledby="messageModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
 	<div class="modal-content">
-	<form id="contact-staff" method="post">
+	<form id="contact-staff" method="post" action="<?php echo base_url(staff_slug()); ?>">
 		<input name="staff" type="hidden" value="<?php echo staff_id(); ?>">
 		<input name="token" type="hidden" value="<?php echo Csrf::token(); ?>">
 		<input name="url" type="hidden" value="<?php echo full_url(Uri::current()); ?>">
@@ -196,7 +208,7 @@
 		<div class="modal-body">
 		<p class="bg-warning"><small class="text-warning"><i><?php echo __('site.contact_note'); ?></i></small></p>
 		<?php echo $notify; ?>
-		<form>
+
 			<input type="hidden" id="recipient-id">
 
 			<?php if (!Session::get('recaptcha')) : ?>
@@ -290,6 +302,12 @@
 </section>
 <?php endif; ?>
 
+<?php if ($ajax): ?>
+			</div><!-- /.modal-body -->
+		</div><!-- /.modal-content -->
+	</div>
+<?php else: ?>
+	<?php theme_include('footer'); ?>
+<?php endif; ?>
 
 
-<?php theme_include('footer'); ?>

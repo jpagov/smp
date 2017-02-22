@@ -421,7 +421,7 @@
 					},
 				});
 
-				jQuery('body').on('click','#message-button',function(){
+				$('body').on('click','#message-button',function(){
 					$('#messageModal').modal('show');
 				});
 

@@ -244,7 +244,7 @@ function htmlOrg($orgs, $numbering = 1) {
 
 					$htmlOrg .= '<tr>';
 
-			        $htmlOrg .= '<td><a ' . (site_meta('enable_staff_modal', false) ? ' data-toggle="modal" ' : '' ) . ' href="' . base_url(Page::staff() . '/' . $staff->slug) . '" data-target="#staffModal">' . $staff->display_name . '</a></td>';
+			        $htmlOrg .= '<td><a class="staff-ajax" ' . (site_meta('enable_staff_modal', true) ? ' data-toggle="modal" ' : '' ) . ' href="' . base_url(Page::staff() . '/' . $staff->slug) . '" data-target="#staffModal">' . $staff->display_name . '</a></td>';
 
 			        $htmlOrg .= '<td>' . $staff->job_title . '</td>';
 

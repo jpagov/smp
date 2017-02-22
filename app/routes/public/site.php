@@ -471,6 +471,13 @@ Route::get('(:num)', function($id) use($staffs_page) {
 
 Route::get('(:all)', function($uri) use($staffs_page) {
 
+	$vars['ajax'] =  false;
+
+	if ((substr($uri, -4) == 'ajax')) {
+		$vars['ajax'] =  true;
+		$uri = str_replace('/ajax', '', $uri);
+	}
+
 	// find if slug in staff table
 	if( $staff = Staff::slug(basename($uri)) ) {
 
@@ -490,7 +497,7 @@ Route::get('(:all)', function($uri) use($staffs_page) {
 		Registry::set('staff', $staff);
 		Registry::set('division', Division::find($staff->division));
 
-		return new Template('staff');
+		return new Template('staff', $vars);
 	}
 
 	// find if slug in revision table

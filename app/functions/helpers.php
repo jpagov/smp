@@ -33,7 +33,10 @@ function theme_asset($file = '') {
 	return theme_url('assets/' . ltrim($file, '/'));
 }
 
-function theme_include($file) {
+function theme_include($file, $ajax = false) {
+	if ($ajax) {
+		return;
+	}
 	$theme_folder = Config::meta('theme');
 	$base = PATH . 'themes' . DS . $theme_folder . DS;
 
