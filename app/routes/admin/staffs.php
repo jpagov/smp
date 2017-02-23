@@ -732,6 +732,7 @@ Route::collection(array('before' => 'auth,csrf', 'after' => 'log'), function() {
 			$revision['admin'] = $self->id;
 			$revision['status'] = 'delete';
 			$revision['revision_date'] = Date::mysql('now');
+			$revision['last_visit'] = Date::mysql('now');
 
 			Revision::create($revision);
 
