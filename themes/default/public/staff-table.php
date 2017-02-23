@@ -21,7 +21,7 @@
 
 		<div class="row">
 
-			<?php if (!is_public() && !is_top_management()) : ?>
+			<?php if (is_public() && is_top_management()) : ?>
 			<div class="col-sm-3 staff-avatar text-center">
 
 				<img src="<?php echo asset('content/avatar/' . staff_custom_field('avatar')); ?>" class="img-responsive img-thumbnail" itemprop="image">
