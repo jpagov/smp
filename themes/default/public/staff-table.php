@@ -21,10 +21,11 @@
 
 		<div class="row">
 
+			<?php if (!is_public() && !is_top_management()) : ?>
 			<div class="col-sm-3 staff-avatar text-center">
-				<?php if (!hide_avatar() && is_top_management()) : ?>
+
 				<img src="<?php echo asset('content/avatar/' . staff_custom_field('avatar')); ?>" class="img-responsive img-thumbnail" itemprop="image">
-				<?php endif; ?>
+
 
 				<div class="staff-extend">
 
@@ -56,12 +57,13 @@
 
 				</div>
 			</div>
+			<?php endif; ?>
 
-			<div class="col-sm-9 ">
+			<div class="col-sm-<?php echo is_public() && !is_top_management() ? 12 : 9; ?>">
 				<h1 itemprop="name"><em itemprop="honorificPrefix"><?php echo staff_salutation(); ?></em> <span itemprop="givenName"><?php echo staff_first_name(); ?></span> <span itemprop="familyName"><?php echo staff_last_name(); ?></span> <a class="permalink" aria-hidden="true" href="<?php echo base_url(staff_slug()); ?>" title="Permalink to this staff profile page" itemprop="url"><small class="glyphicon glyphicon-link"></small></a></h1>
 				<p class="lead" itemprop="jobTitle"><?php echo staff_job_title(); ?></p>
 
-				<?php if (staff_description_md()) : ?><div class="well well-sm bg-warning" itemprop="description"><?php echo staff_description_md(); ?></div><?php endif; ?>
+				<?php if ($description = trim(staff_description_md())) : ?><div class="well well-sm" itemprop="description"><?php echo $description; ?></div><?php endif; ?>
 
 				<dl class="dl-horizontal">
 
@@ -182,7 +184,6 @@
 				<?php foreach($related->results as $relate): ?>
 				<a href="<?php echo Config::app('url') . '/' . $relate->slug; ?>" class="list-group-item clearfix">
 					<?php if (!staff_hide_avatar($relate->id) && is_related_top_management($relate->id)) : ?>
-						<?php var_dump(staff_hide_avatar($relate->id), is_related_top_management($relate->id)) ?>
 						<img width="50" height="50" class="media-object img-circle pull-left" src="<?php echo asset('content/avatar/' . staff_avatar($relate->id, $relate->gender)); ?>" alt="<?php echo $relate->display_name; ?>">
 					<?php endif; ?>
 						<h4 class="list-group-item-heading"><?php echo $relate->display_name; ?></h4>

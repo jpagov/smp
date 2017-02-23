@@ -4,6 +4,7 @@ Thumbs.db
 *.esproj
 *.log
 *.gz
+TODO
 
 archive
 node_modules
