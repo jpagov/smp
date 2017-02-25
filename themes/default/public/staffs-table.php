@@ -22,7 +22,7 @@
 				<table class="table">
 					<thead>
 					<tr>
-						<th>Nama</th>
+						<th width="30%">Nama</th>
 						<th data-toggle="tooltip" title="Jawatan"><i class="glyphicon glyphicon-barcode"></i> Jawatan</th>
 						<th data-toggle="tooltip" title="Emel"><i class="glyphicon glyphicon-envelope"></i> Emel</th>
 						<th data-toggle="tooltip" title="Telefon"><i class="glyphicon glyphicon-phone-alt"></i> Telefon</th>
