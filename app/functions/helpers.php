@@ -221,3 +221,7 @@ function is_public($ip = null) {
 	return true;
 }
 
+function generateRandomString($length = 5) {
+    return substr(str_shuffle(MD5(microtime())), 0, $length);
+}
+

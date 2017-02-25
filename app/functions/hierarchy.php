@@ -98,7 +98,9 @@ function group_by($staffs, $id)
 
                 foreach ($staffs as $key => $staff) {
                     if ($staff->unit == $sector->unit) {
-                        $hierarchies[$staff->branch_title]['childs'][$staff->sector_title]['childs'][$staff->unit_title]['staffs'][] = $staff;
+                        $hierarchies['childs'][$staff->branch_title]['childs'][$staff->sector_title]['childs'][$staff->unit_title]['staffs'][] = $staff;
+                        $hierarchies['childs'][$staff->branch_title]['childs'][$staff->sector_title]['childs'][$staff->unit_title]['id'] = $sector->unit;
+                        $hierarchies['childs'][$staff->branch_title]['childs'][$staff->sector_title]['childs'][$staff->unit_title]['type'] = 'unit';
                         $staffs = walk_recursive_remove($staffs, function ($v, $k) use ($key) {
                             return $k === $key;
                         });
@@ -109,7 +111,9 @@ function group_by($staffs, $id)
 
             foreach ($staffs as $key => $staff) {
                 if ($staff->sector == $branch->sector) {
-                    $hierarchies[$staff->branch_title]['childs'][$staff->sector_title]['staffs'][] = $staff;
+                    $hierarchies['childs'][$staff->branch_title]['childs'][$staff->sector_title]['staffs'][] = $staff;
+                    $hierarchies['childs'][$staff->branch_title]['childs'][$staff->sector_title]['id'] = $branch->sector;
+                    $hierarchies['childs'][$staff->branch_title]['childs'][$staff->sector_title]['type'] = 'sector';
                     //arsort($hierarchies[$staff->branch_title][$staff->sector_title]);
                     $staffs = walk_recursive_remove($staffs, function ($v, $k) use ($key) {
                         return $k === $key;
@@ -120,7 +124,9 @@ function group_by($staffs, $id)
 
         foreach ($staffs as $key => $staff) {
             if ($staff->branch == $division->branch) {
-                $hierarchies[$staff->branch_title]['staffs'][] = $staff;
+                $hierarchies['childs'][$staff->branch_title]['staffs'][] = $staff;
+                $hierarchies['childs'][$staff->branch_title]['id'] = $division->branch;
+                $hierarchies['childs'][$staff->branch_title]['type'] = 'branch';
                 //arsort($hierarchies[$staff->branch_title]);
                 $staffs = walk_recursive_remove($staffs, function ($v, $k) use ($key) {
                     return $k === $key;
@@ -128,6 +134,14 @@ function group_by($staffs, $id)
             }
         }
     }
+
+    // listing for direct under divisions, means the director
+    foreach ($staffs as $key => $staff) {
+    	$hierarchies['staffs'][] = $staff;
+    }
+
+    $hierarchies['id'] = $id;
+    $hierarchies['type'] = 'division';
 
     return $hierarchies;
 }
@@ -231,48 +245,81 @@ if ( ! function_exists('array_group_by') ) {
     }
 }
 
-function htmlOrg($orgs, $numbering = 1) {
+function htmlOrg($orgs, $level = 1, $collapsing = true) {
 
 	$htmlOrg = '';
+	$collapse = $collapsing ? 'in' : '';
+	$expanded = $collapsing ? 'true' : 'false';
 
 		foreach ($orgs['childs'] as $itemsKey => $org) :
 
-			$htmlOrg .= '<tr class="bg-primary"><th colspan="6">' . $itemsKey . '</th></tr>';
+			$index = isset($org['type']) ? $org['type']. '-' . $org['id'] : '';
+
+			$htmlOrg .= '<div class="panel panel-primary">';
+			$htmlOrg .= '<!-- Default panel contents -->';
+			$htmlOrg .= '<div class="panel-heading" role="tab" id="heading-' . $index . '">';
+			$htmlOrg .= '<h4 class="panel-title">';
+
+			$htmlOrg .= isset($org['childs']) ? '<a class="accordion-toggle collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse-' . $index . '" aria-expanded="'. $expanded  .'" aria-controls="collapse-' . $index . '">' . $itemsKey . '</a>' : $itemsKey;
+
+			$htmlOrg .= '</h4>';
+
+			$htmlOrg .= '</div>';
+
+			$htmlOrg .= '<table class="table">';
+
+			$htmlOrg .= '<thead>';
+			$htmlOrg .= '<tr>';
+			$htmlOrg .= '<th>Nama</th>';
+			$htmlOrg .= '<th data-toggle="tooltip" title="Jawatan"><i class="glyphicon glyphicon-barcode"></i> Jawatan</th>';
+			$htmlOrg .= '<th data-toggle="tooltip" title="Emel"><i class="glyphicon glyphicon-envelope"></i> Emel</th>';
+			$htmlOrg .= '<th data-toggle="tooltip" title="Telefon"><i class="glyphicon glyphicon-phone-alt"></i> Telefon</th>';
+			$htmlOrg .= '</tr>';
+			$htmlOrg .= '</thead>';
+			$htmlOrg .= '<tbody>';
 
 			if (isset($org['staffs'])) :
 				foreach ($org['staffs'] as $staff) :
 
 					$htmlOrg .= '<tr>';
 
-			        $htmlOrg .= '<td><a class="staff-ajax" ' . (site_meta('enable_staff_modal', true) ? ' data-toggle="modal" ' : '' ) . ' href="' . base_url(Page::staff() . '/' . $staff->slug) . '" data-target="#staffModal">' . $staff->display_name . '</a></td>';
+			        $htmlOrg .= '<td><a class="staff-ajax" ' . (site_meta('enable_staff_modal', true) ? 'data-toggle="modal"' : '' ) . ' href="' . base_url(Page::staff() . '/' . $staff->slug) . '" data-target="#staffModal">' . $staff->display_name . '</a></td>';
 
 			        $htmlOrg .= '<td>' . $staff->job_title . '</td>';
 
 			        $htmlOrg .= '<td>';
 			        if ($staff->email) :
-			        	$htmlOrg .= '<a href="mailto:' . Encode::email($staff->email) . '">';
+			        	//$htmlOrg .= '<a href="mailto:' . Encode::email($staff->email) . '">';
 			        	$htmlOrg .= '<span><img src="' . Encode::email2image($staff->email) . '" alt="'. $staff->display_name .'"></span>';
-			        	$htmlOrg .= '</a>';
+			        	//$htmlOrg .= '</a>';
 			        else :
 			        	$htmlOrg .= __('site.na');
 			        endif;
 			        $htmlOrg .= '</td>';
-
-
 			        $htmlOrg .= '<td>' . ( site_meta('short_phone', false) ? str_replace(site_meta('short_phone', array('03-8885', '03 8885')), '', $staff->telephone) : $staff->telephone ) . '</td>';
 			    	$htmlOrg .= '</tr>';
 
-			    	$numbering++;
-
 				endforeach;
+			endif;
 
-				if (isset($org['childs'])) :
+			$htmlOrg .= '</tbody>';
+			$htmlOrg .= '</table>';
 
-					$htmlOrg .= htmlOrg($org, $numbering++);
+			$htmlOrg .= '</div>';
+			$htmlOrg .= '<hr>';
 
-				endif;
+			if (isset($org['childs'])) :
+
+				$htmlOrg .= ($collapsing) ? '<div id="collapse-' . $index . '" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-' . $index . '">' : '';
+
+				$htmlOrg .= htmlOrg($org, $level++);
+
+				$htmlOrg .= ($collapsing) ? '</div>' : '';
 
 			endif;
+
+
+			$level++;
 
 		endforeach;
 
