@@ -35,7 +35,7 @@
 			onEnd: function() {
 				return $smptour.removeClass("disabled", true);
 			},
-			//debug: true,
+			debug: true,
 			template: [
 
 				'<div class="popover" role="tooltip">',
@@ -62,38 +62,31 @@
 				placement: 'right',
 				content: '<?php echo __('tour.step0_content'); ?>',
 			}, {
-				path: '<?php echo base_url(); ?>',
 				element: '#search-term',
 				title: '<?php echo __('tour.step1_title'); ?>',
 				placement: 'bottom',
+				backdrop: true,
 				content: '<?php echo __('tour.step1_content'); ?>',
 				onShown: function (tour) {
 					var search = 'zainal rahim';
-					var searchInput = $('.tour-step-background');
-					searchInput.append('<div id="generated-search"></div>');
-					var generated = $('#generated-search');
-					generated.css('margin', '6px');
-					generated.text('');
 					jQuery({count:0}).animate({count:search.length}, {
 						duration: 2000,
 						step: function() {
-							generated.text(search.substring(0, Math.round(this.count)));
+							$('#search-term').val(search.substring(0, Math.round(this.count)));
 						}
 					});
 				},
 			}, {
-				path: '<?php echo base_url('search?term=zainal rahim'); ?>',
-				element: '.staffs-search-result',
+				path: '<?php echo base_url('search?term=zainal+rahim'); ?>',
+				element: 'section.staffs-search-result',
 				title: '<?php echo __('tour.step2_title'); ?>',
 				placement: 'bottom',
 				content: '<?php echo __('tour.step2_content'); ?>',
 			}, {
-				path: '<?php echo base_url('search?term=zainal rahim'); ?>',
 				element: 'section.col-sm-3',
 				title: '<?php echo __('tour.step3_title'); ?>',
 				placement: 'left',
 				content: '<?php echo __('tour.step3_content'); ?>',
-
 			}, {
 				path: '<?php echo base_url('zainal-rahim'); ?>',
 				element: "section.staff",
@@ -101,35 +94,32 @@
 				placement: 'right',
 				content: '<?php echo __('tour.step31_content'); ?>',
 			}, {
-				path: '<?php echo base_url('zainal-rahim'); ?>',
 				element: 'div.well:nth-child(1)',
 				title: '<?php echo __('tour.step32_title'); ?>',
 				placement: 'left',
 				content: '<?php echo __('tour.step32_content'); ?>',
 			}, {
-				path: '<?php echo base_url('zainal-rahim'); ?>',
 				element: '.rating-inner',
 				title: '<?php echo __('tour.step33_title'); ?>',
 				placement: 'left',
 				content: '<?php echo __('tour.step33_content'); ?>'
 			}, {
-				path: '<?php echo base_url('zainal-rahim'); ?>',
 				element: 'div.tepian',
 				title: '<?php echo __('tour.step34_title'); ?>',
 				placement: 'top',
 				content: '<?php echo __('tour.step34_content'); ?>',
 			}, {
-				path: '<?php echo base_url('zainal-rahim'); ?>',
 				element: "ul.navbar-right",
 				title: "<?php echo __('tour.step4_title'); ?>",
 				placement: 'bottom',
 				content: "<?php echo __('tour.step4_content'); ?>"
 			}, {
-				path: '<?php echo base_url('zainal-rahim'); ?>',
-				element: '.staff-avatar > img',
+				path: '<?php echo base_url(); ?>',
+				element: '#pkppa',
 				title: '<?php echo __('tour.step5_title'); ?>',
 				placement: 'right',
 				content: '<?php echo __('tour.step5_content'); ?>',
+				orphan: true,
 				onHidden: function() {
 					$('#helper-modal').load('/smp/help/keys', function () {
 						$(this).modal('show');
