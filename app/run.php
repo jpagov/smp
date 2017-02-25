@@ -80,6 +80,7 @@ if(is_admin()) {
 	require APP . 'routes/admin/report/confirm' . EXT;
 	require APP . 'routes/admin/report/search' . EXT;
 } else {
+	require APP . 'routes/public/lang' . EXT;
 	require APP . 'routes/public/action' . EXT;
 	require APP . 'routes/public/api' . EXT;
 	require APP . 'routes/public/email' . EXT;

@@ -66,8 +66,6 @@
 					});
 				});
 
-
-
 				$('select#role').change(function () {
 
 					// Possibly show an ajax loading image $("#ajax_loading").show();

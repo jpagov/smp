@@ -50,11 +50,7 @@ function language_lisence() {
 }
 
 function language_url() {
-
-	if ($querystring = filter_var($_SERVER['QUERY_STRING'], FILTER_SANITIZE_FULL_SPECIAL_CHARS)) {
-		return Uri::current() . '?' . $querystring . '&amp;lang=' . language_id();
-	}
-	return '?lang=' . language_id();
+	return full_url('lang/' . language_id() . '/' . Uri::current()) . ($_SERVER['QUERY_STRING'] ? '?' . $_SERVER['QUERY_STRING'] : '');
 }
 
 function language_current_id() {
