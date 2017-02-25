@@ -20,19 +20,6 @@ class Language {
 			$language = $cookie;
 		}
 
-		// set the new lang from user input
-		if (!empty($_SERVER['QUERY_STRING'])) {
-			parse_str($_SERVER['QUERY_STRING']);
-
-			if (isset($lang) and in_array($lang, static::all(true))) {
-				$language = filter_var($lang, FILTER_SANITIZE_URL);
-			}
-
-			$language = filter_var($language, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-
-			Cookie::write(Config::app('prefix') . '_lang', $language, Config::session('lifetime'));
-		}
-
 		return $language;
 
 	}

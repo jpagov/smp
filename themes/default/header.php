@@ -71,11 +71,11 @@
 
           	<?php if(total_languages()): ?>
           		<li class="dropdown">
-          			<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><img alt="<?php echo language_name(); ?>" src="<?php echo language_flag(language_current_id()); ?>"> <span class="sr-only"><?php echo language_name(); ?></span> <span class="caret"></span></a>
+          			<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><img class="language-flag" alt="<?php echo language_name(); ?>" src="<?php echo language_flag(language_current_id()); ?>"> <span class="language-name sr-only"><?php echo language_name(); ?></span> <span class="caret"></span></a>
 
           			<ul class="dropdown-menu" role="menu">
 			            <?php while(languages()): ?>
-						      <li><a class="view btn-xs" href="<?php echo language_url(); ?>"><img alt="<?php echo language_name(); ?>" src="<?php echo language_flag(language_id()); ?>"> <?php echo language_name(); ?></a></li>
+						      <li><a class="language-opt view btn-xs" href="<?php echo language_url(); ?>"><img alt="<?php echo language_name(); ?>" src="<?php echo language_flag(language_id()); ?>"> <?php echo language_name(); ?></a></li>
 						      <?php endwhile; ?>
 			          </ul>
 
