@@ -251,6 +251,10 @@ function htmlOrg($orgs, $level = 1, $collapsing = true) {
 	$collapse = $collapsing ? 'in' : '';
 	$expanded = $collapsing ? 'true' : 'false';
 
+	if (! isset($orgs['childs'])) {
+		return;
+	}
+
 		foreach ($orgs['childs'] as $itemsKey => $org) :
 
 			$index = isset($org['type']) ? $org['type']. '-' . $org['id'] : '';
@@ -270,7 +274,7 @@ function htmlOrg($orgs, $level = 1, $collapsing = true) {
 
 			$htmlOrg .= '<thead>';
 			$htmlOrg .= '<tr>';
-			$htmlOrg .= '<th>Nama</th>';
+			$htmlOrg .= '<th width="30%">Nama</th>';
 			$htmlOrg .= '<th data-toggle="tooltip" title="Jawatan"><i class="glyphicon glyphicon-barcode"></i> Jawatan</th>';
 			$htmlOrg .= '<th data-toggle="tooltip" title="Emel"><i class="glyphicon glyphicon-envelope"></i> Emel</th>';
 			$htmlOrg .= '<th data-toggle="tooltip" title="Telefon"><i class="glyphicon glyphicon-phone-alt"></i> Telefon</th>';
