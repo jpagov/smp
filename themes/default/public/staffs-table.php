@@ -7,10 +7,16 @@
 
 	<div id="staff-result">
 
-		<article class="search-result row">
+			<?php
+			$division_id = division_id();
+			$division_title = division_title();
+			$organizations = group_by($staffs, $division_id);
+
+			if (isset($organizations['staffs'])) :
+			?>
 			<div class="panel panel-primary">
 				<!-- Hierarchy panel contents -->
-				<div class="panel-heading"><?php echo division_title(); ?></div>
+				<div class="panel-heading"><?php echo $division_title; ?></div>
 
 				<!-- Table -->
 				<table class="table">
@@ -23,21 +29,41 @@
 					</tr>
 					</thead>
 					<tbody>
-					<?php
-					$orgs['childs'] = group_by($staffs, division_id());
-
-					echo htmlOrg($orgs);
-					?>
+					<?php foreach ($organizations['staffs'] as $staff) : ?>
+						<tr>
+							<td><a class="staff-ajax" data-toggle="modal" href="<?php echo base_url(Page::staff() . '/' . $staff->slug) ?>" data-target="#staffModal"><?php echo $staff->display_name; ?></a></td>
+							<td><?php echo $staff->job_title; ?></td>
+							<td>
+							<?php if ($staff->email) : ?>
+								<span><img src="<?php echo Encode::email2image($staff->email); ?>" alt="<?php echo $staff->display_name; ?>"></span>
+							<?php else: echo __('site.na') ?>
+							<?php endif; ?>
+							</td>
+							<td><?php echo ( site_meta('short_phone', false) ? str_replace(site_meta('short_phone', array('03-8885', '03 8885')), '', $staff->telephone) : $staff->telephone ); ?></td>
+						</tr>
+					<?php endforeach; ?>
 					</tbody>
 				</table>
 
 
 			</div>
+			<?php endif; ?>
 
+			<div class="panel-group" id="accordion" role="tablist">
+
+			<?php echo htmlOrg($organizations); ?>
+
+			</div><!-- .panel-group -->
+
+			<?php
+			// if (isset($organizations['childs'])) :
+			// echo htmlOrg($organizations);
+			// endif;
+			?>
 
 
 			<span class="clearfix borda"></span>
-		</article>
+
 
 	</div>
 
