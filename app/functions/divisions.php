@@ -6,7 +6,7 @@
 
 function total_divisions() {
 	if( ! $divisions = Registry::get('divisions')) {
-		$divisions = Division::get();
+		$divisions = Division::listing();
 
 		$divisions = new Items($divisions);
 
@@ -18,7 +18,7 @@ function total_divisions() {
 
 function all_divisions() {
     if( ! $divisions = Registry::get('all_divisions')) {
-        $divisions = Division::get();
+        $divisions = Division::listing();
     }
 
     return $divisions;

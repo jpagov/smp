@@ -87,11 +87,12 @@ class App {
 		if( ! is_admin()) {
 
             // register divisions
-            foreach(Division::get() as $itm) {
-                $divisions[$itm->id] = $itm;
-            }
+            // foreach(Division::get() as $itm) {
+            //     $divisions[$itm->id] = $itm;
+            // }
 
-            Registry::set('all_divisions', $divisions);
+
+            Registry::set('all_divisions', Division::listing());
 
     		// register menu items
     		$pages = Page::where('status', '=', 'published')
