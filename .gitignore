@@ -4,6 +4,7 @@ Thumbs.db
 *.esproj
 *.log
 *.gz
+.php_cs.cache
 TODO
 
 archive
