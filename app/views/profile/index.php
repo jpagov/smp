@@ -16,7 +16,7 @@
         <h1><em><?php echo $profile->salutation; ?></em> <?php echo $profile->first_name; ?> <?php echo $profile->last_name; ?></h1>
         <p class="lead"><?php echo $profile->job_title; ?></p>
 
-        <?php if ($profile->description) : ?><p class="well well-sm bg-warning"><?php echo $profile->description; ?></p><?php endif; ?>
+        <?php if ($profile->description) : ?><div class="well well-sm bg-warning"><?php echo $profile->description; ?></div><?php endif; ?>
     </div>
 
     <div class="col-xs-3 col-md-pull-9">
