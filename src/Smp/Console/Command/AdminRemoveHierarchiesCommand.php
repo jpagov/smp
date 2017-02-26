@@ -1,16 +1,19 @@
 <?php
+
 namespace Smp\Console\Command;
 
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Question\Question;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Question\ConfirmationQuestion;
 
 class AdminRemoveHierarchiesCommand extends Command
 {
-
     protected $valid = ['branch', 'sector', 'unit'];
     protected $counter = [];
 
@@ -36,7 +39,31 @@ class AdminRemoveHierarchiesCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-	$formatter = $this->getHelper('formatter');
+        $helper = $this->getHelper('question');
+
+        $question = new ConfirmationQuestion('<question>This will remove your data. Continue with this action?</question>', false);
+
+        if (!$helper->ask($input, $output, $question)) {
+            return;
+        }
+
+        $qs = new Question('<comment>Username:</comment> ');
+        $username = $helper->ask($input, $output, $qs);
+
+        $qs = new Question('<comment>Password:</comment> ');
+        $qs->setHidden(true);
+        $qs->setHiddenFallback(false);
+        $password = $helper->ask($input, $output, $qs);
+
+        $attempt = \Auth::attempt($username, $password);
+
+        if (! $attempt) {
+            $output->writeln('<error>' . __('users.login_error') . '</error>');
+
+            return;
+        }
+
+        $formatter = $this->getHelper('formatter');
 
         $valid = array_intersect($this->valid, $input->getArgument('type'));
 
@@ -66,12 +93,12 @@ class AdminRemoveHierarchiesCommand extends Command
             $progress->start();
 
             foreach ($hierarchies as $hierarchy) {
-		//  $output->writeln(' <comment>Deleted</comment>: ' . $hierarchy->title);
-				$formattedLine = $formatter->formatSection(
-					ucfirst($type),
-					'<comment>Deleted</comment>: ' . $hierarchy->title
-				);
-				$output->writeln($formattedLine);
+                //  $output->writeln(' <comment>Deleted</comment>: ' . $hierarchy->title);
+                $formattedLine = $formatter->formatSection(
+                    ucfirst($type),
+                    '<comment>Deleted</comment>: ' . $hierarchy->title
+                );
+                $output->writeln($formattedLine);
 
                 $hierarchy->delete();
                 $progress->advance();
@@ -79,10 +106,22 @@ class AdminRemoveHierarchiesCommand extends Command
 
             $progress->finish();
         }
-        $output->writeln(PHP_EOL);
+        $output->writeln(PHP_EOL . 'Updating Hierarchies..');
 
         foreach ($this->counter as $type => $counter) {
             $output->writeln('<info>Done deleting ' . $type . ' '. $counter['deleted'] . '/' . $counter['total'] . '</info>');
         }
+
+        $question = new ConfirmationQuestion('<question>Do you want me to update staff hierarchies?</question>', true);
+
+        if (!$helper->ask($input, $output, $question)) {
+            return;
+        }
+
+        $UpdateHierarchyCommand = $this->getApplication()->find('hierarchy');
+
+        $UpdateHierarchyCommand->run(new ArrayInput([
+        	'command' => 'hierarchy'
+        ]), $output);
     }
 }
