@@ -8,7 +8,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Helper\ProgressBar;
 
-class AdminCommandStaffEmail extends Command {
+class AdminStaffEmailCommand extends Command {
 	protected function configure() {
 		$this->setName("admin:email")
 			 ->setDescription("Send email for validation and confirmation")

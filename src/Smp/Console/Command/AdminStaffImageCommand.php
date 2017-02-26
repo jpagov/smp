@@ -8,7 +8,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Helper\ProgressBar;
 
-class AdminCommandStaffImage extends Command {
+class AdminStaffImageCommand extends Command {
 	protected function configure() {
 		$this->setName("admin:image")
 			 ->setDescription("Profile image report")

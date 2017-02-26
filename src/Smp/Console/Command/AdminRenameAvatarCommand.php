@@ -7,7 +7,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
 
-class AdminCommandRenameAvatar extends Command {
+class AdminRenameAvatarCommand extends Command {
 	protected function configure() {
 		$this->setName("admin:fix")
 			 ->setDescription("Fix or remove profile avatar filename")

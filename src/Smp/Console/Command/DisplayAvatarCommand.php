@@ -9,7 +9,7 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Helper\ProgressBar;
 
 
-class DisplayAvatar extends Command {
+class DisplayAvatarCommand extends Command {
 	protected function configure() {
 		$this->setName("displayavatar")
 			 ->setDescription("Set avatar to displayed or not")
