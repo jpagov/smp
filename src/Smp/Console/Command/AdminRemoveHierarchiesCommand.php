@@ -121,7 +121,7 @@ class AdminRemoveHierarchiesCommand extends Command
         $UpdateHierarchyCommand = $this->getApplication()->find('hierarchy');
 
         $UpdateHierarchyCommand->run(new ArrayInput([
-        	'command' => 'hierarchy'
+            'command' => 'hierarchy'
         ]), $output);
     }
 }

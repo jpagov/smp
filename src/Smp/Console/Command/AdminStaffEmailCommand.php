@@ -8,112 +8,111 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Helper\ProgressBar;
 
-class AdminStaffEmailCommand extends Command {
-	protected function configure() {
-		$this->setName("admin:email")
-			 ->setDescription("Send email for validation and confirmation")
-			 ->addArgument(
-				'id',
-				InputArgument::IS_ARRAY | InputArgument::OPTIONAL,
-				'Filter by Division ID. Separated by space.'
-			 )
-			 ->setHelp('Send <info>email</info> for validation and confirmation to staff');
-	}
+class AdminStaffEmailCommand extends Command
+{
+    protected function configure()
+    {
+        $this->setName("admin:email")
+             ->setDescription("Send email for validation and confirmation")
+             ->addArgument(
+                'id',
+                InputArgument::IS_ARRAY | InputArgument::OPTIONAL,
+                'Filter by Division ID. Separated by space.'
+             )
+             ->setHelp('Send <info>email</info> for validation and confirmation to staff');
+    }
 
-	protected function execute(InputInterface $input, OutputInterface $output) {
+    protected function execute(InputInterface $input, OutputInterface $output)
+    {
+        $default = ['id', 'display_name', 'email', 'email', 'telephone','slug'];
 
-		$default = ['id', 'display_name', 'email', 'email', 'telephone','slug'];
+        $progress = new ProgressBar($output, 50);
+        $progress->start();
 
-		$progress = new ProgressBar($output, 50);
-		$progress->start();
+        $divisions = $input->getArgument('id') ?
+            \Division::where_in('id', $input->getArgument('id'))->get(['id', 'slug', 'title', 'staff']) :
+            \Division::listing();
 
-		$divisions = $input->getArgument('id') ?
-			\Division::where_in('id', $input->getArgument('id'))->get(['id', 'slug', 'title', 'staff']) :
-			\Division::listing();
+        if (!array_filter($divisions)) {
+            $output->writeln('<error>No division found</error>');
+            return;
+        }
 
-		if (!array_filter($divisions)) {
-			$output->writeln('<error>No division found</error>');
-			return;
-		}
+        $count = 0;
+        $noavatar = [];
 
-		$count = 0;
-		$noavatar = [];
+        foreach ($divisions as $division) {
+            if ($output->isVerbose()) {
+                $output->writeln('<info>=== Getting staff list on ' . $division->title . ' ===</info>');
+            }
 
-		foreach ($divisions as $division) {
+            $staffs = \Staff::sort('grade', 'desc');
 
-			if ($output->isVerbose()) {
-				$output->writeln('<info>=== Getting staff list on ' . $division->title . ' ===</info>');
-			}
+            $staffs->where('division', '=', $division->id)
+                ->where('status', '=', 'active')
+                ->where('display_name', '!=', '')
+                ->where('email', '!=', '');
 
-			$staffs = \Staff::sort('grade', 'desc');
+            $count += $staffs->count();
 
-			$staffs->where('division', '=', $division->id)
-				->where('status', '=', 'active')
-				->where('display_name', '!=', '')
-				->where('email', '!=', '');
+            $staffs = $staffs->get($default);
 
-			$count += $staffs->count();
+            foreach ($staffs as $staff) {
 
-			$staffs = $staffs->get($default);
+                //if ($staff->id != 487 || $staff->id != 190) {
+                if ($confirm = \Confirm::where('staff_id', '=', $staff->id)->get()) {
+                    //if ($confirm->confirm_date) {
+                    //	continue;
+                    //}
+                    $progress->getProgress();
+                    $progress->advance();
+                    $output->writeln(PHP_EOL . '<info>Already sent. Skipped.</info>');
 
-			foreach ($staffs as $staff) {
+                    continue;
+                }
 
-				//if ($staff->id != 487 || $staff->id != 190) {
-				if ($confirm = \Confirm::where('staff_id', '=', $staff->id)->get()) {
-					//if ($confirm->confirm_date) {
-					//	continue;
-					//}
-					$progress->getProgress();
-					$progress->advance();
-					$output->writeln(PHP_EOL . '<info>Already sent. Skipped.</info>');
+                $token = noise(10);
+                $url = 'https://sistem.jpa.gov.my' . \Config::app('url') . '/';
+                $profileuri = \Uri::full($url . $staff->slug);
+                $confirmuri = \Uri::full($url . 'admin/confirm/' . $token);
+                $username = preg_replace("/^([^@]+)(@.*)$/", "$1", $staff->email);
+                $amnesiauri = \Uri::full($url . 'admin/amnesia');
 
-					continue;
-				}
+                \Confirm::create([
+                    'staff_id' => $staff->id,
+                    'token' => $token,
+                    'created' => \Date::mysql('now')
+                ]);
 
-				$token = noise(10);
-				$url = 'https://sistem.jpa.gov.my' . \Config::app('url') . '/';
-				$profileuri = \Uri::full($url . $staff->slug);
-				$confirmuri = \Uri::full($url . 'admin/confirm/' . $token);
-				$username = preg_replace( "/^([^@]+)(@.*)$/", "$1", $staff->email);
-				$amnesiauri = \Uri::full($url . 'admin/amnesia');
+                $emailer = [
+                    'to' => $staff->email,
+                    'subject' => __('email.confirm_subject'),
+                    'message' => \Braces::compile(PATH . 'content/confirm.html', [
+                        'title' => __('email.confirm_subject'),
+                        'hi' => __('email.hi'),
+                        'message_valid' => __('email.confirm_message_valid', $profileuri),
+                        'message_confirm' => __('email.confirm_message_confirm', $confirmuri),
+                        'message_access' => __('email.confirm_message_access', $username, $amnesiauri),
+                        'support' => __('email.confirm_support'),
+                        'thanks' => __('email.thanks'),
+                        'footer' => __('site.title'),
+                    ])
+                ];
 
-				\Confirm::create([
-					'staff_id' => $staff->id,
-					'token' => $token,
-					'created' => \Date::mysql('now')
-				]);
+                $mail = new \Email($emailer);
 
-				$emailer = [
-					'to' => $staff->email,
-					'subject' => __('email.confirm_subject'),
-					'message' => \Braces::compile(PATH . 'content/confirm.html', [
-						'title' => __('email.confirm_subject'),
-						'hi' => __('email.hi'),
-						'message_valid' => __('email.confirm_message_valid', $profileuri),
-						'message_confirm' => __('email.confirm_message_confirm', $confirmuri),
-						'message_access' => __('email.confirm_message_access', $username, $amnesiauri),
-						'support' => __('email.confirm_support'),
-						'thanks' => __('email.thanks'),
-						'footer' => __('site.title'),
-					])
-				];
+                if (!$mail->send()) {
+                    $output->writeln(PHP_EOL . '<error>Email not sent: ' . $mail->ErrorInfo . '</error>');
+                    return;
+                } else {
+                    $output->writeln(PHP_EOL . '<info>Email sent: ' . $staff->email . '</info>');
+                }
+            }
 
-				$mail = new \Email($emailer);
+            $progress->getProgress();
+            $progress->advance();
+        }
 
-				if(!$mail->send()) {
-					$output->writeln(PHP_EOL . '<error>Email not sent: ' . $mail->ErrorInfo . '</error>');
-					return;
-				} else {
-					$output->writeln(PHP_EOL . '<info>Email sent: ' . $staff->email . '</info>');
-				}
-
-			}
-
-			$progress->getProgress();
-			$progress->advance();
-
-		}
-
-		$output->writeln(PHP_EOL . 'Sending email to ' . $progress->getProgress() . '/' . $count .' staff');
-	}
+        $output->writeln(PHP_EOL . 'Sending email to ' . $progress->getProgress() . '/' . $count .' staff');
+    }
 }

@@ -30,7 +30,7 @@ class HierarchyCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-    	$formatter = $this->getHelper('formatter');
+        $formatter = $this->getHelper('formatter');
         $filter = false;
         $divisions = \Division::listing();
 
@@ -42,7 +42,7 @@ class HierarchyCommand extends Command
 
         $ids = array_intersect_key($this->divisions, array_flip($valid));
 
-        $query = \Staff::where('status', '=', 'active')->where_in('division', array_values($ids) , 'AND ');
+        $query = \Staff::where('status', '=', 'active')->where_in('division', array_values($ids), 'AND ');
 
         $count = $query->count();
         $staffs = $query->get();
@@ -51,11 +51,11 @@ class HierarchyCommand extends Command
         $progress->start();
 
         foreach ($staffs as $staff) {
-        	$formattedLine = $formatter->formatSection(
+            $formattedLine = $formatter->formatSection(
                 strtoupper(array_search($staff->division, $this->divisions)),
                 '<comment>Updating</comment>: ' . $staff->display_name
             );
-        	$output->writeln($formattedLine);
+            $output->writeln($formattedLine);
             \Hierarchy::where('staff', '=', $staff->id)->delete();
             \Hierarchy::create(array(
                 'staff' => $staff->id,
