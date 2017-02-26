@@ -72,9 +72,9 @@ function hierarchy($id, $type = 'division')
 {
     $valid = array('division', 'branch', 'sector', 'unit');
 
-    if (in_array($type, $valid)) {
-        $hierarchies = Hierarchy::where($type, '=', $id)->get();
-    }
+    // if (in_array($type, $valid)) {
+    //     $hierarchies = Hierarchy::where($type, '=', $id)->get();
+    // }
 
     $group = $valid[array_search($type, $valid)+1];
 
@@ -82,7 +82,8 @@ function hierarchy($id, $type = 'division')
         ? Hierarchy::where($type, '=', $id)
             ->where($group, '!=', 0)
             ->group($group)
-            ->get()
+            //->get()
+            ->get($valid)
         : array();
 }
 
