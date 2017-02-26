@@ -8,101 +8,99 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Helper\ProgressBar;
 
-class AdminStaffImageCommand extends Command {
-	protected function configure() {
-		$this->setName("admin:image")
-			 ->setDescription("Profile image report")
-			 ->addArgument(
-				'id',
-				InputArgument::IS_ARRAY | InputArgument::OPTIONAL,
-				'Filter by Division ID. Separated by space.'
-			 )
-			 ->setHelp('Profile <info>image</info> report for staff');
-	}
+class AdminStaffImageCommand extends Command
+{
+    protected function configure()
+    {
+        $this->setName("admin:image")
+             ->setDescription("Profile image report")
+             ->addArgument(
+                'id',
+                InputArgument::IS_ARRAY | InputArgument::OPTIONAL,
+                'Filter by Division ID. Separated by space.'
+             )
+             ->setHelp('Profile <info>image</info> report for staff');
+    }
 
-	protected function execute(InputInterface $input, OutputInterface $output) {
+    protected function execute(InputInterface $input, OutputInterface $output)
+    {
+        $path = PATH . 'content' . DS;
+        $default = ['id', 'display_name', 'email', 'position', 'email', 'telephone'];
 
-		$path = PATH . 'content' . DS;
-		$default = ['id', 'display_name', 'email', 'position', 'email', 'telephone'];
+        $progress = new ProgressBar($output, 50);
+        $progress->start();
 
-		$progress = new ProgressBar($output, 50);
-		$progress->start();
+        $divisions = $input->getArgument('id') ?
+            \Division::where_in('id', $input->getArgument('id'))->get(['id', 'slug', 'title', 'staff']) :
+            \Division::listing();
 
-		$divisions = $input->getArgument('id') ?
-			\Division::where_in('id', $input->getArgument('id'))->get(['id', 'slug', 'title', 'staff']) :
-			\Division::listing();
+        if (!array_filter($divisions)) {
+            $output->writeln('<error>No division found</error>');
+            return;
+        }
 
-		if (!array_filter($divisions)) {
-			$output->writeln('<error>No division found</error>');
-			return;
-		}
+        $count = 0;
+        $noavatar = [];
 
-		$count = 0;
-		$noavatar = [];
+        foreach ($divisions as $division) {
+            if ($output->isVerbose()) {
+                $output->writeln('<info>=== Getting staff list on ' . $division->title . ' ===</info>');
+            }
 
-		foreach ($divisions as $division) {
+            $staffs = \Staff::sort('grade', 'desc');
 
-			if ($output->isVerbose()) {
-				$output->writeln('<info>=== Getting staff list on ' . $division->title . ' ===</info>');
-			}
+            $staffs->where('division', '=', $division->id)
+                ->where('status', '=', 'active')
+                ->where('display_name', '!=', '');
 
-			$staffs = \Staff::sort('grade', 'desc');
+            $count += $staffs->count();
 
-			$staffs->where('division', '=', $division->id)
-				->where('status', '=', 'active')
-				->where('display_name', '!=', '');
+            $staffs = $staffs->get($default);
 
-			$count += $staffs->count();
+            $csv = $path . strtoupper($division->slug) . '.csv';
 
-			$staffs = $staffs->get($default);
+            if (is_readable($csv)) {
+                unlink($csv);
+            }
 
-			$csv = $path . strtoupper($division->slug) . '.csv';
+            $fp = fopen($csv, 'w');
 
-			if (is_readable($csv)) {
-				unlink($csv);
-			}
+            foreach ($staffs as $staff) {
+                $username = preg_replace("/^([^@]+)(@.*)$/", "$1", $staff->email) . '.jpg';
 
-			$fp = fopen($csv, 'w');
+                $avatar = 'avatar' . DS . $username;
 
-			foreach ($staffs as $staff) {
+                /*
+                if($extend = \Extend::field('staff', 'avatar', $staff->id)) {
+                    $avatar = 'avatar' . DS .  \Extend::value($extend);
+                }
+                */
 
-				$username = preg_replace( "/^([^@]+)(@.*)$/", "$1", $staff->email) . '.jpg';
+                $filepath = $path . $avatar;
 
-				$avatar = 'avatar' . DS . $username;
+                if (file_exists($filepath)) {
+                    continue;
+                }
 
-				/*
-				if($extend = \Extend::field('staff', 'avatar', $staff->id)) {
-					$avatar = 'avatar' . DS .  \Extend::value($extend);
-				}
-				*/
+                if ($output->isVerbose()) {
+                    $output->writeln('<info>Found staff with no avatar ' . $staff->display_name . '</info>');
+                }
 
-				$filepath = $path . $avatar;
+                fputcsv($fp, [
+                    $staff->id,
+                    $staff->display_name,
+                    $staff->position,
+                    $staff->email,
+                    $staff->telephone,
+                ]);
+            }
 
-				if (file_exists($filepath)) {
-					continue;
-				}
+            $progress->getProgress();
+            $progress->advance();
+        }
+        fclose($fp);
 
-				if ($output->isVerbose()) {
-					$output->writeln('<info>Found staff with no avatar ' . $staff->display_name . '</info>');
-				}
-
-				fputcsv($fp, [
-					$staff->id,
-					$staff->display_name,
-					$staff->position,
-					$staff->email,
-					$staff->telephone,
-				]);
-
-			}
-
-			$progress->getProgress();
-			$progress->advance();
-
-		}
-		fclose($fp);
-
-		$output->writeln(PHP_EOL . 'There are ' . $progress->getProgress() . '/' . $count .' staff have no avatar');
-		$output->writeln(PHP_EOL . 'CSV locate here: ' . $path);
-	}
+        $output->writeln(PHP_EOL . 'There are ' . $progress->getProgress() . '/' . $count .' staff have no avatar');
+        $output->writeln(PHP_EOL . 'CSV locate here: ' . $path);
+    }
 }
