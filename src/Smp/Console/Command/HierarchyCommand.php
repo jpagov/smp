@@ -42,7 +42,7 @@ class HierarchyCommand extends Command
 
         $ids = array_intersect_key($this->divisions, array_flip($valid));
 
-        $query = \Staff::where('status', '=', 'active')->where_in('division', array_values($ids), 'AND ');
+        $query = \Staff::where_in('division', array_values($ids));
 
         $count = $query->count();
         $staffs = $query->get();
