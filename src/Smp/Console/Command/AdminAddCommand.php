@@ -11,7 +11,7 @@ use Symfony\Component\Console\Question\Question;
 use Symfony\Component\Console\Question\ChoiceQuestion;
 
 
-class AdminCommandAdd extends Command {
+class AdminAddCommand extends Command {
 	protected function configure() {
 		$this->setName("admin:add")
 			 ->setDescription("Make admin to staff")

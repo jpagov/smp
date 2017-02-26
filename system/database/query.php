@@ -296,6 +296,22 @@ class Query extends Builder {
 	}
 
 	/**
+	 * Add a where clause to the query starting with IN
+	 *
+	 * @param string
+	 * @param array
+	 * @return object
+	 */
+	public function where_not($column, $values, $operator = 'OR ') {
+		$this->where[] = (count($this->where) ? $operator : 'WHERE ') .
+			$this->wrap($column) . ' NOT IN (' . $this->placeholders(count($values)) . ')';
+
+		$this->bind = array_merge($this->bind, $values);
+
+		return $this;
+	}
+
+	/**
 	 * Add a table join to the query
 	 *
 	 * @param string|function

@@ -54,24 +54,19 @@ require_once __DIR__ . '/vendor/autoload.php';
 // import the Symfony Console Application
 use Symfony\Component\Console\Application;
 
-$hierarchy = new \Smp\Console\Command\HierarchyCommand();
-$slug = new \Smp\Console\Command\SlugCommand();
-$search = new \Smp\Console\Command\SearchCommand();
-$rating = new \Smp\Console\Command\RatingCommand();
-$adminAdd = new \Smp\Console\Command\AdminCommandAdd();
-$adminStaffImage = new \Smp\Console\Command\AdminCommandStaffImage();
-$adminStaffEmail = new \Smp\Console\Command\AdminCommandStaffEmail();
-$adminFixAvatar = new \Smp\Console\Command\AdminCommandRenameAvatar();
-
 $app = new Application('SMP CLI Tools', '0.1.0');
-$app->add($hierarchy);
-$app->add($slug);
-$app->add($rating);
-$app->add($search);
-$app->add($adminAdd);
-$app->add($adminStaffImage);
-$app->add($adminStaffEmail);
-$app->add($adminFixAvatar);
+
+$dir = new DirectoryIterator(dirname(__FILE__) . '/src/Smp/Console/Command');
+
+
+foreach ($dir as $fileinfo) {
+    if (!$fileinfo->isDot()) {
+	$command = "\\Smp\\Console\Command\\" . $fileinfo->getBasename('.php');
+
+        $app->add(new $command);
+    }
+}
+
 $app->run();
 
 die();
