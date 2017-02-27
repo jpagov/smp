@@ -8,6 +8,7 @@ define('VERSION', '0.9.2');
 define('PATH', dirname(__FILE__) . DS);
 define('APP', PATH . 'app' . DS);
 define('SYS', PATH . 'system' . DS);
+define('CONTENT', PATH . 'content' . DS);
 define('EXT', '.php');
 
 // set to run indefinitely if needed
@@ -62,7 +63,6 @@ $dir = new DirectoryIterator(dirname(__FILE__) . '/src/Smp/Console/Command');
 foreach ($dir as $fileinfo) {
     if (!$fileinfo->isDot()) {
 	$command = "\\Smp\\Console\Command\\" . $fileinfo->getBasename('.php');
-
         $app->add(new $command);
     }
 }
