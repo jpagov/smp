@@ -245,7 +245,6 @@ class Query extends Builder {
 	 */
 	public function sum($column = null) {
 		list($result, $statement) = $this->connection->ask($this->build_select_sum($column), $this->bind);
-
 		return $statement->fetchColumn();
 	}
 
@@ -263,6 +262,21 @@ class Query extends Builder {
 
 		return $this;
 	}
+
+	/**
+     * Add a where match() against() clause to the query
+     *
+     * @param string
+     * @param string
+     * @param string
+     * @return object
+     */
+    public function match($column, $word, $mode = 'IN NATURAL LANGUAGE MODE')
+    {
+        $this->where[] = (count($this->where) ? 'AND ' : 'WHERE ') . 'MATCH(' . $this->wrap($column) . ')' . ' AGAINST(? '. $mode .')';
+        $this->bind[] = $word;
+        return $this;
+    }
 
 	/**
 	 * Add a where clause to the query starting with OR

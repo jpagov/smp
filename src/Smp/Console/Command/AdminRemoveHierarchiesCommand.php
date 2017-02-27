@@ -34,7 +34,7 @@ class AdminRemoveHierarchiesCommand extends Command
                 'Do you want to backup?',
                 'no'
             )
-             ->setHelp('Fix staff <info>hierarchy</info>. This command also <error>remove</error> branch/sector/unit doesnt have staff');
+            ->setHelp('Fix staff <info>hierarchy</info>. This command also <error>remove</error> branch/sector/unit doesnt have staff');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)

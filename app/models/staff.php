@@ -72,6 +72,13 @@ class Staff extends Base
             ->fetch(array(static::fields()));
     }
 
+    public static function lists($fields = null)
+    {
+    	$fields = $fields ?: static::fields();
+
+        return static::fetch($fields);
+    }
+
     private static function get($row, $val)
     {
         return static::where($row, '=', $val)

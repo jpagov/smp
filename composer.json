@@ -13,7 +13,8 @@
 	],
 	"require": {
 		"php": ">=5.3.6",
-        "phpmailer/phpmailer": "dev-master"
+        "phpmailer/phpmailer": "dev-master",
+		"phpoffice/phpexcel": "^1.8"
 	},
 	"require-dev": {
         "hariadi/siapa": "dev-master",
