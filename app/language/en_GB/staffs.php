@@ -13,6 +13,11 @@ return [
 	'forgotten_password' => 'Forgotten your password?',
 	'enable_account' => 'Enable account',
 
+	// tab
+	'profile' => 'Profile',
+	'extend' => 'Extend',
+	'administration' => 'Administration',
+
 	// roles
 	'administrator' => 'Admin',
 	'administrator_explain' => '',
@@ -37,6 +42,8 @@ return [
 	'staff_details' => 'Staff Details',
 
 	// form fields
+	'ic' => 'Identification Number',
+	'ic_explain' => 'Without <code>-</code>',
 	'message' => 'Message',
 	'message_explain' => 'Enable message',
 	'rating' => 'Rating',

@@ -37,7 +37,12 @@ function has_search_pagination() {
 	return Registry::get('total_staffs') > Config::meta('staffs_per_page');
 }
 
-function search_links($first = 'First', $next = 'Next', $prev = 'Prev', $last = 'Last') {
+function search_links($first = null, $next = null, $prev = null, $last = null) {
+
+	$first = $first ?: __('site.first');
+	$last = $last ?: __('site.last');
+	$next = $next ?: __('site.next');
+	$prev = $prev ?: __('site.prev');
 
 	$per_page = Config::meta('staffs_per_page');
 	$page = Registry::get('page_offset');

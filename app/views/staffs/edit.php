@@ -17,19 +17,19 @@
 		<div class="tabs-top">
 
 			<ul class="nav nav-tabs" id="stafftab">
-				<li<?php echo is_class_active($tab, 'profile', true); ?>><a href="#profile" data-toggle="tab">Profile</a></li>
-				<li<?php echo is_class_active($tab, 'positions', true); ?>><a href="#positions" data-toggle="tab">Position</a></li>
+				<li<?php echo is_class_active($tab, 'profile', true); ?>><a href="#profile" data-toggle="tab"><?php echo __('staffs.profile'); ?></a></li>
+				<li<?php echo is_class_active($tab, 'positions', true); ?>><a href="#positions" data-toggle="tab"><?php echo __('staffs.position'); ?></a></li>
 				<?php if($fields): ?>
-					<li<?php echo is_class_active($tab, 'extend', true); ?>><a href="#extend" data-toggle="tab">Extend</a></li>
+					<li<?php echo is_class_active($tab, 'extend', true); ?>><a href="#extend" data-toggle="tab"><?php echo __('staffs.extend'); ?></a></li>
 				<?php endif; ?>
-				<li<?php echo is_class_active($tab, 'admin', true); ?>><a href="#admin" data-toggle="tab">Administration</a></li>
+				<li<?php echo is_class_active($tab, 'admin', true); ?>><a href="#admin" data-toggle="tab"><?php echo __('staffs.administration'); ?></a></li>
 			</ul>
 
 			<div class="tab-content">
 
 				<div class="tab-pane <?php echo is_class_active($tab, 'profile'); ?>" id="profile">
 					<fieldset>
-						<legend>Profile</legend>
+						<legend><?php echo __('staffs.profile'); ?></legend>
 
 						<div class="row">
 
@@ -58,7 +58,7 @@
 												<label>Remove Avatar:</label>
 												<input type="checkbox" name="extend_remove[avatar]" value="1"></p>
 											<?php endif; ?>
-											<span class="help-block"><?php echo __('staffs.avatar_explain'); ?></span>
+											<i class="help-block"><?php echo __('staffs.avatar_explain'); ?></i>
 										</div>
 									</div> <!-- /col-md-3 -->
 
@@ -73,18 +73,7 @@
 														<?php echo Form::checkbox('extend[hide_supervisor]', 1, Input::previous('extend[hide_supervisor]', Extend::value(Extend::field('staff', 'hide_supervisor', $staff->id))), array('id' => 'hide_supervisor')); ?> <?php echo __('staffs.hide_supervisor'); ?>
 													</label>
 												</div>
-												<span class="help-block"><?php echo __('staffs.hide_supervisor_explain'); ?></span>
-											</div>
-										</div>
-
-										<div class="form-group">
-											<div class="col-sm-offset-2 col-sm-10">
-												<div class="checkbox">
-													<label>
-														<?php echo Form::checkbox('extend[hide_avatar]', 1, Input::previous('extend[hide_avatar]', Extend::value(Extend::field('staff', 'hide_avatar', $staff->id))), array('id' => 'hide_avatar')); ?> <?php echo __('staffs.hide_avatar'); ?>
-													</label>
-												</div>
-												<span class="help-block"><?php echo __('staffs.hide_avatar_explain'); ?></span>
+												<i class="help-block"><?php echo __('staffs.hide_supervisor_explain'); ?></i>
 											</div>
 										</div>
 
@@ -95,7 +84,7 @@
 														<?php echo Form::checkbox('message', 1, Input::previous('message', $staff->message), array('id' => 'message')); ?> <?php echo __('staffs.message'); ?>
 													</label>
 												</div>
-												<span class="help-block"><?php echo __('staffs.message_explain'); ?></span>
+												<i class="help-block"><?php echo __('staffs.message_explain'); ?></i>
 											</div>
 										</div>
 
@@ -106,7 +95,16 @@
 														<?php echo Form::checkbox('rating', 1, Input::previous('rating', $staff->rating), array('id' => 'rating')); ?> <?php echo __('staffs.rating'); ?>
 													</label>
 												</div>
-												<span class="help-block"><?php echo __('staffs.rating_explain'); ?></span>
+												<i class="help-block"><?php echo __('staffs.rating_explain'); ?></i>
+											</div>
+										</div>
+
+										<div class="form-group">
+											<label class="col-sm-2 control-label" for="ic"><?php echo __('staffs.ic'); ?></label>
+											<div class="col-sm-6">
+												<?php echo Form::text('ic', Input::previous('ic', $staff->ic), array('class' => 'form-control', 'id' => 'ic',
+												)); ?>
+												<i class="help-block"><?php echo __('staffs.ic_explain'); ?></i>
 											</div>
 										</div>
 
@@ -194,7 +192,7 @@
 
 						<div class="tab-pane <?php echo is_class_active($tab, 'positions'); ?>" id="positions">
 							<fieldset>
-								<legend>Position</legend>
+								<legend><?php echo __('staffs.position'); ?></legend>
 
 								<div class="form-group">
 									<div class="col-sm-offset-2 col-sm-10">
@@ -203,7 +201,7 @@
 												<?php echo Form::checkbox('management', 1, Input::previous('management', $staff->management), array('id' => 'management')); ?> <?php echo __('staffs.management'); ?>
 											</label>
 										</div>
-										<span class="help-block"><?php echo __('staffs.management_explain'); ?></span>
+										<i class="help-block"><?php echo __('staffs.management_explain'); ?></i>
 									</div>
 								</div>
 
@@ -257,7 +255,7 @@
 									<div class="col-sm-4">
 										<?php echo Form::text('sort', Input::previous('sort', $staff->sort), array('class' => 'form-control', 'id' => 'sort',
 										)); ?>
-										<span class="help-block"><?php echo __('staffs.sort_explain'); ?></span>
+										<i class="help-block"><?php echo __('staffs.sort_explain'); ?></i>
 									</div>
 								</div>
 
@@ -281,7 +279,7 @@
 
 											<?php echo Form::text('tag', Input::previous('tag', $staff->tags), array('class' => 'form-control', 'id' => 'tag', 'value' => $tag, 'placeholder' => __('tags.placeholder')
 											)); ?>
-											<span class="help-block"><?php echo __('staffs.tag_explain'); ?></span>
+											<i class="help-block"><?php echo __('staffs.tag_explain'); ?></i>
 										</div>
 
 									</div>
@@ -363,12 +361,12 @@
 												<?php echo Form::checkbox($accountName, 1, Input::previous('account', $staff->account), $account); ?> Enable account
 											</label>
 										</div>
-										<span class="help-block"><?php echo __('staffs.account_explain'); ?></span>
+										<i class="help-block"><?php echo __('staffs.account_explain'); ?></i>
 									</div>
 								</div>
 
 								<fieldset<?php echo (!$staff->account) ? ' disabled' : ''; ?> id="accountAuth">
-								<legend>Administration</legend>
+								<legend><?php echo __('staffs.administration'); ?></legend>
 
 								<div class="form-group">
 									<label class="col-sm-2 control-label" for="username"><?php echo __('staffs.username'); ?></label>
