@@ -13,8 +13,13 @@ return [
 	'forgotten_password' => 'Lupa katalaluan?',
 	'enable_account' => 'Aktifkan akauan',
 
+	// tab
+	'profile' => 'Profil',
+	'extend' => 'Extend',
+	'administration' => 'Pentadbiran',
+
 	// roles
-	'administrator' => 'Admin',
+	'administrator' => 'Pentadbir',
 	'administrator_explain' => '',
 	'editor' => 'Editor',
 	'editor_explain' => '',
@@ -37,10 +42,12 @@ return [
 	'staff_details' => 'Butiran Pegawai',
 
 	// form fields
+	'ic' => 'Kad Pengenalan',
+	'ic_explain' => 'Masukkan No. Kad Pengenalan tanpa tanda <code>-</code>',
 	'message' => 'Mesej',
 	'message_explain' => 'Hidupkan fungsi mesej',
 	'rating' => 'Penarafan',
-	'rating_explain' => 'Hidupkan fungsi penarafan',
+	'rating_explain' => 'Hidupkan fungsi penarafan. Ini membantu keutamaan keputusan carian',
 	'salutation' => 'Gelaran',
 	'name' => 'Nama',
 	'first_name' => 'Nama pertama',
@@ -48,7 +55,7 @@ return [
 	'telephone' => 'Telefon',
 	'gender' => 'Gender',
 	'hide_avatar' => 'Sembunyikan avatar',
-	'hide_avatar_explain' => 'Gambar profil tidak akan dipapar kepada public. Hanya untuk warga JPA sahaja.',
+	'hide_avatar_explain' => 'Gambar profil tidak akan dipapar kepada pengguna luar (public). Hanya untuk warga JPA sahaja.',
 	'hide_supervisor' => 'Sembunyikan penyelia',
 	'hide_supervisor_explain' => 'Profil penyelia tidak akan dipapar kepada orang ramai. Hanya untuk warga JPA sahaja.',
 	'display_name' => 'Paparan Nama',

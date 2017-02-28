@@ -9,6 +9,7 @@ class Staff extends Base
     public static function fields($field = array(
         'id',
         'slug',
+        'ic',
         'salutation',
         'first_name',
         'last_name',

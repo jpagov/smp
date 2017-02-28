@@ -17,13 +17,13 @@
 			<div class="tabbable tabs-right">
 
 				<ul class="nav nav-tabs" id="stafftab">
-					<li><a href="#profile" data-toggle="tab">Profile</a></li>
-					<li><a href="#positions" data-toggle="tab">Position</a></li>
+					<li><a href="#profile" data-toggle="tab"><?php echo __('staffs.profile'); ?></a></li>
+					<li><a href="#positions" data-toggle="tab"><?php echo __('staffs.position'); ?></a></li>
 					<?php if($fields): ?>
-					<li><a href="#extend" data-toggle="tab">Extend</a></li>
+					<li><a href="#extend" data-toggle="tab"><?php echo __('staffs.extend'); ?></a></li>
 					<?php endif; ?>
 					<?php if(Auth::user()->role == 'administrator'): ?>
-					<li><a href="#admin" data-toggle="tab">Administration</a></li>
+					<li><a href="#admin" data-toggle="tab"><?php echo __('staffs.administration'); ?></a></li>
 					<?php endif; ?>
 				</ul>
 
@@ -31,7 +31,7 @@
 
 					<div class="tab-pane active" id="profile">
 						<fieldset>
-							<legend>Profile</legend>
+							<legend><?php echo __('staffs.profile'); ?></legend>
 
 							<div class="row">
 
@@ -41,7 +41,7 @@
 										<label class="control-label" for="extend_avatar">
 											<img src="<?php echo avatar('default-male.jpg'); ?>" class="img-responsive img-thumbnail pull-left"></label>
 											<input class="sr-only" id="extend_avatar" name="extend[avatar]" type="file">
-										<span class="help-block"><?php echo __('staffs.avatar_explain'); ?></span>
+										<i class="help-block"><?php echo __('staffs.avatar_explain'); ?></i>
 										</div>
 									</div> <!-- /col-md-3 -->
 
@@ -54,18 +54,7 @@
 														<?php echo Form::checkbox('extend[hide_supervisor]', 1, (Input::previous('extend[hide_supervisor]') ?: true), array('id' => 'hide_supervisor')); ?> <?php echo __('staffs.hide_supervisor'); ?>
 													</label>
 												</div>
-												<span class="help-block"><?php echo __('staffs.hide_supervisor_explain'); ?></span>
-											</div>
-										</div>
-
-										<div class="form-group">
-											<div class="col-sm-offset-2 col-sm-10">
-												<div class="checkbox">
-													<label>
-														<?php echo Form::checkbox('extend[hide_avatar]', 1, (Input::previous('extend[hide_avatar]') ?: true), array('id' => 'hide_avatar')); ?> <?php echo __('staffs.hide_avatar'); ?>
-													</label>
-												</div>
-												<span class="help-block"><?php echo __('staffs.hide_avatar_explain'); ?></span>
+												<i class="help-block"><?php echo __('staffs.hide_supervisor_explain'); ?></i>
 											</div>
 										</div>
 
@@ -76,7 +65,7 @@
 														<?php echo Form::checkbox('message', 1, (Input::previous('message') ?: true), array('id' => 'message')); ?> <?php echo __('staffs.message'); ?>
 													</label>
 												</div>
-												<span class="help-block"><?php echo __('staffs.message_explain'); ?></span>
+												<i class="help-block"><?php echo __('staffs.message_explain'); ?></i>
 											</div>
 										</div>
 
@@ -87,7 +76,16 @@
 														<?php echo Form::checkbox('rating', 1, (Input::previous('rating') ?: true), array('id' => 'rating')); ?> <?php echo __('staffs.rating'); ?>
 													</label>
 												</div>
-												<span class="help-block"><?php echo __('staffs.rating_explain'); ?></span>
+												<i class="help-block"><?php echo __('staffs.rating_explain'); ?></i>
+											</div>
+										</div>
+
+										<div class="form-group">
+											<label class="col-sm-2 control-label" for="ic"><?php echo __('staffs.ic'); ?></label>
+											<div class="col-sm-6">
+												<?php echo Form::text('ic', Input::previous('ic'), array('class' => 'form-control', 'id' => 'ic',
+												)); ?>
+												<i class="help-block"><?php echo __('staffs.ic_explain'); ?></i>
 											</div>
 										</div>
 
@@ -175,7 +173,7 @@
 
 					<div class="tab-pane" id="positions">
 						<fieldset>
-							<legend>Position</legend>
+							<legend><?php echo __('staffs.position'); ?></legend>
 
 							<div class="form-group">
 									<div class="col-sm-offset-2 col-sm-10">
@@ -184,7 +182,7 @@
 												<?php echo Form::checkbox('management', 1, Input::previous('management'), array('id' => 'management')); ?> <?php echo __('staffs.management'); ?>
 											</label>
 										</div>
-										<span class="help-block"><?php echo __('staffs.management_explain'); ?></span>
+										<i class="help-block"><?php echo __('staffs.management_explain'); ?></i>
 									</div>
 								</div>
 
@@ -238,7 +236,7 @@
 								<div class="col-sm-4">
 									<?php echo Form::text('sort', Input::previous('sort'), array('class' => 'form-control', 'id' => 'sort',
 									)); ?>
-									<span class="help-block"><?php echo __('staffs.sort_explain'); ?></span>
+									<i class="help-block"><?php echo __('staffs.sort_explain'); ?></i>
 								</div>
 							</div>
 
@@ -259,7 +257,7 @@
 
 										<?php echo Form::text('tag', Input::previous('tag'), array('class' => 'form-control', 'id' => 'tag', 'placeholder' => __('tags.placeholder')
 										)); ?>
-										<span class="help-block"><?php echo __('staffs.tag_explain'); ?></span>
+										<i class="help-block"><?php echo __('staffs.tag_explain'); ?></i>
 									</div>
 
 								</div>
@@ -325,12 +323,12 @@
 										<?php echo Form::checkbox('account', 1, Input::previous('account'), array('id' => 'account')); ?> Enable account
 									</label>
 								</div>
-								<span class="help-block"><?php echo __('staffs.account_explain'); ?></span>
+								<i class="help-block"><?php echo __('staffs.account_explain'); ?></i>
 							</div>
 						</div>
 
 						<fieldset disabled id="accountAuth">
-							<legend>Administration</legend>
+							<legend><?php echo __('staffs.administration'); ?></legend>
 
 							<div class="form-group">
 								<label class="col-sm-2 control-label" for="username"><?php echo __('staffs.username'); ?></label>

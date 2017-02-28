@@ -1,6 +1,6 @@
 <?php
 
-class Migration_add_hide_supervisor extends Migration {
+class Migration_db_revisited extends Migration {
 
 	public function up() {
 
@@ -24,36 +24,16 @@ class Migration_add_hide_supervisor extends Migration {
         }
 
         if (!$this->has_table_column($table, 'ic')) {
-            $sql = 'ALTER TABLE `' . $table . '` ADD `id` VARCHAR(20) NULL DEFAULT NULL AFTER `password`';
+            $sql = 'ALTER TABLE `' . $table . '` ADD `ic` VARCHAR(20) NULL DEFAULT NULL AFTER `password`';
             DB::ask($sql);
         }
 
-        $table = Base::table('staffs_maps');
+        $table = Base::table('revisions');
 
-        if( ! $this->has_table($table)) {
-
-			$sql = "CREATE TABLE IF NOT EXISTS `$table` (
-			  `id` int(6) NOT NULL AUTO_INCREMENT,
-			  `title` varchar(150) NOT NULL,
-			  `title_en` varchar(150) NOT NULL,
-			  `slug` varchar(150) NOT NULL,
-			  `parent` int(11) DEFAULT NULL,
-			  `description` text NOT NULL,
-			  `view` int(11) NOT NULL,
-			  `order` int(3) NOT NULL DEFAULT '99',
-			  `staff` int(11) NOT NULL,
-			  `street` text NOT NULL,
-			  `city` varchar(50) NOT NULL,
-			  `state` varchar(50) NOT NULL,
-			  `zip` varchar(5) NOT NULL,
-			  `telephone` text NOT NULL,
-			  `fax` text NOT NULL,
-			  ADD PRIMARY KEY (`id`)
-			) ENGINE=InnoDB DEFAULT CHARSET=utf8";
-
-			DB::ask($sql);
-
-		}
+        if (!$this->has_table_column($table, 'ic')) {
+            $sql = 'ALTER TABLE `' . $table . '` ADD `ic` VARCHAR(20) NULL DEFAULT NULL AFTER `password`';
+            DB::ask($sql);
+        }
 
 	}
 
