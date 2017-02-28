@@ -5,23 +5,15 @@ class Email extends PHPMailer {
 	// name, email, message, staff, ip, created, to, subject
 	public function __construct($email = array(), $param = array('SMTPDebug' => 0,'SMTPAuth' => false)) {
 
-		/*
-		$email['to']
-		$email['to_name']
-		$email['from']
-		$email['from_name']
-		$email['subject']
-		$email['message']
-
-		// user provide their email address
-		$email['email']
-
-		*/
-
 		parent::__construct();
 
 		foreach ($param as $key => $option) {
 			$this->$key = $option;
+		}
+
+		if (Config::mail('pretend')) {
+			$mail->SMTPDebug = 2;
+			$mail->Debugoutput = 'html';
 		}
 
 		if (Config::mail('driver') == 'smtp') {
