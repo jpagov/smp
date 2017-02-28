@@ -20,7 +20,7 @@ class Template extends View {
 		if (is_public()) {
 
 			if (site_meta('use_table', true)) {
-				$template .= !in_array($template, ['help', '404', 'search', 'page']) ? '-table' : '';
+				$template .= !in_array($template, ['help', '404', 'page']) ? '-table' : '';
 			}
 
 			if(is_readable($base . 'public/' . $template . EXT)) {
