@@ -421,8 +421,14 @@ Route::collection(array('before' => 'auth,csrf', 'after' => 'log'), function () 
             Role::where('staff', '=', $id)->delete();
         }
 
+        if ($inputroles == 0) {
+        	$inputroles = [];
+        	$inputroles[] = $staff->division;
+        }
+
         // Send email notification for editor
         if ($staff->role != 'editor' && $input['role'] == 'editor') {
+
             $email_div = array_map(function ($var) {
                 return ($item = Division::find($var)) ? $item->title : $var;
             }, $inputroles);
