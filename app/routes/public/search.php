@@ -61,6 +61,8 @@ Route::get(array('search', 'search/(:num)'), function($offset = 1) {
 		)
 	));
 
+	$term = str_replace('\\', '', $term);
+
 	//$search = new Term($term['term']);
 	$cari = new Cari($term['term']);
 

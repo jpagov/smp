@@ -45,7 +45,8 @@ function staff_email_image() {
 }
 
 function staff_telephone() {
-  return Registry::prop('staff', 'telephone');
+	$staff_telephone = Registry::prop('staff', 'telephone');
+	return site_meta('short_phone', false) ? str_replace(site_meta('short_phone', array('03-8885', '03 8885')), '', $staff_telephone) : $staff_telephone;
 }
 
 function staff_telephone_link() {
