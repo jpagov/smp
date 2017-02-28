@@ -38,7 +38,10 @@ buka phpmyadmin (atau command line) untuk ekspot pangkalan data.
 ### Akan Datang
 
 * [ ] Pemasangan aplikasi secara web
+* [ ] Konfigurasi menggunakan [DotEnv](https://github.com/vlucas/phpdotenv)
 * [ ] Buang statistik dari pangkalan data. Guna Google Analytic dan intergrate secara API.
 * [ ] Simpan slug terakhir diubah bagi membolehkan redirect permanent sekiranya slug tidak ditemui
+* [ ] Konsep `tagging` bagi memudahkan carian
+* [x] CLI: Mapping dan kemaskini data melalui CSV atau Excel
 
 
