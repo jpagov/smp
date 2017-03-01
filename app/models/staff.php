@@ -334,11 +334,32 @@ class Staff extends Base
             }
         }
 
-            //->or_where('report_to', '=', $staff->id);
+		$query = Query::table(static::table())->where('status', '=', 'active')->where('id', '!=', $staff->id);
 
-        $query->where('division', '=', $staff->division);
-        $query->where('id', '!=', $staff->id);
-        $query->where('id', '!=', $staff->report_to);
+		if ($staff->grade <= site_meta('related_min_grade', 41)) {
+
+			if ($staff->branch) {
+				$query = $query->where('unit', '=', $staff->unit);
+			}
+
+			if ($staff->sector) {
+				$query = $query->where('sector', '=', $staff->sector);
+			}
+
+			if ($staff->branch) {
+				$query = $query->where('branch', '=', $staff->branch);
+			}
+
+			if ($staff->division) {
+				$query = $query->where('division', '=', $staff->division);
+			}
+
+			$query = $query->where('id', '!=', $staff->report_to);
+
+
+		} else {
+			$query = $query->where('report_to', '=', $staff->id);
+		}
 
         $count = $query->count();
 
