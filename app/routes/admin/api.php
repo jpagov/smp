@@ -5,9 +5,9 @@ Route::collection(array('before' => 'auth'), function() {
 	/*
 	Admin Staff JSON API
 	*/
-	Route::get('admin/api/queries/(:any).json', function($name = null) {
+	Route::get('admin/api/queries/(:any).json', function($name = null, $params = []) {
 
-		if (! $staffs = Staff::where('display_name', 'like', '%' . $name . '%')->get()) {
+		if (! $staffs = Staff::match('display_name', $name)->sort('grade', 'desc')->take(15)->get()) {
 			return Response::create(Json::encode(array('no result')), 200, array('content-type' => 'application/json'));
 		}
 
@@ -34,7 +34,7 @@ Route::collection(array('before' => 'auth'), function() {
 			$division_id = $divisions_slug;
 		}
 
-		if (! $staffs = Staff::where('division', '=', $division_id)->get()) {
+		if (! $staffs = Staff::where('division', '=', $division_id)->take(15)->get()) {
 			return Response::create(Json::encode(array('no result')), 200, array('content-type' => 'application/json'));
 		}
 
@@ -85,7 +85,7 @@ Route::collection(array('before' => 'auth'), function() {
 	Admin Branch Query JSON API
 	*/
 	Route::get('admin/api/queries/(:any)/(:all).json', function($slug = null, $term = null) {
-		dd($term);
+
 		$valid = array('branch', 'sector', 'unit', 'tag');
 
 		if (!in_array($slug, $valid)) {
@@ -93,7 +93,7 @@ Route::collection(array('before' => 'auth'), function() {
 			return Response::create(Json::encode(array('no result')), 200, array('content-type' => 'application/json'));
 		}
 
-		if (! $items = $slug::where('title', 'like', '%' . $term . '%')->get()) {
+		if (! $items = $slug::where('title', 'like', '%' . $term . '%')->take(15)->get()) {
 
 			if ($slug == 'tag') {
 				return;
