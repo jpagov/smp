@@ -74,8 +74,10 @@ function hierarchy($id, $type = 'division')
 
     // if (in_array($type, $valid)) {
     //     if ($hierarchies = Hierarchy::where($type, '=', $id)->get()) {
+
+    //     	dd($hierarchies);
     //     	$group = array_group_by($hierarchies, 'branch', 'sector', 'unit');
-    //         dd($group[16]);
+    //         dd($group);
 
     //     }
     // }

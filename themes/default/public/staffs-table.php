@@ -49,7 +49,7 @@
 			</div>
 			<?php endif; ?>
 
-			<div class="panel-group" id="accordion" role="tablist">
+			<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="false">
 
 			<?php echo htmlOrg($organizations); ?>
 
