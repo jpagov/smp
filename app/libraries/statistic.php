@@ -25,6 +25,23 @@ class Statistic extends Migration {
 		$table = Base::table('stats_' . Date::format('now', 'mY'));
 		$stats = Base::table('stats');
 
+		if( ! $this->has_table($stats)) {
+
+			$sql = "CREATE TABLE IF NOT EXISTS `$stats` (
+				`id` int(12) NOT NULL AUTO_INCREMENT,
+				`trend` int(6) NOT NULL,
+				`created` datetime NOT NULL,
+				`type` varchar(16) NOT NULL,
+				PRIMARY KEY (`id`),
+				KEY `trend` (`trend`),
+				KEY `created` (`created`),
+				KEY `type` (`type`)
+			) ENGINE=InnoDB";
+
+			DB::ask($sql);
+
+		}
+
 		$sql = "SELECT `AUTO_INCREMENT`
 				FROM  INFORMATION_SCHEMA.TABLES
 				WHERE TABLE_SCHEMA = 'smp'

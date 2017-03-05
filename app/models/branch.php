@@ -19,7 +19,8 @@ class Branch extends Base {
 	}
 
 	public static function id($name) {
-		if (empty(trim($name))) return;
+		$name = trim($name);
+		if (empty($name)) return;
 		if ( !$branch = static::where('title', 'like', $name)->fetch()) {
 			$input = array('title' => $name, 'slug' => slug($name));
 			$branch = static::create($input);

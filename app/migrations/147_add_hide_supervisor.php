@@ -6,19 +6,21 @@ class Migration_add_hide_supervisor extends Migration {
 
         $table = Base::table('extend');
 
-        if( ! $this->has_table($table)) {
+        if( $this->has_table($table)) {
 
-        	$hide_supervisor = 'hide_supervisor';
+		if ($this->has_table_column($table, 'attributes')) {
+	            $sql = 'ALTER TABLE `' . $table . '` CHANGE `attributes` `attributes` TEXT NULL DEFAULT NULL';
+	            DB::ask($sql);
+	        }
 
-			if(Query::table($table)->where('key', '=', $key)->count() == 0) {
-
-				Query::table($table)->insert(array(
+		if (!$this->has_table_column($table, 'hide_supervisor')) {
+	            Query::table($table)->insert(array(
 					'type' => 'staff',
 					'field' => 'text',
-					'key' => $key,
+					'key' => 'hide_supervisor',
 					'label' => 'Hide Supervisor',
 				));
-			}
+	        }
         }
 
 	}

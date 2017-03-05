@@ -15,9 +15,16 @@ class Division extends Base {
 	}
 
 	public static function id($name) {
-		if (empty(trim($name))) return;
+		$name = trim($name);
+		if (empty($name)) return;
 		if ( !$division = static::where('title', 'like', $name)->fetch()) {
-			$input = array('title' => $name, 'slug' => slug($name));
+			$input = [
+				'title' => $name,
+				'title_en' => $name,
+				'slug' => slug($name),
+				'view' => 1,
+				'staff' => 0,
+			];
 			$division = static::create($input);
 			return $division->id;
 		}
