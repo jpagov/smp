@@ -80,7 +80,7 @@ class Branch extends Base {
 			$query = $query->where(Base::table('hierarchies.division'), '=', $division);
 		}
 
-		$query->group('branch');
+		$query->group('branch')->sort('sort', 'desc');
 
 		$count = $query->count();
 

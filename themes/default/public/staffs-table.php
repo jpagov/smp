@@ -83,8 +83,6 @@
 		<div class="panel-heading"><?php echo _e('staffs.branch'); ?></div>
 			<ul class="list-group">
 				<?php while (branchs()): ?>
-
-
 				<li class="list-group-item"><a href="<?php echo base_url('division/' . division_slug() .  '/' . branch_slug()); ?>"><?php echo branch_title(); ?></a></li>
 				<?php endwhile; ?>
 			</ul>
