@@ -83,12 +83,16 @@ function hierarchy($id, $type = 'division')
     // }
     $group = $valid[array_search($type, $valid) + 1];
 
-    return in_array($type, $valid)
-        ? Hierarchy::where($type, '=', $id)
+    $query = Hierarchy::where($type, '=', $id)
             ->where($group, '!=', 0)
-            ->group($group)
-            //->get()
-            ->get($valid)
+            ->group($group);
+
+	$query = $query->left_join(
+			Base::table($group . 's'),
+			Base::table('hierarchies.'. $group), '=', Base::table($group . 's.id'));
+
+    return in_array($type, $valid)
+        ? $query->sort('sort', 'desc')->get($valid)
         : array();
 }
 
@@ -125,6 +129,8 @@ function group_by($staffs, $id)
                 }
             }
         }
+
+
 
         foreach ($staffs as $key => $staff) {
             if ($staff->branch == $division->branch) {
@@ -253,73 +259,73 @@ function htmlOrg($orgs, $level = 1, $collapsing = true)
     if (! isset($orgs['childs'])) {
         return;
     }
-
     foreach ($orgs['childs'] as $itemsKey => $org) :
 
-            $index = isset($org['type']) ? $org['type']. '-' . $org['id'] : '';
+        $index = isset($org['type']) ? $org['type']. '-' . $org['id'] : slug($itemsKey);
 
-    $htmlOrg .= '<div class="panel panel-primary">';
-    $htmlOrg .= '<!-- Default panel contents -->';
-    $htmlOrg .= '<div class="panel-heading" role="tab" id="heading-' . $index . '">';
-    $htmlOrg .= '<h4 class="panel-title">';
+	    $htmlOrg .= '<div class="panel panel-primary">';
+	    $htmlOrg .= '<!-- Default panel contents -->';
+	    $htmlOrg .= '<div class="panel-heading" role="tab" id="heading-' . $index . '">';
+	    $htmlOrg .= '<h4 class="panel-title">';
 
-    $htmlOrg .= isset($org['childs']) ? '<a class="accordion-toggle collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse-' . $index . '" aria-expanded="'. $expanded  .'" aria-controls="collapse-' . $index . '">' . $itemsKey . '</a>' : $itemsKey;
+	    $htmlOrg .= isset($org['childs']) ? '<a class="accordion-toggle collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse-' . $index . '" aria-expanded="'. $expanded  .'" aria-controls="collapse-' . $index . '">' . $itemsKey . '</a>' : $itemsKey;
 
-    $htmlOrg .= '</h4>';
+	    $htmlOrg .= '</h4>';
 
-    $htmlOrg .= '</div>';
+	    $htmlOrg .= '</div>';
 
-    $htmlOrg .= '<table class="table">';
+	    $htmlOrg .= '<table class="table">';
 
-    $htmlOrg .= '<thead>';
-    $htmlOrg .= '<tr>';
-    $htmlOrg .= '<th width="30%">Nama</th>';
-    $htmlOrg .= '<th data-toggle="tooltip" title="Jawatan"><i class="glyphicon glyphicon-barcode"></i> Jawatan</th>';
-    $htmlOrg .= '<th data-toggle="tooltip" title="Emel"><i class="glyphicon glyphicon-envelope"></i> Emel</th>';
-    $htmlOrg .= '<th data-toggle="tooltip" title="Telefon"><i class="glyphicon glyphicon-phone-alt"></i> Telefon</th>';
-    $htmlOrg .= '</tr>';
-    $htmlOrg .= '</thead>';
-    $htmlOrg .= '<tbody>';
+	    $htmlOrg .= '<thead>';
+	    $htmlOrg .= '<tr>';
+	    $htmlOrg .= '<th width="30%">Nama</th>';
+	    $htmlOrg .= '<th data-toggle="tooltip" title="Jawatan"><i class="glyphicon glyphicon-barcode"></i> Jawatan</th>';
+	    $htmlOrg .= '<th data-toggle="tooltip" title="Emel"><i class="glyphicon glyphicon-envelope"></i> Emel</th>';
+	    $htmlOrg .= '<th data-toggle="tooltip" title="Telefon"><i class="glyphicon glyphicon-phone-alt"></i> Telefon</th>';
+	    $htmlOrg .= '</tr>';
+	    $htmlOrg .= '</thead>';
+	    $htmlOrg .= '<tbody>';
 
-    if (isset($org['staffs'])) :
-                foreach ($org['staffs'] as $staff) :
+		if (isset($org['staffs'])) :
+            foreach ($org['staffs'] as $staff) :
 
-                    $htmlOrg .= '<tr>';
+                $htmlOrg .= '<tr>';
 
-    $htmlOrg .= '<td><a class="staff-ajax" ' . (site_meta('enable_staff_modal', true) ? 'data-toggle="modal"' : '') . ' href="' . base_url(Page::staff() . '/' . $staff->slug) . '" data-target="#staffModal">' . $staff->display_name . '</a></td>';
+			    $htmlOrg .= '<td><a class="staff-ajax" ' . (site_meta('enable_staff_modal', true) ? 'data-toggle="modal"' : '') . ' href="' . base_url(Page::staff() . '/' . $staff->slug) . '" data-target="#staffModal">' . $staff->display_name . '</a></td>';
 
-    $htmlOrg .= '<td>' . $staff->job_title . '</td>';
+			    $htmlOrg .= '<td>' . $staff->job_title . '</td>';
 
-    $htmlOrg .= '<td>';
-    if ($staff->email) :
-                        //$htmlOrg .= '<a href="mailto:' . Encode::email($staff->email) . '">';
-                        $htmlOrg .= '<span><img src="' . Encode::email2image($staff->email) . '" alt="'. $staff->display_name .'"></span>';
-                        //$htmlOrg .= '</a>';
-                    else :
-                        $htmlOrg .= __('site.na');
-    endif;
-    $htmlOrg .= '</td>';
-    $htmlOrg .= '<td>' . (site_meta('short_phone', false) ? str_replace(site_meta('short_phone', array('03-8885', '03 8885')), '', $staff->telephone) : $staff->telephone) . '</td>';
-    $htmlOrg .= '</tr>';
+			    $htmlOrg .= '<td>';
 
-    endforeach;
-    endif;
+			    if ($staff->email) :
+                    //$htmlOrg .= '<a href="mailto:' . Encode::email($staff->email) . '">';
+                    $htmlOrg .= '<span><img src="' . Encode::email2image($staff->email) . '" alt="'. $staff->display_name .'"></span>';
+                    //$htmlOrg .= '</a>';
+                else :
+                    $htmlOrg .= __('site.na');
+				endif;
+		    $htmlOrg .= '</td>';
+		    $htmlOrg .= '<td>' . (site_meta('short_phone', false) ? str_replace(site_meta('short_phone', array('03-8885', '03 8885')), '', $staff->telephone) : $staff->telephone) . '</td>';
+		    $htmlOrg .= '</tr>';
 
-    $htmlOrg .= '</tbody>';
-    $htmlOrg .= '</table>';
+		    endforeach;
+		endif;
 
-    $htmlOrg .= '</div>';
-    $htmlOrg .= '<hr>';
+	    $htmlOrg .= '</tbody>';
+	    $htmlOrg .= '</table>';
 
-    if (isset($org['childs'])) :
+	    $htmlOrg .= '</div>';
+	    $htmlOrg .= '<hr>';
 
-                $htmlOrg .= ($collapsing) ? '<div id="collapse-' . $index . '" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-' . $index . '">' : '';
+	    if (isset($org['childs'])) :
 
-    $htmlOrg .= htmlOrg($org, $level++);
+	    	$htmlOrg .= ($collapsing) ? '<div id="collapse-' . $index . '" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-' . $index . '">' : '';
 
-    $htmlOrg .= ($collapsing) ? '</div>' : '';
+		    $htmlOrg .= htmlOrg($org, $level++);
 
-    endif;
+		    $htmlOrg .= ($collapsing) ? '</div>' : '';
+
+	    endif;
 
 
     $level++;
