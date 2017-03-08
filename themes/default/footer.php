@@ -67,7 +67,7 @@
 				placement: 'bottom',
 				content: '<?php echo __('tour.step1_content'); ?>',
 				onShown: function (tour) {
-					var search = 'zabidi';
+					var search = 'zainal rahim';
 					var searchInput = $('.tour-step-background');
 					searchInput.append('<div id="generated-search"></div>');
 					var generated = $('#generated-search');
@@ -81,50 +81,50 @@
 					});
 				},
 			}, {
-				path: '<?php echo base_url('search?term=zabidi'); ?>',
+				path: '<?php echo base_url('search?term=zainal rahim'); ?>',
 				element: '.staffs-search-result',
 				title: '<?php echo __('tour.step2_title'); ?>',
 				placement: 'bottom',
 				content: '<?php echo __('tour.step2_content'); ?>',
 			}, {
-				path: '<?php echo base_url('search?term=zabidi'); ?>',
+				path: '<?php echo base_url('search?term=zainal rahim'); ?>',
 				element: 'section.col-sm-3',
 				title: '<?php echo __('tour.step3_title'); ?>',
 				placement: 'left',
 				content: '<?php echo __('tour.step3_content'); ?>',
 
 			}, {
-				path: '<?php echo base_url('mohamad-zabidi-zainal'); ?>',
+				path: '<?php echo base_url('zainal-rahim'); ?>',
 				element: "section.staff",
 				title: '<?php echo __('tour.step31_title'); ?>',
 				placement: 'right',
 				content: '<?php echo __('tour.step31_content'); ?>',
 			}, {
-				path: '<?php echo base_url('mohamad-zabidi-zainal'); ?>',
+				path: '<?php echo base_url('zainal-rahim'); ?>',
 				element: 'div.well:nth-child(1)',
 				title: '<?php echo __('tour.step32_title'); ?>',
 				placement: 'left',
 				content: '<?php echo __('tour.step32_content'); ?>',
 			}, {
-				path: '<?php echo base_url('mohamad-zabidi-zainal'); ?>',
+				path: '<?php echo base_url('zainal-rahim'); ?>',
 				element: '.rating-inner',
 				title: '<?php echo __('tour.step33_title'); ?>',
 				placement: 'left',
 				content: '<?php echo __('tour.step33_content'); ?>'
 			}, {
-				path: '<?php echo base_url('mohamad-zabidi-zainal'); ?>',
+				path: '<?php echo base_url('zainal-rahim'); ?>',
 				element: 'div.tepian',
 				title: '<?php echo __('tour.step34_title'); ?>',
 				placement: 'top',
 				content: '<?php echo __('tour.step34_content'); ?>',
 			}, {
-				path: '<?php echo base_url('mohamad-zabidi-zainal'); ?>',
+				path: '<?php echo base_url('zainal-rahim'); ?>',
 				element: "ul.navbar-right",
 				title: "<?php echo __('tour.step4_title'); ?>",
 				placement: 'bottom',
 				content: "<?php echo __('tour.step4_content'); ?>"
 			}, {
-				path: '<?php echo base_url('mohamad-zabidi-zainal'); ?>',
+				path: '<?php echo base_url('zainal-rahim'); ?>',
 				element: '.staff-avatar > img',
 				title: '<?php echo __('tour.step5_title'); ?>',
 				placement: 'right',
