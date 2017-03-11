@@ -5,8 +5,8 @@ Route::collection(array('before' => 'auth,csrf', 'after' => 'log'), function () 
     /*
         List staffs
     */
-
     Route::get(array('admin/staffs', 'admin/staffs/(:num)'), function ($page = 1) {
+
         $input = Input::get(array(
             'term',
             'division',
@@ -422,13 +422,12 @@ Route::collection(array('before' => 'auth,csrf', 'after' => 'log'), function () 
         }
 
         if ($inputroles == 0) {
-        	$inputroles = [];
-        	$inputroles[] = $staff->division;
+            $inputroles = [];
+            $inputroles[] = $staff->division;
         }
 
         // Send email notification for editor
         if ($staff->role != 'editor' && $input['role'] == 'editor') {
-
             $email_div = array_map(function ($var) {
                 return ($item = Division::find($var)) ? $item->title : $var;
             }, $inputroles);
@@ -506,7 +505,7 @@ Route::collection(array('before' => 'auth,csrf', 'after' => 'log'), function () 
 
     Route::post('admin/staffs/add', function () {
         $input = Input::get(array(
-        	'ic',
+            'ic',
             'message',
             'rating',
             'salutation',

@@ -151,7 +151,7 @@ class Staff extends Base
     {
 
         // valid field to search
-        $valid = array('display_name', 'slug', 'email', 'telephone', 'description');
+        $valid = array('display_name', 'slug', 'email', 'telephone', 'description', 'status');
 
         // default we search for name only
         if (empty($field)) {
@@ -160,7 +160,6 @@ class Staff extends Base
         $search = array_intersect($valid, $field);
 
         $filter = array_filter($filter);
-        $status = 'active';
 
         $query = Query::table(static::table());
 
@@ -270,6 +269,8 @@ class Staff extends Base
         if (isset($filter['status'])) {
             $status = $filter['status'];
             unset($filter['status']);
+        } else {
+        	$status = 'active';
         }
 
         if ($status != 'all') {

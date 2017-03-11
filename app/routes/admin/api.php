@@ -7,7 +7,7 @@ Route::collection(array('before' => 'auth'), function() {
 	*/
 	Route::get('admin/api/queries/(:any).json', function($name = null, $params = []) {
 
-		if (! $staffs = Staff::match('display_name', $name)->sort('grade', 'desc')->take(15)->get()) {
+		if (! $staffs = Staff::where('status', '=', 'active')->match('display_name', $name)->sort('grade', 'desc')->take(15)->get()) {
 			return Response::create(Json::encode(array('no result')), 200, array('content-type' => 'application/json'));
 		}
 
