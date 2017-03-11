@@ -20,10 +20,9 @@
 						<th>ID</th>
 						<th><?php echo __('staffs.name'); ?></th>
 						<th><?php echo __('staffs.email'); ?></th>
-						<!--th><?php echo __('staffs.role'); ?></th-->
 						<th><?php echo __('staffs.telephone'); ?></th>
+						<th><?php echo __('staffs.description'); ?></th>
 						<th><?php echo __('staffs.status'); ?></th>
-						<th><?php echo __('staffs.role'); ?></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -33,8 +32,8 @@
 							<td><a href="<?php echo Uri::to('admin/staffs/edit/' . $staff->id); ?>" title=""><?php echo $staff->display_name; ?></a></td>
 							<td><?php echo $staff->email; ?></td>
 							<td><?php echo $staff->telephone; ?></td>
+							<td><?php echo truncate($staff->description, 75); ?></td>
 							<td><abbr title="<?php echo Date::format($staff->created); ?>"><?php echo __('global.' . $staff->status); ?></abbr></td>
-							<td><?php echo ucfirst($staff->role); ?></td>
 
 							</tr>
 						<?php endforeach; ?>
@@ -107,9 +106,12 @@
 										echo Html::link('admin/staffs', '<span class="icon"></span> ' . __('global.all'), array(
 											'class' => ($status == 'all') ? 'list-group-item active' : 'list-group-item'
 											)); ?>
-
+											<?php
+											parse_str($_SERVER['QUERY_STRING'], $output);
+											 ?>
 											<?php foreach(array('active', 'inactive') as $type): ?>
-												<li class="list-group-item"<?php if ($status == $type) echo ' data-checked="true"'; ?>><?php echo __('global.' . $type); ?></li>
+												<li class="list-group-item"<?php if ($status == $type) echo ' data-checked="true"'; ?>>
+												<a href="?<?php echo http_build_query(array_replace($output, ['status' => $type])) ?>"><?php echo __('global.' . $type); ?></a></li>
 											<?php endforeach; ?>
 										</ul>
 
@@ -117,10 +119,6 @@
 								</div>
 
 							</div>
-
-
-
-
 
 						</nav>
 

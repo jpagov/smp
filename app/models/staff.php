@@ -269,8 +269,6 @@ class Staff extends Base
         if (isset($filter['status'])) {
             $status = $filter['status'];
             unset($filter['status']);
-        } else {
-        	$status = 'active';
         }
 
         if ($status != 'all') {

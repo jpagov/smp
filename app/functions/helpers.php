@@ -127,8 +127,10 @@ function is_search() {
 	return Registry::prop('page', 'id') === 0;
 }
 
-function truncate($text = '', $chars = 100) {
-	return strlen($text) > $chars ? substr($text, 0, $chars) . "..." : $text;
+if (! function_exists('truncate')) {
+	function truncate($text = '', $chars = 100) {
+		return strlen($text) > $chars ? substr($text, 0, $chars) . "..." : $text;
+	}
 }
 
 function acronym($text = '') {

@@ -13,7 +13,7 @@
 	    <script src="<?php echo asset('app/views/assets/js/typeahead.bundle.js'); ?>"></script>
 	    <script src="<?php echo asset('app/views/assets/js/bootstrap-markdown.js'); ?>"></script>
 
-	    <script src="<?php echo asset('app/views/assets/js/bootstrap-tagsinput.js'); ?>"></script>
+	    <script src="<?php echo asset('app/views/assets/js/bootstrap-tagsinput.min.js'); ?>"></script>
 
 	    <?php if (isset($javascript)) : ?><?php foreach ($javascript as $js) : ?>
 	    <script src="<?php echo asset('app/views/assets/js/' . $js); ?>"></script>

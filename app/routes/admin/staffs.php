@@ -19,7 +19,7 @@ Route::collection(array('before' => 'auth,csrf', 'after' => 'log'), function () 
         $staffs = false;
 
         if (!$input['status']) {
-            $input['status'] = 'all';
+            $input['status'] = 'active';
         }
 
         if (empty($input['term'])) {
@@ -65,7 +65,7 @@ Route::collection(array('before' => 'auth,csrf', 'after' => 'log'), function () 
         if ($search) {
             $staffs = Staff::search($input['term'], $page, Config::meta('staffs_per_page'), true, $filter);
         } else {
-            $staffs = Staff::paginate($page, Config::meta('staffs_per_page'));
+            $staffs = Staff::where('status', '=', 'active')->paginate($page, Config::meta('staffs_per_page'));
         }
 
         $vars['messages'] = Notify::read();

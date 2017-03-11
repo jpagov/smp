@@ -265,3 +265,10 @@ function array_combine_key($keys, $values) {
 	return $result;
 }
 
+if (! function_exists('truncate')) {
+	function truncate($text = '', $chars = 100) {
+		return strlen($text) > $chars ? substr($text, 0, $chars) . "..." : $text;
+	}
+}
+
+
