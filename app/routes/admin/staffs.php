@@ -538,6 +538,10 @@ Route::collection(array('before' => 'auth,csrf', 'after' => 'log'), function () 
             $input['slug'] = $slug;
         }
 
+        if (empty($input['report_to'])) {
+            unset($input['report_to']);
+        }
+
         if (empty($input['ic'])) {
             unset($input['ic']);
         }
@@ -593,6 +597,12 @@ Route::collection(array('before' => 'auth,csrf', 'after' => 'log'), function () 
 
         $validator->check('telephone')
             ->is_max(4, __('staffs.telephone_missing', 4));
+
+        $validator->check('grade')
+            ->is_null(__('staffs.grade_missing'));
+
+        $validator->check('division')
+            ->is_null(__('staffs.division_missing'));
 
         if ($errors = $validator->errors()) {
             Input::flash();

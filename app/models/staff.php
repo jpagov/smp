@@ -267,10 +267,7 @@ class Staff extends Base
             unset($filter['unit']);
         }
 
-        if (isset($filter['status'])) {
-            $status = $filter['status'];
-            unset($filter['status']);
-        }
+        $status = isset($filter['status']) ? $filter['status'] : 'active';
 
         if ($status != 'all') {
             $query->where('status', '=', $status);

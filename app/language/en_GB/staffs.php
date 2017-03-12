@@ -69,6 +69,9 @@ return [
 	'slug_duplicate' => 'Slug already exists',
 	'slug_invalid' => 'Slug must contain letters',
 
+	'grade_missing' => 'Please enter Grade.',
+	'division_missing' => 'Please select Division',
+
 	'avatar' => 'Avatar',
 	'avatar_explain' => 'Click on image to upload file',
 

@@ -71,6 +71,9 @@ return [
 	'slug_duplicate' => 'Slug already exists',
 	'slug_invalid' => 'Slug must contain letters',
 
+	'grade_missing' => 'Sila masukkan gred',
+	'division_missing' => 'Sila pilih Bahagian',
+
 	'avatar' => 'Avatar',
 	'avatar_explain' => 'Click on image to upload file',
 
