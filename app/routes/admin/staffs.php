@@ -680,7 +680,6 @@ Route::collection(array('before' => 'auth,csrf', 'after' => 'log'), function () 
 
         if ($self->id == $id) {
             Notify::warning(__('staffs.delete_error'));
-
             return Response::redirect('admin/staffs/edit/' . $id);
         }
 
@@ -713,6 +712,11 @@ Route::collection(array('before' => 'auth,csrf', 'after' => 'log'), function () 
             Staff::where('id', '=', $id)->delete();
             Hierarchy::where('staff', '=', $id)->delete();
             Role::where('staff', '=', $id)->delete();
+
+            // If deleted user exist in revisions, update to current admin
+            if (Revision::where('admin', '=', $id)->count()) {
+            	Revision::where('admin', '=', $id)->update(['admin' => $self->id]);
+            }
 
             //remove avatar
             $storage = PATH . 'content' . DS . 'avatar' . DS;

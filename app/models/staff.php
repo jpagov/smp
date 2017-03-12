@@ -2,6 +2,7 @@
 
 class Staff extends Base
 {
+	public static $softDelete = true;
 
     public static $table = 'staffs';
 
