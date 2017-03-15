@@ -536,9 +536,7 @@ Route::get('category', function() {
 
 Route::get('test', function() {
 
-	if (!Auth::user()) {
-		return;
-	}
+
 
 	dd(get_ip_address(), is_public('202.21.0.1'));
 });
