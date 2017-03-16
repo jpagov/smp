@@ -12,6 +12,12 @@ class Migration_add_sort_column extends Migration
 	            $sql = 'ALTER TABLE `' . $table . '` ADD `sort` TINYINT(3) NULL DEFAULT NULL AFTER `description`';
 	            DB::ask($sql);
 	        }
+
+	        // make Pejabat Pengarah on top order
+	        if ($branch = Branch::find(1)) {
+	        	$branch->sort = 1;
+	        	$branch->save();
+	        }
 	    }
 	}
 
