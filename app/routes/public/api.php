@@ -81,7 +81,7 @@ Route::get(array('api', 'api/(:any)'), function($slug = '') {
 					$staff->avatar = $extend->value->filename;
 				}
 
-				if (!$staff->avatar) {
+				if (!$staff->avatar || is_public()) {
 					$staff->avatar = ($staff->gender == 'M') ? 'default-male.jpg' : 'default-female.jpg';
 				}
 				break;
