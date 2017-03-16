@@ -6,7 +6,6 @@ Route::collection(array('before' => 'auth,csrf', 'after' => 'log'), function () 
         List staffs
     */
     Route::get(array('admin/staffs', 'admin/staffs/(:num)'), function ($page = 1) {
-
         $input = Input::get(array(
             'term',
             'division',
@@ -102,14 +101,14 @@ Route::collection(array('before' => 'auth,csrf', 'after' => 'log'), function () 
         if ($vars['admin']->role == 'staff' && $vars['admin']->id != $id) {
             Notify::warning(__('staffs.noroleedit'));
 
-            return Response::redirect('admin/staffs/');
+            return Response::redirect('admin/staffs' . (isset($vars['admin']) ? '?division[]=' . $vars['admin']->roles[0] : '') );
         }
 
 
         if ($vars['admin']->role == 'editor' && !in_array($vars['staff']->division, $vars['admin']->roles)) {
             Notify::warning(__('staffs.noroleedit'));
 
-            return Response::redirect('admin/staffs/');
+            return Response::redirect('admin/staffs/' . (isset($vars['admin']) ? '?division[]=' . $vars['admin']->roles[0] : '') );
         }
 
         $vars['tags'] = [];
@@ -209,7 +208,7 @@ Route::collection(array('before' => 'auth,csrf', 'after' => 'log'), function () 
         if ($user->role == 'editor' && !in_array($staff->division, $user->roles)) {
             Notify::warning(__('staffs.noroleedit'));
 
-            return Response::redirect('admin/staffs/');
+            return Response::redirect('admin/staffs/' . '?division[]=' . $user->roles[0]);
         }
 
         $input = Input::get(array(
@@ -599,10 +598,10 @@ Route::collection(array('before' => 'auth,csrf', 'after' => 'log'), function () 
             ->is_max(4, __('staffs.telephone_missing', 4));
 
         $validator->check('grade')
-            ->is_null(__('staffs.grade_missing'));
+            ->is_max(1, __('staffs.grade_missing'));
 
         $validator->check('division')
-            ->is_null(__('staffs.division_missing'));
+            ->is_max(3, __('staffs.division_missing'));
 
         if ($errors = $validator->errors()) {
             Input::flash();
@@ -636,6 +635,8 @@ Route::collection(array('before' => 'auth,csrf', 'after' => 'log'), function () 
             $input['unit'] = Unit::id($unit);
             $hierarchy['unit'] = $input['unit'];
         }
+
+        $input = array_merge($input, $hierarchy);
 
         $input['created'] = Date::mysql('now');
 
@@ -690,6 +691,7 @@ Route::collection(array('before' => 'auth,csrf', 'after' => 'log'), function () 
 
         if ($self->id == $id) {
             Notify::warning(__('staffs.delete_error'));
+
             return Response::redirect('admin/staffs/edit/' . $id);
         }
 
@@ -725,7 +727,7 @@ Route::collection(array('before' => 'auth,csrf', 'after' => 'log'), function () 
 
             // If deleted user exist in revisions, update to current admin
             if (Revision::where('admin', '=', $id)->count()) {
-            	Revision::where('admin', '=', $id)->update(['admin' => $self->id]);
+                Revision::where('admin', '=', $id)->update(['admin' => $self->id]);
             }
 
             //remove avatar
