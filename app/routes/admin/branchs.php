@@ -7,19 +7,19 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 	*/
 	Route::get(array('admin/branchs/json', 'admin/branchs/(:num)/json'), function($division = null) {
 
-	$lists = array();
+		$lists = array();
 
-	if ($branchs = Hierarchy::branch($division)) {
-	  foreach ($branchs as $branch) {
-	    $lists[] = $branch->title;
-	  }
-	}
+		if ($branchs = Hierarchy::branch($division)) {
+		  foreach ($branchs as $branch) {
+		    $lists[] = $branch->title;
+		  }
+		}
 
-	$json = Json::encode(array(
-	  'branchs' => $lists
-	));
+		$json = Json::encode(array(
+		  'branchs' => $lists
+		));
 
-	return Response::create($json, 200, array('content-type' => 'application/json'));
+		return Response::create($json, 200, array('content-type' => 'application/json'));
 	});
 
 	/*
@@ -29,11 +29,16 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 
 		$vars['messages'] = Notify::read();
 		$search = false;
+		$editor = Auth::user();
 
 		$input = filter_var_array(Input::get(array('division', 'term')), array(
 		    'division' => FILTER_SANITIZE_SPECIAL_CHARS,
 		    'term' => FILTER_SANITIZE_SPECIAL_CHARS,
 		));
+
+		if (empty($input['division'])) {
+			$input['division'] = Division::find($editor->roles[0])->slug;
+		}
 
 		$input = array_filter($input);
 
@@ -59,7 +64,7 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 		if ($search) {
 			$branchs = Branch::search($input['term'], $page, Config::meta('staffs_per_page'));
 		} else {
-			$branchs = (isset($input['division'])) ?
+			$branchs = (isset($input['division']) && $editor->role != 'administrator') ?
 				Branch::division($input['division'], $page, Config::get('meta.staffs_per_page')) :
 				Branch::paginate($page, Config::meta('staffs_per_page'));
 		}
@@ -84,9 +89,13 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 		Edit Branch
 	*/
 	Route::get('admin/branchs/edit/(:num)', function($id) {
+
+		$editor = Auth::user();
+
 		$vars['messages'] = Notify::read();
 		$vars['token'] = Csrf::token();
 		$vars['branch'] = Branch::find($id);
+		$vars['branchs'] = Branch::dropdown($editor->roles);
 
 		$vars['staffs'] = Staff::search(null, 1, Config::meta('staffs_per_page'), true, ['branch' => $vars['branch']->id]
 		);
@@ -97,10 +106,14 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 	});
 
 	Route::post('admin/branchs/edit/(:num)', function($id) {
-		$input = Input::get(array('title', 'slug', 'description'));
+		$input = Input::get(array('title', 'slug', 'description', 'sort'));
 
 		if(empty($input['slug'])) {
 			$input['slug'] = slug($input['title']);
+		}
+
+		if(empty($input['sort'])) {
+			unset($input['sort']);
 		}
 
 		$validator = new Validator($input);
@@ -126,7 +139,9 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 
 		Branch::update($id, $input);
 
-		Notify::success(__('hierarchy.updated'));
+		$branch = Branch::find($id);
+
+		Notify::success(__('hierarchy.updated', $branch->title));
 
 		return Response::redirect('admin/branchs/edit/' . $id);
 	});
@@ -144,10 +159,14 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 	});
 
 	Route::post('admin/branchs/add', function() {
-		$input = Input::get(array('title', 'slug', 'description'));
+		$input = Input::get(array('title', 'slug', 'description', 'sort'));
 
 		if(empty($input['slug'])) {
 			$input['slug'] = slug($input['title']);
+		}
+
+		if(empty($input['sort'])) {
+			unset($input['sort']);
 		}
 
 		$validator = new Validator($input);
@@ -183,14 +202,15 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 	*/
 	Route::get('admin/branchs/delete/(:num)', array('before' => 'admin', 'main' => function($id) {
 
-		//Branch::find($id)->delete();
-		Branch::where('id', '=', $id)->delete();
+		$branch = Branch::find($id);
+		$title = $branch->title;
+		$branch->delete();
 
 		//TODO: admin only, not for PTB
 		Hierarchy::where('branch', '=', $id)->update(array('branch' => 0));
 		Staff::where('branch', '=', $id)->update(array('branch' => 0));
 
-		Notify::success(__('hierarchy.deleted', 'branch'));
+		Notify::success(__('hierarchy.deleted', $title));
 
 		//if ($redirect = Session::get('redirect')) {
 	    //    Session::erase('redirect');
@@ -218,6 +238,35 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 		Staff::where('branch', '=', $id)->update(array('branch' => 0));
 
 		Notify::success(__('hierarchy.deleted', 'branch'));
+		return Response::redirect('admin/branchs');
+	});
+
+	/*
+		Add branch
+	*/
+	Route::post('admin/branchs/transfer', function() {
+		$editor = Auth::user();
+		$input = Input::get(['current', 'branch', 'staff', 'destroy']);
+
+		$current = Branch::find($input['current']);
+		$branch = Branch::find($input['branch']);
+		$staff = explode(':', $input['staff']);
+
+		if ($input['current'] == $input['branch']) {
+			Notify::warning(__('hierarchy.same_transfer'));
+			return Response::redirect('admin/branchs/edit/' . $current->id);
+		}
+
+		Staff::where_in('id', $staff)->where('branch', '=', $current->id)->update(['branch' => $branch->id]);
+
+		$messages = __('hierarchy.transfered', $branch->title);
+
+		if ($input['destroy']) {
+			$current->delete();
+			$messages .= ' dan ' . __('hierarchy.deleted', $branch->title);
+		}
+
+		Notify::success($messages);
 		return Response::redirect('admin/branchs');
 	});
 

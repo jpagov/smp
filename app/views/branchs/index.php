@@ -18,6 +18,7 @@
 					<tr>
 						<th>ID</th>
 						<th><?php echo __('hierarchy.branch'); ?></th>
+						<th><?php echo __('hierarchy.sort'); ?></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -26,11 +27,12 @@
 					<tr class="status draft">
 						<td><?php echo $branch->id; ?></td>
 						<td><a href="<?php echo Uri::to('admin/branchs/edit/' . $branch->id); ?>"><?php echo $branch->title; ?></a></td>
+						<td><?php echo $branch->sort; ?></td>
 					</tr>
 				<?php endforeach; ?>
 				<?php else: ?>
                 <tr>
-                  <td colspan="7"><?php echo __('hierarchy.no_reports'); ?></td>
+                  <td colspan="7"><?php echo __('hierarchy.no_result'); ?></td>
                 </tr>
 				<?php endif; ?>
 			</tbody>

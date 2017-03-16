@@ -7,7 +7,7 @@ class Unit extends Base {
 	public static function dropdown() {
 		$items = array();
 
-		foreach(static::get() as $item) {
+		foreach(static::sortNull('sort', 'DESC')->get() as $item) {
 			$items[$item->id] = $item->title;
 		}
 
@@ -79,6 +79,38 @@ class Unit extends Base {
 		->get();
 
 		return new Paginator($units, $count, $page, $per_page, Uri::to('admin/units'));
+	}
+
+	public static function division($division, $page = 1, $perpage = 10) {
+
+		if ( !$div = Division::slug($division)) {
+			Notify::warning(__('global.no_result'));
+			return Response::redirect('admin/units');
+		}
+
+		if (!$hierarchies = Hierarchy::where('division', '=', $div->id)->group('unit')->get()) {
+			Notify::warning(__('global.no_result'));
+			return Response::redirect('admin/units');
+		}
+
+		$units = array();
+
+		foreach ($hierarchies as $hierarchy) {
+			$units[] = $hierarchy->unit;
+		}
+
+		$units = array_filter($units);
+
+
+		$query = Query::table(static::table());
+
+		$query = $query->where_in('id', $units)->sortNull('sort', 'DESC');
+
+		$count = $query->count();
+
+		$results = $query->take($perpage)->skip(($page - 1) * $perpage)->sort('id')->get();
+
+		return new Paginator($results, $count, $page, $perpage, Uri::to('admin/units'));
 	}
 
 }

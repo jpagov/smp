@@ -97,5 +97,6 @@ return array(
 	'confirm_delete' => 'Adakah anda pasti untuk menghapus? Sekiranya anda tidak pasti, sila setkan Status = inactive',
 
 	'no_data' => 'Tiada maklumat',
+	'no_result' => 'Tiada maklumat',
 
 	);

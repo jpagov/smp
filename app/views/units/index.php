@@ -19,6 +19,7 @@
 						<tr>
 							<th>#</th>
 							<th><?php echo __('hierarchy.unit'); ?></th>
+							<th><?php echo __('hierarchy.sort'); ?></th>
 						</tr>
 					</thead>
 					<tbody>
@@ -27,6 +28,7 @@
 						<tr class="status draft">
 							<td><?php echo $unit->id; ?></td>
 							<td><a href="<?php echo Uri::to('admin/units/edit/' . $unit->id); ?>"><?php echo $unit->title; ?></a></td>
+							<td><?php echo $unit->sort; ?></td>
 						</tr>
 					<?php endforeach; ?>
 					<?php else: ?>

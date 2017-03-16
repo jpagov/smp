@@ -43,6 +43,10 @@ function branch_title() {
 	return Registry::prop('branch', 'title');
 }
 
+function branch_sort() {
+	return Registry::prop('branch', 'sort');
+}
+
 //function branch_title_en() {
 //    return Registry::prop('branch', 'title_en');
 //}

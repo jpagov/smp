@@ -63,6 +63,10 @@ function unit_slug() {
 	return Registry::prop('unit', 'slug');
 }
 
+function unit_sort() {
+	return Registry::prop('unit', 'sort');
+}
+
 function unit_description() {
 	return Registry::prop('unit', 'description');
 }

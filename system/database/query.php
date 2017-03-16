@@ -377,6 +377,19 @@ class Query extends Builder {
 	}
 
 	/**
+	 * Add a sort nulls last by column to the query
+	 *
+	 * @param string
+	 * @param string
+	 * @return object
+	 */
+	public function sortNull($column, $mode = 'ASC') {
+		$this->sortby[] = '-' . $this->wrap($column) . ' ' . strtoupper($mode);
+
+		return $this;
+	}
+
+	/**
 	 * Add a group by column to the query
 	 *
 	 * @param string

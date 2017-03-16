@@ -55,6 +55,10 @@ function sector_description() {
 	return Registry::prop('sector', 'description');
 }
 
+function sector_sort() {
+	return Registry::prop('sector', 'sort');
+}
+
 function sector_division_slug() {
 	return Registry::get('division_slug');
 }

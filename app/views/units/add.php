@@ -47,9 +47,19 @@
                 </div>
 
                 <div class="form-group">
+                  <label class="col-lg-3 control-label" for="sort"><?php echo __('hierarchy.sort'); ?></label>
+                  <div class="col-lg-6">
+                    <?php echo Form::text('sort', Input::previous('sort'), array(
+                        'class' => 'form-control',
+                        'id' => 'sort',
+                    )); ?>
+                  </div>
+                </div>
+
+                <div class="form-group">
                     <div class="col-sm-offset-3 col-sm-9">
                     <?php echo Form::button(__('global.save'), array(
-                      'type' => 'submit', 
+                      'type' => 'submit',
                       'class' => 'btn btn-primary'
                     )); ?>
                     </div>

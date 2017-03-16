@@ -8,6 +8,7 @@ return array(
 	'slug' => 'Slug',
 	'description' => 'Deskripsi',
 	'order' => 'Order',
+	'sort' => 'Susunan',
  	'view' => 'Dilihat',
 
 	'division' => 'Bahagian',
@@ -34,9 +35,9 @@ return array(
 	'parent' => 'Parent',
 
 	// messages
-	'updated' => 'Your %s has been updated',
-	'created' => 'Your new %s was created',
-	'deleted' => 'Your %s has been deleted',
+	'updated' => '%s telah dikemaskini',
+	'created' => '%s telah dicipta',
+	'deleted' => '%s telah dihapus',
 
 	// division
 	'street' => 'Street address',
@@ -45,5 +46,10 @@ return array(
 	'zip' => 'Zip code',
 	'telephone' => 'Telephone',
 	'fax' => 'Fax',
+	'no_result' => 'Tiada maklumat',
+	'transfer' => 'Pindahkan pegawai di atas kepada organisasi berikut:',
+	'transfered' => 'Pegawai telah dipindahkan kepada organisasi berikut: %s',
+	'same_transfer' => 'Tiada migrasi dilakukan bagi organisasi yang sama',
+	'destroy_this' => 'serta hapus organisasi ini'
 
 );

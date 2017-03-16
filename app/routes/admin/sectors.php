@@ -8,10 +8,16 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 	Route::get(array('admin/sectors', 'admin/sectors/(:num)'), function($page = 1) {
 		$vars['messages'] = Notify::read();
 		$search = false;
+		$editor = Auth::user();
 
-		$input = filter_var_array(Input::get(array('term')), array(
+		$input = filter_var_array(Input::get(array('division', 'term')), array(
+		    'division' => FILTER_SANITIZE_SPECIAL_CHARS,
 		    'term' => FILTER_SANITIZE_SPECIAL_CHARS,
 		));
+
+		if (empty($input['division'])) {
+			$input['division'] = Division::find($editor->roles[0])->slug;
+		}
 
 		$input = array_filter($input);
 
@@ -37,8 +43,9 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 		if ($search) {
 			$sectors = Sector::search($input['term'], $page, Config::meta('staffs_per_page'));
 		} else {
-			$sectors = Sector::paginate($page, Config::meta('staffs_per_page'));
-
+			$sectors = (isset($input['division']) && $editor->role != 'administrator')  ?
+				Sector::division($input['division'], $page, Config::get('meta.staffs_per_page')) :
+				Sector::paginate($page, Config::meta('staffs_per_page'));
 		}
 
 		$vars['sectors'] = $sectors;
@@ -68,10 +75,14 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 	});
 
 	Route::post('admin/sectors/edit/(:num)', function($id) {
-		$input = Input::get(array('title', 'slug', 'description'));
+		$input = Input::get(array('title', 'slug', 'description', 'sort'));
 
 		if(empty($input['slug'])) {
 			$input['slug'] = slug($input['title']);
+		}
+
+		if(empty($input['sort'])) {
+			unset($input['sort']);
 		}
 
 		$input['slug'] = slug($input['slug']);
@@ -98,8 +109,9 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 		}
 
 		Sector::update($id, $input);
+		$sector = Sector::find($id);
 
-		Notify::success(__('hierarchy.updated'));
+		Notify::success(__('hierarchy.updated', $sector->title));
 
 		return Response::redirect('admin/sectors/edit/' . $id);
 	});
@@ -117,10 +129,14 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 	});
 
 	Route::post('admin/sectors/add', function() {
-		$input = Input::get(array('title', 'slug', 'description'));
+		$input = Input::get(array('title', 'slug', 'description', 'sort'));
 
 		if(empty($input['slug'])) {
 			$input['slug'] = slug($input['title']);
+		}
+
+		if(empty($input['sort'])) {
+			unset($input['sort']);
 		}
 
 		$input['slug'] = slug($input['slug']);
@@ -157,12 +173,15 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 		Delete sector
 	*/
 	Route::get('admin/sectors/delete/(:num)', function($id) {
-		Sector::find($id)->delete();
+
+		$sector = Sector::find($id);
+		$title = $sector->title;
+		$sector->delete();
 
 		//TODO: admin only, not for PTB
 		Hierarchy::where('sector', '=', $id)->update(array('sector' => 0));
 
-		Notify::success(__('hierarchy.deleted'));
+		Notify::success(__('hierarchy.deleted', $title));
 
 		return Response::redirect('admin/sectors');
 	});

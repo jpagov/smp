@@ -1,35 +1,58 @@
 <?php
 
-class Branch extends Base {
+class Branch extends Base
+{
+    public static $table = 'branchs';
 
-	public static $table = 'branchs';
+    public static function dropdown($division = null)
+    {
+        $items = [];
 
-	public static function dropdown() {
-		$items = array();
+        $query = Query::table(static::table());
 
-		foreach(static::get() as $item) {
-			$items[$item->id] = $item->title;
-		}
+        if ($division) {
 
-		return $items;
-	}
+            if (!is_array($division)) {
+                $division = array($division);
+            }
 
-	public static function slug($slug) {
-		return static::where('slug', 'like', $slug)->fetch();
-	}
+            $query = $query->left_join(
+                Base::table('hierarchies'),
+                Base::table('hierarchies.branch'), '=', Base::table('branchs.id'));
 
-	public static function id($name) {
-		$name = trim($name);
-		if (empty($name)) return;
-		if ( !$branch = static::where('title', 'like', $name)->fetch()) {
-			$input = array('title' => $name, 'slug' => slug($name));
-			$branch = static::create($input);
-			return $branch->id;
-		}
-		return $branch->id;
-	}
-	/*
-	public static function search($params = array()) {
+            $query = $query->where_in(Base::table('hierarchies.division'), $division);
+            $query->group('branch')->sortNull('sort', 'desc');
+        }
+
+        foreach ($query->get([Base::table('branchs.id'), Base::table('branchs.title')]) as $item) {
+            $items[$item->id] = $item->title;
+        }
+
+        return $items;
+    }
+
+    public static function slug($slug)
+    {
+        return static::where('slug', 'like', $slug)->fetch();
+    }
+
+    public static function id($name)
+    {
+        $name = trim($name);
+        if (empty($name)) {
+            return;
+        }
+        if (!$branch = static::where('title', 'like', $name)->fetch()) {
+            $input = array('title' => $name, 'slug' => slug($name));
+            $branch = static::create($input);
+
+            return $branch->id;
+        }
+
+        return $branch->id;
+    }
+    /*
+    public static function search($params = array()) {
     $query = Query::table(static::table());
 
     foreach($params as $key => $value) {
@@ -39,90 +62,91 @@ class Branch extends Base {
     return $query->fetch();
 }*/
 
-	public static function search($term, $page = 1, $per_page = 10) {
+    public static function search($term, $page = 1, $per_page = 10)
+    {
+        $query = Query::table(static::table());
 
-		$query = Query::table(static::table());
+        if ($term) {
+            $query->where('title', 'like', '%' . $term . '%')
+            ->or_where('slug', '=', $term);
+        }
 
-		if ($term) {
-			$query->where('title', 'like', '%' . $term . '%')
-			->or_where('slug', '=', $term);
-		}
+        $count = $query->count();
 
-		$count = $query->count();
+        $branchs = $query->take($per_page)
+        ->skip(--$page * $per_page)
+        ->get();
 
-		$branchs = $query->take($per_page)
-		->skip(--$page * $per_page)
-		->get();
-
-		return new Paginator($branchs, $count, $page, $per_page, Uri::to('admin/branchs'));
-	}
-
-
-	public static function paginate($page = 1, $perpage = 10) {
-		$query = Query::table(static::table());
-
-		$count = $query->count();
-
-		$results = $query->take($perpage)->skip(($page - 1) * $perpage)->sort('id')->get();
-
-		return new Paginator($results, $count, $page, $perpage, Uri::to('admin/branchs'));
-	}
-
-	public static function listing($division = null, $page = 1, $perpage = 10) {
-		$query = Query::table(static::table());
-
-		if ($division) {
-
-			$query = $query->left_join(
-				Base::table('hierarchies'),
-				Base::table('hierarchies.branch'), '=', Base::table('branchs.id'));
-
-			$query = $query->where(Base::table('hierarchies.division'), '=', $division);
-		}
-
-		$query->group('branch')->sort('sort', 'desc');
-
-		$count = $query->count();
-
-		$branchs = $query->take($perpage)
-		->skip(--$page * $perpage)
-		->get(array(Base::table('branchs.*')));
-
-		return array($count, $branchs);
-
-	}
+        return new Paginator($branchs, $count, $page, $per_page, Uri::to('admin/branchs'));
+    }
 
 
-	public static function division($division, $page = 1, $perpage = 10) {
+    public static function paginate($page = 1, $perpage = 10)
+    {
+        $query = Query::table(static::table());
 
-		if ( !$div = Division::slug($division)) {
-			Notify::warning(__('branchs.no_result'));
-			return Response::redirect('admin/branchs');
-		}
+        $count = $query->count();
 
-		if (!$hierarchies = Hierarchy::where('division', '=', $div->id)->group('branch')->get()) {
-			Notify::warning(__('branchs.no_result'));
-			return Response::redirect('admin/branchs');
-		}
+        $results = $query->take($perpage)->skip(($page - 1) * $perpage)->sort('id')->get();
 
-		$branchs = array();
+        return new Paginator($results, $count, $page, $perpage, Uri::to('admin/branchs'));
+    }
 
-		foreach ($hierarchies as $hierarchy) {
-			$branchs[] = $hierarchy->branch;
-		}
+    public static function listing($division = null, $page = 1, $perpage = 10)
+    {
+        $query = Query::table(static::table());
 
-		$branchs = array_filter($branchs);
+        if ($division) {
+            $query = $query->left_join(
+                Base::table('hierarchies'),
+                Base::table('hierarchies.branch'), '=', Base::table('branchs.id'));
+
+            $query = $query->where(Base::table('hierarchies.division'), '=', $division);
+        }
+
+        $query->group('branch')->sort('sort', 'desc');
+
+        $count = $query->count();
+
+        $branchs = $query->take($perpage)
+        ->skip(--$page * $perpage)
+        ->get(array(Base::table('branchs.*')));
+
+        return array($count, $branchs);
+    }
 
 
-		$query = Query::table(static::table());
+    public static function division($division, $page = 1, $perpage = 10)
+    {
+        if (!$div = Division::slug($division)) {
+            Notify::warning(__('global.no_result'));
 
-		$query = $query->where_in('id', $branchs);
+            return Response::redirect('admin/branchs');
+        }
 
-		$count = $query->count();
+        if (!$hierarchies = Hierarchy::where('division', '=', $div->id)->group('branch')->get()) {
+            Notify::warning(__('global.no_result'));
 
-		$results = $query->take($perpage)->skip(($page - 1) * $perpage)->sort('id')->get();
+            return Response::redirect('admin/branchs');
+        }
 
-		return new Paginator($results, $count, $page, $perpage, Uri::to('admin/branchs'));
-	}
+        $branchs = array();
 
+        foreach ($hierarchies as $hierarchy) {
+            $branchs[] = $hierarchy->branch;
+        }
+
+        $branchs = array_filter($branchs);
+
+
+        $query = Query::table(static::table());
+
+        $query = $query->where_in('id', $branchs)->sortNull('sort', 'DESC');
+
+        $count = $query->count();
+
+        $results = $query->take($perpage)->skip(($page - 1) * $perpage)->sort('id')->get();
+
+        return new Paginator($results, $count, $page, $perpage, Uri::to('admin/branchs'));
+    }
 }
