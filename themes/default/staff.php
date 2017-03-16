@@ -151,9 +151,9 @@
 
 				<div class="list-group">
 						<a href="<?php echo Config::app('url') . '/' . $pa->slug; ?>" class="list-group-item clearfix">
-							<?php if (!staff_hide_avatar($pa->id) && is_related_top_management($pa->id)) : ?>
+
 							<img width="50" height="50" class="media-object img-circle pull-left" src="<?php echo asset('content/avatar/' . staff_avatar($pa->id, $pa->gender)); ?>" alt="<?php echo $pa->display_name; ?>">
-							<?php endif; ?>
+
 							<h4 class="list-group-item-heading"><?php echo $pa->display_name; ?></h4>
 							<p class="list-group-item-text"><?php echo $pa->position; ?></p>
 						</a>
@@ -170,9 +170,9 @@
 
 				<?php foreach($related->results as $relate): ?>
 				<a href="<?php echo Config::app('url') . '/' . $relate->slug; ?>" class="list-group-item clearfix">
-					<?php if (!staff_hide_avatar($relate->id) && is_related_top_management($relate->id)) : ?>
+
 						<img width="50" height="50" class="media-object img-circle pull-left" src="<?php echo asset('content/avatar/' . staff_avatar($relate->id, $relate->gender)); ?>" alt="<?php echo $relate->display_name; ?>">
-					<?php endif; ?>
+
 						<h4 class="list-group-item-heading"><?php echo $relate->display_name; ?></h4>
 						<p class="list-group-item-text"><?php echo $relate->position; ?></p>
 				</a>

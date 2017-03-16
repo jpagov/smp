@@ -114,7 +114,7 @@ function staff_hide_avatar($id = null) {
 }
 
 function is_related_top_management($id) {
-	return Staff::where(Base::table('staffs.management'))->get(['management']);
+	return Staff::where(Base::table('staffs.management'), '=', 1)->get(['management']);
 }
 
 function hide_supervisor() {

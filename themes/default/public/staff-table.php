@@ -183,7 +183,7 @@
 
 				<?php foreach($related->results as $relate): ?>
 				<a href="<?php echo Config::app('url') . '/' . $relate->slug; ?>" class="list-group-item clearfix">
-					<?php if (!staff_hide_avatar($relate->id) && is_related_top_management($relate->id)) : ?>
+					<?php if ($relate->management || !is_public()) : ?>
 						<img width="50" height="50" class="media-object img-circle pull-left" src="<?php echo asset('content/avatar/' . staff_avatar($relate->id, $relate->gender)); ?>" alt="<?php echo $relate->display_name; ?>">
 					<?php endif; ?>
 						<h4 class="list-group-item-heading"><?php echo $relate->display_name; ?></h4>
