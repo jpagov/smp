@@ -82,7 +82,7 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 		}
 
 		if(empty($input['sort'])) {
-			unset($input['sort']);
+			$input['sort'] = null;
 		}
 
 		$input['slug'] = slug($input['slug']);
