@@ -69,6 +69,17 @@
 
           <ul class="nav navbar-nav navbar-right">
 
+          	<?php if(Auth::check()): ?>
+          	<li>
+	        <?php $pretend = Session::get('pretend') ? 'false' : 'true'; ?>
+	        <?php if (is_null(Session::get('pretend'))) : ?>
+	        	<a class="alert-success" href="<?php echo Uri::to('pretend/') . '?' . $pretend; ?>" target="_blank"><span class="glyphicon glyphicon-eye-open"></span> <?php echo __('global.pretend'); ?></a>
+	    	<?php else: ?>
+	    		<a class="alert-warning" href="<?php echo Uri::to('pretend/') . '?' . $pretend; ?>"><span class="glyphicon glyphicon-eye-close"></span> <?php echo __('global.cancel_pretend'); ?></a>
+	    	<?php endif ?>
+	        </li>
+          	<?php endif; ?>
+
           	<?php if(total_languages()): ?>
           		<li class="dropdown">
           			<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><img class="language-flag" alt="<?php echo language_name(); ?>" src="<?php echo language_flag(language_current_id()); ?>"> <span class="language-name sr-only"><?php echo language_name(); ?></span> <span class="caret"></span></a>

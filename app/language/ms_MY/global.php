@@ -25,6 +25,10 @@ return array(
 	'reset' => 'Reset',
 	'all' => 'Semua',
 	'view' => 'Lihat',
+	'pretend' => 'Lihat sebagai Pengguna Luar',
+	'cancel_pretend' => 'Lihat sebagai Pengguna Dalaman',
+	'pretended' => 'Anda sedang dalam mod paparan <kbd>Pengguna Luar</kbd>. Klik pada menu ikon <i class="glyphicon glyphicon-eye-close"></i> di atas melihat paparan <kbd>Pengguna Dalaman</kbd>.',
+	'pretend_canceled' => 'Anda sedang dalam mod paparan <kbd>Pengguna Dalaman</kbd>. Klik pada menu ikon <i class="glyphicon glyphicon-eye-close"></i> di atas untuk melihat paparan <kbd>Pengguna Luar</kbd>.',
 
   	// menu
   	'category' => 'Kategori',

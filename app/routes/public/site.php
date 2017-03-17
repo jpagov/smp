@@ -67,6 +67,31 @@ Route::get($routes, function($offset = 1) use($staffs_page) {
 	return new Template('staffs');
 });
 
+/**
+* Editor pretend as user
+*/
+Route::get('pretend', function() {
+
+	$pretend = filter_var($_SERVER['QUERY_STRING'], FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
+
+	if ($pretend) {
+		Session::put('pretend', $pretend);
+
+		Input::flash();
+		Notify::success(__('global.pretended'));
+
+		return Response::redirect('/');
+	} else {
+		Session::erase('pretend');
+
+		Input::flash();
+		Notify::success(__('global.pretend_canceled'));
+
+		return Response::redirect('admin');
+	}
+
+
+});
 
 Route::get('category/(:any)', function($slug) {
 

@@ -204,6 +204,11 @@ function validate_ip($ip) {
 
 function is_public($ip = null) {
 
+	// check if editor pretend as user to test view
+	if (Session::get('pretend')) {
+    	return true;
+    }
+
 	$ip = is_null($ip) ? get_ip_address() : $ip;
 
 	// Always false for authenticated user
@@ -226,4 +231,3 @@ function is_public($ip = null) {
 function generateRandomString($length = 5) {
     return substr(str_shuffle(MD5(microtime())), 0, $length);
 }
-
