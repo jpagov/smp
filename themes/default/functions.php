@@ -148,8 +148,6 @@ function revision($filename) {
   	return theme_asset($filename);
 }
 
-
-
 function checksum($input, $hash = 384) {
 
 	if (empty($input)) {

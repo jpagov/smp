@@ -32,12 +32,10 @@ if($home_page->id != $staffs_page->id) {
 */
 $routes = array($staffs_page->slug, $staffs_page->slug . '(:num)');
 
-/**
-*if($home_page->id == $staffs_page->id) {
-*    array_unshift($routes, '/');
-*}
-*/
 
+if($home_page->id == $staffs_page->id) {
+    array_unshift($routes, '/');
+}
 
 Route::get($routes, function($offset = 1) use($staffs_page) {
 
@@ -72,25 +70,30 @@ Route::get($routes, function($offset = 1) use($staffs_page) {
 */
 Route::get('pretend', function() {
 
-	$pretend = filter_var($_SERVER['QUERY_STRING'], FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
+	parse_str(Request::segments(), $q);
 
-	if ($pretend) {
-		Session::put('pretend', $pretend);
+	$filter = [
+		'pretend' => FILTER_VALIDATE_BOOLEAN,
+		'url' => FILTER_SANITIZE_STRING
+	];
 
+	$valid = filter_var_array($q, $filter);
+
+	if ($valid['pretend']) {
+		Session::put('pretend', $valid['pretend']);
 		Input::flash();
 		Notify::success(__('global.pretended'));
-
-		return Response::redirect('/');
 	} else {
 		Session::erase('pretend');
-
 		Input::flash();
 		Notify::success(__('global.pretend_canceled'));
-
-		return Response::redirect('admin');
 	}
 
+	$diff = array_diff_key($q, $filter);
 
+	$segments = $diff ? '/?' . urldecode(http_build_query($diff)) : '';
+
+	return Response::redirect($valid['url'] . $segments);
 });
 
 Route::get('category/(:any)', function($slug) {
@@ -225,6 +228,9 @@ Route::get(array('division/(:any)', 'division/(:any)/(:num)'), function($divisio
 	Registry::set('staff_division', $division);
 	Registry::set('division_slug', $division_slug);
 	Registry::set('division', $division);
+
+
+	$vars['messages'] = Notify::read();
 
 	return new Template('staffs', $vars);
 });

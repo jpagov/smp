@@ -69,13 +69,13 @@
 
           <ul class="nav navbar-nav navbar-right">
 
-          	<?php if(Auth::check()): ?>
+          	<?php if(Auth::user()): ?>
           	<li>
 	        <?php $pretend = Session::get('pretend') ? 'false' : 'true'; ?>
 	        <?php if (is_null(Session::get('pretend'))) : ?>
-	        	<a class="alert-success" href="<?php echo Uri::to('pretend/') . '?' . $pretend; ?>" target="_blank"><span class="glyphicon glyphicon-eye-open"></span> <?php echo __('global.pretend'); ?></a>
+	        	<a class="alert-success" href="<?php echo pretend($pretend); ?>"><span class="glyphicon glyphicon-eye-open"></span> <?php echo __('global.pretend'); ?></a>
 	    	<?php else: ?>
-	    		<a class="alert-warning" href="<?php echo Uri::to('pretend/') . '?' . $pretend; ?>"><span class="glyphicon glyphicon-eye-close"></span> <?php echo __('global.cancel_pretend'); ?></a>
+	    		<a class="alert-warning" href="<?php echo pretend($pretend); ?>"><span class="glyphicon glyphicon-eye-close"></span> <?php echo __('global.cancel_pretend'); ?></a>
 	    	<?php endif ?>
 	        </li>
           	<?php endif; ?>

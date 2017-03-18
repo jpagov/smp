@@ -15,3 +15,27 @@ Route::action('csrf', function() {
 		}
 	}
 });
+
+Route::action('pretend', function() {
+	parse_str(Request::segments(), $q);
+
+	if (array_key_exists('pretend', $q)) {
+		$pretend = filter_var($q['pretend'], FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
+
+		if ($pretend) {
+			Session::put('pretend', $pretend);
+
+			Input::flash();
+			Notify::success(__('global.pretended'));
+
+			return Response::redirect('/');
+		} else {
+			Session::erase('pretend');
+
+			Input::flash();
+			Notify::success(__('global.pretend_canceled'));
+
+			return Response::redirect('admin');
+		}
+	}
+});

@@ -4,6 +4,8 @@
 <section class="content col-md-<?php  echo ( (show_division_meta() && division_has_meta()) || total_branchs() ) ? '9' : '12'; ?>">
     <?php theme_include('breadcrumb'); ?>
 
+    <?php echo $messages; ?>
+
 	<?php if(has_staffs()): ?>
 
 	<div id="staff-result">

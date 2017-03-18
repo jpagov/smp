@@ -31,6 +31,15 @@ class Request {
 	}
 
 	/**
+	 * Get the server query string segment
+	 *
+	 * @return string|null
+	 */
+	public static function segments() {
+		return Arr::get($_SERVER, 'QUERY_STRING');
+	}
+
+	/**
 	 * Checks if the current request was sent
 	 * with a XMLHttpRequest header as sent by javascript
 	 *

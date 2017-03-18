@@ -20,7 +20,7 @@
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js" integrity="sha384-ZoaMbDF+4LeFxg6WdScQ9nnR1QC2MIRxA1O9KWEXQwns1G8UNyIEZIQidzb0T1fo" crossorigin="anonymous"></script>
   <![endif]-->
 </head>
-<body<?php echo onload(); ?>>
+<body<?php echo onload(); $user = Auth::user(); ?>>
 <div class="navbar navbar-inverse" role="navigation">
   <div class="container">
     <div class="navbar-header">
@@ -37,7 +37,7 @@
        <span class="sr-only"><?php echo _e(Config::meta('sitename')); ?></span></a>
     </div>
 
-    <?php $user = Auth::user(); if($user): ?>
+    <?php if($user): ?>
     <div class="navbar-collapse collapse navbar-inverse-collapse">
 
     <?php
@@ -84,11 +84,15 @@
         </li>
 
         <li>
-        <?php $pretend = Session::get('pretend') ? 'false' : 'true'; ?>
+        <?php
+        $pretend = Session::get('pretend') ? 'false' : 'true';
+
+        $pretend_url = Session::get('division') ? 'division/' . Session::get('division') : null;
+        ?>
         <?php if (is_null(Session::get('pretend'))) : ?>
-        	<a class="alert-success" href="<?php echo Uri::to('pretend/') . '?' . $pretend; ?>" target="_blank"><span class="glyphicon glyphicon-eye-open"></span> <?php echo __('global.pretend'); ?></a>
+        	<a class="alert-success" href="<?php echo pretend($pretend, $pretend_url); ?>" target="_blank"><span class="glyphicon glyphicon-eye-open"></span> <?php echo __('global.pretend'); ?></a>
     	<?php else: ?>
-    		<a class="alert-warning" href="<?php echo Uri::to('pretend/') . '?' . $pretend; ?>"><span class="glyphicon glyphicon-eye-close"></span> <?php echo __('global.cancel_pretend'); ?></a>
+    		<a class="alert-warning" href="<?php echo pretend($pretend, $pretend_url); ?>"><span class="glyphicon glyphicon-eye-close"></span> <?php echo __('global.cancel_pretend'); ?></a>
     	<?php endif ?>
         </li>
 

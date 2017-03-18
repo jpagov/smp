@@ -271,13 +271,17 @@ if (! function_exists('truncate')) {
 	}
 }
 
-if (! function_exists('strposa')) {
-	function strposa($haystack, $needle, $offset=0) {
-	    if(!is_array($needle)) $needle = array($needle);
-	    foreach($needle as $query) {
-	        if(strpos($haystack, $query, $offset) !== false) return $query; // stop on first true result
-	    }
-	    return false;
+if (! function_exists('pretend')) {
+	function pretend($pretend = true, $url = null) {
+
+		$url = $url ?: Uri::current();
+
+		parse_str($_SERVER['QUERY_STRING'], $q);
+
+		return Uri::to('pretend') . '/?' . urldecode(http_build_query(array_merge($q, [
+			'pretend' => $pretend,
+			'url' => $url
+		])));
 	}
 }
 
