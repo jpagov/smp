@@ -4,10 +4,12 @@ Thumbs.db
 *.esproj
 *.log
 *.gz
+.env
 .php_cs
 .php_cs.cache
 TODO
 *errors.log
+*mail.log
 archive
 node_modules
 
