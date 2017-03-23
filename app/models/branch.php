@@ -21,7 +21,7 @@ class Branch extends Base
                 Base::table('hierarchies.branch'), '=', Base::table('branchs.id'));
 
             $query = $query->where_in(Base::table('hierarchies.division'), $division);
-            $query->group('branch')->sortNull('sort', 'desc');
+            $query->group('branch')->sortNull('sort', 'desc')->sort('title');
         }
 
         foreach ($query->get([Base::table('branchs.id'), Base::table('branchs.title')]) as $item) {
