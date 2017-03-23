@@ -90,14 +90,20 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 	*/
 	Route::get('admin/branchs/edit/(:num)', function($id) {
 
-		$editor = Auth::user();
+		$vars['editor'] = $editor = Auth::user();
 
 		$vars['messages'] = Notify::read();
 		$vars['token'] = Csrf::token();
 		$vars['branch'] = Branch::find($id);
 		$vars['branchs'] = Branch::dropdown($editor->roles);
+		$vars['divisions'] = Division::dropdown();
 
-		$vars['staffs'] = Staff::search(null, 1, Config::meta('staffs_per_page'), true, ['branch' => $vars['branch']->id]
+		$vars['staffs'] = Staff::where('branch', '=', $vars['branch']->id)->left_join(
+                    Base::table('divisions'),
+                    Base::table('divisions.id'), '=', Base::table('staffs.division'))->group('division')->get_count([
+			Base::table('divisions.id'),
+			Base::table('divisions.slug')],
+			'branch'
 		);
 
 		return View::create('branchs/edit', $vars)
@@ -242,26 +248,25 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 	});
 
 	/*
-		Add branch
+		Migrate branch
 	*/
 	Route::post('admin/branchs/transfer', function() {
 		$editor = Auth::user();
-		$input = Input::get(['current', 'branch', 'staff', 'destroy']);
+		$input = Input::get(['current', 'branch', 'destroy', 'divisions']);
 
 		$current = Branch::find($input['current']);
 		$branch = Branch::find($input['branch']);
-		$staff = explode(':', $input['staff']);
 
 		if ($input['current'] == $input['branch']) {
 			Notify::warning(__('hierarchy.same_transfer'));
 			return Response::redirect('admin/branchs/edit/' . $current->id);
 		}
 
-		Staff::where_in('id', $staff)->where('branch', '=', $current->id)->update(['branch' => $branch->id]);
+		Staff::where_in('division', $input['divisions'])->where('branch', '=', $current->id)->update(['branch' => $branch->id]);
 
 		$messages = __('hierarchy.transfered', $branch->title);
 
-		if ($input['destroy']) {
+		if ($editor->role == 'administrator' && $input['destroy']) {
 			$current->delete();
 			$messages .= ' dan ' . __('hierarchy.deleted', $branch->title);
 		}

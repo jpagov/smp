@@ -81,7 +81,7 @@ return array(
 	'pkppao' => 'Pejabat Timbalan Ketua Pengarah Perkhidmatan Awam (Operasi)',
 	'bp' => 'Bahagian Pasca Perkhidmatan',
 	'bkp' => 'Bahagian Khidmat Pengurusan',
-	'bps' => 'Bahagian Pengurusan Psikologi',
+	'bpps' => 'Bahagian Pengurusan Psikologi',
 	'bpms' => 'Bahagian Pembangunan Dan Pengurusan Maklumat Strategik',
 
 	'error_404' => 'Malangnya, halaman <code>%s</code> tidak wujud.',

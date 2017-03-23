@@ -74,19 +74,26 @@
     </div>
     <div class="col-md-3">
     	<div class="panel panel-default">
-			<div class="panel-heading">Staff</div>
-			<div class="panel-body">
-			<?php if ($staffs->count): ?>
-			<a href="<?php echo Uri::to('admin/staffs?term=branch:' . $branch->slug); ?>"><?php echo $staffs->count; ?> </a>
-			<?php else: ?>
-				Tiada pegawai. <?php echo Html::link('admin/branchs/delete/' . $branch->id, __('global.delete'), array(
-                    'class' => 'btn btn-xs btn-danger delete'
-                  )); ?>
-			<?php endif; ?>
-			</div>
+			<div class="panel-heading">Statistik</div>
+			<div class="panel-body">Jumlah pegawai di bawah <b><?php echo $branch->title ?></b> mengikut bahagian</div>
 
+			<?php if ($staffs):  ?>
+			<div class="list-group">
+				<?php foreach ($staffs as $staff) : ?>
+				<a href="<?php echo Uri::to('admin/staffs?term=branch:' .  $branch->slug . '+division:' . $staff->slug); ?>" class="list-group-item">
+				<span class="badge"><?php echo $staff->total; ?></span>
+				<?php echo __('site.'. $staff->slug); ?>
+				</a>
+				<?php endforeach; ?>
+			</div>
+			<?php else: ?>
+				<p>Tiada pegawai. <?php echo Html::link('admin/branchs/delete/' . $branch->id, __('global.delete'), array(
+                    'class' => 'btn btn-xs btn-danger delete'
+                  )); ?></p>
+			<?php endif; ?>
     	</div>
-    	<?php if ($staffs->count): ?>
+
+    	<?php if ($staffs): ?>
     	<div class="panel panel-warning">
 			<div class="panel-heading">Migrasi</div>
 			<div class="panel-body">
@@ -98,16 +105,8 @@
 						)); ?>
 					</div>
 					<?php echo Form::hidden('current', $branch->id);  ?>
-					<?php
-					$items = [];
 
-					foreach ($staffs->results as $staff) {
-						$items[] = $staff->id;
-					}
-
-					echo Form::hidden('staff', implode(':', $items));
-					 ?>
-
+					<?php if ($editor->role == 'administrator'): ?>
 					 <div class="form-group">
 					 	<label>
 						<?php echo Form::checkbox('destroy', 1, true, array('id' => 'destroy',
@@ -115,6 +114,17 @@
 						</label>
 					</div>
 
+					<?php if ($staffs): foreach ($staffs as $staff) : ?>
+					<div class="checkbox">
+						<label>
+							<?php echo Form::checkbox('divisions[]', $staff->id, true, array('id' => 'destroy',
+							)); ?> <?php echo __('site.'. $staff->slug); ?>
+						</label>
+					</div>
+					<?php endforeach; endif; ?>
+					<?php else: ?>
+						<?php echo Form::hidden('divisions[]', $editor->roles[0]);  ?>
+					<?php endif; ?>
 
 
 					<button type="submit" class="btn btn-primary">Transfer</button>

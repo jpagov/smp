@@ -4,12 +4,28 @@ class Unit extends Base {
 
 	public static $table = 'units';
 
-	public static function dropdown() {
+	public static function dropdown($division = null) {
 		$items = array();
 
-		foreach(static::sortNull('sort', 'DESC')->get() as $item) {
-			$items[$item->id] = $item->title;
-		}
+		$query = Query::table(static::table());
+
+        if ($division) {
+
+            if (!is_array($division)) {
+                $division = [$division];
+            }
+
+            $query = $query->left_join(
+                Base::table('hierarchies'),
+                Base::table('hierarchies.unit'), '=', Base::table('units.id'));
+
+            $query = $query->where_in(Base::table('hierarchies.division'), $division);
+            $query->group('unit')->sortNull('sort', 'desc')->sort('title');
+        }
+
+        foreach ($query->get([Base::table('units.id'), Base::table('units.title')]) as $item) {
+            $items[$item->id] = $item->title;
+        }
 
 		return $items;
 	}

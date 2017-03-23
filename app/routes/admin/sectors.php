@@ -61,13 +61,22 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 		Edit Sector
 	*/
 	Route::get('admin/sectors/edit/(:num)', function($id) {
+
+		$vars['editor'] = $editor = Auth::user();
+
 		$vars['messages'] = Notify::read();
 		$vars['token'] = Csrf::token();
 		$vars['sector'] = Sector::find($id);
+		$vars['sectors'] = Sector::dropdown($editor->roles);
+		$vars['divisions'] = Division::dropdown();
 
-		$vars['staffs'] = Staff::search(null, 1, Config::meta('staffs_per_page'), true, [
-			'sector' => $vars['sector']->id
-		]);
+		$vars['staffs'] = Staff::where('sector', '=', $vars['sector']->id)->left_join(
+                    Base::table('divisions'),
+                    Base::table('divisions.id'), '=', Base::table('staffs.division'))->group('division')->get_count([
+			Base::table('divisions.id'),
+			Base::table('divisions.slug')],
+			'sector'
+		);
 
 		return View::create('sectors/edit', $vars)
 			->partial('header', 'partials/header')
@@ -183,6 +192,34 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 
 		Notify::success(__('hierarchy.deleted', $title));
 
+		return Response::redirect('admin/sectors');
+	});
+
+	/*
+		Migrate sector
+	*/
+	Route::post('admin/sectors/transfer', function() {
+		$editor = Auth::user();
+		$input = Input::get(['current', 'sector', 'divisions', 'destroy']);
+
+		$current = Sector::find($input['current']);
+		$sector = Sector::find($input['sector']);
+
+		if ($input['current'] == $input['sector']) {
+			Notify::warning(__('hierarchy.same_transfer'));
+			return Response::redirect('admin/sectors/edit/' . $current->id);
+		}
+
+		Staff::where_in('division', $input['divisions'])->where('sector', '=', $current->id)->update(['sector' => $sector->id]);
+
+		$messages = __('hierarchy.transfered', $sector->title);
+
+		if ($editor->role == 'administrator' && $input['destroy']) {
+			$current->delete();
+			$messages .= ' dan ' . __('hierarchy.deleted', $sector->title);
+		}
+
+		Notify::success($messages);
 		return Response::redirect('admin/sectors');
 	});
 

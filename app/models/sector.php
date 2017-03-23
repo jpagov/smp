@@ -4,12 +4,28 @@ class Sector extends Base {
 
 	public static $table = 'sectors';
 
-	public static function dropdown() {
-		$items = array();
+	public static function dropdown($division = null) {
+		$items = [];
 
-		foreach(static::get() as $item) {
-			$items[$item->id] = $item->title;
-		}
+		$query = Query::table(static::table());
+
+        if ($division) {
+
+            if (!is_array($division)) {
+                $division = [$division];
+            }
+
+            $query = $query->left_join(
+                Base::table('hierarchies'),
+                Base::table('hierarchies.sector'), '=', Base::table('sectors.id'));
+
+            $query = $query->where_in(Base::table('hierarchies.division'), $division);
+            $query->group('sector')->sortNull('sort', 'desc')->sort('title');
+        }
+
+        foreach ($query->get([Base::table('sectors.id'), Base::table('sectors.title')]) as $item) {
+            $items[$item->id] = $item->title;
+        }
 
 		return $items;
 	}
@@ -93,7 +109,7 @@ class Sector extends Base {
 			return Response::redirect('admin/sectors');
 		}
 
-		$sectors = array();
+		$sectors = [];
 
 		foreach ($hierarchies as $hierarchy) {
 			$sectors[] = $hierarchy->sector;

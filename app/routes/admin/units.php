@@ -61,13 +61,22 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 		Edit Unit
 	*/
 	Route::get('admin/units/edit/(:num)', function($id) {
+
+		$vars['editor'] = $editor = Auth::user();
+
 		$vars['messages'] = Notify::read();
 		$vars['token'] = Csrf::token();
 		$vars['unit'] = Unit::find($id);
+		$vars['units'] = Unit::dropdown($editor->roles);
+		$vars['divisions'] = Division::dropdown();
 
-		$vars['staffs'] = Staff::search(null, 1, Config::meta('staffs_per_page'), true, [
-			'unit' => $vars['unit']->id
-		]);
+		$vars['staffs'] = Staff::where('unit', '=', $vars['unit']->id)->left_join(
+                    Base::table('divisions'),
+                    Base::table('divisions.id'), '=', Base::table('staffs.division'))->group('division')->get_count([
+			Base::table('divisions.id'),
+			Base::table('divisions.slug')],
+			'unit'
+		);
 
 		return View::create('units/edit', $vars)
 			->partial('header', 'partials/header')
@@ -183,6 +192,34 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 
 		Notify::success(__('hierarchy.deleted', $title));
 
+		return Response::redirect('admin/units');
+	});
+
+	/*
+		Migrate unit
+	*/
+	Route::post('admin/units/transfer', function() {
+		$editor = Auth::user();
+		$input = Input::get(['current', 'unit', 'divisions', 'destroy']);
+
+		$current = Unit::find($input['current']);
+		$unit = Unit::find($input['unit']);
+
+		if ($input['current'] == $input['unit']) {
+			Notify::warning(__('hierarchy.same_transfer'));
+			return Response::redirect('admin/units/edit/' . $current->id);
+		}
+
+		Staff::where_in('division', $input['divisions'])->where('unit', '=', $current->id)->update(['unit' => $unit->id]);
+
+		$messages = __('hierarchy.transfered', $unit->title);
+
+		if ($editor->role == 'administrator' && $input['destroy']) {
+			$current->delete();
+			$messages .= ' dan ' . __('hierarchy.deleted', $unit->title);
+		}
+
+		Notify::success($messages);
 		return Response::redirect('admin/units');
 	});
 
