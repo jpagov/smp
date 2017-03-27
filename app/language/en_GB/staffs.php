@@ -141,7 +141,10 @@ return [
 	'noroleadd' => 'You are not authorize to add staff.',
 	'noroleedit' => 'You are not authorize to edit other staff.',
 
+	'notes' => 'Catatan',
+
 	'edit_history' => 'History',
 	'edit_by' => 'by',
+	'transfer' => 'Transfer',
 
 ];

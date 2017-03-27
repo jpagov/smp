@@ -11,6 +11,8 @@
  * ======================================================================== */
 (function($) {
 
+		$('[data-toggle="tooltip"]').tooltip();
+
 		var SMP = {
 		// All pages
 		common: {

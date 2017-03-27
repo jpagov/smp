@@ -97,8 +97,14 @@ return array(
 	'profile' => 'Profile',
 	'profile_memory_usage' => 'Total memory usage',
 
-	// messages
-	'confirm_delete' => 'Adakah anda pasti untuk menghapus? Sekiranya anda tidak pasti, sila setkan Status = inactive',
+	// delete
+	'confirm_are_you_sure' => 'Anda pasti?',
+	'confirm_delete' => 'Adakah anda pasti untuk menghapus profil ini? Sekiranya anda tidak pasti, sila setkan <b>Status = inactive</b>',
+	'confirm_cancel' => 'Batal',
+	'confirm_delete_button' => 'Hapus',
+
+	'confirm_transfer' => 'Status pegawai akan di tukar kepada <code>Pertukaran</code> dan emel pengesahan akan dihantar kepada <abbr title=\"Pegawai Tadbir Bahagian\">PTB</abbr> terbabit dimana <abbr title=\"Pegawai Tadbir Bahagian\">PTB</abbr> tersebut perlu mengesahkan pertukaran ini.',
+	'confirm_transfer_button' => 'Pindahkan',
 
 	'no_data' => 'Tiada maklumat',
 	'no_result' => 'Tiada maklumat',

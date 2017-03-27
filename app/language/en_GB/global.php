@@ -94,7 +94,13 @@ return array(
 	'profile_memory_usage' => 'Total memory usage',
 
 	// messages
-	'confirm_delete' => 'Are you sure you want to delete? This can’t be undone!\nconsider set their status = inactive',
+	'confirm_are_you_sure' => 'Are you sure?',
+	'confirm_delete' => 'Are you sure you want to delete? This can’t be undone!. Consider set their <b>status = inactive</b>',
+	'confirm_cancel' => 'Cancel',
+	'confirm_delete_button' => 'Delete',
+
+	'confirm_transfer' => 'Status pegawai akan di tukar kepada <code>Pertukaran</code> dan emel pengesahan akan dihantar kepada <abbr title="Pegawai Tadbir Bahagian">PTiB</abbr> terbabit dimana <abbr title="Pegawai Tadbir Bahagian">PTB</abbr> tersebut perlu mengesahkan pertukaran ini.',
+	'confirm_transfer_button' => 'Transfer',
 
 	'no_data' => 'Tiada maklumat',
 

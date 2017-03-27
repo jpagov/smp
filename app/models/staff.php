@@ -407,4 +407,21 @@ class Staff extends Base
 
         return $rating;
     }
+
+    public static function editors($division = null, $fields = null)
+    {
+    	$fields = $fields ?: static::fields();
+
+        $query = Query::table(static::table())
+    		->where('role', '=', 'editor')
+        	->where('status', '=', 'active');
+
+       	if ($division) {
+       		$query = $query->where('division', '=', $division);
+       	}
+
+        $editors = $query->get($fields);
+
+        return $editors;
+    }
 }

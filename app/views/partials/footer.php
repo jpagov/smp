@@ -12,8 +12,8 @@
 		<script src="<?php echo asset('app/views/assets/js/bootstrap.min.js'); ?>"></script>
 	    <script src="<?php echo asset('app/views/assets/js/typeahead.bundle.js'); ?>"></script>
 	    <script src="<?php echo asset('app/views/assets/js/bootstrap-markdown.js'); ?>"></script>
-
 	    <script src="<?php echo asset('app/views/assets/js/bootstrap-tagsinput.min.js'); ?>"></script>
+	    <script src="<?php echo asset('app/views/assets/js/sweetalert.min.js'); ?>"></script>
 
 	    <?php if (isset($javascript)) : ?><?php foreach ($javascript as $js) : ?>
 	    <script src="<?php echo asset('app/views/assets/js/' . $js); ?>"></script>
@@ -22,9 +22,54 @@
 	    <script src="<?php echo asset('app/views/assets/js/app.js'); ?>"></script>
 		<?php if(Auth::user()): ?>
 		<script>
+			var path = '/' + window.location.pathname.split('/')[1] || '/';
 			// Confirm any deletions
-			$('.delete').on('click', function() {return confirm('<?php echo __('global.confirm_delete'); ?>');});
+			$('.delete').on('click', function(e) {
+				e.preventDefault();
+				var href = $(this).attr('href');
+				swal({
+		            title: "<?php echo __('global.confirm_are_you_sure'); ?>",
+		            text: "<?php echo __('global.confirm_delete'); ?>",
+		            type: "warning",
+		            showCancelButton: true,
+		            cancelButtonText: "<?php echo __('global.confirm_cancel'); ?>",
+		            confirmButtonColor: "#DD6B55",
+		            confirmButtonText: "<?php echo __('global.confirm_delete_button'); ?>",
+		            closeOnConfirm: true,
+		            html: true
+		        }, function(confirmed) {
+		            if (confirmed) {
+		            	window.location.href = href;
+		            };
+				});
+			});
+
+			<?php endif; ?>
+			<?php
+			if( strpos(Uri::current(), 'admin/staffs/edit') !== false ): ?>
+			$('#btnTransfer').on('click', function(e) {
+				var division = $('#transfer').val();
+				var staff = $(this).attr('data-staff');
+
+				if (Number(division)) {
+					swal({
+			            title: "<?php echo __('global.confirm_are_you_sure'); ?>",
+			            text: "<?php echo __('global.confirm_transfer'); ?>",
+			            type: "warning",
+			            showCancelButton: true,
+			            cancelButtonText: "<?php echo __('global.confirm_cancel'); ?>",
+			            confirmButtonColor: "#DD6B55",
+			            confirmButtonText: "<?php echo __('global.confirm_transfer_button'); ?>",
+			            closeOnConfirm: true,
+			            html: true
+			        }, function(confirmed) {
+			            if (confirmed) {
+			            	window.location.href = path + '/admin/transfers/' + staff + '/' + division ;
+			            };
+					});
+				}
+			});
+			<?php endif; ?>
 		</script>
-		<?php endif; ?>
 	</body>
 </html>

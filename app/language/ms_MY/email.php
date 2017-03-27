@@ -10,10 +10,19 @@ return [
 	'sender_date' => 'Tarikh',
 	'message' => 'Mesej',
 	'thanks' => 'Sekian, terima kasih',
+	'signature' => 'Pentadbir<br>%s',
 
 	// editor notification
 	'editor_subject' => 'Penugasan Sebagai Pentadbir Direktori',
 	'editor_message' => 'Adalah dimaklumkan bahawa akaun tuan/puan telah pun dijadikan sebagai <b>Pegawai Pentadbir Sistem Direktori Pegawai JPA</b> bagi <b>%s</b>.<br><br>Tuan/puan boleh mendaftar kataluan masuk melalui pautan berikut:<br><br>%s',
+
+	// transfer notification
+	'transfer_subject' => 'Pertukaran Pegawai',
+	'transfer_message' => 'Adalah dimaklumkan bahawa pegawai berikut telah ditukarkan seperti butiran berikut',
+	'transfer_details' => 'Untuk melihat butiran terperinci dan membuat pengesahan, sila klik pada pautan di atas.',
+	'transfer_button' => 'Pertukaran Pegawai',
+	'transfer_staff' => 'Pegawai: %s',
+	'transfer_at' => 'Tarikh: %s',
 
 	// email profile confirmation
 	'confirm_subject' => 'Pengesahan Maklumat Pegawai',

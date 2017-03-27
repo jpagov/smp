@@ -11,9 +11,8 @@
   <link href="<?php echo asset('app/views/assets/css/bootstrap.min.css'); ?>" rel="stylesheet">
   <link rel="stylesheet" href="<?php echo asset('app/views/assets/css/app.css'); ?>">
   <link rel="stylesheet" href="<?php echo asset('app/views/assets/css/bootstrap-markdown.min.css'); ?>">
-
   <link rel="stylesheet" href="<?php echo asset('app/views/assets/css/bootstrap-tagsinput.css'); ?>">
-
+  <link rel="stylesheet" href="<?php echo asset('app/views/assets/css/sweetalert.css'); ?>">
   <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
   <!--[if lt IE 9]>
   <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js" integrity="sha384-qFIkRsVO/J5orlMvxK1sgAt2FXT67og+NyFTITYzvbIP1IJavVEKZM7YWczXkwpB" crossorigin="anonymous"></script>
@@ -41,17 +40,17 @@
     <div class="navbar-collapse collapse navbar-inverse-collapse">
 
     <?php
-      $menu = array('staffs');
-      $hierarchies = array('divisions', 'branchs', 'sectors', 'units', 'categories', 'tags');
-      $reports_mostview = array('staff', 'category', 'division', 'search');
-      $admin = array('users', 'pages', 'fields', 'variables', 'metadata');
+      $menu = ['staffs', 'transfers'];
+      $hierarchies = ['divisions', 'branchs', 'sectors', 'units', 'categories', 'tags'];
+      $reports_mostview = ['staff', 'category', 'division', 'search'];
+      $admin = ['users', 'pages', 'fields', 'variables', 'metadata'];
     ?>
 
       <ul class="nav navbar-nav">
 
         <?php foreach($menu as $url): ?>
         <li <?php if(is_active('admin/' . $url)) echo 'class="active"'; ?>>
-          <a href="<?php echo Uri::to('admin/' . $url); ?>"><?php echo __($url . '.' . $url); ?></a>
+          <a href="<?php echo Uri::to('admin/' . $url); ?>"><?php echo __($url . '.' . $url); ?> <?php if ($url == 'transfers') : ?><span class="label label-danger">Baru</span><?php endif; ?></a>
         </li>
         <?php endforeach; ?>
 

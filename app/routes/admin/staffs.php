@@ -101,14 +101,14 @@ Route::collection(array('before' => 'auth,csrf', 'after' => 'log'), function () 
         if ($vars['admin']->role == 'staff' && $vars['admin']->id != $id) {
             Notify::warning(__('staffs.noroleedit'));
 
-            return Response::redirect('admin/staffs' . (isset($vars['admin']) ? '?division[]=' . $vars['admin']->roles[0] : '') );
+            return Response::redirect('admin/staffs' . (isset($vars['admin']) ? '?division[]=' . $vars['admin']->roles[0] : ''));
         }
 
 
         if ($vars['admin']->role == 'editor' && !in_array($vars['staff']->division, $vars['admin']->roles)) {
             Notify::warning(__('staffs.noroleedit'));
 
-            return Response::redirect('admin/staffs/' . (isset($vars['admin']) ? '?division[]=' . $vars['admin']->roles[0] : '') );
+            return Response::redirect('admin/staffs/' . (isset($vars['admin']) ? '?division[]=' . $vars['admin']->roles[0] : ''));
         }
 
         $vars['tags'] = [];
@@ -784,4 +784,5 @@ Route::collection(array('before' => 'auth'), function () {
 
         return Response::create(Json::encode($input), 200, array('content-type' => 'application/json'));
     });
+
 });

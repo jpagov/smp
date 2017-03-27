@@ -5,9 +5,10 @@ Route::collection(array('before' => 'auth'), function() {
 	/*
 		List users
 	*/
-	Route::get(array('admin/profile'), function() {
+	Route::get(['admin/profile', 'admin/profile/(:num)'], function($id = null) {
 
-		$profile = Auth::user();
+		$profile = $id ? Staff::find($id) : Auth::user();
+
 		//dd($profile);
 		$vars['messages'] = Notify::read();
 		$staffs = array();

@@ -130,7 +130,7 @@ return [
 	'Untuk meneruskan, klik pautan dibawah.' . PHP_EOL . '%s',
 
 	// search filter
-	'search_filter' => 'Filter',
+	'search_filter' => 'Tapis',
 	'search_filter_no_email' => 'No email address',
 	'search_filter_no_telephone' => 'No telephone number',
 
@@ -143,5 +143,10 @@ return [
 
 	'edit_history' => 'Sejarah Pengemaskinian',
 	'edit_by' => 'oleh',
+
+	'notes' => 'Catatan',
+
+	//transfer
+	'transfer' => 'Pertukaran',
 
 ];

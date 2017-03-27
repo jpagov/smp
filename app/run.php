@@ -68,6 +68,7 @@ if(is_admin()) {
 	require APP . 'routes/admin/divisions' . EXT;
 	require APP . 'routes/admin/fields' . EXT;
 	require APP . 'routes/admin/menu' . EXT;
+	require APP . 'routes/admin/transfers' . EXT;
 	require APP . 'routes/admin/metadata' . EXT;
 	require APP . 'routes/admin/pages' . EXT;
 	require APP . 'routes/admin/plugins' . EXT;
