@@ -7,9 +7,52 @@ Route::collection(array('before' => 'auth'), function() {
 	*/
 	Route::get(array('admin/transfers', 'admin/transfers/(:num)'), function($page = 1) {
 
+		$search = false;
 		$vars['editor'] = Auth::user();
 		$vars['messages'] = Notify::read();
-		$vars['transfers'] = Transfer::paginate($page);
+
+		$input = Input::get(array(
+            'term',
+        ));
+
+        if (empty($input['term'])) {
+            $input['term'] = null;
+        }
+
+        if ($input['term']) {
+            $validator = new Validator($input);
+
+            $validator->check('term')->is_max(3, __('site.search_missing', 3));
+
+            if ($errors = $validator->errors()) {
+                Input::flash();
+                Notify::warning($errors);
+
+                return Response::redirect(Uri::current());
+            }
+
+            Registry::set('admin_search_term', $input['term']);
+            $search = true;
+        }
+
+        $cari = new Cari($input['term']);
+        $input = array_merge($input, $cari->result());
+
+        $input = array_filter($input);
+
+		$vars['transfers'] = Transfer::paginate($page, Config::meta('staffs_per_page'), $input);
+
+		$vars['statuses'] = array(
+            'transfer' => __('transfers.transfered'),
+            'confirm' => __('transfers.confirmed'),
+            'cancel' => __('transfers.canceled'),
+        );
+
+        $vars['labels'] = array(
+            'transfer' => 'warning',
+            'confirm' => 'success',
+            'cancel' => 'danger',
+        );
 
 		return View::create('transfers/index', $vars)
 			->partial('header', 'partials/header')
@@ -170,10 +213,15 @@ Route::collection(array('before' => 'auth'), function() {
     		return Response::redirect('admin/transfers');
     	}
 
-    	$vars['transfer'] = $transfer;
-    	Transfer::where('id', '=', $id)->delete();
+    	Transfer::update($id, [
+    		'confirmed_at' => Date::mysql('now'),
+    		'confirmed_by' => $editor->id,
+    		'status' => 'cancel'
+    	]);
 
-    	Notify::success(__('transfers.deleted', $vars['transfer']->staff));
+    	$vars['transfer'] = $transfer;
+
+    	Notify::success(__('transfers.deleted', $transfer->staff, $transfer->division_to));
 
     	return Response::redirect('admin/transfers');
     });

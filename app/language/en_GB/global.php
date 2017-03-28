@@ -42,6 +42,7 @@ return array(
 	'hierarchies' => 'Hierarchies',
 	'search' => 'Search',
 	'tags' => 'Tags',
+	'transfers' => 'Transfers',
 	'related' => 'Related',
 
 	// pagination

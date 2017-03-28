@@ -72,7 +72,7 @@ class Transfer extends Base
         return $results;
     }
 
-    public static function paginate($page = 1, $perpage = 10)
+    public static function paginate($page = 1, $perpage = 10, $search = null)
     {
     	$editor = Auth::user();
 
@@ -93,9 +93,12 @@ class Transfer extends Base
             'to.id', '=', Base::table('transfers.transfer_to')
         );
 
+        if ($search) {
+        	$query = $query->where('s.display_name', 'like', '%' . $search['term'] . '%');
+        }
 
-        $query = $query->where_in(Base::table('transfers.transfer_to'), $editor->roles)
-        	->where_in(Base::table('transfers.transfer_from'), $editor->roles, 'or');
+        $query = $query->where_in(Base::table('transfers.transfer_to'), $editor->roles, 'AND ')
+        	->where_in(Base::table('transfers.transfer_from'), $editor->roles);
 
         $count = $query->count();
 
@@ -112,6 +115,6 @@ class Transfer extends Base
         	'to.slug as division_to_slug',
         ]);
 
-        return new Paginator($results, $count, $page, $perpage, Uri::to('transfers'));
+        return new Paginator($results, $count, $page, $perpage, Uri::to('admin/transfers'));
     }
 }

@@ -7,13 +7,15 @@ return array(
 	'sent' => 'Emel pengesahan telah dihantar kepada pentadbir %s bagi tujuan pertukaran %s ke %s.',
 	'already_transfer' => 'Pegawai ini masih belum disahkan pertukaran sebelum ini.',
 
-	'confirm' => 'Sahkan',
+	'confirm' => 'Sah',
 	'confirmed' => 'Disahkan',
+	'transfered' => 'Dalam Tindakan',
+	'canceled' => 'Dibatalkan',
 	'not_confirmed' => 'Belum Disahkan',
 	'confirmed_by' => '(%s oleh %s)',
 	'cancel' => 'Batal Pertukaran',
 
-	'deleted' => 'Batal Pertukaran',
+	'deleted' => 'Pertukaran %s ke %s telah dibatalkan',
 
 	// table list
 	'staff' => 'Pegawai',

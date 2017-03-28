@@ -46,6 +46,7 @@ return array(
 	'hierarchies' => 'Hirarki',
 	'search' => 'Carian',
 	'tags' => 'Tags',
+	'transfers' => 'Pertukaran',
 	'related' => 'Berkaitan',
 
 	// pagination

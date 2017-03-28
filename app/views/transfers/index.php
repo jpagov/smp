@@ -39,17 +39,20 @@
 							<td class="text-uppercase"><?php echo $transfer->division_to_slug; ?></td>
 							<td class="hidden-xs">
 
-								<a href="<?php echo Uri::to('admin/profile/' . $transfer->request_by); ?>"><?php echo $transfer->request_by; ?></a>
+								<a href="<?php echo Uri::to('admin/profile/' . $transfer->transfer_by); ?>"><?php echo $transfer->request_by; ?></a>
 
 
 							</td>
 							<td class="hidden-xs"><?php echo $transfer->transfered_at; ?></td>
 							<td class="hidden-xs"><?php echo $transfer->confirmed_at; ?></td>
 							<td class="hidden-xs"><?php echo $transfer->confirm_by; ?></td>
-							<td><span class="text-uppercase label label-<?php echo ($transfer->confirmed_at) ? 'success' : 'warning' ?>"><?php echo ($transfer->confirmed_at) ? __('transfers.confirmed') . __('transfers.confirm_by', $transfer->confirmed_at, $transfer->confirmed_by) : __('transfers.not_confirmed') ?></span></td>
 							<td>
 
-							<?php if (!$transfer->confirmed_at && in_array($transfer->division_from_id, $editor->roles) ) : ?>
+								<span class="text-uppercase label label-<?php echo $labels[$transfer->status] ?>"><?php echo $statuses[$transfer->status] ?></span>
+										</td>
+							<td>
+
+							<?php if ($transfer->transfer_by == $editor->id || (!$transfer->confirmed_at && in_array($transfer->division_from_id, $editor->roles)) ) : ?>
 								<a class="btn btn-danger btn-xs" href="<?php echo Uri::to('admin/transfers/cancel/'. $transfer->id) ?>"><i class="glyphicon glyphicon-remove-sign"></i> Batal</a>
 							<?php endif; ?>
 
