@@ -83,13 +83,13 @@
 	<div class="col col-lg-3">
 		<nav class="list-transfer sidebar">
 
-			<?php $relateds = array('divisions', 'branchs', 'sectors', 'transfers', 'categories', 'tags'); ?>
-
             <div class="panel panel-default">
-                <div class="panel-heading"><?php echo __('global.related'); ?></div>
+                <div class="panel-heading"><?php echo __('transfers.status'); ?></div>
                 <div class="list-group">
-                <?php foreach ($relateds as $related) : ?>
-                <a class="list-group-item <?php if(is_active('admin/' . $related)) echo 'active'; ?>" href="<?php echo Uri::to('admin/' . $related); ?>"><?php echo __('global.' . $related); ?></a>
+                <?php parse_str(Request::segments(), $segment);  ?>
+                <a class="list-group-item <?php if(empty($segment)) echo 'active'; ?>" href="<?php echo Uri::to('admin/transfers'); ?>">Semua</a>
+                <?php foreach ($statuses as $key => $status) : ?>
+                <a class="list-group-item <?php if(in_array($key, array_values($segment))) echo 'active'; ?>" href="<?php echo Uri::to('admin/transfers/?status=' . $key); ?>"><?php echo $status; ?></a>
                  <?php  endforeach; ?>
                 </div>
             </div>

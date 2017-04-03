@@ -15,6 +15,8 @@ Route::collection(array('before' => 'auth'), function() {
             'term',
         ));
 
+        $status = Input::get('status') ?: null;
+
         if (empty($input['term'])) {
             $input['term'] = null;
         }
@@ -40,7 +42,7 @@ Route::collection(array('before' => 'auth'), function() {
 
         $input = array_filter($input);
 
-		$vars['transfers'] = Transfer::paginate($page, Config::meta('staffs_per_page'), $input);
+		$vars['transfers'] = Transfer::paginate($page, Config::meta('staffs_per_page'), $input, $status);
 
 		$vars['statuses'] = array(
             'transfer' => __('transfers.transfered'),
