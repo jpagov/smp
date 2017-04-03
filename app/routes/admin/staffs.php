@@ -6,6 +6,12 @@ Route::collection(array('before' => 'auth,csrf', 'after' => 'log'), function () 
         List staffs
     */
     Route::get(array('admin/staffs', 'admin/staffs/(:num)'), function ($page = 1) {
+
+    	// update expired transfers
+    	Transfer::expired();
+
+    	$vars['editor'] = Auth::user();
+
         $input = Input::get(array(
             'term',
             'division',
@@ -66,6 +72,19 @@ Route::collection(array('before' => 'auth,csrf', 'after' => 'log'), function () 
         } else {
             $staffs = Staff::where('status', '=', 'active')->paginate($page, Config::meta('staffs_per_page'));
         }
+
+        $vars['transfers'] = Transfer::paginate($page, 5, $input, 'transfer');
+        $vars['statuses'] = array(
+            'transfer' => __('transfers.transfered'),
+            'confirm' => __('transfers.confirmed'),
+            'cancel' => __('transfers.canceled'),
+        );
+
+        $vars['labels'] = array(
+            'transfer' => 'warning',
+            'confirm' => 'success',
+            'cancel' => 'danger',
+        );
 
         $vars['messages'] = Notify::read();
         $vars['token'] = Csrf::token();

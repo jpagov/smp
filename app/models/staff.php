@@ -414,7 +414,8 @@ class Staff extends Base
 
         $query = Query::table(static::table())
     		->where('role', '=', 'editor')
-        	->where('status', '=', 'active');
+        	->where('status', '=', 'active')
+        	->sort('grade', 'desc');
 
        	if ($division) {
        		$query = $query->where('division', '=', $division);

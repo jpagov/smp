@@ -35,6 +35,15 @@ class Migration_transfer_staff extends Migration
             } else {
                 Query::table($table)->where('key', '=', 'custom_transfer_email')->update(['value' => 1]);
             }
+
+            if (! Query::table($table)->where('key', '=', 'custom_transfer_days_expired')->count()) {
+                Query::table($table)->insert([
+                    'key' => 'custom_transfer_days_expired',
+                    'value' => 7
+                ]);
+            } else {
+                Query::table($table)->where('key', '=', 'custom_transfer_days_expired')->update(['value' => 7]);
+            }
         }
 
 	}
