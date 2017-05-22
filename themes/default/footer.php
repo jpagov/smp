@@ -143,6 +143,7 @@
 		});
 	</script>
 	<?php endif; ?>
+	<?php if (Uri::current() == '/') : ?>
 	<script type="application/ld+json">
 	{
 		"@context": "http://schema.org",
@@ -150,10 +151,11 @@
 		"url": "https://sistem.jpa.gov.my/smp/",
 		"potentialAction": {
 			"@type": "SearchAction",
-			"target": "https://sistem.jpa.gov.my/smp/search?term={term}",
-			"query-input": "required name=term"
+			"target": "https://sistem.jpa.gov.my/smp/search?term={search_term_string}",
+			"query-input": "required name=search_term_string"
 		}
 	}
 	</script>
+	<?php endif; ?>
   </body>
 </html>
