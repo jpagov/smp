@@ -123,7 +123,7 @@
         <meta itemprop="url" content="<?php echo full_url(); ?>">
           <form class="navbar-form" role="search" action="<?php echo search_url(); ?>" id="search" itemprop="potentialAction" itemscope itemtype="https://schema.org/SearchAction">
             <div class="input-group col-xs-12">
-            <meta itemprop="target" content="<?php echo full_url(); ?>search/term={term}">
+            <meta itemprop="target" content="<?php echo full_url(); ?>search?term={term}">
               <input itemprop="query-input" type="text" class="form-control search-query typeahead" id="search-term" name="term" placeholder="<?php echo _e('site.search_placeholder'); ?>" value="<?php echo search_term(); ?>" data-hotkey="s">
               <button class="sr-only" type="submit"><?php echo _e('site.submit'); ?></button>
             </div>
