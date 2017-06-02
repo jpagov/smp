@@ -59,15 +59,19 @@ class Email extends PHPMailer
         }
 
         if (array_key_exists('to', $email)) {
-            foreach ($email['to'] as $to) {
-                foreach ($to as $address => $name) {
-                    if (empty($name)) {
-                        $this->addAddress($address);
-                    } else {
-                        $this->addAddress($address, $name);
-                    }
-                }
-            }
+        	if (is_array($email['to'])) {
+        		foreach ($email['to'] as $to) {
+	                foreach ($to as $address => $name) {
+	                    if (empty($name)) {
+	                        $this->addAddress($address);
+	                    } else {
+	                        $this->addAddress($address, $name);
+	                    }
+	                }
+	            }
+        	} else {
+        		$this->addAddress($email['to']);
+        	}
         }
 
         // add carbon copy
