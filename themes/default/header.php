@@ -54,7 +54,6 @@
           </a>
         </div><!-- //.navbar-header -->
         <div class="navbar-collapse collapse navbar-inverse-collapse">
-
           <?php if(has_menu_items()): ?>
             <ul class="nav navbar-nav">
               <?php while(menu_items()): ?>
