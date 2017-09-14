@@ -47,7 +47,7 @@
           </button>
           <a itemprop="url" class="navbar-brand" href="<?php echo base_url(); ?>">
 
-          <img itemprop="logo" height="28" alt="Jata Negara" src="<?php echo theme_full_url('img/jpa-101pxx119px.png'); ?>">
+          <img itemprop="logo" height="28" alt="Jata Negara" src="<?php echo theme_full_url('img/jata-92x74.png'); ?>">
 
           <?php if(!staff_id()) : ?><h1><?php endif; ?><span class="sr-only" itemprop="name"><?php echo site_name(); ?></span><?php if(!staff_id()) : ?></h1><?php endif; ?>
 
