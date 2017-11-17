@@ -335,7 +335,7 @@ function staff_custom_field($key, $default = '') {
 		}
 
 		if($extend = Extend::field('staff', $key, $id)) {
-			return Extend::value($extend, $default);
+			return Extend::value($extend, $default) . '?' . staff_updated_timestamp();
 		}
 	}
 
@@ -344,7 +344,7 @@ function staff_custom_field($key, $default = '') {
 	}
 
 
-	return $default . '?' . staff_updated_timestamp();
+	return $default;
 }
 
 function staff_relevancy($staff = null) {
