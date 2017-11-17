@@ -137,6 +137,12 @@ function staff_time() {
 	}
 }
 
+function staff_updated_timestamp() {
+	if($updated = Registry::prop('staff', 'updated')) {
+		return strtotime($updated);
+	}
+}
+
 function staff_date($format = 'j F Y') {
 	if($created = Registry::prop('staff', 'created')) {
 		return Date::format($created, $format);
@@ -328,12 +334,9 @@ function staff_custom_field($key, $default = '') {
 			$default = ($gender == 'M') ? 'default-male.jpg' : 'default-female.jpg';
 		}
 
-		//if (is_48_and_up()) {
 		if($extend = Extend::field('staff', $key, $id)) {
 			return Extend::value($extend, $default);
 		}
-	//}
-
 	}
 
 	if($extend = Extend::field('staff', $key, $id)) {
@@ -341,7 +344,7 @@ function staff_custom_field($key, $default = '') {
 	}
 
 
-	return $default;
+	return $default . '?' . staff_updated_timestamp();
 }
 
 function staff_relevancy($staff = null) {
