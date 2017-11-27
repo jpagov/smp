@@ -6,7 +6,7 @@
 
 			<?php $kppa = get_staff(site_meta('kppa')); ?>
 			<a class="org-list bg-primary" href="<?php echo base_url('division/pkppa'); ?>" data-hotkey="g k">
-				<img class="img-responsive" src="/smp/content/avatar/<?php echo $kppa->avatar; ?>.jpg" alt="<?php echo $kppa->display_name; ?>" id="pkppa">
+				<img class="img-responsive" src="/smp/content/avatar/<?php echo $kppa->avatar; ?>.jpg?<?php echo strtotime($kppa->created); ?>" alt="<?php echo $kppa->display_name; ?>" id="pkppa">
 				<h2 class="title"><?php echo __('site.pkppa'); ?></h2>
 			</a>
 
