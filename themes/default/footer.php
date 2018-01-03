@@ -142,7 +142,7 @@
 			tour.restart();
 		});
 
-		<?php if (is_staff() : ?>
+		<?php if (is_staff()) : ?>
 		$('#star-rating').tooltip({
 			trigger: 'manual'
 		});
