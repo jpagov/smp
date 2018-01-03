@@ -141,6 +141,18 @@
 			}
 			tour.restart();
 		});
+
+		<?php if (is_staff() : ?>
+		$('#star-rating').tooltip({
+			trigger: 'manual'
+		});
+		$(function() {
+			$('#star-rating').tooltip('show');
+			setTimeout(function(){
+				$('#star-rating').tooltip('hide');
+			}, 3000);
+		});
+		<?php endif; ?>
 	</script>
 	<?php endif; ?>
 	<?php if (Uri::current() == '/') : ?>

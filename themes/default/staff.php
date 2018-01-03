@@ -96,7 +96,7 @@
 
 			<div class="rating" itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
 				<span class="rating-num" itemprop="ratingValue"><?php echo rating_average(); ?></span>
-				<div id="star-rating" data-score="<?php echo rating_average(); ?>" data-staff="<?php echo staff_id(); ?>"></div>
+				<div id="star-rating" data-score="<?php echo rating_average(); ?>" data-staff="<?php echo staff_id(); ?>" data-toggle="tooltip" data-placement="auto bottom" title="Untuk membuat penilaian, klik pada bintang yang di nisbahkan dari 1 hingga 5"></div>
 				<div class="rating-users">
 					<i class="glyphicon glyphicon-user"></i> <span id="rating-count" itemprop="reviewCount"><?php echo total_ratings(); ?></span> total
 				</div>
