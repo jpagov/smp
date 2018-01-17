@@ -178,7 +178,7 @@ Route::collection(array('before' => 'auth'), function() {
     		return Response::redirect('admin/transfers');
     	}
 
-    	if (!$transfer->confirmed_at) {
+    	if ($transfer->confirmed_at) {
     		Notify::warning(__('transfers.already_confirmed'));
     		return Response::redirect('admin/transfers');
     	}
