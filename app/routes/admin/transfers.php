@@ -194,6 +194,10 @@ Route::collection(array('before' => 'auth'), function() {
     		'status' => 'confirm'
     	]);
 
+    	Staff::update($transfer->staff_id, [
+    		'division' => $transfer->transfer_to
+    	]);
+
     	Notify::success(__('transfers.confirm_success', $transfer->staff));
 
     	// send email to related editors
