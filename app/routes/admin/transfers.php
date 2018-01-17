@@ -188,7 +188,7 @@ Route::collection(array('before' => 'auth'), function() {
     		return Response::redirect('admin/transfers');
     	}
 
-    	$transfer->update($id, [
+    	Transfer::update($id, [
     		'confirmed_at' => Date::mysql('now'),
     		'confirmed_by' => $editor->id,
     		'status' => 'confirm'
