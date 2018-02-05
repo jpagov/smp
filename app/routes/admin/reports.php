@@ -135,6 +135,10 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 			->partial('footer', 'partials/footer', $vars);
 	});
 
+	Route::get('admin/reports/avatar', function() {
+		print_r('admin/reports/avatar'); exit();
+	});
+
 	Route::get('admin/reports/category', function() {
 		print_r('admin/reports/category'); exit();
 	});

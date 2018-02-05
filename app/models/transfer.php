@@ -79,8 +79,10 @@ class Transfer extends Base
         	$query = $query->where(Base::table('transfers.status'), '=', $status);
         }
 
-        $query = $query->where_in(Base::table('transfers.transfer_to'), $editor->roles, 'AND ')
-        	->where_in(Base::table('transfers.transfer_from'), $editor->roles);
+        $query = $query
+        	->where_in(Base::table('transfers.transfer_to'), $editor->roles, 'AND ')
+        	->where_in(Base::table('transfers.transfer_from'), $editor->roles)
+        	->where('transfers.status', '=', 'transfer');
 
         $count = $query->count();
 
