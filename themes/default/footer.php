@@ -153,6 +153,16 @@
 			}, 3000);
 		});
 		<?php endif; ?>
+
+		<?php if (is_division()) : ?>
+		$(function() {
+			$(".panel-collapse").on('show.bs.collapse', function() {
+			    $(this).siblings('.panel-primary').addClass('panel-success');
+			}).on('hide.bs.collapse', function() {
+			    $(this).siblings('.panel-primary').removeClass('panel-success');
+			})
+		});
+		<?php endif; ?>
 	</script>
 	<?php endif; ?>
 	<?php if (Uri::current() == '/') : ?>

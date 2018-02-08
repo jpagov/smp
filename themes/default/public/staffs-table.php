@@ -58,16 +58,7 @@
 
 			</div><!-- .panel-group -->
 
-			<?php
-			// if (isset($organizations['childs'])) :
-			// echo htmlOrg($organizations);
-			// endif;
-			?>
-
-
 			<span class="clearfix borda"></span>
-
-
 	</div>
 
 	<?php else: ?>
