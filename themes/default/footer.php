@@ -156,9 +156,9 @@
 
 		<?php if (is_division()) : ?>
 		$(function() {
-			$(".panel-collapse").on('show.bs.collapse', function() {
+			$(".panel-collapse").on('shown.bs.collapse', function() {
 			    $(this).siblings('.panel-primary').addClass('panel-success');
-			}).on('hide.bs.collapse', function() {
+			}).on('hidden.bs.collapse', function() {
 			    $(this).siblings('.panel-primary').removeClass('panel-success');
 			})
 		});
