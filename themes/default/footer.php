@@ -153,12 +153,13 @@
 			}, 3000);
 		});
 		<?php endif; ?>
-
 		<?php if (is_division()) : ?>
 		$(function() {
 			$(".panel-collapse").on('shown.bs.collapse', function() {
+				$("a[aria-controls='"+ $(this).attr('id') +"']").parents('.panel-primary').addClass('panel-success');
 			    $(this).children('.panel-primary').addClass('panel-success');
 			}).on('hidden.bs.collapse', function() {
+				$("a[aria-controls='"+ $(this).attr('id') +"']").parents('.panel-primary').removeClass('panel-success');
 			    $(this).children('.panel-primary').removeClass('panel-success');
 			})
 		});
