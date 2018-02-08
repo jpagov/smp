@@ -157,9 +157,9 @@
 		<?php if (is_division()) : ?>
 		$(function() {
 			$(".panel-collapse").on('shown.bs.collapse', function() {
-			    $(this).siblings('.panel-primary').addClass('panel-success');
+			    $(this).children('.panel-primary').addClass('panel-success');
 			}).on('hidden.bs.collapse', function() {
-			    $(this).siblings('.panel-primary').removeClass('panel-success');
+			    $(this).children('.panel-primary').removeClass('panel-success');
 			})
 		});
 		<?php endif; ?>
