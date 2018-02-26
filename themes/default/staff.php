@@ -92,7 +92,7 @@
 	<?php if(show_rating() && ratings_open()): ?>
 	<div class="well">
 
-		<div class="rating-inner">
+		<div class="rating-inner" itemscope itemtype="http://schema.org/Offer">
 
 			<div class="rating" itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
 				<span class="rating-num" itemprop="ratingValue"><?php echo rating_average(); ?></span>
