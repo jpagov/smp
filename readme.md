@@ -23,6 +23,7 @@ buka phpmyadmin (atau command line) untuk ekspot pangkalan data.
 
 1. `mysql -u username -p`
 2. `create database smp;` dan tekan Ctrl+D untuk keluar
+2. Layari http://localhost/smp/install dan ikuti panduan pemasangan
 
 ### Konfigurasi
 
