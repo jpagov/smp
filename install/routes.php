@@ -27,10 +27,10 @@ Route::post('start', array('before' => 'check', 'main' => function () {
     $validator = new Validator($i18n);
 
     $validator->check('language')
-        ->is_max(2, 'Please select a language');
+        ->is_max(2, 'Sila pilih bahasa');
 
     $validator->check('timezone')
-        ->is_max(2, 'Please select a timezone');
+        ->is_max(2, 'Sila pilih timezone');
 
     if ($errors = $validator->errors()) {
         Input::flash();
@@ -51,7 +51,7 @@ Route::post('start', array('before' => 'check', 'main' => function () {
 Route::get('database', array('before' => 'check', 'main' => function () {
     // check we have a selected language
     if (! Session::get('install.i18n')) {
-        Notify::danger('Please select a language');
+        Notify::danger('Sila pilih bahasa');
 
         return Response::redirect('start');
     }
@@ -121,7 +121,7 @@ Route::post('database', array('before' => 'check', 'main' => function () {
 Route::get('metadata', array('before' => 'check', 'main' => function () {
     // check we have a database
     if (! Session::get('install.database')) {
-        Notify::danger('Please enter your database details');
+        Notify::danger('Sila masukkan butiran pangkalan data');
 
         return Response::redirect('database');
     }
@@ -139,16 +139,16 @@ Route::post('metadata', array('before' => 'check', 'main' => function () {
     $validator = new Validator($metadata);
 
     $validator->check('site_name')
-        ->is_max(4, 'Please enter a site name');
+        ->is_max(4, 'Sila masukkan nama sistem');
 
     $validator->check('site_description')
-        ->is_max(4, 'Please enter a site description');
+        ->is_max(4, 'Sila masukkan deskripsi sistem');
 
     $validator->check('site_path')
-        ->is_max(1, 'Please enter a site path');
+        ->is_max(1, 'Sila masukkan lokasi sistem');
 
     $validator->check('theme')
-        ->is_max(1, 'Please select a site theme');
+        ->is_max(1, 'Sila pilih tema sistem');
 
     if ($errors = $validator->errors()) {
         Input::flash();
@@ -169,7 +169,7 @@ Route::post('metadata', array('before' => 'check', 'main' => function () {
 Route::get('account', array('before' => 'check', 'main' => function () {
     // check we have a database
     if (! Session::get('install.metadata')) {
-        Notify::danger('Please enter your site details');
+        Notify::danger('Sila masukkan butiran sistem');
 
         return Response::redirect('metadata');
     }
@@ -185,13 +185,13 @@ Route::post('account', array('before' => 'check', 'main' => function () {
     $validator = new Validator($account);
 
     $validator->check('username')
-        ->is_max(3, 'Please enter a username');
+        ->is_max(3, 'Sila masukkan katanam pentadbir');
 
     $validator->check('email')
-        ->is_email('Please enter a valid email address');
+        ->is_email('Sila masukkan alamat e-mel yang sah');
 
     $validator->check('password')
-        ->is_max(6, 'Please enter a password, at least 6 characters long');
+        ->is_max(6, 'Sila masukkan katalaluan, sekurang-kurangnya 6 karakter dan ke atas');
 
     if ($errors = $validator->errors()) {
         Input::flash();
@@ -223,14 +223,14 @@ Route::post('account', array('before' => 'check', 'main' => function () {
 Route::get('complete', function () {
     // check we have a database
     if (! Session::get('install')) {
-        Notify::danger('Please select your language');
+        Notify::danger('Sila pilih bahasa');
 
         return Response::redirect('start');
     }
 
     $settings = Session::get('install');
     $vars['site_uri'] = $settings['metadata']['site_path'];
-    $vars['admin_uri'] = rtrim($settings['metadata']['site_path'], '/') . '/index.php/admin/login';
+    $vars['admin_uri'] = rtrim($settings['metadata']['site_path'], '/') . '/admin/login';
     $vars['htaccess'] = Session::get('htaccess');
 
     // scrub session now we are done

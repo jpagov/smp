@@ -4,7 +4,7 @@
     <article>
         <h1>Site metadata</h1>
 
-        <p>In order to personalise your SMP application, it's recommended you add some metadata about your site. This can all be changed at any time, though.</p>
+        <p>Isikan butiran berkenaan sistem. Butiran ini boleh dikemaskini dikemudian hari.</p>
     </article>
 
     <form method="post" action="<?php echo Uri::to('metadata'); ?>" autocomplete="off">
@@ -22,7 +22,7 @@
                 <label for="site_description">Site Description</label>
                 <i>A little bit about you or your app.</i>
 
-                <textarea id="site_description" name="site_description"><?php echo Input::previous('site_description', 'It&rsquo;s not just any directory.'); ?></textarea>
+                <textarea id="site_description" name="site_description"><?php echo Input::previous('site_description', 'Sistem Direktori Pegawai JPA'); ?></textarea>
             </p>
 
             <p>
@@ -63,15 +63,15 @@
 
             <?php elseif(is_cgi()): ?>
 
-                <div class="more">Looks like you are running <code>PHP</code> as a fastcgi process.<br>
-                You will have to setup your own url rewriting.</div>
+                <div class="more">Anda menggunakan <code>PHP</code> sebagai fastcgi process.<br>
+                Anda hendaklah mengkonfigurasi url rewriting.</div>
 
             <?php endif; ?>
             </p>
         </fieldset>
 
         <section class="options">
-            <a href="<?php echo uri_to('database'); ?>" class="btn quiet">&laquo; Back</a>
+            <a href="<?php echo uri_to('database'); ?>" class="btn quiet">&laquo; Kembali</a>
             <button type="submit" class="btn">Langkah Seterusnya &raquo;</button>
         </section>
     </form>

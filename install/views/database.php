@@ -69,7 +69,7 @@
         </fieldset>
 
         <section class="options">
-            <a href="<?php echo uri_to('start'); ?>" class="btn quiet">&laquo; Back</a>
+            <a href="<?php echo uri_to('start'); ?>" class="btn quiet">&laquo; Kembali</a>
             <button type="submit" class="btn">Langkah Seterusnya &raquo;</button>
         </section>
     </form>

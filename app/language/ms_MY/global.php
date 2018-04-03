@@ -83,9 +83,9 @@ return array(
 	'site_slogan' => 'Make contact directory beautiful.',
 
 	// intro
-	'welcome_to_app' => 'Welcome to Directory',
-	'welcome_to_app_lets_go' => 'Welcome to Directory. Let’s go.',
-	'run_the_installer' => 'Run the installer',
+	'welcome_to_app' => 'Sistem Direktori Pegawai',
+	'welcome_to_app_lets_go' => 'Sistem Direktori Pegawai',
+	'run_the_installer' => 'Pemasangan Sistem',
 
 	// upgrade
 	'upgrade' => 'Upgrade',

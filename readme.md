@@ -23,13 +23,13 @@ buka phpmyadmin (atau command line) untuk ekspot pangkalan data.
 
 1. `mysql -u username -p`
 2. `create database smp;` dan tekan Ctrl+D untuk keluar
-3. `mysql -u root -p smp < smp.sql`. `smp.sql` boleh didapat pada folder `/install`
 
 ### Konfigurasi
 
-1. Buka atau cipta fail /smp/app/config/app.php`. Contoh boleh didapati pada folder `/install/app.php`. Kemaskini mengikut kesesuaian.
-2. Buka atau cipta fail /smp/app/config/db.php`. Contoh boleh didapati pada folder /install/db.php. Kemaskini mengikut kesesuaian.
-3. Buka pelayar dan buat percubaan http://localhost/smp (`/smp` merujuk kepada konfigurasi pada app.php `url`)
+1. Sila buka Setting > Site Variables dan buat tetapan seperti IP range utk paparan dalaman, Pengurusan Atasan, `slug => id` dan lain-lain. Cth, `kppa => 1`
+2. Buka dan kemaskini fail `themes/default/divisions.php`. Tukarkan slug, `site_meta('slug')` mengikut tetapan pada para 1.
+3. Sila buka Setting > Site Metadata dan buat tetapan mengikut kesesuaian
+4. Untuk membuat `index.php` pada URL, kemaskini fail `app/config/app.php` dan kosongkan ruangan `'index' => ''`
 
 ## Perhatian
 * Kebanyakan imej pada muka hadapan adalah _hardcode_ untuk peggunaan JPA.
@@ -37,11 +37,9 @@ buka phpmyadmin (atau command line) untuk ekspot pangkalan data.
 
 ### Akan Datang
 
-* [ ] Pemasangan aplikasi secara web
 * [ ] Konfigurasi menggunakan [DotEnv](https://github.com/vlucas/phpdotenv)
 * [ ] Buang statistik dari pangkalan data. Guna Google Analytic dan intergrate secara API.
 * [ ] Simpan slug terakhir diubah bagi membolehkan redirect permanent sekiranya slug tidak ditemui
 * [ ] Konsep `tagging` bagi memudahkan carian
-* [x] CLI: Mapping dan kemaskini data melalui CSV atau Excel
 
 

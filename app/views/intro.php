@@ -41,7 +41,7 @@
 	</head>
 	<body>
 		<div>
-			<img src="<?php echo $base; ?>/app/views/assets/img/logo.png" alt="Directory logo">
+			<img src="<?php echo $base; ?>/app/views/assets/img/jata-92x74.png" alt="Logo Direktori">
 			<h1><?php echo __('global.welcome_to_app_lets_go'); ?></h1>
 			<a href="<?php echo $base . '/install/index.php'; ?>"><?php echo __('global.run_the_installer'); ?></a>
 		</div>
@@ -49,6 +49,7 @@
 		<script>
 			(function(d) {
 				var v = new Date().getTimezoneOffset();
+				console.log(v);
 				d.cookie = "app-install-timezone=" + v + "; path=/";
 			}(document));
 		</script>

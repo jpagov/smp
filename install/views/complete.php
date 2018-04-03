@@ -1,7 +1,9 @@
 <?php echo $header; ?>
 
 <section class="content small">
-	<h1>Install complete!</h1>
+	<h1>Sistem Direktori siap dipasang!</h1>
+
+    <p class="code">Sila pastikan direktori <code>/install</code> dinamakan semula atau dihapus.</p>
 
 	<?php if($htaccess): ?>
 	<p class="code">Kami tidak dapat menyediakan fail <code>htaccess</code> untuk anda, salinkan

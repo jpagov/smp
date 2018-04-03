@@ -5,7 +5,7 @@
     <article>
         <h1>Akaun Pentadbir</h1>
 
-        <p>Oh, we're so tantalisingly close! All we need now is a username and password to log in to the admin area with.</p>
+        <p>Terbaik! pemasangan hampir siap! Sila isikan akaun pentadbir yang akan log masuk ke dalam sistem.</p>
     </article>
 
     <form method="post" action="<?php echo uri_to('account'); ?>" autocomplete="off">
@@ -33,8 +33,8 @@
         </fieldset>
 
         <section class="options">
-            <a href="<?php echo uri_to('metadata'); ?>" class="btn quiet">&laquo; Back</a>
-            <button type="submit" class="btn">Complete</button>
+            <a href="<?php echo uri_to('metadata'); ?>" class="btn quiet">&laquo; Kembali</a>
+            <button type="submit" class="btn">Langkah Terakhir</button>
         </section>
     </form>
 </section>

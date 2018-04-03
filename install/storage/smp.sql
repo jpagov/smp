@@ -216,6 +216,16 @@ CREATE TABLE `{{prefix}}units` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB CHARSET={{charset}};
 
+CREATE TABLE IF NOT EXISTS `{{prefix}}logs` (
+  `id` int(6) NOT NULL AUTO_INCREMENT,
+  `who` int(6) NOT NULL,
+  `ip` varchar(100) NOT NULL,
+  `method` char(50) NOT NULL,
+  `when` datetime NOT NULL,
+  `what` text NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB CHARSET={{charset}};
+
 INSERT INTO `{{prefix}}divisions` (`title`, `title_en`, `slug`, `parent`, `description`, `view`, `order`, `staff`, `street`, `city`, `state`, `zip`, `telephone`, `fax`) VALUES ('Bahagian Pengurusan Maklumat', 'Information Management Division', 'bpm', 1, 'Description', 11, 99, 1, 'Adress', 'Cyberjaya', 'Selangor', '63000', 'Phone', 'Fax');
 
 INSERT INTO `{{prefix}}roles` (`staff`, `division`) VALUES (1, 1);
@@ -235,6 +245,13 @@ INSERT INTO `{{prefix}}meta` (`key`, `value`) VALUES
 
 INSERT INTO `{{prefix}}pages` (`slug`, `name`, `title`, `content`, `status`, `redirect`, `show_in_menu`, `menu_order`) VALUES
 ('posts', 'Posts', 'My posts and thoughts', 'Welcome!', 'published', '', '1', '0');
+
+INSERT INTO `{{prefix}}pages` (`parent`, `slug`, `name`, `title`, `content`, `status`, `redirect`, `show_in_menu`, `menu_order`) VALUES
+(0, '', 'Staffs', 'site.title', 'Welcome! Heloo', 'published', '', 0, 0),
+(0, 'top-management', 'Top Management', 'Top Management', 'Top Management', 'published', '', 0, 0),
+(0, 'categories', 'Kategori', 'Kategori', 'Kategori', 'published', '', 0, 0),
+(0, 'help', 'site.user_guide', 'Help', 'Bantuan', 'published', '', 0, 0),
+(0, 'divisions', 'Division', 'Division', '', 'published', '', 0, 0);
 
 INSERT INTO `{{prefix}}posts` (`title`, `slug`, `description`, `html`, `css`, `js`, `created`, `author`, `category`, `status`, `comments`) VALUES
 ('Hello World', 'hello-world', 'This is the first post.', 'Hello World!\r\n\r\nThis is the first post.', '', '', '{{now}}', '1', '1', 'published', '0');
