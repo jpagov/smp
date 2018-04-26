@@ -13,6 +13,7 @@
   <link href="<?php echo revision('css/bootstrap-tour.min.css'); ?>" rel="stylesheet">
 	<?php endif; ?>
   <link rel="alternate" hreflang="<?php echo (language_current_id() == 'ms_MY') ? 'en-GB' : 'ms-MY'; ?>" href="<?php echo full_current_url(); ?>?lang=<?php echo (language_current_id() == 'ms_MY') ? 'en-GB' : 'ms-MY'; ?>">
+  <link rel="canonical" href="<?php echo full_current_url(); ?>">
   <?php theme_include('social'); ?>
 
   <?php if(has_pagination()): ?>
