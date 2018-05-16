@@ -288,7 +288,4 @@
 
 </section>
 <?php endif; ?>
-
-
-
 <?php theme_include('footer'); ?>
