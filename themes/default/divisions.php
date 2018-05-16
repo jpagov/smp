@@ -6,7 +6,7 @@
 
 			<?php $kppa = get_staff(site_meta('kppa')); ?>
 			<a class="org-list bg-primary" href="<?php echo base_url('division/pkppa'); ?>" data-hotkey="g k">
-				<img class="img-responsive" src="/smp/content/avatar/<?php echo $kppa->avatar; ?>.jpg?<?php echo strtotime($kppa->created); ?>" alt="<?php echo $kppa->display_name; ?>" id="pkppa">
+				<img class="img-responsive" src="/smp/content/avatar/<?php echo $kppa->avatar; ?>.jpg?<?php echo strtotime($kppa->updated); ?>" alt="<?php echo $kppa->display_name; ?>" id="pkppa">
 				<h2 class="title"><?php echo __('site.pkppa'); ?></h2>
 			</a>
 
@@ -58,7 +58,7 @@
 			<?php $tkppap = get_staff(site_meta('tkppap')); ?>
 			<div class="col-md-12">
 				<a class="org-list bg-primary" href="<?php echo base_url('division/pkppap'); ?>" data-hotkey="g p">
-					<img class="img-responsive" src="/smp/content/avatar/<?php echo $tkppap->avatar; ?>.jpg?<?php echo strtotime($tkppap->created); ?>" alt="<?php echo $tkppap->display_name; ?>">
+					<img class="img-responsive" src="/smp/content/avatar/<?php echo $tkppap->avatar; ?>.jpg?<?php echo strtotime($tkppap->updated); ?>" alt="<?php echo $tkppap->display_name; ?>">
 					<h2 class="title"><?php echo __('site.pkppap'); ?></h2>
 				</a>
 			</div>
@@ -99,7 +99,7 @@
 			<?php $tkppao = get_staff(site_meta('tkppao')); ?>
 			<div class="col-md-12">
 				<a class="org-list bg-primary" href="<?php echo base_url('division/pkppao'); ?>" data-hotkey="g o">
-					<img class="img-responsive" src="/smp/content/avatar/<?php echo $tkppao->avatar; ?>.jpg<?php echo strtotime($tkppao->created); ?>" alt="<?php echo $tkppao->display_name; ?>">
+					<img class="img-responsive" src="/smp/content/avatar/<?php echo $tkppao->avatar; ?>.jpg<?php echo strtotime($tkppao->updated); ?>" alt="<?php echo $tkppao->display_name; ?>">
 					<!-- <img class="img-responsive" src="/smp/content/avatar/default-male.jpg" alt="TKPPA(O)"> -->
 					<h2 class="title"><?php echo __('site.pkppao'); ?></h2>
 				</a>
