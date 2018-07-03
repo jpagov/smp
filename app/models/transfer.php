@@ -18,7 +18,7 @@ class Transfer extends Base
     public static function expired()
     {
         $table = Base::table('transfers');
-        $sql = 'SELECT * FROM `'. $table . '` WHERE NOW() > DATE_ADD(`transfered_at`, INTERVAL ' . Config::meta('custom_transfer_days_expired', 7) . ' DAY)';
+        $sql = 'SELECT * FROM `'. $table . '` WHERE NOW() > DATE_ADD(`transfered_at`, INTERVAL ' . Config::meta('custom_transfer_days_expired', 7) . ' DAY) AND `status` != \'cancel\'';
 
         list($result, $statement) = DB::ask($sql);
 
