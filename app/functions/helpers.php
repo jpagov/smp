@@ -157,7 +157,7 @@ function is_valid_callback($subject) {
 
 function get_staff($id) {
 
-	if (!$staff = Staff::where('id', '=', $id)->fetch(array('id', 'display_name', 'email', 'status'))) {
+	if (!$staff = Staff::where('id', '=', $id)->fetch(array('id', 'display_name', 'email', 'status', 'updated'))) {
 		$staff = new stdClass();
 		$staff->avatar = 'default-male';
 		$staff->display_name = 'Kosong';
