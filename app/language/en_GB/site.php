@@ -59,7 +59,7 @@ return array(
 	'copyright' => '&copy; ' . date('Y') . ' %s',
 
 	// front
-	'pkppa' => 'Office of Director-General of Public Service Department',
+	'pkppa' => 'Office of Director-General of Public Service',
 	'ukk' => 'Corporate Communication Unit',
 	'audit' => 'Internal Audit Unit',
 	'integriti' => 'Integrity Unit',
@@ -68,7 +68,7 @@ return array(
 	'bppd' => 'Research, Planning and Policy Division',
 
 	// pkppap
-	'pkppap' => 'Office of Deputy Director-General of Public Service Department (Development)',
+	'pkppap' => 'Office of Deputy Director-General of Public Service (Development)',
 	'bk' => 'Service Division',
 	'bpo' => 'Organisational Developmet Division',
 	'bmi' => 'Human Capital Development Division',
@@ -76,7 +76,7 @@ return array(
 	'btsa' => 'Public Service Transformation Division',
 
 	// pkppao
-	'pkppao' => 'Office of Deputy Director-General of Public Service Department (Operation)',
+	'pkppao' => 'Office of Deputy Director-General of Public Service (Operation)',
 	'bp' => 'Post-Service Division',
 	'bkp' => 'Service Management Division',
 	'bps' => 'Psychological Management Division',
