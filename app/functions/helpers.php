@@ -252,7 +252,7 @@ function is_public($ip = null)
     // detect if ip fall within private network
     $ip = is_null($ip) ? get_ip_address() : $ip;
 
-    return cidr_match($ip);
+    return !cidr_match($ip);
 }
 
 function generateRandomString($length = 5)
