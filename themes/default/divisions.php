@@ -131,12 +131,6 @@
 					</div>
 				</div>
 
-				<div class="col-xs-6">
-					<div class="org org-success text-center pkkpa-child">
-						<a href="<?php echo base_url('division/btsa'); ?>" class="org-link" data-hotkey="b 4"><p><span class="visible-xs-block">BTSA</span> <span class="hidden-xs"><?php echo __('site.btsa'); ?></span></p></a>
-					</div>
-				</div>
-
 			</div>
 		</div>
 
