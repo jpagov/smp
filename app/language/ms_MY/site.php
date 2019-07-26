@@ -58,7 +58,7 @@ return array(
 	'unit' => 'Unit',
 
 	'back_to_top' => 'Kembali ke atas',
-	'copyright' => '&copy; ' . date('Y') . ' %s',
+	'copyright' => '&copy; ' . date('Y'),
 
 	// pkppa
 	'pkppa' => 'Pejabat Ketua Pengarah Perkhidmatan Awam',

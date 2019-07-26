@@ -1,7 +1,7 @@
 	</div> <!-- //.row -->
 	</div> <!-- //.container -->
   <footer class="footer">
-     <small><p><?php echo _e('site.copyright', _e('site.footer')); ?></p><p><a href="#"><?php echo _e('site.back_to_top'); ?></a></p></small>
+     <small><p><?php echo _e('site.copyright'); ?> <a href="https://www.jpa.gov.my"><?php echo _e('site.footer'); ?></a></p><p><a href="#"><?php echo _e('site.back_to_top'); ?></a></p></small>
   </footer>
 
 
