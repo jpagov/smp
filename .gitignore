@@ -30,9 +30,7 @@ themes/*
 !themes/default
 
 # uploaded content
-content/*
-!content/*.html
-!content/index.php
+content/*.log
 
 # plugins
 plugins/*
