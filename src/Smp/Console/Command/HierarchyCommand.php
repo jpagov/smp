@@ -57,15 +57,7 @@ class HierarchyCommand extends Command
             );
             $output->writeln($formattedLine);
             \Hierarchy::where('staff', '=', $staff->id)->delete();
-            if ($staff->status = 'inactive') {
-                \Hierarchy::create(array(
-                    'staff' => $staff->id,
-                    'division' => 0,
-                    'branch' => 0,
-                    'sector' => 0,
-                    'unit' => 0,
-                ));
-            } else {
+            if ($staff->status == 'active') {
                 \Hierarchy::create(array(
                     'staff' => $staff->id,
                     'division' => ($staff->division) ?: 0,
