@@ -26,6 +26,16 @@
                 </div>
 
                 <div class="form-group">
+                    <label class="col-lg-3 control-label" for="title">English Title</label>
+                    <div class="col-lg-9">
+                        <?php echo Form::text('title_en', Input::previous('title_en'), array(
+                                'class' => 'form-control',
+                                'id' => 'title_en',
+                        )); ?>
+                    </div>
+                </div>
+
+                <div class="form-group">
                   <label class="col-lg-3 control-label" for="description"><?php echo __('hierarchy.description'); ?></label>
                   <div class="col-lg-9">
                     <?php echo Form::textarea('description', Input::previous('description'), array(

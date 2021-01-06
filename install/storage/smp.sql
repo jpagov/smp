@@ -20,7 +20,7 @@ CREATE TABLE `{{prefix}}categories` (
 
 CREATE TABLE `{{prefix}}divisions` (
   `id` int(6) NOT NULL AUTO_INCREMENT,
-  `title` varchar(150) NOT NULL,
+  `title` varchar(150) NULL,
   `title_en` varchar(150) NOT NULL,
   `slug` varchar(150) NOT NULL,
   `parent` int(11) DEFAULT NULL,

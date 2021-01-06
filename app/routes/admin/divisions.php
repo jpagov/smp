@@ -121,7 +121,7 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 		$vars['messages'] = Notify::read();
 		$vars['token'] = Csrf::token();
 
-		$vars['parents'] = array_unshift_assoc(Division::dropdown(), '0', __('staffs.please_select'));
+		$vars['parents'] = [0 => __('staffs.please_select')] + Division::dropdown();
 
 		return View::create('divisions/add', $vars)
 			->partial('header', 'partials/header')
@@ -129,7 +129,7 @@ Route::collection(array('before' => 'auth,csrf'), function() {
 	});
 
 	Route::post('admin/divisions/add', function() {
-		$input = Input::get(array('title', 'slug', 'description', 'order', 'street', 'city', 'state', 'zip', 'telephone', 'fax', 'parent'));
+		$input = Input::get(array('title', 'title_en', 'slug', 'description', 'order', 'street', 'city', 'state', 'zip', 'telephone', 'fax', 'parent'));
 
 		if(empty($input['slug'])) {
 			$input['slug'] = slug($input['title']);

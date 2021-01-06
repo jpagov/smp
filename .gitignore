@@ -12,7 +12,7 @@ TODO
 *mail.log
 archive
 node_modules
-
+/.idea
 # env
 app/config/dev
 

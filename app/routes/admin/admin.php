@@ -290,7 +290,9 @@ Route::post('admin/reset/(:any)', array('before' => 'csrf', 'main' => function (
         Session::erase('redirect');
     }
 
-    $division = ($admin->division) ? $admin->division : (array_filter($admin->roles)) ?: '';
+    $division = $admin->division
+        ? $admin->division
+        : ((array_filter($admin->roles)) ?: '');
 
     if ($div = Division::find($division)) {
         $division = $div->slug;
