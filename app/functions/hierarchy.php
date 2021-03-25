@@ -92,7 +92,7 @@ function hierarchy($id, $type = 'division')
 			Base::table('hierarchies.'. $group), '=', Base::table($group . 's.id'));
 
     return in_array($type, $valid)
-        ? $query->sort('sort', 'desc')->get($valid)
+        ? $query->sortNull('sort', 'desc')->get($valid)
         : array();
 }
 
