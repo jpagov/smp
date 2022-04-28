@@ -76,7 +76,7 @@ return array(
     'bpo' => 'Bahagian Perjawatan dan Organisasi', // Rebranding 28/4/2022
 	'bmi' => 'Bahagian Pembangunan Modal Insan',
 	'bs' => 'Bahagian Saraan',
-    'bge' => 'Bahagian Gaji dan Saraan', // Rebranding 28/4/2022
+    'bge' => 'Bahagian Gaji dan Elaun', // Rebranding 28/4/2022
 	'btsa' => 'Bahagian Transformasi Sektor Awam',
 
 	// pkppao
