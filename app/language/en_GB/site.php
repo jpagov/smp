@@ -83,6 +83,7 @@ return array(
     'bp' => 'Pension Division', // Rebranding 28/4/2022
 	'bkp' => 'Service Management Division',
 	'bps' => 'Psychological Management Division',
+    'bpps' => 'Psychology Management Division',
 	'bpms' => 'Development & Management of Strategic Information Division',
     'bdtk' => 'Digital and Information Technology Division', // Rebranding 28/4/2022
 
