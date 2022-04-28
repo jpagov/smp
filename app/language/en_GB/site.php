@@ -70,17 +70,21 @@ return array(
 	// pkppap
 	'pkppap' => 'Office of Deputy Director-General of Public Service (Development)',
 	'bk' => 'Service Division',
-	'bpo' => 'Organisational Developmet Division',
+	'bpo_old' => 'Organisational Developmet Division',
+    'bpo' => 'Staffing and Organization Division', // Rebranding 28/4/2022
 	'bmi' => 'Human Capital Development Division',
 	'bs' => 'Remuneration Division',
+    'bge' => 'Salaries and Allowances Division',  // Rebranding 28/4/2022
 	'btsa' => 'Public Service Transformation Division',
 
 	// pkppao
 	'pkppao' => 'Office of Deputy Director-General of Public Service (Operation)',
-	'bp' => 'Post-Service Division',
+	'bp_old' => 'Post-Service Division',
+    'bp' => 'Pension Division', // Rebranding 28/4/2022
 	'bkp' => 'Service Management Division',
 	'bps' => 'Psychological Management Division',
 	'bpms' => 'Development & Management of Strategic Information Division',
+    'bdtk' => 'Digital and Information Technology Division', // Rebranding 28/4/2022
 
 	'error_404' => 'Unfortunately, the page <code>%s</code> could not be found.',
 	'error_404_option' => 'Press your browser back button (or press <kbd>backspace</kbd> button) to return to the previous Web page.',

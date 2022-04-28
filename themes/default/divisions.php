@@ -85,7 +85,7 @@
 
 				<div class="col-xs-6">
 					<div class="org org-info text-center pkkpa-child">
-						<a href="<?php echo base_url('division/bs'); ?>" class="org-link" data-hotkey="b 7"><p><span class="visible-xs-block">BS</span> <span class="hidden-xs"><?php echo __('site.bs'); ?></span></p></a>
+						<a href="<?php echo base_url('division/bs'); ?>" class="org-link" data-hotkey="b 7"><p><span class="visible-xs-block">BS</span> <span class="hidden-xs"><?php echo __('site.bge'); ?></span></p></a>
 					</div>
 				</div>
 
@@ -127,7 +127,7 @@
 
 				<div class="col-xs-6">
 					<div class="org org-success text-center pkkpa-child">
-						<a href="<?php echo base_url('division/bpms'); ?>" class="org-link" data-hotkey="b p m"><p><span class="visible-xs-block">BPMS</span> <span class="hidden-xs"><?php echo __('site.bpms'); ?></span></p></a>
+						<a href="<?php echo base_url('division/bpms'); ?>" class="org-link" data-hotkey="b p m"><p><span class="visible-xs-block">BPMS</span> <span class="hidden-xs"><?php echo __('site.bdtk'); ?></span></p></a>
 					</div>
 				</div>
 
