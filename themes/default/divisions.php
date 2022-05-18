@@ -85,7 +85,7 @@
 
 				<div class="col-xs-6">
 					<div class="org org-info text-center pkkpa-child">
-						<a href="<?php echo base_url('division/bs'); ?>" class="org-link" data-hotkey="b 7"><p><span class="visible-xs-block">BGE</span> <span class="hidden-xs"><?php echo __('site.bge'); ?></span></p></a>
+						<a href="<?php echo base_url('division/bge'); ?>" class="org-link" data-hotkey="b 7"><p><span class="visible-xs-block">BGE</span> <span class="hidden-xs"><?php echo __('site.bge'); ?></span></p></a>
 					</div>
 				</div>
 
