@@ -74,7 +74,7 @@ return array(
     'bpo' => 'Staffing and Organization Division', // Rebranding 28/4/2022
 	'bmi' => 'Human Capital Development Division',
 	'bs' => 'Remuneration Division',
-    'bge' => 'Salaries and Allowances Division',  // Rebranding 28/4/2022
+    'bge' => 'Remuneration Division',  // Rebranding 28/4/2022
 	'btsa' => 'Public Service Transformation Division',
 
 	// pkppao
@@ -85,7 +85,7 @@ return array(
 	'bps' => 'Psychological Management Division',
     'bpps' => 'Psychology Management Division',
 	'bpms' => 'Development & Management of Strategic Information Division',
-    'bdtk' => 'Digital and Information Technology Division', // Rebranding 28/4/2022
+    'bdtm' => 'Digital and Information Technology Division', // Rebranding 28/4/2022
 
 	'error_404' => 'Unfortunately, the page <code>%s</code> could not be found.',
 	'error_404_option' => 'Press your browser back button (or press <kbd>backspace</kbd> button) to return to the previous Web page.',
