@@ -38,8 +38,6 @@ plugins/*
 # phpunit tests
 tests
 
-# composer
-composer.lock
 vendor
 
 # We all love Sublime Text and its awesome plugins, don't we?
