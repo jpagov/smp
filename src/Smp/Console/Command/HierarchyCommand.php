@@ -57,13 +57,16 @@ class HierarchyCommand extends Command
             );
             $output->writeln($formattedLine);
             \Hierarchy::where('staff', '=', $staff->id)->delete();
-            \Hierarchy::create(array(
-                'staff' => $staff->id,
-                'division' => ($staff->division) ?: 0,
-                'branch' => ($staff->branch) ?: 0,
-                'sector' => ($staff->sector) ?: 0,
-                'unit' => ($staff->unit) ?: 0,
-            ));
+            if ($staff->status == 'active') {
+                \Hierarchy::create(array(
+                    'staff' => $staff->id,
+                    'division' => ($staff->division) ?: 0,
+                    'branch' => ($staff->branch) ?: 0,
+                    'sector' => ($staff->sector) ?: 0,
+                    'unit' => ($staff->unit) ?: 0,
+                ));
+            }
+
             $progress->advance();
         }
 

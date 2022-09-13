@@ -38,13 +38,13 @@ if(ini_get('register_globals')) {
 /**
  * Magic Quotes Fix
  */
-if(get_magic_quotes_gpc()) {
-	$gpc = array(&$_GET, &$_POST, &$_COOKIE, &$_REQUEST);
-
-	array_walk_recursive($gpc, function(&$value) {
-		$value = stripslashes($value);
-	});
-}
+//if(get_magic_quotes_gpc()) {
+//	$gpc = array(&$_GET, &$_POST, &$_COOKIE, &$_REQUEST);
+//
+//	array_walk_recursive($gpc, function(&$value) {
+//		$value = stripslashes($value);
+//	});
+//}
 
 /**
  * Include base classes and functions

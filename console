@@ -17,11 +17,11 @@ set_time_limit(0);
 /* Optional. It’s better to do it in the php.ini file */
 date_default_timezone_set('Asia/Kuala_Lumpur');
 
-require PATH . 'system/helpers' . EXT;
-require PATH . 'system/error' . EXT;
-require PATH . 'system/arr' . EXT;
-require PATH . 'system/config' . EXT;
-require PATH . 'system/autoloader' . EXT;
+require PATH . 'system/helpers.php';
+require PATH . 'system/error.php';
+require PATH . 'system/arr.php';
+require PATH . 'system/config.php';
+require PATH . 'system/autoloader.php';
 
 /**
  * Register the autoloader
@@ -46,7 +46,7 @@ Autoloader::directory(array(
 /**
  * Helpers
  */
-require APP . 'helpers' . EXT;
+require APP . 'helpers.php';
 
 
 // include the composer autoloader

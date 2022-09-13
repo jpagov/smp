@@ -104,7 +104,7 @@ class Branch extends Base
             $query = $query->where(Base::table('hierarchies.division'), '=', $division);
         }
 
-        $query->group('branch')->sort('sort', 'desc');
+        $query->group('branch')->sortNull('sort', 'desc');
 
         $count = $query->count();
 

@@ -12,7 +12,7 @@ TODO
 *mail.log
 archive
 node_modules
-
+/.idea
 # env
 app/config/dev
 
@@ -30,9 +30,7 @@ themes/*
 !themes/default
 
 # uploaded content
-content/*
-!content/*.html
-!content/index.php
+content/*.log
 
 # plugins
 plugins/*
@@ -40,8 +38,6 @@ plugins/*
 # phpunit tests
 tests
 
-# composer
-composer.lock
 vendor
 
 # We all love Sublime Text and its awesome plugins, don't we?

@@ -85,7 +85,7 @@
 
 				<div class="col-xs-6">
 					<div class="org org-info text-center pkkpa-child">
-						<a href="<?php echo base_url('division/bs'); ?>" class="org-link" data-hotkey="b 7"><p><span class="visible-xs-block">BS</span> <span class="hidden-xs"><?php echo __('site.bs'); ?></span></p></a>
+						<a href="<?php echo base_url('division/bge'); ?>" class="org-link" data-hotkey="b 7"><p><span class="visible-xs-block">BGE</span> <span class="hidden-xs"><?php echo __('site.bge'); ?></span></p></a>
 					</div>
 				</div>
 
@@ -121,19 +121,13 @@
 
 				<div class="col-xs-6">
 					<div class="org org-success text-center pkkpa-child">
-						<a href="<?php echo base_url('division/bpps'); ?>" class="org-link" data-hotkey="b p s"><p><span class="visible-xs-block">BPS</span> <span class="hidden-xs"><?php echo __('site.bpps'); ?></span></p></a>
+						<a href="<?php echo base_url('division/bpps'); ?>" class="org-link" data-hotkey="b p p s"><p><span class="visible-xs-block">BPPs</span> <span class="hidden-xs"><?php echo __('site.bpps'); ?></span></p></a>
 					</div>
 				</div>
 
 				<div class="col-xs-6">
 					<div class="org org-success text-center pkkpa-child">
-						<a href="<?php echo base_url('division/bpms'); ?>" class="org-link" data-hotkey="b p m"><p><span class="visible-xs-block">BPMS</span> <span class="hidden-xs"><?php echo __('site.bpms'); ?></span></p></a>
-					</div>
-				</div>
-
-				<div class="col-xs-6">
-					<div class="org org-success text-center pkkpa-child">
-						<a href="<?php echo base_url('division/btsa'); ?>" class="org-link" data-hotkey="b 4"><p><span class="visible-xs-block">BTSA</span> <span class="hidden-xs"><?php echo __('site.btsa'); ?></span></p></a>
+						<a href="<?php echo base_url('division/bdtm'); ?>" class="org-link" data-hotkey="b p m"><p><span class="visible-xs-block">BDTM</span> <span class="hidden-xs"><?php echo __('site.bdtm'); ?></span></p></a>
 					</div>
 				</div>
 

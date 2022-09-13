@@ -36,11 +36,7 @@ buka phpmyadmin (atau command line) untuk ekspot pangkalan data.
 * Kebanyakan imej pada muka hadapan adalah _hardcode_ untuk peggunaan JPA.
 * Sila request SMTP Relay dari 1GovUC bagi membolehkan notifikasi berfungsi dengan baik.
 
-### Akan Datang
+## Security Vulnerabilities
 
-* [ ] Konfigurasi menggunakan [DotEnv](https://github.com/vlucas/phpdotenv)
-* [ ] Buang statistik dari pangkalan data. Guna Google Analytic dan intergrate secara API.
-* [ ] Simpan slug terakhir diubah bagi membolehkan redirect permanent sekiranya slug tidak ditemui
-* [ ] Konsep `tagging` bagi memudahkan carian
-
+If you discover a security vulnerability within our ecosystem (*.jpa.gov..my, *.eghrmis.gov.my), please send an e-mail to JPACERT via jpacert@jpa.gov.my. All security vulnerabilities will be promptly addressed.
 

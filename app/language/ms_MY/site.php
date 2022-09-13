@@ -58,7 +58,7 @@ return array(
 	'unit' => 'Unit',
 
 	'back_to_top' => 'Kembali ke atas',
-	'copyright' => '&copy; ' . date('Y') . ' %s',
+	'copyright' => '&copy; ' . date('Y'),
 
 	// pkppa
 	'pkppa' => 'Pejabat Ketua Pengarah Perkhidmatan Awam',
@@ -72,17 +72,21 @@ return array(
 	// pkppap
 	'pkppap' => 'Pejabat Timbalan Ketua Pengarah Perkhidmatan Awam (Pembangunan)',
 	'bk' => 'Bahagian Perkhidmatan',
-	'bpo' => 'Bahagian Pembangunan Organisasi',
+	'bpo_old' => 'Bahagian Pembangunan Organisasi',
+    'bpo' => 'Bahagian Perjawatan dan Organisasi', // Rebranding 28/4/2022
 	'bmi' => 'Bahagian Pembangunan Modal Insan',
 	'bs' => 'Bahagian Saraan',
+    'bge' => 'Bahagian Gaji dan Elaun', // Rebranding 28/4/2022
 	'btsa' => 'Bahagian Transformasi Sektor Awam',
 
 	// pkppao
 	'pkppao' => 'Pejabat Timbalan Ketua Pengarah Perkhidmatan Awam (Operasi)',
-	'bp' => 'Bahagian Pasca Perkhidmatan',
+	'bp_old' => 'Bahagian Pasca Perkhidmatan',
+    'bp' => 'Bahagian Pencen',
 	'bkp' => 'Bahagian Khidmat Pengurusan',
 	'bpps' => 'Bahagian Pengurusan Psikologi',
 	'bpms' => 'Bahagian Pembangunan Dan Pengurusan Maklumat Strategik',
+    'bdtm' => 'Bahagian Digital dan Teknologi Maklumat', // Rebranding 28/4/2022
 
 	'error_404' => 'Malangnya, halaman <code>%s</code> tidak wujud.',
 	'error_404_option' => 'Sila tekan butang <em><kbd>backspace</kbd></em> untuk kembali.',

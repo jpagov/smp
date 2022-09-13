@@ -193,8 +193,6 @@ Route::get(array('division/(:any)', 'division/(:any)/(:num)'), function($divisio
 	// get branch under this division
 	list($count, $branchs) = Branch::listing($division->id, $offset, $per_page = Config::meta('staffs_per_page'));
 
-	//dd($branchs);
-
 	$breadcrumbs = array('division' => $division->id);
 
 	if($hierarchy = Hierarchy::search($breadcrumbs)) {
